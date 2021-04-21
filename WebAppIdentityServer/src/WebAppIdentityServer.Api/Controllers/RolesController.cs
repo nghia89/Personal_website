@@ -1,0 +1,120 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using WebAppIdentityServer.Api.Authorization;
+using WebAppIdentityServer.Api.Helpers;
+using WebAppIdentityServer.Business.Interfaces;
+using WebAppIdentityServer.Utilities.Constants;
+using WebAppIdentityServer.ViewModel;
+using WebAppIdentityServer.ViewModel.Common;
+using WebAppIdentityServer.ViewModel.Models.System;
+
+namespace WebAppIdentityServer.Api.Controllers
+{
+    public class RolesController : BaseController
+    {
+        private readonly IRolesBusiness _rolesBu;
+        public RolesController(IRolesBusiness rolesBu)
+        {
+            this._rolesBu = rolesBu;
+        }
+
+        [HttpPost]
+        [ClaimRequirement(FunctionCode.SYSTEM_ROLE, CommandCode.CREATE)]
+        [ApiValidationFilter]
+        public async Task<IActionResult> Post(RoleVm request)
+        {
+
+            var result = await _rolesBu.Add(request);
+            if (result.Succeeded)
+            {
+                return Ok(true);
+            }
+            else
+            {
+                return Ok(new ApiBadRequest(result));
+            }
+        }
+
+        [HttpGet("paging")]
+        [ClaimRequirement(FunctionCode.SYSTEM_ROLE, CommandCode.VIEW)]
+        public async Task<IActionResult> Paging([FromQuery] PagingParamModel pagingParam)
+        {
+            var (items, total) = await _rolesBu.Paging(pagingParam);
+
+            var pagination = new Pagination<RoleVm>
+            {
+                Items = items,
+                Total = total,
+            };
+            return Ok(pagination);
+        }
+
+        [HttpGet("{id}")]
+        [ClaimRequirement(FunctionCode.SYSTEM_ROLE, CommandCode.VIEW)]
+        public async Task<IActionResult> GetById(string id)
+        {
+            var role = await _rolesBu.GetById(id);
+            if (role == null)
+            {
+                return Ok(new ApiNotFound("Không tìm thấy data."));
+            }
+
+            return Ok(role);
+        }
+
+        [HttpGet("getall")]
+        [ClaimRequirement(FunctionCode.SYSTEM_ROLE, CommandCode.VIEW)]
+        public async Task<IActionResult> GetAll()
+        {
+            var role = await _rolesBu.GetAll();
+            if (role == null)
+            {
+                return Ok(new ApiNotFound("Không tìm thấy data."));
+            }
+
+            return Ok(role);
+        }
+
+        [HttpPut("{id}")]
+        [ClaimRequirement(FunctionCode.SYSTEM_ROLE, CommandCode.UPDATE)]
+        [ApiValidationFilter]
+        public async Task<IActionResult> Put(string id, [FromBody] RoleVm roleVm)
+        {
+
+            var role = await _rolesBu.Update(id, roleVm);
+            if (role == null)
+            {
+                return Ok(new ApiNotFound("Không tìm thấy data."));
+            }
+
+            return Ok(role);
+        }
+
+        [HttpDelete("{id}")]
+        [ClaimRequirement(FunctionCode.SYSTEM_ROLE, CommandCode.DELETE)]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var role = await _rolesBu.Delete(id);
+            return Ok(role);
+        }
+
+
+        [HttpPut("{roleId}/permissions")]
+        [ClaimRequirement(FunctionCode.SYSTEM_ROLE, CommandCode.UPDATE)]
+        public async Task<IActionResult> PutPermissionByRoleId(string roleId, [FromBody] UpdatePermissionRequest request)
+        {
+            var data = await _rolesBu.PutPermissionByRoleId(roleId, request);
+            return Ok(data);
+        }
+
+        //[HttpGet("permission_by_role/{roleId}")]
+        //[ClaimRequirement(FunctionCode.SYSTEM_ROLE, CommandCode.VIEW)]
+        //public async Task<IActionResult> GetPermissionByRoleId(string roleId)
+        //{
+        //    var permissions = await _rolesBu.GetPermissionByRoleId(roleId);
+
+        //    return Ok(permissions);
+        //}
+
+    }
+}

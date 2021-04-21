@@ -1,0 +1,36 @@
+export interface ITableHead {
+    name: string,
+    fieldName: string,
+    type: 'date' | 'dateTime' | 'stt'
+}
+
+
+export const tableHeadUser = [
+    { name: 'stt', fieldName: 'stt', type: 'stt' },
+    { name: 'Tên', fieldName: 'fullName' },
+    { name: 'Email', fieldName: 'email' },
+    { name: 'Số điện thoại', fieldName: 'phoneNumber' },
+    { name: 'Ngày sinh', fieldName: 'dob', type: 'date' },
+    { name: 'ngày tạo', fieldName: 'dateCreated', type: 'date' }
+] as Array<ITableHead>;
+
+export const tableHeadRole = [
+    { name: 'stt', fieldName: 'stt', type: 'stt' },
+    { name: 'Tên', fieldName: 'name' },
+    { name: 'Mô tả', fieldName: 'description' },
+] as Array<ITableHead>;
+
+
+export const tableHeadOrg = [
+    { name: 'stt', fieldName: 'stt', type: 'stt' },
+    { name: 'Tên', fieldName: 'name' },
+    { name: 'Email', fieldName: 'email' },
+    { name: 'Số điện thoại', fieldName: 'phone' },
+    { name: 'Ngày tạo', fieldName: 'dateCreated', type: 'date' },
+    { name: 'Mô tả', fieldName: 'description' },
+] as Array<ITableHead>;
+
+export const tableHeadRoleToFunc = [
+    { name: 'Tên', fieldName: 'name' },
+    { name: 'Mô tả', fieldName: 'description' },
+] as Array<ITableHead>;

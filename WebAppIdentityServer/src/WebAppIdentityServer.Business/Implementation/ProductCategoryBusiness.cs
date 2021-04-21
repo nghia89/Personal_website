@@ -1,0 +1,72 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using WebAppIdentityServer.Business.Interfaces;
+using WebAppIdentityServer.Business.Mappers;
+using WebAppIdentityServer.Data.EF.Entities;
+using WebAppIdentityServer.Data.EF.Interfaces;
+using WebAppIdentityServer.Repository.Interfaces;
+using WebAppIdentityServer.Utilities.Enum;
+using WebAppIdentityServer.ViewModel.Models.Product;
+
+namespace WebAppIdentityServer.Business.Implementation
+{
+    public class ProductCategoryBusiness : BaseBusiness, IProductCategoryBusiness
+    {
+
+        private readonly IProductCategoryRepository _productCategoryRep;
+        private readonly IUnitOfWork _unitOfWork;
+        public ProductCategoryBusiness(IProductCategoryRepository productCategoryRep, IUnitOfWork unitOfWork,
+              IUserResolverService userResolver) : base(userResolver)
+        {
+            this._productCategoryRep = productCategoryRep;
+            this._unitOfWork = unitOfWork;
+        }
+
+        public async Task<ProductCategoryVM> Add(ProductCategoryVM productCategoryVm)
+        {
+            var productCategory = productCategoryVm.ToEntity();
+            await _productCategoryRep.AddAsync(productCategory);
+            await _unitOfWork.CommitAsync();
+            return productCategoryVm;
+        }
+
+        public async Task Delete(long id)
+        {
+            var enity = await _productCategoryRep.GetByIdAsync(id);
+            await _productCategoryRep.RemoveAsync(enity);
+        }
+
+        public async Task<List<ProductCategoryVM>> GetAll(string keyword)
+        {
+            var data = await _productCategoryRep.FindAllAsync(x => (string.IsNullOrEmpty(keyword) || x.Name.Contains(keyword)), null);
+            return data.OrderBy(x => x.ParentId).Select(x => x.ToModel()).ToList();
+
+        }
+
+        Expression<Func<ProductCategory, bool>> filter(long parentId)
+        {
+            return x => x.Status == Status.Active && x.ParentId == parentId;
+        }
+        public async Task<List<ProductCategoryVM>> GetAllByParentId(long parentId)
+        {
+            var data = await _productCategoryRep.FindAllAsync(filter(parentId), null);
+            return data.Select(a => a.ToModel()).ToList();
+        }
+
+        public async Task<ProductCategoryVM> GetById(long id)
+        {
+            var data = await _productCategoryRep.GetByIdAsync(id);
+            return data.ToModel();
+        }
+
+        public async Task Update(ProductCategoryVM productCategoryVm)
+        {
+            var productCategory = productCategoryVm.ToEntity();
+            await _productCategoryRep.UpdateAsync(productCategory, productCategory.Id);
+            await _unitOfWork.CommitAsync();
+        }
+    }
+}

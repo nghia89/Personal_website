@@ -1,0 +1,88 @@
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  
+
+
+.cursor{
+    cursor: pointer;
+}
+
+.notification-wrapper {
+    position: fixed;
+    top: 80px;
+    right: 10px;
+    width: 300px;
+    z-index: 1500;
+}
+
+.notification-item {
+    box-shadow: 0 0 10px rgba(0,0,0, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    animation: SlideLeft 0.4s;
+    animation-fill-mode: forwards;
+    width: 300px;
+    background: #ffffff;
+}
+
+.notification-item .close{  
+    float: right;
+    width: 30px;
+    height: 30px;
+    text-align: center;}
+
+@keyframes SlideLeft {
+    0% {
+        margin-left: 120%;
+    }
+
+    100% {
+        margin-left: 0;
+    }
+}
+
+@keyframes SlideRight {
+    0% {
+        margin-left: 0;
+    }
+
+    100% {
+        margin-left: 120%;
+    }
+}
+
+.notification-item .exit {
+    animation: SlideRight 0.2s;
+    animation-fill-mode: forwards;
+}
+
+.notification-item p {
+    margin: 0;
+    padding: 10px;
+    color: #171717
+}
+
+.notification-item .bar {
+    animation:progress 3.5s forwards;
+    height: 2px;
+    opacity: 0.8;
+}
+
+.notification-item.show_success .bar {
+    background-color: #4efa51;
+}
+
+.notification-item.show_error .bar {
+    background-color: rgb(253, 42, 42);
+}
+
+.important_card{
+    flex-direction:initial;
+   }
+   .mr_auto{
+    margin: auto;
+   }

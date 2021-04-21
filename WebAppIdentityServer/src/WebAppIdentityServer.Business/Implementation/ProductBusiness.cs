@@ -1,0 +1,136 @@
+﻿
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using WebAppIdentityServer.Business.Interfaces;
+using WebAppIdentityServer.Business.Mappers;
+using WebAppIdentityServer.Data.EF.Entities;
+using WebAppIdentityServer.Data.EF.Interfaces;
+using WebAppIdentityServer.Repository.Interfaces;
+using WebAppIdentityServer.Utilities.Constants;
+using WebAppIdentityServer.Utilities.Enum;
+using WebAppIdentityServer.Utilities.Helpers;
+using WebAppIdentityServer.ViewModel.Common;
+using WebAppIdentityServer.ViewModel.Models.Product;
+
+namespace WebAppIdentityServer.Business.Implementation
+{
+    public class ProductBusiness : BaseBusiness, IProductBusiness
+    {
+        private readonly IProductRepository _productRepository;
+        private readonly IProductQuantityRepository _productQuantityRep;
+        private readonly ITagRepository _tagRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        public ProductBusiness(IProductRepository productRepository, IProductQuantityRepository productQuantityRep,
+            ITagRepository tagRepository, IUnitOfWork unitOfWork, IUserResolverService userResolver) : base(userResolver)
+        {
+            this._productRepository = productRepository;
+            this._productQuantityRep = productQuantityRep;
+            this._unitOfWork = unitOfWork;
+            this._tagRepository = tagRepository;
+        }
+
+        public async Task<ProductVM> Add(ProductVM model)
+        {
+            List<ProductTag> productTags = new List<ProductTag>();
+
+            if (!string.IsNullOrEmpty(model.Tags))
+            {
+                string[] tags = model.Tags.Split(',');
+                foreach (string t in tags)
+                {
+                    var tagId = t.ToUnsignString();
+                    var dataTag = await _tagRepository.FindAllAsync(x => x.Id == tagId, null);
+                    if (!dataTag.Any())
+                    {
+                        Tag tag = new Tag
+                        {
+                            Id = tagId,
+                            Name = t,
+                            Type = CommonConstants.ProductTag
+                        };
+                        _tagRepository.Add(tag);
+                    }
+
+                    productTags.Add(new ProductTag
+                    {
+                        TagId = tagId
+                    });
+                }
+            }
+            var product = model.ToEntity();
+            product.Status = Status.Active;
+            product.ProductTags = productTags;
+            await _productRepository.AddAsync(product);
+            await _unitOfWork.CommitAsync();
+            return model;
+        }
+
+        public void AddQuantity(int productId, List<ProductQuantityVM> quantities)
+        {
+            foreach (var quantity in quantities)
+            {
+                _productQuantityRep.Add(new ProductQuantity()
+                {
+                    ProductId = productId,
+                    ColorId = quantity.ColorId,
+                    SizeId = quantity.SizeId,
+                    Quantity = quantity.Quantity
+                });
+            }
+        }
+
+        public async Task<bool> Delete(long id)
+        {
+            var entity = await _productRepository.GetByIdAsync(id);
+            if (entity == null)
+            {
+                return false;
+            }
+
+            await _productRepository.RemoveAsync(entity);
+            return true;
+        }
+
+        public async Task<List<ProductVM>> GetAll()
+        {
+            var data = await _productRepository.GetAllAsync(new Expression<Func<Product, object>>[] { x => x.ProductCategory },
+                                                            a => a.SelectFieldProduct());
+            return data.Select(a => a.ToModel()).ToList();
+        }
+
+        public async Task<ProductVM> GetById(long id)
+        {
+            var data = await _productRepository.GetByIdAsync(id);
+            return data.ToModel();
+        }
+
+        public async Task<List<ProductVM>> GetProductByCateId(long cateId)
+        {
+            var data = await _productRepository.FindAllAsync(x => x.ProductCategoryId == cateId && x.Status == Status.Active, null);
+            return (data.Select(a => a.ToModel()).ToList());
+        }
+
+        public async Task<(List<ProductVM> data, long totalCount)> Paging(PagingParamModel pagingParam)
+        {
+            var (data, totalCount) = await _productRepository.Paging(pagingParam.query, pagingParam.page, pagingParam.pageSize, new Expression<Func<Product, object>>[] { a => a.Name }, null, a => a.SelectFieldProduct());
+            return (data.Select(a => a.ToModel()).ToList(), totalCount);
+        }
+
+        public async Task<ProductVM> Update(ProductVM product)
+        {
+            var entity = await _productRepository.GetByIdAsync(product.Id);
+            if (entity == null)
+            {
+                return null;
+            }
+
+            var entitySetvalue = await _productRepository.UpdateAsync(product.ToEntity(), product.Id);
+            await _unitOfWork.CommitAsync();
+            return entitySetvalue.ToModel();
+        }
+    }
+}
