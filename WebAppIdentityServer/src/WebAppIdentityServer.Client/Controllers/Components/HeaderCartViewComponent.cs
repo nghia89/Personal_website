@@ -19,7 +19,7 @@ namespace WebAppIdentityServer.Client.Controllers.Components
                 cart = JsonConvert.DeserializeObject<List<ShoppingCartViewModel>>(session);
             }
 
-            return View(cart);
+            return await Task.FromResult(View(cart));
         }
 
     }

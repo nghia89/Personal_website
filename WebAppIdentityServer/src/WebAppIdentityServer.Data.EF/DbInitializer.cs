@@ -26,21 +26,6 @@ namespace WebAppIdentityServer.Data.EF
 
         public async Task Seed()
         {
-            #region Org
-            if (!_context.ResourceOrganizations.Any())
-            {
-                await _context.ResourceOrganizations.AddAsync(new ResourceOrganization
-                {
-                    Name = "Admin All Org",
-                    Description = "Admin All Org",
-                    Email="org.dev@gmail.com",
-                    Phone="01234567899",
-                    Status=Utilities.Enum.Status.Active,
-                    DateCreated = new DateTime(),
-                    DateModified = new DateTime(),
-                });
-            }
-            #endregion
 
             #region Quyền
             if (!_roleManager.Roles.Any())

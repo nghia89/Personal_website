@@ -42,12 +42,10 @@ namespace WebAppIdentityServer.Api.Extensions
             services.AddTransient<ISlideBusiness, SlideBusiness>();
             services.AddTransient<ISystemConfigBusiness, SystemConfigBusiness>();
             services.AddTransient<IFeedbackBusiness, FeedbackBusiness>();
-            services.AddTransient<IResourceOrganizationBusiness, ResourceOrganizationBusiness>();
 
             #endregion
 
             #region Repository
-            services.AddTransient<IResourceOrganizationRepository, ResourceOrganizationRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddTransient<IFunctionRepository, FunctionRepository>();

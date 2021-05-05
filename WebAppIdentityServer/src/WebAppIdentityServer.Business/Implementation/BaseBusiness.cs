@@ -17,6 +17,5 @@ namespace WebAppIdentityServer.Business.Implementation
         public string UserName => this.User?.UserName;
         public string Email => this.User?.Email;
         public string Role => this.User?.Role;
-        public long OrgId => this.User.OrgId;
     }
 }

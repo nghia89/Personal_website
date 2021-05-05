@@ -42,8 +42,6 @@ namespace WebAppIdentityServer.Data.EF
 
 
         }
-
-        public DbSet<ResourceOrganization> ResourceOrganizations { set; get; }
         public DbSet<Command> Commands { set; get; }
         public DbSet<ActivityLog> ActivityLogs { set; get; }
         public DbSet<Attachment> Attachments { set; get; }

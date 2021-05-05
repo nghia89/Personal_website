@@ -9,7 +9,7 @@ namespace WebAppIdentityServer.Client.Controllers.Components
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View();
+            return await Task.FromResult(View());
         }
     }
 }

@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\web-app-react-admin",
+    "\\WebAppIdentityServer",
+    "\\WebAppIdentityServer\\src",
+    "\\WebAppIdentityServer\\src\\WebAppIdentityServer.Api",
+    "\\WebAppIdentityServer\\src\\WebAppIdentityServer.Business",
+    "\\WebAppIdentityServer\\src\\WebAppIdentityServer.Business\\Implementation",
+    "\\WebAppIdentityServer\\src\\WebAppIdentityServer.Data.EF",
+    "\\WebAppIdentityServer\\src\\WebAppIdentityServer.Data.EF\\Entities"
+  ],
+  "SelectedNode": "\\WebAppIdentityServer\\src\\WebAppIdentityServer.Api",
+  "PreviewInSolutionExplorer": false
+}

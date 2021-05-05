@@ -13,8 +13,7 @@ namespace WebAppIdentityServer.Data.EF
             //var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             IConfigurationRoot configuration = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
-               .AddJsonFile("appsettings.Development.json")
-               //.AddJsonFile($"appsettings.{environmentName}.json")
+               .AddJsonFile("appsettings.json")
                .Build();
 
             var connectionString = configuration.GetConnectionString("DefaultConnection");

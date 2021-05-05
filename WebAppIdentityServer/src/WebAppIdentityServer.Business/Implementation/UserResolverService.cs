@@ -28,8 +28,7 @@ namespace WebAppIdentityServer.Business.Implementation
                 UserId = userId,
                 UserName = userName,
                 Role = role,
-                Promissions = promissions,
-                OrgId = string.IsNullOrEmpty(orgId) ? 0 : Int64.Parse(orgId)
+                Promissions = promissions
             };
             return user;
         }

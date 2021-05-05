@@ -6,6 +6,5 @@
         string UserName { get; }
         string Email { get; }
         string Role { get; }
-        long OrgId { get; }
     }
 }

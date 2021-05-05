@@ -7,13 +7,6 @@ namespace WebAppIdentityServer.Data.EF.Configurations
     {
         public static void ConfigModelBuilder(this ModelBuilder builder)
         {
-            builder.Entity<ResourceOrganization>(e =>
-            {
-                e.ToTable("ResourceOrganizations");
-                e.HasKey(x => x.Id);
-                e.HasIndex(x => x.Id);
-            });
-
             builder.Entity<Product>(entity =>
             {
                 entity.HasKey(x => x.Id);

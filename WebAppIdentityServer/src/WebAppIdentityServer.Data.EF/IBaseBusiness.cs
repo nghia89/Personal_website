@@ -10,6 +10,5 @@ namespace WebAppIdentityServer.Data.EF
         string UserName { get; }
         string Email { get; }
         string Role { get; }
-        long OrgId { get; }
     }
 }
