@@ -4,7 +4,7 @@ using WebAppIdentityServer.Data.EF.Interfaces;
 
 namespace WebAppIdentityServer.Data.EF.Entities
 {
-    public class ProductTag : IDateTracking, IEntityTracking, IOrgTracking
+    public class ProductTag : IDateTracking, IEntityTracking
     {
         public long Id { get; set; }
         public long ProductId { set; get; }
@@ -17,7 +17,6 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public DateTime? DateModified { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
-        public long OrgId { get; set; }
 
     }
 }

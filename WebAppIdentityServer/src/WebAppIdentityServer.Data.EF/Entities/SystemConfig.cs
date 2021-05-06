@@ -2,7 +2,7 @@
 
 namespace WebAppIdentityServer.Data.EF.Entities
 {
-    public class SystemConfig : IEntityTracking, IOrgTracking
+    public class SystemConfig : IEntityTracking
     {
         public long Id { get; set; }
         public string Title { get; set; }
@@ -11,7 +11,6 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public string Copyright { get; set; }
         public string Author { get; set; }
         public string Logo { get; set; }
-        public long OrgId { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
     }

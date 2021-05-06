@@ -2,7 +2,7 @@
 
 namespace WebAppIdentityServer.Data.EF.Entities
 {
-    public class CommandInFunction : IEntityTracking, IOrgTracking
+    public class CommandInFunction : IEntityTracking
     {
         public string CommandId { get; set; }
         public Command Command { get; set; }
@@ -10,6 +10,5 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public Function Function { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
-        public long OrgId { get; set; }
     }
 }

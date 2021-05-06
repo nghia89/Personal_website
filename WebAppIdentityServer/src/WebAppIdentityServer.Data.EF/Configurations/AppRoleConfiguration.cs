@@ -11,7 +11,6 @@ namespace WebAppIdentityServer.Data.EF.Configurations
             builder.ToTable("AppRoles");
 
             builder.Property(x => x.Description).HasMaxLength(200).IsRequired();
-            builder.HasIndex(x => x.OrgId);
         }
     }
 }

@@ -45,8 +45,7 @@ namespace WebAppIdentityServer.Business.Mappers
                     LastName = model.LastName,
                     PasswordHash = model.Password,
                     PhoneNumber = model.PhoneNumber,
-                    UserName = model.UserName,
-                    OrgId = model.OrgId
+                    UserName = model.UserName
                 };
             }
         }

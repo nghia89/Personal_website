@@ -5,7 +5,7 @@ using WebAppIdentityServer.Utilities.Enum;
 
 namespace WebAppIdentityServer.Data.EF.Entities
 {
-    public class ProductCategory : IDateTracking, IEntityTracking, IHasSeoMetaData, IOrgTracking
+    public class ProductCategory : IDateTracking, IEntityTracking, IHasSeoMetaData
     {
         public long Id { get; set; }
         public string Name { get; set; }
@@ -23,6 +23,5 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public DateTime? DateModified { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
-        public long OrgId { get; set; }
     }
 }

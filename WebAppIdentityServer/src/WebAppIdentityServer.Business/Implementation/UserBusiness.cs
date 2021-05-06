@@ -39,8 +39,7 @@ namespace WebAppIdentityServer.Business.Implementation
                 LastName = model.LastName,
                 FirstName = model.FirstName,
                 PhoneNumber = model.PhoneNumber,
-                FullName = model.FirstName + " " + model.LastName + " " + model.Name,
-                OrgId = model.OrgId
+                FullName = model.FirstName + " " + model.LastName + " " + model.Name
             };
             var result = await _userManager.CreateAsync(user, string.IsNullOrEmpty(model.Password) ? "Admin@123" : model.Password);
             return result;

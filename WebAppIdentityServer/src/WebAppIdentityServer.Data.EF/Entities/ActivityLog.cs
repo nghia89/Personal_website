@@ -4,7 +4,7 @@ using WebAppIdentityServer.Data.EF.Interfaces;
 
 namespace WebAppIdentityServer.Data.EF.Entities
 {
-    public class ActivityLog : IDateTracking, IEntityTracking, IOrgTracking
+    public class ActivityLog : IDateTracking, IEntityTracking
     {
         public long Id { get; set; }
         [MaxLength(50)]
@@ -18,6 +18,5 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public string UpdatedBy { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
-        public long OrgId { get; set; }
     }
 }

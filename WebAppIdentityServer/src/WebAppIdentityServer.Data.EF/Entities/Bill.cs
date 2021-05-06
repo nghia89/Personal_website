@@ -6,7 +6,7 @@ using WebAppIdentityServer.Utilities.Enum;
 
 namespace WebAppIdentityServer.Data.EF.Entities
 {
-    public class Bill : IEntityTracking, IOrgTracking
+    public class Bill : IEntityTracking
     {
         public long Id { set; get; }
         [MaxLength(256)]
@@ -25,7 +25,6 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public bool IsPaid { get; set; }
         public AppUser User { set; get; }
         public IEnumerable<BillDetail> BillDetails { set; get; }
-        public long OrgId { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
     }

@@ -6,7 +6,7 @@ using WebAppIdentityServer.Utilities.Enum;
 
 namespace WebAppIdentityServer.Data.EF.Entities
 {
-    public class Announcement : IDateTracking, IEntityTracking, IOrgTracking
+    public class Announcement : IDateTracking, IEntityTracking
     {
         public long Id { get; set; }
         public string Title { set; get; }
@@ -24,6 +24,5 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public string UpdatedBy { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
-        public long OrgId { get; set; }
     }
 }

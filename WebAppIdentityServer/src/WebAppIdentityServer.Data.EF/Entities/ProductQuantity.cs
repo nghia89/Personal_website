@@ -3,14 +3,14 @@ using WebAppIdentityServer.Data.EF.Interfaces;
 
 namespace WebAppIdentityServer.Data.EF.Entities
 {
-    public class ProductQuantity : IDateTracking, IEntityTracking, IOrgTracking
+    public class ProductQuantity : IDateTracking, IEntityTracking
     {
         public long Id { get; set; }
         public long ProductId { get; set; }
         public Product Product { get; set; }
-        public int SizeId { get; set; }
+        public int? SizeId { get; set; }
         public Size Size { get; set; }
-        public int ColorId { get; set; }
+        public int? ColorId { get; set; }
         public Color Color { get; set; }
         public int Quantity { get; set; }
         public int QuantitySold { get; set; }
@@ -19,6 +19,5 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public string UpdatedBy { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
-        public long OrgId { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using WebAppIdentityServer.Utilities.Enum;
 
 namespace WebAppIdentityServer.Data.EF.Entities
 {
-    public class Feedback : IDateTracking, IOrgTracking
+    public class Feedback : IDateTracking
     {
         public int Id { get; set; }
         [StringLength(250)]
@@ -20,6 +20,5 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public Status Status { set; get; }
         public DateTime DateCreated { set; get; }
         public DateTime? DateModified { set; get; }
-        public long OrgId { get; set; }
     }
 }

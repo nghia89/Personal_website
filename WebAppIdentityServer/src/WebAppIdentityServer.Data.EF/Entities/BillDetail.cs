@@ -2,7 +2,7 @@
 
 namespace WebAppIdentityServer.Data.EF.Entities
 {
-    public class BillDetail : IOrgTracking
+    public class BillDetail 
     {
         public long Id { get; set; }
         public int Quantity { set; get; }
@@ -15,6 +15,5 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public Color Color { set; get; }
         public long? SizeId { set; get; }
         public virtual Size Size { set; get; }
-        public long OrgId { get; set; }
     }
 }

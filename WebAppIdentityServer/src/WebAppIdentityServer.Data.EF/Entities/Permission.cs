@@ -3,7 +3,7 @@ using WebAppIdentityServer.Data.EF.Interfaces;
 
 namespace WebAppIdentityServer.Data.EF.Entities
 {
-    public class Permission : IDateTracking, IEntityTracking, IOrgTracking
+    public class Permission : IDateTracking, IEntityTracking
     {
         public string FunctionId { get; set; }
         public Function Function { get; set; }
@@ -16,6 +16,5 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public string UpdatedBy { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
-        public long OrgId { get; set; }
     }
 }

@@ -12,7 +12,6 @@ namespace WebAppIdentityServer.Data.EF.Extensions
             builder.Property(x => x.FirstName).IsRequired().HasMaxLength(200);
             builder.Property(x => x.LastName).IsRequired().HasMaxLength(200);
             builder.Property(x => x.Dob).IsRequired();
-            builder.HasIndex(x => x.OrgId);
 
         }
     }

@@ -5,7 +5,7 @@ using WebAppIdentityServer.Utilities.Enum;
 
 namespace WebAppIdentityServer.Data.EF.Entities
 {
-    public class Slide : IDateTracking, IEntityTracking, IOrgTracking
+    public class Slide : IDateTracking, IEntityTracking
     {
         public long Id { get; set; }
         [StringLength(250)]
@@ -25,6 +25,5 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public DateTime? DateModified { get; set; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
-        public long OrgId { get; set; }
     }
 }

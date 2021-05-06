@@ -55,7 +55,6 @@ namespace WebAppIdentityServer.Api.Services
             var permissions = await query.Distinct().ToListAsync();
 
             //Add more claims like this
-            claims.Add(new Claim(SystemConstants.Claims.OrgId, user.OrgId.ToString()));
             claims.Add(new Claim(SystemConstants.Claims.Role, string.Join(";", roles)));
             claims.Add(new Claim(SystemConstants.Claims.Permissions, JsonConvert.SerializeObject(permissions)));
 
