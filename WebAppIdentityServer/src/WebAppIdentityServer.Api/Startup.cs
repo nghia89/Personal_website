@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -31,10 +30,8 @@ namespace WebAppIdentityServer.Api
         public void ConfigureServices(IServiceCollection services)
         {
             var mySqlConnectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationDbContext>(Options => Options.UseMySql(mySqlConnectionString), ServiceLifetime.Scoped);
-
-
-            services.AddAutoMapper(typeof(Startup));
+            services.AddDbContextPool<ApplicationDbContext>(options => options.UseMySql(mySqlConnectionString, ServerVersion.AutoDetect(mySqlConnectionString)));
+            
             services.AddIdentity<AppUser, AppRole>()
                .AddEntityFrameworkStores<ApplicationDbContext>();
 

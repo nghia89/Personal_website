@@ -19,8 +19,9 @@ namespace WebAppIdentityServer.Data.EF
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseMySql(connectionString);
+            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
             return new ApplicationDbContext(optionsBuilder.Options);
+
         }
     }
 }

@@ -41,7 +41,7 @@ export default function DivTable(props: IProps) {
         if (type === "stt")
             return <div key={"r_cel" + index} className="divTableCell center">{index + 1}</div>
         else if (type === "date")
-            return <div key={"r_cel" + index} className="divTableCell center">{formatDate(value)}</div>
+            return <div key={"r_cel" + index} className="divTableCell center">{formatDate(value,null)}</div>
         else return <div key={"r_cel" + index} className="divTableCell center">{value}</div>
     }
 
