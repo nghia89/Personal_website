@@ -31,13 +31,13 @@ namespace WebAppIdentityServer.Data.EF.Configurations
             {
                 entity.ToTable("Bills");
                 entity.HasKey(x => x.Id);
-                entity.HasIndex(x => new {  x.Id });
+                entity.HasIndex(x => new { x.Id });
             });
             builder.Entity<BillDetail>(entity =>
             {
                 entity.ToTable("BillDetails");
                 entity.HasKey(x => x.Id);
-                entity.HasIndex(x => new {  x.Id });
+                entity.HasIndex(x => new { x.Id });
             });
             builder.Entity<Blog>(entity =>
             {
@@ -49,7 +49,7 @@ namespace WebAppIdentityServer.Data.EF.Configurations
             {
                 entity.ToTable("BlogTags");
                 entity.HasKey(x => x.Id);
-                entity.HasIndex(x => new {  x.Id });
+                entity.HasIndex(x => new { x.Id });
             });
             builder.Entity<Color>(entity =>
             {
@@ -85,7 +85,7 @@ namespace WebAppIdentityServer.Data.EF.Configurations
             {
                 entity.ToTable("ProductTags");
                 entity.HasKey(x => x.Id);
-                entity.HasIndex(x => new {  x.Id });
+                entity.HasIndex(x => new { x.Id });
             });
             builder.Entity<Size>(entity =>
             {
@@ -109,13 +109,13 @@ namespace WebAppIdentityServer.Data.EF.Configurations
             {
                 entity.ToTable("Tags");
                 entity.HasKey(x => x.Id);
-                entity.HasIndex(x => new {  x.Id });
+                entity.HasIndex(x => new { x.Id });
             });
             builder.Entity<CommandInFunction>(entity =>
             {
                 entity.ToTable("CommandInFunctions");
                 entity.HasKey(x => new { x.CommandId, x.FunctionId });
-                entity.HasIndex(x => new {  x.CommandId, x.FunctionId });
+                entity.HasIndex(x => new { x.CommandId, x.FunctionId });
             });
             builder.Entity<Permission>(entity =>
             {
@@ -133,13 +133,13 @@ namespace WebAppIdentityServer.Data.EF.Configurations
             {
                 entity.ToTable("Announcements");
                 entity.HasKey(x => new { x.Id });
-                entity.HasIndex(x => new {  x.Id });
+                entity.HasIndex(x => new { x.Id });
             });
             builder.Entity<AnnouncementUser>(entity =>
             {
                 entity.ToTable("AnnouncementUsers");
                 entity.HasKey(x => new { x.Id });
-                entity.HasIndex(x => new {x.AnnouncementId, x.UserId });
+                entity.HasIndex(x => new { x.AnnouncementId, x.UserId });
             });
         }
     }
