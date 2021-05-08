@@ -1,4 +1,5 @@
 const system = '/systems/';
+const content = '/contents/';
 
 
 export const PATH = {
@@ -11,6 +12,11 @@ export const PATH = {
   PERMISSION: `${system}permissions`,
   ORG: `${system}org`,
 
+  //#endregion
+
+  //#region Content
+  PRODUCT: `${content}product`,
+  CATEGORIES: `${content}categories`,
   //#endregion
 
   LOGIN: '/login',

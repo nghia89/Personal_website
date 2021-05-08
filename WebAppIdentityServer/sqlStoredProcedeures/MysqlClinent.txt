@@ -1,0 +1,10 @@
+
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'MyPass';
+
+mysql> CREATE USER 'userid'@'MyIp' IDENTIFIED BY 'MyPass';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'userid'@'103.142.27.104'
+    ->     WITH GRANT OPTION;
+mysql> CREATE USER 'userid'@'%' IDENTIFIED BY 'MyPass';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'userid'@'%'
+    ->     WITH GRANT OPTION;

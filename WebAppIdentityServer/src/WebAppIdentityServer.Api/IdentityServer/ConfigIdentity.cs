@@ -16,5 +16,11 @@ namespace WebAppIdentityServer.Api.IdentityServer
              {
                 new ApiResource("api.webApp", "webApp API")
              };
+
+        public static IEnumerable<ApiScope> ApiScope =>
+            new ApiScope[]
+            {
+                new ApiScope("api.webApp", "webApp API")
+            };
     }
 }

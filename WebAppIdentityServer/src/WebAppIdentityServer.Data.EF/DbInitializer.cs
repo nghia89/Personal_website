@@ -92,7 +92,6 @@ namespace WebAppIdentityServer.Data.EF
                     new Function {Id = "SYSTEM", Name = "Hệ thống", ParentId = "ROOTID", Url = "/systems",Icon="fa-th-list" , DateCreated=new DateTime(),DateModified=new DateTime()},
 
                     new Function {Id = "SYSTEM_USER", Name = "Người dùng",ParentId = "SYSTEM",Url = "/systems/users",Icon="fa-desktop", DateCreated=new DateTime(),DateModified=new DateTime()},
-                    new Function {Id = "SYSTEM_ORG", Name = "Tổ chức",ParentId = "SYSTEM",Url = "/systems/org",Icon="fa-desktop", DateCreated=new DateTime(),DateModified=new DateTime()},
                     new Function {Id = "SYSTEM_ROLE", Name = "Nhóm quyền",ParentId = "SYSTEM",Url = "/systems/roles",Icon="fa-desktop", DateCreated=new DateTime(),DateModified=new DateTime()},
                     new Function {Id = "SYSTEM_PERMISSION", Name = "Quyền hạn",ParentId = "SYSTEM",Url = "/systems/permissions",Icon="fa-desktop", DateCreated=new DateTime(),DateModified=new DateTime()},
                 });

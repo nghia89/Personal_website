@@ -42,8 +42,9 @@ export const Routes = (
             <PrivateRoute path={PATH.ROLE} component={Role} />
             <PrivateRoute path={PATH.PERMISSION} component={PermissionFunction} />
             <PrivateRoute path={PATH.ORG} component={Org} />
-            {/* <PrivateRoute path={PATH.PRODUCT} component={Product} />
-            <PrivateRoute path={PATH.PRODUCT + '/:idProduct'} component={Product} /> */}
+
+            <PrivateRoute path={PATH.PRODUCT} component={Home} />
+            <PrivateRoute path={PATH.CATEGORIES} component={Home} />
 
             <PrivateRoute path={PATH.HOME} component={Home} />
 
