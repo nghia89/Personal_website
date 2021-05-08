@@ -9,6 +9,5 @@
         public int ToQuantity { get; set; }
 
         public decimal Price { get; set; }
-        public long? OrgId { get; set; }
     }
 }

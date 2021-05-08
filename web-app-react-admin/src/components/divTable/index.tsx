@@ -1,14 +1,9 @@
 import React from 'react'
-import { ITableHead } from '@/models'
+import { IBaseParams, ITableHead } from '@/models'
 import './index.css'
 import { formatDate, checkPermission } from '@/helpers/utils';
 import { commandId } from '@/constants/utilConstant'
 
-
-export interface IParams {
-    page: number,
-    pageSize: number
-}
 
 export interface IProps {
     funcId: string,
@@ -28,7 +23,7 @@ export default function DivTable(props: IProps) {
     let { page, pageSize, funcId } = props;
 
     function fetchData(page, pageSize) {
-        let objParams: IParams = {
+        let objParams: IBaseParams = {
             page: page + 1,
             pageSize: pageSize
         };
@@ -41,7 +36,7 @@ export default function DivTable(props: IProps) {
         if (type === "stt")
             return <div key={"r_cel" + index} className="divTableCell center">{index + 1}</div>
         else if (type === "date")
-            return <div key={"r_cel" + index} className="divTableCell center">{formatDate(value,null)}</div>
+            return <div key={"r_cel" + index} className="divTableCell center">{formatDate(value, null)}</div>
         else return <div key={"r_cel" + index} className="divTableCell center">{value}</div>
     }
 

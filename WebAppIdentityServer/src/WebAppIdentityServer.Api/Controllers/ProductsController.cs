@@ -27,6 +27,15 @@ namespace WebAppIdentityServer.Api.Controllers
             return new OkObjectResult(data);
 
         }
+
+        [HttpGet]
+        [Route("paging")]
+        [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.VIEW)]
+        public async Task<IActionResult> Paging([FromQuery] PagingParamModel pagingParam)
+        {
+            var (data, total) = await _productBusiness.Paging(pagingParam);
+            return new OkObjectResult(new { data = data, total = total });
+        }
         // POST: api/Products
 
         [HttpPost]
@@ -47,15 +56,6 @@ namespace WebAppIdentityServer.Api.Controllers
         {
             ProductVM data = await _productBusiness.Update(model);
             return new OkObjectResult(data);
-        }
-
-        [HttpGet]
-        [Route("paging")]
-        [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.VIEW)]
-        public async Task<IActionResult> Paging([FromQuery] PagingParamModel pagingParam)
-        {
-            var (data, total) = await _productBusiness.Paging(pagingParam);
-            return new OkObjectResult(new { data = data, total = total });
         }
 
         #region  api internal

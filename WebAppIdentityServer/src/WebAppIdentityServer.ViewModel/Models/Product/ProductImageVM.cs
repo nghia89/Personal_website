@@ -11,6 +11,5 @@
         public string Path { get; set; }
 
         public string Caption { get; set; }
-        public long? OrgId { get; set; }
     }
 }

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { tableHeadUser } from '@/models/tableHead'
 import { CircularProgress, TextField, Select, MenuItem } from '@material-ui/core';
-import { RoleVM, UserVM } from '@/models/index';
+import { IBaseParams, RoleVM, UserVM } from '@/models/index';
 import { apiRoles, apiUser } from '@/apis/index';
 import { SerializeParam, checkPermission } from '@/helpers/utils';
 import { TableCenter, AlertDialogSlide, useNotification } from '@/components/index'
-import { IParams } from '@/components/tableCenter';
 import UserDetail from './component/detail/index'
 import UserCreate from './component/create/index'
 import { commandId, functionId } from '@/constants/utilConstant'
@@ -40,7 +39,7 @@ export function User(props: IProps) {
     }, [])
 
     function getParams() {
-        let cvParam: IParams = { page: page, pageSize: pageSize, query: searchText };
+        let cvParam: IBaseParams = { page: page, pageSize: pageSize, query: searchText };
         return cvParam
     }
 
@@ -73,7 +72,7 @@ export function User(props: IProps) {
         setIdSelect(id);
         setOpenDrawer(true)
     }
-    async function getData(param: IParams) {
+    async function getData(param: IBaseParams) {
         if (!isLoading) setLoading(true)
 
         if (param.page !== page)

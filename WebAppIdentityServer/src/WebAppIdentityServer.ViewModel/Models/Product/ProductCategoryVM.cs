@@ -16,6 +16,5 @@ namespace WebAppIdentityServer.ViewModel.Models.Product
         public string SeoKeywords { set; get; }
         public string SeoDescription { set; get; }
         public IEnumerable<ProductVM> Products { set; get; }
-        public long? OrgId { get; set; }
     }
 }

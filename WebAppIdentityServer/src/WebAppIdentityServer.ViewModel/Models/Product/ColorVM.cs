@@ -10,6 +10,5 @@
         }
 
         public string Code { get; set; }
-        public long? OrgId { get; set; }
     }
 }

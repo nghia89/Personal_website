@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { CircularProgress } from '@material-ui/core';
-import { RoleVM, IBaseTable } from '@/models/index';
+import { RoleVM, IBaseTable, IBaseParams } from '@/models/index';
 import { apiRoles } from '@/apis/index';
 import { SerializeParam } from '@/helpers/utils';
 import { tableHeadRoleToFunc } from '@/models/tableHead'
 import { DivTable, useNotification } from '@/components/index'
-import { IParams } from '@/components/tableCenter';
 import PermissionDetail from './component/detail/index'
 import { functionId } from '@/constants/utilConstant'
 export interface IProps {
@@ -26,7 +25,7 @@ export default function PermissionFunction(props: IProps) {
     }, [])
 
     function getParams() {
-        let cvParam: IParams = { page: stateTable.page, pageSize: stateTable.pageSize };
+        let cvParam: IBaseParams = { page: stateTable.page, pageSize: stateTable.pageSize };
         return cvParam
     }
 
@@ -34,7 +33,7 @@ export default function PermissionFunction(props: IProps) {
         setIdSelect(id);
         setOpenDrawer(true)
     }
-    async function getData(param: IParams) {
+    async function getData(param: IBaseParams) {
         if (!isLoading) setLoading(true)
         stateTable.page = param.page;
         stateTable.pageSize = param.pageSize;

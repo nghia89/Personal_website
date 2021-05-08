@@ -21,6 +21,5 @@ namespace WebAppIdentityServer.ViewModel.Models.Product
         public ProductCategoryVM ProductCategory { set; get; }
         //public List<ProductTag> ProductTags { set; get; }
         public Status Status { get; set; }
-        public long? OrgId { get; set; }
     }
 }

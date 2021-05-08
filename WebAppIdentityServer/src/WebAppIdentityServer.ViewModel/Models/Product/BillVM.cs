@@ -27,6 +27,5 @@ namespace WebAppIdentityServer.ViewModel.Models.Product
         public Guid? CustomerId { set; get; }
 
         public List<BillDetailVM> BillDetails { set; get; }
-        public long? OrgId { get; set; }
     }
 }

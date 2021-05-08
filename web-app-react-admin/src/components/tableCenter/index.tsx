@@ -4,7 +4,7 @@ import {
     TableHead, TableRow, Paper, Tooltip
 } from '@material-ui/core';
 import { formatDate, checkPermission } from '@/helpers/utils';
-import { ITableHead } from '@/models/index'
+import { IBaseParams, ITableHead } from '@/models/index'
 import { commandId } from '@/constants/utilConstant'
 
 
@@ -20,11 +20,6 @@ const useStyles = makeStyles({
     },
 });
 
-export interface IParams {
-    page: number,
-    pageSize: number,
-    query?: string
-}
 
 export interface IProps {
     funcId: string,
@@ -66,7 +61,7 @@ export default function TableCenter(props: IProps) {
     // }
 
     function fetchData(page, pageSize) {
-        let objParams: IParams = {
+        let objParams: IBaseParams = {
             page: page + 1,
             pageSize: pageSize
         };

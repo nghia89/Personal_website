@@ -7,6 +7,5 @@
         {
             get; set;
         }
-        public long? OrgId { get; set; }
     }
 }

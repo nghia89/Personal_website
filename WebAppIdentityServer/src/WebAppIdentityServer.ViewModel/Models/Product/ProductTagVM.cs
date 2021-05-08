@@ -9,7 +9,6 @@
         public string TagId { set; get; }
 
         public ProductVM Products { set; get; }
-        public long? OrgId { get; set; }
 
     }
 }

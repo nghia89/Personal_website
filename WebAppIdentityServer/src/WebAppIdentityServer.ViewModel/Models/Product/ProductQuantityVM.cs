@@ -16,6 +16,5 @@
         public SizeVM Size { get; set; }
 
         public ColorVM Color { get; set; }
-        public long? OrgId { get; set; }
     }
 }

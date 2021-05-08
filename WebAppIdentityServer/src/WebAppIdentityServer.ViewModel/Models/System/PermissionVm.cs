@@ -6,6 +6,5 @@
 
 
         public string CommandId { get; set; }
-        public long? OrgId { get; set; }
     }
 }

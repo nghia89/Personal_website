@@ -5,8 +5,6 @@ namespace WebAppIdentityServer.ViewModel.Models.System
     public class UserVm
     {
         public string Id { get; set; }
-        public long OrgId { get; set; }
-
         public string UserName { get; set; }
         public string Password { get; set; }
 
