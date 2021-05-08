@@ -14,8 +14,8 @@ namespace WebAppIdentityServer.Data.EF.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.7")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64)
+                .HasAnnotation("ProductVersion", "5.0.5");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
@@ -24,10 +24,10 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("char(36)");
@@ -46,10 +46,10 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
@@ -67,13 +67,13 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("UserId");
 
@@ -101,13 +101,13 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Value")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("UserId");
 
@@ -121,14 +121,14 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Action")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Content")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -137,15 +137,15 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("EntityId")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("EntityName")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -161,10 +161,10 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Content")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -176,10 +176,10 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -201,7 +201,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -213,7 +213,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
@@ -235,10 +235,10 @@ namespace WebAppIdentityServer.Data.EF.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -248,25 +248,25 @@ namespace WebAppIdentityServer.Data.EF.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
-                        .HasMaxLength(200);
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AppRoles");
                 });
@@ -281,14 +281,14 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Avartar")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -300,25 +300,25 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
-                        .HasMaxLength(200);
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("varchar(250) CHARACTER SET utf8mb4")
-                        .HasMaxLength(250);
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
-                        .HasMaxLength(200);
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("tinyint(1)");
@@ -327,43 +327,43 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AppUsers");
                 });
@@ -378,7 +378,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -387,19 +387,19 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("FileName")
-                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
-                        .HasMaxLength(200);
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<string>("FilePath")
-                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
-                        .HasMaxLength(200);
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<long>("FileSize")
                         .HasColumnType("bigint");
 
                     b.Property<string>("FileType")
-                        .HasColumnType("varchar(4) CHARACTER SET utf8mb4")
-                        .HasMaxLength(4);
+                        .HasMaxLength(4)
+                        .HasColumnType("varchar(4)");
 
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("datetime(6)");
@@ -408,7 +408,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -429,23 +429,23 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("CustomerAddress")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("CustomerMessage")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("CustomerMobile")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("CustomerName")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -460,7 +460,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<Guid?>("UserId")
                         .HasColumnType("char(36)");
@@ -526,10 +526,10 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Content")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -538,37 +538,37 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(500) CHARACTER SET utf8mb4")
-                        .HasMaxLength(500);
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
 
                     b.Property<bool?>("HotFlag")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Image")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("SeoAlias")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("SeoDescription")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("SeoKeywords")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("Tags")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("ViewCount")
                         .HasColumnType("int");
@@ -590,7 +590,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -599,10 +599,10 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("TagId")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -622,7 +622,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -631,11 +631,11 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(250) CHARACTER SET utf8mb4")
-                        .HasMaxLength(250);
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -647,10 +647,10 @@ namespace WebAppIdentityServer.Data.EF.Migrations
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.Command", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -659,10 +659,10 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -674,16 +674,16 @@ namespace WebAppIdentityServer.Data.EF.Migrations
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.CommandInFunction", b =>
                 {
                     b.Property<string>("CommandId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("FunctionId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("CommandId", "FunctionId");
 
@@ -697,10 +697,10 @@ namespace WebAppIdentityServer.Data.EF.Migrations
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.Function", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -709,28 +709,28 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Icon")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
-                        .HasMaxLength(200);
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<string>("ParentId")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("SortOrder")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
-                        .HasMaxLength(200);
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.HasKey("Id");
 
@@ -745,13 +745,13 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<string>("FunctionId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("CommandId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -760,7 +760,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("AppRoleId", "FunctionId", "CommandId");
 
@@ -778,10 +778,10 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Content")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -790,14 +790,14 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
-                        .HasMaxLength(255);
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Image")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<decimal>("OriginalPrice")
                         .HasColumnType("decimal(65,30)");
@@ -812,23 +812,23 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("SeoAlias")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("SeoDescription")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("SeoKeywords")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("Tags")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4")
-                        .HasMaxLength(255);
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("ViewCount")
                         .HasColumnType("int");
@@ -852,7 +852,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -861,34 +861,34 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("HomeOrder")
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<long?>("ParentId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("SeoAlias")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("SeoDescription")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("SeoKeywords")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -907,7 +907,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -928,7 +928,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -950,7 +950,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -962,11 +962,11 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("TagId")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -986,7 +986,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -995,11 +995,11 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(250) CHARACTER SET utf8mb4")
-                        .HasMaxLength(250);
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -1015,10 +1015,10 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Content")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -1027,33 +1027,33 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(250) CHARACTER SET utf8mb4")
-                        .HasMaxLength(250);
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)");
 
                     b.Property<int?>("DisplayOrder")
                         .HasColumnType("int");
 
                     b.Property<string>("GroupAlias")
-                        .HasColumnType("varchar(25) CHARACTER SET utf8mb4")
-                        .HasMaxLength(25);
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
 
                     b.Property<string>("Image")
-                        .HasColumnType("varchar(250) CHARACTER SET utf8mb4")
-                        .HasMaxLength(250);
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(250) CHARACTER SET utf8mb4")
-                        .HasMaxLength(250);
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Url")
-                        .HasColumnType("varchar(250) CHARACTER SET utf8mb4")
-                        .HasMaxLength(250);
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)");
 
                     b.HasKey("Id");
 
@@ -1069,28 +1069,28 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Author")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Copyright")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Description")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Keywords")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Logo")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Title")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -1102,11 +1102,11 @@ namespace WebAppIdentityServer.Data.EF.Migrations
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.Tag", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime(6)");
@@ -1115,15 +1115,15 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Type")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -1194,6 +1194,10 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                     b.HasOne("WebAppIdentityServer.Data.EF.Entities.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("AppUserId");
+
+                    b.Navigation("Announcement");
+
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.Attachment", b =>
@@ -1201,6 +1205,8 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                     b.HasOne("WebAppIdentityServer.Data.EF.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.Bill", b =>
@@ -1208,6 +1214,8 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                     b.HasOne("WebAppIdentityServer.Data.EF.Entities.AppUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.BillDetail", b =>
@@ -1231,6 +1239,14 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                     b.HasOne("WebAppIdentityServer.Data.EF.Entities.Size", "Size")
                         .WithMany()
                         .HasForeignKey("SizeId1");
+
+                    b.Navigation("Bill");
+
+                    b.Navigation("Color");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Size");
                 });
 
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.BlogTag", b =>
@@ -1244,6 +1260,10 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                     b.HasOne("WebAppIdentityServer.Data.EF.Entities.Tag", "Tag")
                         .WithMany()
                         .HasForeignKey("TagId");
+
+                    b.Navigation("Blog");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.CommandInFunction", b =>
@@ -1259,6 +1279,10 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasForeignKey("FunctionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Command");
+
+                    b.Navigation("Function");
                 });
 
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.Permission", b =>
@@ -1280,6 +1304,12 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasForeignKey("FunctionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AppRole");
+
+                    b.Navigation("Command");
+
+                    b.Navigation("Function");
                 });
 
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.Product", b =>
@@ -1289,6 +1319,8 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasForeignKey("ProductCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ProductCategory");
                 });
 
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.ProductQuantity", b =>
@@ -1306,6 +1338,12 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                     b.HasOne("WebAppIdentityServer.Data.EF.Entities.Size", "Size")
                         .WithMany()
                         .HasForeignKey("SizeId");
+
+                    b.Navigation("Color");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Size");
                 });
 
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.ProductTag", b =>
@@ -1319,6 +1357,30 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                     b.HasOne("WebAppIdentityServer.Data.EF.Entities.Tag", "Tag")
                         .WithMany()
                         .HasForeignKey("TagId");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.Announcement", b =>
+                {
+                    b.Navigation("AnnouncementUsers");
+                });
+
+            modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.Bill", b =>
+                {
+                    b.Navigation("BillDetails");
+                });
+
+            modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.Blog", b =>
+                {
+                    b.Navigation("BlogTags");
+                });
+
+            modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.Product", b =>
+                {
+                    b.Navigation("ProductTags");
                 });
 #pragma warning restore 612, 618
         }
