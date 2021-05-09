@@ -18,7 +18,6 @@ const SilentRenewClient = React.lazy(() => import('@/pages/auth/silentRenewClien
 //#region  systems
 const User = React.lazy(() => import('@/pages/users/index'));
 const Role = React.lazy(() => import('@/pages/roles/index'));
-const Org = React.lazy(() => import('@/pages/org/index'));
 const PermissionFunction = React.lazy(() => import('@/pages/permissionFunction/index'));
 //#endregion
 
@@ -41,7 +40,6 @@ export const Routes = (
             <PrivateRoute path={PATH.USER} component={User} />
             <PrivateRoute path={PATH.ROLE} component={Role} />
             <PrivateRoute path={PATH.PERMISSION} component={PermissionFunction} />
-            <PrivateRoute path={PATH.ORG} component={Org} />
 
             <PrivateRoute path={PATH.PRODUCT} component={Home} />
             <PrivateRoute path={PATH.CATEGORIES} component={Home} />
