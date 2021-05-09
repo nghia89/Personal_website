@@ -21,10 +21,10 @@ export const tableHeadRole = [
 ] as Array<ITableHead>;
 
 
-export const tableHeadOrg = [
-    { name: 'stt', fieldName: 'stt', type: 'stt' },
-    { name: 'Tên', fieldName: 'name' },
-    { name: 'Email', fieldName: 'email' },
+export const tableHeadProduct = [
+    { name: 'Ảnh', fieldName: 'image' },
+    { name: 'Tên sản phẩm', fieldName: 'name' },
+    { name: 'Loại', fieldName: 'productCategoryName' },
     { name: 'Số điện thoại', fieldName: 'phone' },
     { name: 'Ngày tạo', fieldName: 'dateCreated', type: 'date' },
     { name: 'Mô tả', fieldName: 'description' },

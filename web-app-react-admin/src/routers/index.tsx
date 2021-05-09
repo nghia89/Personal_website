@@ -22,6 +22,10 @@ const PermissionFunction = React.lazy(() => import('@/pages/permissionFunction/i
 //#endregion
 
 
+//#region  Content
+const Product = React.lazy(() => import('@/pages/Product/index'));
+//#endregion
+
 
 export const Routes = (
     <Layout >
@@ -41,7 +45,7 @@ export const Routes = (
             <PrivateRoute path={PATH.ROLE} component={Role} />
             <PrivateRoute path={PATH.PERMISSION} component={PermissionFunction} />
 
-            <PrivateRoute path={PATH.PRODUCT} component={Home} />
+            <PrivateRoute path={PATH.PRODUCT} component={Product} />
             <PrivateRoute path={PATH.CATEGORIES} component={Home} />
 
             <PrivateRoute path={PATH.HOME} component={Home} />

@@ -12,5 +12,6 @@ export interface ProductVM {
     seoKeywords?: String
     seoDescription?: String
     productCategoryId?: Number
+    productCategoryName?: Number
     status?: Number
 }

@@ -5,6 +5,8 @@ import { IBaseParams, ProductVM } from '@/models';
 import { SerializeParam } from '@/helpers/utils';
 import { DivTable, useNotification } from '@/components';
 import { CircularProgress } from '@material-ui/core';
+import { functionId } from '@/constants/utilConstant';
+import { tableHeadProduct } from '@/models/tableHead';
 
 interface IProps { }
 
@@ -36,14 +38,14 @@ export function Product(props: IProps) {
 
     function renderHeader() {
         return <div className="pb-5 d-flex justify-content-between align-items-center">
-            <h1 className="h3 mb-1 text-gray-800">Danh sách sản phẫm</h1>
+            <h1 className="h3 mb-1 text-gray-800">Danh sách sản phẩm</h1>
         </div>
     }
 
     function renderContent() {
         // return <DivTable
         //     funcId={functionId.permission}
-        //     data={stateTable.data}
+        //     data={data}
         //     header={tableHeadRoleToFunc}
         //     fetchData={(value) => getData(value)}
         //     pageSize={stateTable.pageSize}
