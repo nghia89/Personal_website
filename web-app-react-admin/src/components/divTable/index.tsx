@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { IBaseParams, ITableHead } from '@/models'
 import './index.css'
 import { formatDate, checkPermission } from '@/helpers/utils';
 import { commandId } from '@/constants/utilConstant'
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, makeStyles, TableContainer, TablePagination } from '@material-ui/core';
 import { IconEmppty } from '@/helpers/svg';
 
 export interface IProps {
@@ -19,9 +19,44 @@ export interface IProps {
     handleDelete?: (id: any) => void
 }
 
+const useStyles = makeStyles({
+    table: {
+        minWidth: 650,
+    }, root: {
+        width: '100%',
+
+    },
+    container: {
+        minHeight: 495,
+    },
+});
+
 export default function DivTable(props: IProps) {
+    const [dimensions, setDimensions] = React.useState({
+        height: window.innerHeight,
+        width: window.innerWidth
+    });
 
     let { page, pageSize, funcId } = props;
+
+
+    useEffect(() => {
+        resize()
+    }, []);
+
+    function resize() {
+        function handleResize() {
+            setDimensions({
+                height: window.innerHeight,
+                width: window.innerWidth
+            })
+
+        }
+        window.addEventListener('resize', handleResize)
+        return _ => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }
 
     function fetchData(page, pageSize) {
         let objParams: IBaseParams = {
@@ -31,6 +66,14 @@ export default function DivTable(props: IProps) {
         props.onchangeParam(objParams)
     }
 
+
+    function handleChangePage(event, newPage) {
+        fetchData(newPage, pageSize)
+    }
+
+    function handleChangeRowsPerPage(event) {
+        fetchData(0, +event.target.value)
+    }
 
 
     function renderCell(type, value, index) {
@@ -74,7 +117,7 @@ export default function DivTable(props: IProps) {
                     :
                     props.data.length > 0 ?
                         renderContentTable() :
-                        <div className="content_table_data_empty">
+                        <div className="content_table_data_empty" style={{ width: dimensions.width - 300 }}>
                             <span>
                                 {IconEmppty()}
                             </span>
@@ -85,7 +128,30 @@ export default function DivTable(props: IProps) {
         </div>
     }
 
+    function renderLabelPage(paginationInfo) {
+        return <span>
+            {`${paginationInfo.page + 1} - ${paginationInfo.to}`} của {paginationInfo.count}
+        </span>
+    }
+
+
     return (
-        renderContent()
+        <div>
+            <div style={{ minHeight: dimensions.height }}>
+                {renderContent()}
+            </div>
+            <TablePagination
+                rowsPerPageOptions={[10, 20, 50, 100]}
+                component="div"
+                labelRowsPerPage={<span>Hiển thị:</span>}
+                labelDisplayedRows={(paginationInfo) => renderLabelPage(paginationInfo)}
+                count={props.total ? props.total : 0}
+                rowsPerPage={props.pageSize}
+                page={page - 1}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+        </div>
+
     )
 }

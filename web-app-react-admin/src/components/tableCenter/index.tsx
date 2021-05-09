@@ -1,25 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     Table, TableBody, TablePagination, TableCell, makeStyles, TableContainer,
     TableHead, TableRow, Paper, Tooltip, CircularProgress
 } from '@material-ui/core';
-import { formatDate, checkPermission } from '@/helpers/utils';
+import { formatDate, checkPermission, IsNullOrEmpty } from '@/helpers/utils';
 import { IBaseParams, ITableHead } from '@/models/index'
 import { commandId } from '@/constants/utilConstant'
 import { IconEmppty } from '@/helpers/svg';
 
 
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
-    }, root: {
-        width: '100%',
-
-    },
-    container: {
-        minHeight: 495,
-    },
-});
 
 
 export interface IProps {
@@ -39,27 +28,46 @@ export interface IProps {
 }
 
 export default function TableCenter(props: IProps) {
+
+    const [dimensions, setDimensions] = React.useState({
+        height: window.innerHeight,
+        width: window.innerWidth
+    });
+
+
+    const useStyles = makeStyles({
+        table: {
+            minWidth: dimensions.width - 300,
+        }, root: {
+            width: '100%',
+
+        },
+        container: {
+            minHeight: dimensions.height - 300,
+        },
+    });
+
     const classes = useStyles();
 
     let { page, pageSize, funcId } = props;
 
-    // useEffect(()=>{
-    //     window.addEventListener('resize', () => resize())
-    // })
+    useEffect(() => {
+        resize()
+    }, []);
 
-    // function resize() {
-    //     let clh = 0;
-    //     if (!IsNullOrEmpty(document.getElementById('react-table_filter_container'))) {
-    //         clh = document.getElementById('react-table_filter_container').clientHeight;
-    //     }
-    //     let heightTitle = 0;
-    //     if (!IsNullOrEmpty(document.getElementsByClassName('ui-title-bar-container')[0])) {
-    //         heightTitle = document.getElementsByClassName('ui-title-bar-container')[0].clientHeight;
-    //     }
-    //     clh += 155 + heightTitle + heightPaging;
-    //     let heighttable = window.innerHeight - clh;
+    function resize() {
+        function handleResize() {
+            setDimensions({
+                height: window.innerHeight,
+                width: window.innerWidth
+            })
 
-    // }
+        }
+        window.addEventListener('resize', handleResize)
+        return _ => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }
 
     function fetchData(page, pageSize) {
         let objParams: IBaseParams = {
@@ -139,7 +147,7 @@ export default function TableCenter(props: IProps) {
                             props.isLoading ? <div className="content_table_data_empty"><CircularProgress /></div> :
                                 props.data.length > 0 ?
                                     renderContentTable()
-                                    : <div className="content_table_data_empty">
+                                    : <div className="content_table_data_empty" style={{ width: dimensions.width - 300 }}>
                                         <span>
                                             {IconEmppty()}
                                         </span>
@@ -150,7 +158,7 @@ export default function TableCenter(props: IProps) {
                 </Table>
             </TableContainer >
             <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
+                rowsPerPageOptions={[10, 20, 50, 100]}
                 component="div"
                 labelRowsPerPage={<span>Hiển thị:</span>}
                 labelDisplayedRows={(paginationInfo) => renderLabelPage(paginationInfo)}
