@@ -8,7 +8,7 @@ interface IFunction {
     role: string,
     user: string,
     permission: string,
-    org: string
+    product: string
 }
 
 interface ICommand {
@@ -34,7 +34,7 @@ export const functionId: IFunction =
     permission: 'SYSTEM_PERMISSION',
     role: 'SYSTEM_ROLE',
     user: 'SYSTEM_USER',
-    org: 'SYSTEM_ORG'
+    product: 'CONTENT_PRODUCT'
 }
 
 export const functionRoot: Array<IObject> = [

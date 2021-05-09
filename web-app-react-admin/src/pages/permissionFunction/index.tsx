@@ -4,7 +4,7 @@ import { RoleVM, IBaseTable, IBaseParams } from '@/models/index';
 import { apiRoles } from '@/apis/index';
 import { SerializeParam } from '@/helpers/utils';
 import { tableHeadRoleToFunc } from '@/models/tableHead'
-import { DivTable, useNotification } from '@/components/index'
+import { DivTable } from '@/components/index'
 import PermissionDetail from './component/detail/index'
 import { functionId } from '@/constants/utilConstant'
 export interface IProps {
@@ -71,6 +71,7 @@ export default function PermissionFunction(props: IProps) {
             page={stateTable.page}
             total={stateTable.totalCount}
             isLoading={isLoading}
+            isPagination
             handleEdit={(id) => handleCloseTableEdit(id)}
         />
     }

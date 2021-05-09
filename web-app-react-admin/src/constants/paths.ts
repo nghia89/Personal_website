@@ -16,6 +16,7 @@ export const PATH = {
 
   //#region Content
   PRODUCT: `${content}product`,
+  PRODUCT_CREATE: `${content}product_create`,
   CATEGORIES: `${content}categories`,
   //#endregion
 

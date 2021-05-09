@@ -15,6 +15,7 @@ export interface IProps {
     header: Array<ITableHead>,
     onchangeParam: Function,
     isLoading: boolean,
+    isPagination?: boolean,
     handleEdit?: (id: any) => void,
     handleDelete?: (id: any) => void
 }
@@ -37,7 +38,7 @@ export default function DivTable(props: IProps) {
         width: window.innerWidth
     });
 
-    let { page, pageSize, funcId } = props;
+    let { page, pageSize, funcId, isPagination } = props;
 
 
     useEffect(() => {
@@ -140,7 +141,7 @@ export default function DivTable(props: IProps) {
             <div style={{ minHeight: dimensions.height }}>
                 {renderContent()}
             </div>
-            <TablePagination
+            {!isPagination && <TablePagination
                 rowsPerPageOptions={[10, 20, 50, 100]}
                 component="div"
                 labelRowsPerPage={<span>Hiển thị:</span>}
@@ -151,6 +152,7 @@ export default function DivTable(props: IProps) {
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />
+            }
         </div>
 
     )

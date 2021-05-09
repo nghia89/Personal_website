@@ -2,17 +2,19 @@ import React, { useState, useEffect } from 'react'
 import { apiProduct } from '@/apis/index'
 import { connect } from 'react-redux'
 import { IBaseParams, ProductVM } from '@/models';
-import { SerializeParam } from '@/helpers/utils';
+import { checkPermission, SerializeParam } from '@/helpers/utils';
 import { DivTable, useNotification } from '@/components';
-import { CircularProgress } from '@material-ui/core';
-import { functionId } from '@/constants/utilConstant';
+import { commandId, functionId } from '@/constants/utilConstant';
 import { tableHeadProduct } from '@/models/tableHead';
+import { useHistory } from 'react-router-dom';
+import { PATH } from '@/constants/paths';
 
 interface IProps { }
 
 
 
 export function Product(props: IProps) {
+    let history = useHistory();
     const dispatch = useNotification();
 
     const [data, setData] = useState<ProductVM[]>([]);
@@ -36,9 +38,37 @@ export function Product(props: IProps) {
         })
     }
 
+    async function handleKeyDown(e) {
+        if (e.key === 'Enter') {
+            let { name, value } = e.target;
+            // let param = getParams();
+            // param.query = value;
+            // await getData(param)
+            // setSearchText(value)
+        }
+    }
+
+    function handleCreate() {
+
+    }
+
     function renderHeader() {
         return <div className="pb-5 d-flex justify-content-between align-items-center">
             <h1 className="h3 mb-1 text-gray-800">Danh sách sản phẩm</h1>
+
+            <div className="d-flex col-6">
+                <input onKeyDown={(e) => handleKeyDown(e)} type="text" name="searchText" className="text-dark form-control border-0 small " placeholder="Nhập tìm kiếm bằng Tên, Mã. Enter để tìm kiếm... " aria-label="Search" aria-describedby="basic-addon2" />
+                <div className="input-group-append">
+                    <button className="btn btn-primary" type="button">
+                        <i className="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+            {
+                checkPermission(functionId.product, commandId.create) && <button onClick={() => {
+                    history.push(PATH.PRODUCT_CREATE)
+                }} type="button" className="mr-3 btn btn-success">Tạo mới</button>
+            }
         </div>
     }
 
