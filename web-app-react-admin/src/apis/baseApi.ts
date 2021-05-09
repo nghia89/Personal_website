@@ -5,7 +5,7 @@ const baseApiMenu = 'users/';
 const baseApiRoles = 'roles/';
 const baseApiPermission = 'permissions/';
 const baseApiFunctions = 'functions/';
-const baseApiProduct = 'product/';
+const baseApiProduct = 'products/';
 
 export const apiUser = {
     getMenu: async () => { return await GET(`${baseApiMenu}menu`) },

@@ -16,13 +16,13 @@ export function Product(props: IProps) {
     const dispatch = useNotification();
 
     const [data, setData] = useState<ProductVM[]>([]);
-    const [isLoading, setLoading] = useState<Boolean>(true)
+    const [isLoading, setLoading] = useState<boolean>(true)
     const [params, setParams] = useState<IBaseParams>({ page: 1, pageSize: 20, query: '' })
     useEffect(() => {
-        fetchApi();
+        getData();
     }, [])
 
-    async function fetchApi() {
+    async function getData() {
         if (!isLoading) setLoading(true)
         let newParam = SerializeParam(params);
         await apiProduct.getPaging(newParam).then((rsp) => {
@@ -43,27 +43,24 @@ export function Product(props: IProps) {
     }
 
     function renderContent() {
-        // return <DivTable
-        //     funcId={functionId.permission}
-        //     data={data}
-        //     header={tableHeadRoleToFunc}
-        //     fetchData={(value) => getData(value)}
-        //     pageSize={stateTable.pageSize}
-        //     page={stateTable.page}
-        //     total={stateTable.totalCount}
-        //     isLoading={isLoading}
-        //     handleEdit={(id) => handleCloseTableEdit(id)}
-        // />
+        return <DivTable
+            funcId={functionId.permission}
+            data={data}
+            header={tableHeadProduct}
+            onchangeParam={(e) => getData()}
+            pageSize={params.pageSize}
+            page={params.page}
+            total={params.totalCount}
+            isLoading={isLoading}
+        //handleEdit={(id) => handleCloseTableEdit(id)}
+        />
     }
 
 
     return (
         <div className="align-items-center justify-content-between mb-4">
             {renderHeader()}
-            {isLoading ? <div className="d-flex justify-content-center">
-                <CircularProgress />
-            </div> :
-                renderContent()}
+            {renderContent()}
         </div>
     )
 }

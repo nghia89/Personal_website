@@ -3,7 +3,8 @@ import { IBaseParams, ITableHead } from '@/models'
 import './index.css'
 import { formatDate, checkPermission } from '@/helpers/utils';
 import { commandId } from '@/constants/utilConstant'
-
+import { CircularProgress } from '@material-ui/core';
+import { IconEmppty } from '@/helpers/svg';
 
 export interface IProps {
     funcId: string,
@@ -12,7 +13,7 @@ export interface IProps {
     pageSize: number,
     total?: number,
     header: Array<ITableHead>,
-    fetchData: Function,
+    onchangeParam: Function,
     isLoading: boolean,
     handleEdit?: (id: any) => void,
     handleDelete?: (id: any) => void
@@ -27,7 +28,7 @@ export default function DivTable(props: IProps) {
             page: page + 1,
             pageSize: pageSize
         };
-        props.fetchData(objParams)
+        props.onchangeParam(objParams)
     }
 
 
@@ -66,7 +67,20 @@ export default function DivTable(props: IProps) {
                         return <div key={`h${index}`} className=" divTableCell center divTableHeading">{item.name}</div>
                     })}
                 </div>
-                {props.isLoading ? <div> loading</div> : renderContentTable()}
+                {props.isLoading ?
+                    <div className="content_table_data_empty">
+                        <CircularProgress />
+                    </div>
+                    :
+                    props.data.length > 0 ?
+                        renderContentTable() :
+                        <div className="content_table_data_empty">
+                            <span>
+                                {IconEmppty()}
+                            </span>
+                            <p className="ml-5">Danh sách đang trống</p>
+                        </div>
+                }
             </div>
         </div>
     }

@@ -1,11 +1,12 @@
 import React from 'react'
 import {
     Table, TableBody, TablePagination, TableCell, makeStyles, TableContainer,
-    TableHead, TableRow, Paper, Tooltip
+    TableHead, TableRow, Paper, Tooltip, CircularProgress
 } from '@material-ui/core';
 import { formatDate, checkPermission } from '@/helpers/utils';
 import { IBaseParams, ITableHead } from '@/models/index'
 import { commandId } from '@/constants/utilConstant'
+import { IconEmppty } from '@/helpers/svg';
 
 
 const useStyles = makeStyles({
@@ -135,8 +136,15 @@ export default function TableCenter(props: IProps) {
                     </TableHead>
                     <TableBody>
                         {
-                            props.isLoading ? <div> loading</div> :
-                                renderContentTable()
+                            props.isLoading ? <div className="content_table_data_empty"><CircularProgress /></div> :
+                                props.data.length > 0 ?
+                                    renderContentTable()
+                                    : <div className="content_table_data_empty">
+                                        <span>
+                                            {IconEmppty()}
+                                        </span>
+                                        <p className="ml-5">Danh sách đang trống</p>
+                                    </div>
                         }
                     </TableBody>
                 </Table>

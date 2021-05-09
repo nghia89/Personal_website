@@ -86,3 +86,17 @@
    .mr_auto{
     margin: auto;
    }
+   
+.content_table_data_empty{
+	position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+    z-index: 1000;
+    width: 90%;
+    border-radius: 4px;
+    margin: 0px auto;
+	padding-top: 30px;
+}

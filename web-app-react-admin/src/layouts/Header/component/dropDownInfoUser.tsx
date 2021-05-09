@@ -14,7 +14,7 @@ function DropdownInfoUser(props: IProps) {
     const [loading, setLoading] = useState<boolean>(true)
     const context = useContext(AuthContext);
     useEffect(() => {
-        if (!props.claimUser) {
+        if (!props.claimUser && context.isAuthenticated()) {
             context.getUser().then((rsp) => {
                 if (rsp.profile) {
                     props.setClaimUser(rsp.profile)
@@ -23,7 +23,7 @@ function DropdownInfoUser(props: IProps) {
             })
         }
         setLoading(false)
-    }, [])
+    }, [props.claimUser])
 
 
     function handleClick(signOutRedirect) {
@@ -93,4 +93,4 @@ const mapStateToProps = state => {
 
 
 const mapDispatchToProps = { setClaimUser }
-export default connect(mapStateToProps, mapDispatchToProps)(DropdownInfoUser) 
+export default connect(mapStateToProps, mapDispatchToProps)(DropdownInfoUser)

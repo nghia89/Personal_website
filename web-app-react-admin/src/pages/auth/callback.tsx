@@ -16,8 +16,13 @@ export function Callback(props: IProps) {
     return <AuthConsumer>
         {({ signInRedirectCallback }) => {
             signInRedirectCallback().then((profile) => {
-                props.setClaimUser(profile.profile)
+                window.history.replaceState({},
+                    window.document.title,
+                    window.location.origin + window.location.pathname);
+                props.setClaimUser(profile.profile);
+                debugger
                 history.push(PATH.Dashboard)
+
             });
             return <LoadingPage />;
         }}
@@ -31,4 +36,4 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = { setClaimUser }
-export default connect(mapStateToProps, mapDispatchToProps)(Callback) 
+export default connect(mapStateToProps, mapDispatchToProps)(Callback)

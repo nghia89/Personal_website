@@ -29,6 +29,7 @@ export default class AuthService {
 
     signInRedirectCallback = () => {
         return this.userManager.signinRedirectCallback();
+
         // return this.userManager.signinRedirectCallback().then(() => {
         //     this.navigateToScreen();
         // });

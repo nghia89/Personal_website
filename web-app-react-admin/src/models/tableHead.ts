@@ -25,9 +25,8 @@ export const tableHeadProduct = [
     { name: 'Ảnh', fieldName: 'image' },
     { name: 'Tên sản phẩm', fieldName: 'name' },
     { name: 'Loại', fieldName: 'productCategoryName' },
-    { name: 'Số điện thoại', fieldName: 'phone' },
     { name: 'Ngày tạo', fieldName: 'dateCreated', type: 'date' },
-    { name: 'Mô tả', fieldName: 'description' },
+    { name: 'Trạng thái', fieldName: 'status' },
 ] as Array<ITableHead>;
 
 export const tableHeadRoleToFunc = [

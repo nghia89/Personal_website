@@ -66,7 +66,7 @@ export default function PermissionFunction(props: IProps) {
             funcId={functionId.permission}
             data={stateTable.data}
             header={tableHeadRoleToFunc}
-            fetchData={(value) => getData(value)}
+            onchangeParam={(value) => getData(value)}
             pageSize={stateTable.pageSize}
             page={stateTable.page}
             total={stateTable.totalCount}
