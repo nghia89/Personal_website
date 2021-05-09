@@ -143,7 +143,7 @@ export default function TableCenter(props: IProps) {
                                         <span>
                                             {IconEmppty()}
                                         </span>
-                                        <p className="ml-5">Danh sách đang trống</p>
+                                        <p className="ml-5 font-weight-bold text-dark">Danh sách đang trống</p>
                                     </div>
                         }
                     </TableBody>
