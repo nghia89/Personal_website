@@ -1,7 +1,7 @@
 export interface ProductVM {
     id?: Number
     name?: String
-    image: String
+    image?: String
     price?: Number
     originalPrice?: Number
     description?: String

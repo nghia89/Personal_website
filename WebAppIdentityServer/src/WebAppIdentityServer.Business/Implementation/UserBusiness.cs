@@ -117,7 +117,7 @@ namespace WebAppIdentityServer.Business.Implementation
                             SortOrder = f.SortOrder,
                         };
             var data = await query.Distinct()
-                .OrderBy(x => x.ParentId)
+                .OrderBy(x => x.SortOrder)
                 .ThenBy(x => x.SortOrder)
                 .ToListAsync();
             IEnumerable<FunctionVm> enumList = data;
