@@ -112,7 +112,7 @@ export default function DivTable(props: IProps) {
                     })}
                 </div>
                 {props.isLoading ?
-                    <div className="content_table_data_empty">
+                    <div className="content_table_data_empty" style={{ width: dimensions.width - 300 }}>
                         <CircularProgress />
                     </div>
                     :
@@ -138,7 +138,7 @@ export default function DivTable(props: IProps) {
 
     return (
         <div>
-            <div style={{ minHeight: dimensions.height }}>
+            <div style={{ minHeight: (dimensions.height - 280) }}>
                 {renderContent()}
             </div>
             {!isPagination && <TablePagination

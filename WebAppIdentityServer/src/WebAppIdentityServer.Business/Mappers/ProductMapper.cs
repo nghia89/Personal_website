@@ -25,7 +25,7 @@ namespace WebAppIdentityServer.Business.Mappers
                     Price = model.Price,
                     ProductCategory = model.ProductCategory?.ToModel(),
                     ProductCategoryId = model.ProductCategoryId,
-                    PromotionPrice = model.PromotionPrice,
+                    Code = model.Code,
                     SeoAlias = model.SeoAlias,
                     SeoDescription = model.SeoDescription,
                     SeoKeywords = model.SeoKeywords,
@@ -54,13 +54,13 @@ namespace WebAppIdentityServer.Business.Mappers
                     Price = model.Price,
                     ProductCategory = model.ProductCategory?.ToEntity(),
                     ProductCategoryId = model.ProductCategoryId,
-                    PromotionPrice = model.PromotionPrice,
+                    Code = model.Code,
                     SeoAlias = model.SeoAlias,
                     SeoDescription = model.SeoDescription,
                     SeoKeywords = model.SeoKeywords,
                     Status = model.Status,
                     Tags = model.Tags,
-                    ProductTags=new List<ProductTag> ()
+                    ProductTags = new List<ProductTag>()
 
                 };
             }

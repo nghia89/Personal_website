@@ -62,7 +62,7 @@ export default function ProductCreate(props: IProps) {
 
     function renderHeader() {
         return <div className="pb-5 d-flex justify-content-between align-items-center">
-            <h5 className="mr-5 font-weight-bold">Tạo mới sản phẩm</h5>
+            <h4 className="mr-5 text-dark font-weight-bold">Tạo mới sản phẩm</h4>
             <div>
                 <button onClick={() => saveData()} type="button" className="mr-3 btn btn-primary">Lưu</button>
             </div>
@@ -71,7 +71,7 @@ export default function ProductCreate(props: IProps) {
     function renderContentGeneral() {
         return <div className="row pt-5 pb-5">
             <div className="col-2">
-                <h6>Nội dung chung</h6>
+                <h6 className="font-weight-bold">Nội dung chung</h6>
 
             </div>
             <div className="col-10">
@@ -160,7 +160,7 @@ export default function ProductCreate(props: IProps) {
     function renderContentProduct() {
         return <div className="row  pt-5 pb-5">
             <div className="col-2">
-                <h6>Mô tã sản phẩm</h6>
+                <h6 className="font-weight-bold">Mô tả sản phẩm</h6>
 
             </div>
             <div className="col-10">
@@ -193,7 +193,7 @@ export default function ProductCreate(props: IProps) {
     function renderContentSeo() {
         return <div className="row pt-5 pb-5">
             <div className="col-2">
-                <h6>SEO từ khoá</h6>
+                <h6 className="font-weight-bold">SEO từ khoá</h6>
 
             </div>
             <div className="col-10">

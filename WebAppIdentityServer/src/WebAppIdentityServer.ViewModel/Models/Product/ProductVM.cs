@@ -10,6 +10,7 @@ namespace WebAppIdentityServer.ViewModel.Models.Product
         public decimal Price { get; set; }
         public decimal OriginalPrice { get; set; }
         public decimal? PromotionPrice { get; set; }
+        public string Code { get; set; }
         public string Description { get; set; }
         public string Content { get; set; }
         public int? ViewCount { get; set; }
