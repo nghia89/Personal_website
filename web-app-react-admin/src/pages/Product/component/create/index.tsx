@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { TextField, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { ProductVM, UserVM } from '@/models/index';
 import { apiUser } from '@/apis/index';
-import { DrawerLayout, useNotification } from '@/components/index'
+import { DrawerLayout, ImageUploadCard, useNotification } from '@/components/index'
 import { validateField } from '@/helpers/utils'
 import { validateUserVm } from '@/models/validateField';
-
+import './index.scss'
 export interface IProps {
 
 }
@@ -39,6 +39,10 @@ export default function ProductCreate(props: IProps) {
                 }
             })
         }
+    }
+    function handleUpload(isLoading, listPath) {
+        console.log(isLoading, listPath);
+
     }
 
     function validateFields() {
@@ -87,25 +91,14 @@ export default function ProductCreate(props: IProps) {
                     className="form-control"
                     onChange={(e) => handleChange(e)}
                 />
-                <TextField
-                    required
-                    inputRef={(r) => refs["productCategoryId"] = r}
-                    label="Danh mục"
-                    name="productCategoryId"
-                    value={formState?.productCategoryId}
-                    variant="outlined"
-                    size="small"
-                    className="form-control"
-                    onChange={(e) => handleChange(e)}
-                />
                 <div className="row">
                     <div className="col-6">
                         <TextField
                             required
-                            inputRef={(r) => refs["firstName"] = r}
-                            label="Giá bán"
-                            name="firstName"
-                            value={formState?.price}
+                            inputRef={(r) => refs["productCategoryId"] = r}
+                            label="Danh mục"
+                            name="productCategoryId"
+                            value={formState?.productCategoryId}
                             variant="outlined"
                             size="small"
                             className="form-control"
@@ -115,10 +108,10 @@ export default function ProductCreate(props: IProps) {
                     <div className="col-6">
                         <TextField
                             required
-                            inputRef={(r) => refs["firstName"] = r}
-                            label="Giá gốc"
-                            name="firstName"
-                            value={formState?.originalPrice}
+                            inputRef={(r) => refs["code"] = r}
+                            label="Mã sp"
+                            name="code"
+                            value={formState?.code}
                             variant="outlined"
                             size="small"
                             className="form-control"
@@ -129,29 +122,55 @@ export default function ProductCreate(props: IProps) {
 
                 </div>
 
-                <TextField
-                    required
-                    inputRef={(r) => refs["firstName"] = r}
-                    label="Ảnh đại diện"
-                    name="firstName"
-                    value={formState?.image}
-                    variant="outlined"
-                    size="small"
-                    className="form-control"
-                    onChange={(e) => handleChange(e)}
-                />
-                <TextField
-                    required
-                    inputRef={(r) => refs["firstName"] = r}
-                    label="Ảnh đại diện"
-                    name="firstName"
-                    value={formState?.image}
-                    variant="outlined"
-                    size="small"
-                    className="form-control"
-                    onChange={(e) => handleChange(e)}
-                />
+                <div className="row">
+                    <div className="col-6">
+                        <TextField
+                            required
+                            inputRef={(r) => refs["price"] = r}
+                            label="Giá bán"
+                            name="price"
+                            value={formState?.price}
+                            variant="outlined"
+                            size="small"
+                            className="form-control"
+                            onChange={(e) => handleChange(e)}
+                        />
+                    </div>
+                    <div className="col-6">
+                        <TextField
+                            required
+                            inputRef={(r) => refs["originalPrice"] = r}
+                            label="Giá gốc"
+                            name="originalPrice"
+                            value={formState?.originalPrice}
+                            variant="outlined"
+                            size="small"
+                            className="form-control"
+                            onChange={(e) => handleChange(e)}
+                        />
+                    </div>
+                </div>
+                <div className="row card_select_image" >
+                    <div className="col-6">
+                        <ImageUploadCard
+                            handleUpload={(isLoading, listPath) => handleUpload(isLoading, listPath)}
+                        />
+                    </div>
+                    <div className="col-6">
 
+                    </div>
+                </div>
+                <TextField
+                    required
+                    inputRef={(r) => refs["originalPrice"] = r}
+                    label="Ảnh đại diện"
+                    name="firstName"
+                    value={formState?.image}
+                    variant="outlined"
+                    size="small"
+                    className="form-control"
+                    onChange={(e) => handleChange(e)}
+                />
             </div>
 
         </div>

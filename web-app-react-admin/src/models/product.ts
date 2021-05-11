@@ -3,6 +3,7 @@ export interface ProductVM {
     name?: String
     image?: String
     price?: Number
+    code?: String
     originalPrice?: Number
     description?: String
     content?: String
