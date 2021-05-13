@@ -7,7 +7,11 @@ import NotificationProvider from './notifications/notificationProvider'
 import { useNotification } from './notifications/notificationProvider'
 import DivTable from './divTable/index'
 import ImageUploadCard from './imageUploadCard'
+import Editor from './editor/index'
 
 
 
-export { TableCenter, AlertDialogSlide, DrawerLayout, DatePickers, NotificationBox, NotificationProvider, useNotification, DivTable, ImageUploadCard };
+export {
+    TableCenter, AlertDialogSlide, DrawerLayout, DatePickers, NotificationBox,
+    NotificationProvider, useNotification, DivTable, ImageUploadCard, Editor
+};

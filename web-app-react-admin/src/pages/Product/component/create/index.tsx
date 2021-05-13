@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { TextField, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { ProductVM, UserVM } from '@/models/index';
 import { apiUser } from '@/apis/index';
-import { DrawerLayout, ImageUploadCard, useNotification } from '@/components/index'
+import { Editor, ImageUploadCard, useNotification } from '@/components/index'
 import { validateField } from '@/helpers/utils'
 import { validateUserVm } from '@/models/validateField';
-import './index.scss'
+
 export interface IProps {
 
 }
@@ -73,7 +73,7 @@ export default function ProductCreate(props: IProps) {
         </div>
     }
     function renderContentGeneral() {
-        return <div className="row pt-5 pb-5">
+        return <div className="row pt-3 pb-3">
             <div className="col-2">
                 <h6 className="font-weight-bold">Nội dung chung</h6>
 
@@ -150,8 +150,11 @@ export default function ProductCreate(props: IProps) {
                         />
                     </div>
                 </div>
+
                 <div className="row card_select_image" >
+
                     <div className="col-6">
+                        <h6>Ảnh đại diện *</h6>
                         <ImageUploadCard
                             handleUpload={(isLoading, listPath) => handleUpload(isLoading, listPath)}
                         />
@@ -160,29 +163,19 @@ export default function ProductCreate(props: IProps) {
 
                     </div>
                 </div>
-                <TextField
-                    required
-                    inputRef={(r) => refs["originalPrice"] = r}
-                    label="Ảnh đại diện"
-                    name="firstName"
-                    value={formState?.image}
-                    variant="outlined"
-                    size="small"
-                    className="form-control"
-                    onChange={(e) => handleChange(e)}
-                />
             </div>
 
         </div>
     }
 
     function renderContentProduct() {
-        return <div className="row  pt-5 pb-5">
+        return <div className="row  pt-3 pb-3">
             <div className="col-2">
                 <h6 className="font-weight-bold">Mô tả sản phẩm</h6>
 
             </div>
             <div className="col-10">
+                <Editor />
                 <TextField
                     required
                     inputRef={(r) => refs["firstName"] = r}
@@ -210,7 +203,7 @@ export default function ProductCreate(props: IProps) {
         </div>
     }
     function renderContentSeo() {
-        return <div className="row pt-5 pb-5">
+        return <div className="row pt-3 pb-3">
             <div className="col-2">
                 <h6 className="font-weight-bold">SEO từ khoá</h6>
 

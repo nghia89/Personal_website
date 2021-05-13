@@ -8,6 +8,7 @@ import { commandId, functionId } from '@/constants/utilConstant';
 import { tableHeadProduct } from '@/models/tableHead';
 import { useHistory } from 'react-router-dom';
 import { PATH } from '@/constants/paths';
+import './index.scss'
 
 interface IProps { }
 

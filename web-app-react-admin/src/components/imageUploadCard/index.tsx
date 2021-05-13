@@ -1,13 +1,10 @@
 // imports the React Javascript Library
 import React, { useState, useEffect } from "react";
-//Card
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
+
 import CardContent from "@material-ui/core/CardContent";
 
 import Fab from "@material-ui/core/Fab";
 import Grid from "@material-ui/core/Grid";
-import Avatar from "@material-ui/core/Avatar";
 
 import red from "@material-ui/core/colors/red";
 import blue from "@material-ui/core/colors/blue";
@@ -15,7 +12,6 @@ import blue from "@material-ui/core/colors/blue";
 
 import SearchIcon from "@material-ui/icons/Search";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
-import CollectionsIcon from "@material-ui/icons/Collections";
 
 
 
@@ -25,11 +21,11 @@ import InputBase from "@material-ui/core/InputBase";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import ReplayIcon from "@material-ui/icons/Replay";
 
 //Tabs
 import { makeStyles, Theme, createStyles } from "@material-ui/core";
-
+import { apiUploadFile } from '@/apis/index';
+import { useNotification } from '@/components/index'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -95,26 +91,37 @@ interface IProps {
     handleUpload: Function
 }
 
-
+let isFirst = false;
 function ImageUploadCard(props: IProps) {
-    let isFirst = false;
+    let dispatch = useNotification();
     const classes = useStyles();
     const [mainState, setMainState] = useState<String>("initial")
     const [isLoadingUploaded, setIsLoadingUploaded] = useState<Boolean>(false)
     const [selectedFile, setSelectedFile] = useState<string>()
 
     useEffect(() => {
-        if (isFirst && (selectedFile && !isLoadingUploaded))
-            props.handleUpload(isLoadingUploaded, selectedFile)
+        if (isFirst) {
+            if (!isLoadingUploaded && selectedFile)
+                props.handleUpload(isLoadingUploaded, selectedFile)
+            else if (isLoadingUploaded) props.handleUpload(isLoadingUploaded, null)
+        }
         isFirst = true;
     }, [isLoadingUploaded, selectedFile])
 
-    function handleUploadClick(event) {
+    async function handleUploadClick(event) {
         setIsLoadingUploaded(true)
         var files = event.target.files;
         const formData = new FormData();
 
         formData.append('File', files);
+
+        await apiUploadFile.UploadImage(formData).then((rsp) => {
+            if (!rsp.isError) {
+                dispatch('SUCCESS', 'Thêm user thành công.')
+                setSelectedFile(rsp)
+                setIsLoadingUploaded(false)
+            }
+        })
 
         setMainState("uploaded");
 
@@ -184,19 +191,6 @@ function ImageUploadCard(props: IProps) {
                     <CloseIcon />
                 </IconButton>
             </Paper>
-        );
-    }
-
-    function renderUploadedState() {
-        return (
-            <React.Fragment>
-                <CardActionArea onClick={imageResetHandler}>
-                    <img
-                        width="100%"
-                        src={selectedFile}
-                    />
-                </CardActionArea>
-            </React.Fragment>
         );
     }
 

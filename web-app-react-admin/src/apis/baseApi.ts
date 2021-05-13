@@ -1,3 +1,4 @@
+import { env } from "@/environments/config";
 import { GET, POST, PUT, DELETE } from "@/helpers/httpCommon";
 import { PermissionRequest } from '@/models/index';
 
@@ -6,6 +7,13 @@ const baseApiRoles = 'roles/';
 const baseApiPermission = 'permissions/';
 const baseApiFunctions = 'functions/';
 const baseApiProduct = 'products/';
+const baseApiUpload = 'uploadFiles/';
+
+export const UploadImageForCKEditor = `${env.baseApiUrl}/api/${baseApiUpload}upload_image_ckeditor`;
+
+export const apiUploadFile = {
+    UploadImage: async (body: any) => { return await POST(`${baseApiUpload}upload_image`, body) }
+}
 
 export const apiUser = {
     getMenu: async () => { return await GET(`${baseApiMenu}menu`) },

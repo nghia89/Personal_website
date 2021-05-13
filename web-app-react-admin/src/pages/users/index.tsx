@@ -34,8 +34,12 @@ export function User(props: IProps) {
 
     useEffect(() => {
         let param = getParams();
-        getData(param)
-        getListRole()
+        async function fetchApi() {
+            await getData(param)
+            await getListRole()
+        }
+        fetchApi()
+
     }, [])
 
     function getParams() {
@@ -110,7 +114,7 @@ export function User(props: IProps) {
 
     async function handleKeyDown(e) {
         if (e.key === 'Enter') {
-            let { name, value } = e.target;
+            let { value } = e.target;
             let param = getParams();
             param.query = value;
             await getData(param)
