@@ -23,9 +23,10 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ProductCreate(props: IProps) {
     const classes = useStyles();
     let dispatch = useNotification();
-
+    type NewType = ProductVM | null;
 
     const [formState, setFormState] = useState<ProductVM | null>(null)
+    const [pathImage, setPathImage] = useState<string>("")
     useEffect(() => {
     }, [])
 
@@ -36,13 +37,16 @@ export default function ProductCreate(props: IProps) {
                     dispatch('SUCCESS', 'Thêm user thành công.')
                     // props.handleClose()
                     // props.handleReload()
+                    return
                 }
             })
         }
     }
-    function handleUpload(isLoading, listPath) {
-        console.log(isLoading, listPath);
 
+    function handleUpload(isLoading, path) {
+        if (path != null) {
+            setPathImage(path);
+        }
     }
 
     function validateFields() {
@@ -55,8 +59,6 @@ export default function ProductCreate(props: IProps) {
 
     function handleChange(e) {
         let target = e.target;
-        type NewType = ProductVM | null;
-
         let newFormState: NewType = { ...formState };
         if (newFormState)
             newFormState[target.name] = target.value;
@@ -68,7 +70,7 @@ export default function ProductCreate(props: IProps) {
         return <div className="pb-5 d-flex justify-content-between align-items-center">
             <h4 className="mr-5 text-dark font-weight-bold">Tạo mới sản phẩm</h4>
             <div>
-                <button onClick={() => saveData()} type="button" className="mr-3 btn btn-primary">Lưu</button>
+                <button onClick={async () => await saveData()} type="button" className="mr-3 btn btn-primary">Lưu</button>
             </div>
         </div>
     }
@@ -160,7 +162,7 @@ export default function ProductCreate(props: IProps) {
                         />
                     </div>
                     <div className="col-6">
-
+                        <img width={450} src={pathImage} />
                     </div>
                 </div>
             </div>

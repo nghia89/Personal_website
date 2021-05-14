@@ -101,8 +101,10 @@ function ImageUploadCard(props: IProps) {
 
     useEffect(() => {
         if (isFirst) {
-            if (!isLoadingUploaded && selectedFile)
+            if (!isLoadingUploaded && selectedFile) {
+                isFirst = false;
                 props.handleUpload(isLoadingUploaded, selectedFile)
+            }
             else if (isLoadingUploaded) props.handleUpload(isLoadingUploaded, null)
         }
         isFirst = true;

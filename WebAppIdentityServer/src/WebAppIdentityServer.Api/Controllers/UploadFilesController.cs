@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http.Headers;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Api.Authorization;
 using WebAppIdentityServer.Api.Helpers;
@@ -42,14 +43,17 @@ namespace WebAppIdentityServer.Api.Controllers
             }
             else
             {
-                var filename = ContentDispositionHeaderValue
+                var getFilename = ContentDispositionHeaderValue
                                 .Parse(upload.ContentDisposition)
                                 .FileName
-                                .Trim('"');
+                                .Trim('"').ToLower();
+
+                var filename = Regex.Replace(getFilename, @"\s+", "_");
 
                 var imageFolder = $@"\uploaded\ckeditor\{now.ToString("yyyyMMdd")}";
 
                 string folder = _webHostEnvironment.WebRootPath + imageFolder;
+                var pathCombine = Path.Combine(imageFolder, filename).Replace(@"\", @"/");
 
                 if (!Directory.Exists(folder))
                 {
@@ -60,17 +64,17 @@ namespace WebAppIdentityServer.Api.Controllers
                 if (System.IO.File.Exists(linkFullFile))
                 {
                     var fileName = Path.Combine(imageFolder, filename).Replace(@"\", @"/");
-                    return Ok($"{_config.Value.AuthorityUrl}/{fileName}");
+                    return Ok($"{_config.Value.BaseUrl}{pathCombine}");
                 }
                 else
                 {
-                    var path = new FileImageModel { Status = true, FileName = Path.Combine(imageFolder, filename).Replace(@"\", @"/") };
+                    //var path = new FileImageModel { Status = true, FileName = pathCombine };
                     string filePath = Path.Combine(folder, filename);
                     using (FileStream fs = System.IO.File.Create(filePath))
                     {
                         await upload.CopyToAsync(fs);
                         await fs.FlushAsync();
-                        return Ok($"{_config.Value.AuthorityUrl}/{filePath}");
+                        return Ok($"{_config.Value.BaseUrl}{pathCombine}");
                     }
                 }
             }
@@ -86,15 +90,17 @@ namespace WebAppIdentityServer.Api.Controllers
             }
             else
             {
-                var filename = ContentDispositionHeaderValue
+                var getFilename = ContentDispositionHeaderValue
                                 .Parse(file.ContentDisposition)
                                 .FileName
-                                .Trim('"');
+                                .Trim('"').ToLower();
+
+                var filename = Regex.Replace(getFilename, @"\s+", "_");
 
                 var imageFolder = $@"\uploaded\images\{now.ToString("yyyyMMdd")}";
 
                 string folder = _webHostEnvironment.WebRootPath + imageFolder;
-
+                var pathCombine = Path.Combine(imageFolder, filename).Replace(@"\", @"/");
                 if (!Directory.Exists(folder))
                 {
                     Directory.CreateDirectory(folder);
@@ -103,8 +109,7 @@ namespace WebAppIdentityServer.Api.Controllers
                 var linkFullFile = folder + @"\" + filename;
                 if (System.IO.File.Exists(linkFullFile))
                 {
-                    var filePath = Path.Combine(imageFolder, filename).Replace(@"\", @"/");
-                    return Ok($"{_config.Value.AuthorityUrl}/{filePath}");
+                    return Ok($"{_config.Value.BaseUrl}{pathCombine}");
                 }
                 else
                 {
@@ -113,9 +118,7 @@ namespace WebAppIdentityServer.Api.Controllers
                     {
                         await file.CopyToAsync(fs);
                         await fs.FlushAsync();
-
-                        var pathReplace = filePath.Replace(@"\", @"/");
-                        return Ok($"{_config.Value.AuthorityUrl}/{pathReplace}");
+                        return Ok($"{_config.Value.BaseUrl}{pathCombine}");
                     }
                 }
             }
@@ -136,15 +139,17 @@ namespace WebAppIdentityServer.Api.Controllers
                 foreach (var item in files)
                 {
                     var file = item;
-                    var filename = ContentDispositionHeaderValue
-                                    .Parse(file.ContentDisposition)
-                                    .FileName
-                                    .Trim('"');
+                    var getFilename = ContentDispositionHeaderValue
+                               .Parse(file.ContentDisposition)
+                               .FileName
+                               .Trim('"').ToLower();
+
+                    var filename = Regex.Replace(getFilename, @"\s+", "_");
 
                     var imageFolder = $@"\uploaded\images\{now.ToString("yyyyMMdd")}";
 
                     string folder = _webHostEnvironment.WebRootPath + imageFolder;
-
+                    var pathCombine = Path.Combine(imageFolder, filename).Replace(@"\", @"/");
                     if (!Directory.Exists(folder))
                     {
                         Directory.CreateDirectory(folder);
@@ -153,8 +158,7 @@ namespace WebAppIdentityServer.Api.Controllers
                     if (System.IO.File.Exists(linkFullFile))
                     {
                         var status = true;
-                        var filePath = Path.Combine(imageFolder, filename).Replace(@"\", @"/");
-                        listFile.Add(new FileImageModel { Status = status, FileName = $"{_config.Value.AuthorityUrl}/{filePath}" });
+                        listFile.Add(new FileImageModel { Status = status, FileName = $"{_config.Value.BaseUrl}{pathCombine}" });
                     }
                     else
                     {
@@ -165,8 +169,7 @@ namespace WebAppIdentityServer.Api.Controllers
                         {
                             await file.CopyToAsync(fs);
                             await fs.FlushAsync();
-                            var pathReplace = filePath.Replace(@"\", @"/");
-                            var path = new FileImageModel { Status = true, FileName = $"{_config.Value.AuthorityUrl}/{pathReplace}" };
+                            var path = new FileImageModel { Status = true, FileName = $"{_config.Value.BaseUrl}{pathCombine}" };
                             listFile.Add(path);
                         }
                     }
