@@ -110,7 +110,7 @@ function ImageUploadCard(props: IProps) {
 
     async function handleUploadClick(event) {
         setIsLoadingUploaded(true)
-        var files = event.target.files;
+        var files = props.isMultiple ? event.target.files : event.target.files[0];
         const formData = new FormData();
 
         formData.append('File', files);
@@ -122,8 +122,6 @@ function ImageUploadCard(props: IProps) {
                 setIsLoadingUploaded(false)
             }
         })
-
-        setMainState("uploaded");
 
     };
 
@@ -162,7 +160,6 @@ function ImageUploadCard(props: IProps) {
 
     function handleImageSearch(url) {
         var filename = url.substring(url.lastIndexOf("/") + 1);
-        setMainState("uploaded")
         setSelectedFile(url)
     }
 

@@ -91,7 +91,7 @@ namespace WebAppIdentityServer.Api.Controllers
                                 .FileName
                                 .Trim('"');
 
-                var imageFolder = $@"\uploaded\ckeditor\{now.ToString("yyyyMMdd")}";
+                var imageFolder = $@"\uploaded\images\{now.ToString("yyyyMMdd")}";
 
                 string folder = _webHostEnvironment.WebRootPath + imageFolder;
 
