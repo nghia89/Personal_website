@@ -14,6 +14,7 @@ using WebAppIdentityServer.Api.IdentityServer;
 using WebAppIdentityServer.Api.Services;
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Entities;
+using WebAppIdentityServer.ViewModel.Models.Common;
 
 namespace WebAppIdentityServer.Api
 {
@@ -31,10 +32,11 @@ namespace WebAppIdentityServer.Api
         {
             var mySqlConnectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContextPool<ApplicationDbContext>(options => options.UseMySql(mySqlConnectionString, ServerVersion.AutoDetect(mySqlConnectionString)));
-            
+
             services.AddIdentity<AppUser, AppRole>()
                .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.Configure<AppSettingConfig>(Configuration.GetSection("AppSettingConfig"));
 
             services.AddTransient<DbInitializer>();
 

@@ -20,7 +20,6 @@ export function Callback(props: IProps) {
                     window.document.title,
                     window.location.origin + window.location.pathname);
                 props.setClaimUser(profile.profile);
-                debugger
                 history.push(PATH.Dashboard)
 
             });

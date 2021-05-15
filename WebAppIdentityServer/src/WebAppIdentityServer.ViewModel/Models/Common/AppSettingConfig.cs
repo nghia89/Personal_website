@@ -4,6 +4,6 @@ namespace WebAppIdentityServer.ViewModel.Models.Common
 {
     public class AppSettingConfig
     {
-        public string AuthorityUrl { get; set; }
+        public string BaseUrl { get; set; }
     }
 }
