@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebAppIdentityServer.Data.EF.Migrations
 {
-    public partial class initdb : Migration
+    public partial class Init_db : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -661,10 +661,11 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     OriginalPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    PromotionPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: true),
-                    Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
+                    Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Content = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Code = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ViewCount = table.Column<int>(type: "int", nullable: true),
                     Tags = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)

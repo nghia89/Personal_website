@@ -9,8 +9,8 @@ using WebAppIdentityServer.Data.EF;
 namespace WebAppIdentityServer.Data.EF.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210508034601_init-db")]
-    partial class initdb
+    [Migration("20210515042822_Init_db")]
+    partial class Init_db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -779,6 +779,9 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Code")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Content")
                         .HasColumnType("longtext");
 
@@ -792,8 +795,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Image")
                         .HasColumnType("longtext");
@@ -809,9 +811,6 @@ namespace WebAppIdentityServer.Data.EF.Migrations
 
                     b.Property<long>("ProductCategoryId")
                         .HasColumnType("bigint");
-
-                    b.Property<decimal?>("PromotionPrice")
-                        .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("SeoAlias")
                         .HasColumnType("longtext");
