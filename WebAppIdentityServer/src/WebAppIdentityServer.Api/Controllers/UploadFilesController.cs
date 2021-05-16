@@ -39,7 +39,25 @@ namespace WebAppIdentityServer.Api.Controllers
             DateTime now = DateTime.Now;
             if (upload == null)
             {
-                return new BadRequestObjectResult(upload);
+                return Ok(new
+                {
+                    uploaded = false,
+                    error = new
+                    {
+                        message = "không thể tải lên hình ảnh này."
+                    }
+                });
+            }
+            else if (upload.Length > (1024 * 1024 * 2))
+            {
+                return Ok(new
+                {
+                    uploaded = false,
+                    error = new
+                    {
+                        message = "Tệp này hơn 2MB. Xin lỗi, nó phải nhỏ hơn hoặc bằng 2MB."
+                    }
+                });
             }
             else
             {
@@ -64,7 +82,12 @@ namespace WebAppIdentityServer.Api.Controllers
                 if (System.IO.File.Exists(linkFullFile))
                 {
                     var fileName = Path.Combine(imageFolder, filename).Replace(@"\", @"/");
-                    return Ok($"{_config.Value.BaseUrl}{pathCombine}");
+                    //return Ok($"{_config.Value.BaseUrl}{pathCombine}");
+                    return Ok(new
+                    {
+                        uploaded = true,
+                        url = $"{_config.Value.BaseUrl}{pathCombine}"
+                    });
                 }
                 else
                 {
@@ -74,10 +97,16 @@ namespace WebAppIdentityServer.Api.Controllers
                     {
                         await upload.CopyToAsync(fs);
                         await fs.FlushAsync();
-                        return Ok($"{_config.Value.BaseUrl}{pathCombine}");
+                        // return Ok($"{_config.Value.BaseUrl}{pathCombine}");
+                        return Ok(new
+                        {
+                            uploaded = true,
+                            url = $"{_config.Value.BaseUrl}{pathCombine}"
+                        });
                     }
                 }
             }
+
         }
         [HttpPost]
         [Route("upload_image")]

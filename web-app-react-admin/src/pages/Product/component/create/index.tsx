@@ -43,6 +43,8 @@ export default function ProductCreate(props: IProps) {
         }
     }
 
+
+
     function handleUpload(isLoading, path) {
         if (path != null) {
             setPathImage(path);
@@ -60,10 +62,16 @@ export default function ProductCreate(props: IProps) {
     function handleChange(e) {
         let target = e.target;
         let newFormState: NewType = { ...formState };
-        if (newFormState)
-            newFormState[target.name] = target.value;
+        newFormState[target.name] = target.value;
         setFormState(newFormState);
     };
+
+    function handleOnchangeEditor(name: string, data: any) {
+        let newFormState: NewType = { ...formState };
+        if (name)
+            newFormState[name] = data;
+        setFormState(newFormState);
+    }
 
 
     function renderHeader() {
@@ -177,30 +185,16 @@ export default function ProductCreate(props: IProps) {
 
             </div>
             <div className="col-10">
-                <Editor />
-                <TextField
-                    required
-                    inputRef={(r) => refs["firstName"] = r}
-                    label="Mô tả ngắn"
-                    name="firstName"
-                    value={formState?.description}
-                    variant="outlined"
-                    size="small"
-                    className="form-control"
-                    onChange={(e) => handleChange(e)}
-                />
-                <TextField
-                    required
-                    inputRef={(r) => refs["firstName"] = r}
-                    label="Mô tả sản phẩm"
-                    name="firstName"
-                    value={formState?.content}
-                    variant="outlined"
-                    size="small"
-                    className="form-control"
-                    onChange={(e) => handleChange(e)}
-                />
+                <div className="pb-2">
+                    <label className="ml-2 ">Mô tả ngắn</label>
+                    <Editor onChange={(data) => handleOnchangeEditor("description", data)} />
 
+                </div>
+                <div>
+                    <label className="ml-2 ">Mô tả sản phẩm"</label>
+                    <Editor onChange={(data) => handleOnchangeEditor("content", data)} />
+
+                </div>
             </div>
         </div>
     }
