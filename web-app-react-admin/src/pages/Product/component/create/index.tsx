@@ -187,12 +187,12 @@ export default function ProductCreate(props: IProps) {
             <div className="col-10">
                 <div className="pb-2">
                     <label className="ml-2 ">Mô tả ngắn</label>
-                    <Editor onChange={(data) => handleOnchangeEditor("description", data)} />
+                    <Editor data="" onChange={(data) => handleOnchangeEditor("description", data)} />
 
                 </div>
                 <div>
                     <label className="ml-2 ">Mô tả sản phẩm"</label>
-                    <Editor onChange={(data) => handleOnchangeEditor("content", data)} />
+                    <Editor data="" onChange={(data) => handleOnchangeEditor("content", data)} />
 
                 </div>
             </div>

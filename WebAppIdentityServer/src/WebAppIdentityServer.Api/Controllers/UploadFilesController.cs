@@ -68,7 +68,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
                 var filename = Regex.Replace(getFilename, @"\s+", "_");
 
-                var imageFolder = $@"\uploaded\ckeditor\{now.ToString("yyyyMMdd")}";
+                var imageFolder = $@"\uploaded\ckeditor\";
 
                 string folder = _webHostEnvironment.WebRootPath + imageFolder;
                 var pathCombine = Path.Combine(imageFolder, filename).Replace(@"\", @"/");
