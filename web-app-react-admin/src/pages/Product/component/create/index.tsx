@@ -202,15 +202,14 @@ export default function ProductCreate(props: IProps) {
         return <div className="row pt-3 pb-3">
             <div className="col-2">
                 <h6 className="font-weight-bold">SEO từ khoá</h6>
-
             </div>
             <div className="col-10">
                 <TextField
                     required
-                    inputRef={(r) => refs["firstName"] = r}
-                    label="SEO title"
-                    name="firstName"
-                    value={formState?.name}
+                    inputRef={(r) => refs["seoAlias"] = r}
+                    label="SEO Alias"
+                    name="seoAlias"
+                    value={formState?.seoAlias}
                     variant="outlined"
                     size="small"
                     className="form-control"
@@ -218,21 +217,10 @@ export default function ProductCreate(props: IProps) {
                 />
                 <TextField
                     required
-                    inputRef={(r) => refs["firstName"] = r}
-                    label="SEO Url"
-                    name="firstName"
-                    value={formState?.name}
-                    variant="outlined"
-                    size="small"
-                    className="form-control"
-                    onChange={(e) => handleChange(e)}
-                />
-                <TextField
-                    required
-                    inputRef={(r) => refs["firstName"] = r}
+                    inputRef={(r) => refs["seoKeywords"] = r}
                     label="SEO Keywords"
-                    name="firstName"
-                    value={formState?.name}
+                    name="seoKeywords"
+                    value={formState?.seoKeywords}
                     variant="outlined"
                     size="small"
                     className="form-control"
@@ -240,10 +228,10 @@ export default function ProductCreate(props: IProps) {
                 />
                 <TextField
                     required
-                    inputRef={(r) => refs["firstName"] = r}
+                    inputRef={(r) => refs["seoDescription"] = r}
                     label="SEO Description"
-                    name="firstName"
-                    value={formState?.name}
+                    name="seoDescription"
+                    value={formState?.seoDescription}
                     variant="outlined"
                     size="small"
                     className="form-control"
