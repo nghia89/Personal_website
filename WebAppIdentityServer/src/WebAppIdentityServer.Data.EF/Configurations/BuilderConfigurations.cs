@@ -11,7 +11,7 @@ namespace WebAppIdentityServer.Data.EF.Configurations
             {
                 entity.HasKey(x => x.Id);
                 entity.ToTable("Products");
-                entity.HasIndex(x => new { x.Name }).ForMySqlIsFullText(true);
+                entity.HasIndex(x => new { x.Name, x.Code }).ForMySqlIsFullText(true);
                 entity.HasIndex(x => new { x.Id });
             });
 
@@ -141,6 +141,10 @@ namespace WebAppIdentityServer.Data.EF.Configurations
                 entity.HasKey(x => new { x.Id });
                 entity.HasIndex(x => new { x.AnnouncementId, x.UserId });
             });
+            builder.Entity<TableRecords>(entity =>
+           {
+               entity.ToTable("TableRecords");
+           });
         }
     }
 }

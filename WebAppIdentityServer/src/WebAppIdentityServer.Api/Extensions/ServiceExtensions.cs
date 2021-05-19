@@ -57,6 +57,7 @@ namespace WebAppIdentityServer.Api.Extensions
             services.AddTransient<ISystemConfigRepository, SystemConfigRepository>();
             services.AddTransient<IFeedbackRepository, FeedbackRepository>();
             services.AddTransient<ITagRepository, TagRepository>();
+            services.AddTransient<ITableRecordRepository, TableRecordRepository>();
             #endregion
 
         }

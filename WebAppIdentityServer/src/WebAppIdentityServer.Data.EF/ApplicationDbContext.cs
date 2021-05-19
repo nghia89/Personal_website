@@ -61,8 +61,9 @@ namespace WebAppIdentityServer.Data.EF
         public DbSet<CommandInFunction> CommandInFunctions { set; get; }
         public DbSet<Permission> Permissions { set; get; }
         public DbSet<ProductQuantity> ProductQuantities { set; get; }
-        public DbSet<Announcement> GetAnnouncements { set; get; }
-        public DbSet<AnnouncementUser> GetAnnouncementUsers { set; get; }
+        public DbSet<Announcement> Announcements { set; get; }
+        public DbSet<AnnouncementUser> AnnouncementUsers { set; get; }
+        public DbSet<TableRecords> TableRecords { set; get; }
 
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
