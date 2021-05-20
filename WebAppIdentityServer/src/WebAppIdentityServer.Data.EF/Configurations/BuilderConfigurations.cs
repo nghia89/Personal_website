@@ -144,6 +144,7 @@ namespace WebAppIdentityServer.Data.EF.Configurations
             builder.Entity<TableRecords>(entity =>
            {
                entity.ToTable("TableRecords");
+               entity.HasKey(x => x.Id);
            });
         }
     }

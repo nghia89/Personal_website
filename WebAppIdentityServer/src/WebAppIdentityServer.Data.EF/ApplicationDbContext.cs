@@ -22,7 +22,7 @@ namespace WebAppIdentityServer.Data.EF
         private readonly IHttpContextAccessor _accessor;
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
-            _accessor = this.GetService<IHttpContextAccessor>();
+            // _accessor = this.GetService<IHttpContextAccessor>();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
