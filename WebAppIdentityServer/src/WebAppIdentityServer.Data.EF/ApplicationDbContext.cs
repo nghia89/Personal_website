@@ -22,7 +22,7 @@ namespace WebAppIdentityServer.Data.EF
         private readonly IHttpContextAccessor _accessor;
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
-            _accessor = this.GetService<IHttpContextAccessor>();
+            // _accessor = this.GetService<IHttpContextAccessor>();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -61,8 +61,9 @@ namespace WebAppIdentityServer.Data.EF
         public DbSet<CommandInFunction> CommandInFunctions { set; get; }
         public DbSet<Permission> Permissions { set; get; }
         public DbSet<ProductQuantity> ProductQuantities { set; get; }
-        public DbSet<Announcement> GetAnnouncements { set; get; }
-        public DbSet<AnnouncementUser> GetAnnouncementUsers { set; get; }
+        public DbSet<Announcement> Announcements { set; get; }
+        public DbSet<AnnouncementUser> AnnouncementUsers { set; get; }
+        public DbSet<TableRecords> TableRecords { set; get; }
 
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))

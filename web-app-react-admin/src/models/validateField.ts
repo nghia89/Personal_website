@@ -21,3 +21,11 @@ export const validateOrgVm = [
     { name: 'email', mess: 'Email' },
     { name: 'phone', mess: 'Số điện thoại' }
 ] as Array<ValidateVm>
+
+export const validateProductVm = [
+    { name: 'name', mess: 'tên sản phẩm' },
+    { name: 'code', mess: 'mã sản phẩm' },
+    { name: 'productCategoryId', mess: 'danh mục sản phẩm' },
+    { name: 'price', mess: 'giá sản phẩm' },
+    { name: 'originalPrice', mess: 'giá gốc sản phẩm' },
+] as Array<ValidateVm>

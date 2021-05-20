@@ -160,26 +160,26 @@ function ImageUploadCard(props: IProps) {
     }
 
 
-    function handleImageSearch(url) {
-        var filename = url.substring(url.lastIndexOf("/") + 1);
-        setSelectedFile(url)
+    function handleImageSearch(value) {
+        setSelectedFile(value)
     }
 
     function handleSeachClose() {
         setMainState("initial")
+        setSelectedFile('')
     };
 
     function renderSearchState() {
         return (
             <Paper className={classes.searchRoot} elevation={1}>
-                <InputBase className={classes.searchInput} placeholder="Image URL" />
-                <IconButton
+                <InputBase onChange={(e) => handleImageSearch(e.target.value)} className={classes.searchInput} placeholder="Image URL" />
+                {/* <IconButton
                     className={classes.button}
                     aria-label="Search"
                     onClick={handleImageSearch}
                 >
                     <SearchIcon />
-                </IconButton>
+                </IconButton> */}
                 <Divider className={classes.searchDivider} />
                 <IconButton
                     color="primary"
@@ -192,11 +192,6 @@ function ImageUploadCard(props: IProps) {
             </Paper>
         );
     }
-
-    function imageResetHandler() {
-        setMainState("initial")
-        setSelectedFile("")
-    };
 
     return (
         <React.Fragment>

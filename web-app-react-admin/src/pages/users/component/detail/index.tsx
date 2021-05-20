@@ -91,9 +91,9 @@ export default function UserDetail(props: IProps) {
         return <div className="pb-5 d-flex justify-content-between align-items-center">
             <h5 className="mr-5 font-weight-bold">Chi tiết User</h5>
             <div>
-                <button onClick={() => props.handleClose()} type="button" className="mr-3 btn btn-light">Đóng</button>
-                <button onClick={() => setStateInit(null, !state.isEdit)} type="button" className="mr-3 btn btn-primary">Chỉnh sửa</button>
-                <button disabled={state.isEdit} onClick={() => saveData()} type="button" className="mr-3 btn btn-primary">Lưu</button>
+                <button onClick={() => props.handleClose()} type="button" className="mr-3 hms-btn-button btn btn-light">Đóng</button>
+                <button onClick={() => setStateInit(null, !state.isEdit)} type="button" className="mr-3 hms-btn-button btn btn-primary">Chỉnh sửa</button>
+                <button disabled={state.isEdit} onClick={() => saveData()} type="button" className="mr-3 hms-btn-button btn btn-primary">Lưu</button>
             </div>
         </div>
     }

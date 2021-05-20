@@ -8,10 +8,12 @@ import { useNotification } from './notifications/notificationProvider'
 import DivTable from './divTable/index'
 import ImageUploadCard from './imageUploadCard'
 import Editor from './editor/index'
+import TreeViewCategory from './treeViewCategory'
 
 
 
 export {
     TableCenter, AlertDialogSlide, DrawerLayout, DatePickers, NotificationBox,
-    NotificationProvider, useNotification, DivTable, ImageUploadCard, Editor
+    NotificationProvider, useNotification, DivTable, ImageUploadCard, Editor,
+    TreeViewCategory
 };

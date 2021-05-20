@@ -4,33 +4,17 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { UploadImageForCKEditor } from '@/apis/baseApi';
 import './index.scss'
 import { env } from '@/environments/config';
-//import ImageResize from '@ckeditor/ckeditor5-image'
+//import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 
 interface IProps {
-    onChange: Function
+    onChange: Function,
+    data: string
 }
 export default function Editor(props: IProps) {
-
-    // function MyCustomUploadAdapterPlugin(editor) {
-    //     editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-    //         // Configure the URL to the upload script in your back-end here!
-    //         return new UploadAdapter(loader);
-    //     };
-    // }
-
-    // ClassicEditor
-    //     .create(document.querySelector('#editor'), {
-    //         extraPlugins: [MyCustomUploadAdapterPlugin],
-
-    //         // ...  
-    //     })
-    //     .catch(error => {
-    //         console.log(error);
-    //     });
     return (
         <CKEditor
             editor={ClassicEditor}
-            data="<p>Hello from CKEditor 5!</p>"
+            data={props.data}
             onReady={editor => {
                 // You can store the "editor" and use when it is needed.
                 console.log('Editor is ready to use!', editor);
@@ -40,14 +24,14 @@ export default function Editor(props: IProps) {
                 props.onChange(data)
             }}
             onBlur={(event, editor) => {
-                console.log('Blur.', editor);
+                //console.log('Blur.', editor);
             }}
             onFocus={(event, editor) => {
-                console.log('Focus.', editor);
+                //console.log('Focus.', editor);
             }}
             config={
                 {
-                    // plugins: [ Essentials ],
+                    //plugins: [CKFinder],
                     ckfinder: {
                         //plugins: [ImageResize],
                         uploadUrl: UploadImageForCKEditor,
@@ -56,10 +40,14 @@ export default function Editor(props: IProps) {
                             "Accept": 'application/json',
                             "Content-type": "application/json; charset=utf-8",
                             "Authorization": 'Bearer ' + getToken()
+                        },
+                        options: {
+                            resourceType: 'Images'
                         }
                     },
                     toolbar: {
                         items: [
+                            'mediaEmbed', '|', 'uploadImage',
                             'heading', '|',
                             'fontfamily', 'fontsize', '|',
                             'alignment', '|',
@@ -70,7 +58,7 @@ export default function Editor(props: IProps) {
                             'bulletedList', 'numberedList', 'todoList', '|',
                             'code', 'codeBlock', '|',
                             'insertTable', '|',
-                            'uploadImage', 'blockQuote', '|',
+                            'blockQuote', '|',
                             'undo', 'redo'
                         ],
                         shouldNotGroupWhenFull: true
@@ -82,6 +70,8 @@ export default function Editor(props: IProps) {
                             'full',
                             'alignLeft',
                             'alignRight',
+                            'side',
+                            'alignCenter',
                         ],
 
                     },

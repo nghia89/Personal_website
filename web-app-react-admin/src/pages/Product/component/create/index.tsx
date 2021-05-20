@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { TextField, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { TextField, makeStyles, createStyles, Theme, CircularProgress } from '@material-ui/core';
 import { ProductVM, UserVM } from '@/models/index';
-import { apiUser } from '@/apis/index';
-import { Editor, ImageUploadCard, useNotification } from '@/components/index'
-import { validateField } from '@/helpers/utils'
-import { validateUserVm } from '@/models/validateField';
+import { apiProduct } from '@/apis/index';
+import { Editor, ImageUploadCard, TreeViewCategory, useNotification } from '@/components/index'
+import { validateField, IsNullOrEmpty } from '@/helpers/utils'
+import { validateProductVm } from '@/models/validateField';
+import { green } from '@material-ui/core/colors';
 
 export interface IProps {
 
@@ -18,6 +19,13 @@ const useStyles = makeStyles((theme: Theme) =>
                 margin: theme.spacing(1)
             },
         },
+        fabProgress: {
+            color: green[500],
+            position: 'absolute',
+            top: -6,
+            left: -6,
+            zIndex: 1,
+        },
     }),
 );
 export default function ProductCreate(props: IProps) {
@@ -27,14 +35,15 @@ export default function ProductCreate(props: IProps) {
 
     const [formState, setFormState] = useState<ProductVM | null>(null)
     const [pathImage, setPathImage] = useState<string>("")
+    const [isLoadingImg, setisLoadingImg] = useState<Boolean>(false)
     useEffect(() => {
     }, [])
 
     async function saveData() {
         if (!validateFields()) {
-            await apiUser.create(formState).then((rsp) => {
+            await apiProduct.create(formState).then((rsp) => {
                 if (!rsp.isError) {
-                    dispatch('SUCCESS', 'Thêm user thành công.')
+                    dispatch('SUCCESS', 'Thêm sản phẩm thành công.')
                     // props.handleClose()
                     // props.handleReload()
                     return
@@ -46,15 +55,21 @@ export default function ProductCreate(props: IProps) {
 
 
     function handleUpload(isLoading, path) {
-        if (path != null) {
+        if (path != null && !isLoading) {
             setPathImage(path);
-        }
+            setisLoadingImg(false)
+            let newFormState: NewType = { ...formState };
+            newFormState['image'] = path;
+            setFormState(newFormState);
+        } else
+            setisLoadingImg(true)
     }
 
     function validateFields() {
-        let messError = validateField(validateUserVm, refs);
+        let messError = validateField(validateProductVm, refs);
         if (messError)
             dispatch('ERROR', messError)
+        else if (IsNullOrEmpty(pathImage)) dispatch('ERROR', "ảnh đại diện sản phẩm.")
         return messError
 
     }
@@ -78,10 +93,12 @@ export default function ProductCreate(props: IProps) {
         return <div className="pb-5 d-flex justify-content-between align-items-center">
             <h4 className="mr-5 text-dark font-weight-bold">Tạo mới sản phẩm</h4>
             <div>
-                <button onClick={async () => await saveData()} type="button" className="mr-3 btn btn-primary">Lưu</button>
+                <button onClick={async () => await saveData()} type="button" className="mr-3 hms-btn-button btn btn-primary">Lưu</button>
             </div>
         </div>
     }
+
+
     function renderContentGeneral() {
         return <div className="row pt-3 pb-3">
             <div className="col-2">
@@ -103,7 +120,8 @@ export default function ProductCreate(props: IProps) {
                 />
                 <div className="row">
                     <div className="col-6">
-                        <TextField
+                        <TreeViewCategory />
+                        {/* <TextField
                             required
                             inputRef={(r) => refs["productCategoryId"] = r}
                             label="Danh mục"
@@ -113,7 +131,7 @@ export default function ProductCreate(props: IProps) {
                             size="small"
                             className="form-control"
                             onChange={(e) => handleChange(e)}
-                        />
+                        /> */}
                     </div>
                     <div className="col-6">
                         <TextField
@@ -170,7 +188,13 @@ export default function ProductCreate(props: IProps) {
                         />
                     </div>
                     <div className="col-6">
-                        <img width={450} src={pathImage} />
+                        {
+                            isLoadingImg ?
+                                <CircularProgress size={68} className={classes.fabProgress} />
+                                :
+                                <img width={450} src={pathImage} />
+
+                        }
                     </div>
                 </div>
             </div>
@@ -187,12 +211,12 @@ export default function ProductCreate(props: IProps) {
             <div className="col-10">
                 <div className="pb-2">
                     <label className="ml-2 ">Mô tả ngắn</label>
-                    <Editor onChange={(data) => handleOnchangeEditor("description", data)} />
+                    <Editor data="" onChange={(data) => handleOnchangeEditor("description", data)} />
 
                 </div>
                 <div>
-                    <label className="ml-2 ">Mô tả sản phẩm"</label>
-                    <Editor onChange={(data) => handleOnchangeEditor("content", data)} />
+                    <label className="ml-2 ">Mô tả sản phẩm</label>
+                    <Editor data="" onChange={(data) => handleOnchangeEditor("content", data)} />
 
                 </div>
             </div>
@@ -202,48 +226,33 @@ export default function ProductCreate(props: IProps) {
         return <div className="row pt-3 pb-3">
             <div className="col-2">
                 <h6 className="font-weight-bold">SEO từ khoá</h6>
-
             </div>
             <div className="col-10">
                 <TextField
-                    required
-                    inputRef={(r) => refs["firstName"] = r}
-                    label="SEO title"
-                    name="firstName"
-                    value={formState?.name}
+                    //inputRef={(r) => refs["seoAlias"] = r}
+                    label="SEO Alias"
+                    name="seoAlias"
+                    value={formState?.seoAlias}
                     variant="outlined"
                     size="small"
                     className="form-control"
                     onChange={(e) => handleChange(e)}
                 />
                 <TextField
-                    required
-                    inputRef={(r) => refs["firstName"] = r}
-                    label="SEO Url"
-                    name="firstName"
-                    value={formState?.name}
-                    variant="outlined"
-                    size="small"
-                    className="form-control"
-                    onChange={(e) => handleChange(e)}
-                />
-                <TextField
-                    required
-                    inputRef={(r) => refs["firstName"] = r}
+                    //inputRef={(r) => refs["seoKeywords"] = r}
                     label="SEO Keywords"
-                    name="firstName"
-                    value={formState?.name}
+                    name="seoKeywords"
+                    value={formState?.seoKeywords}
                     variant="outlined"
                     size="small"
                     className="form-control"
                     onChange={(e) => handleChange(e)}
                 />
                 <TextField
-                    required
-                    inputRef={(r) => refs["firstName"] = r}
+                    //inputRef={(r) => refs["seoDescription"] = r}
                     label="SEO Description"
-                    name="firstName"
-                    value={formState?.name}
+                    name="seoDescription"
+                    value={formState?.seoDescription}
                     variant="outlined"
                     size="small"
                     className="form-control"

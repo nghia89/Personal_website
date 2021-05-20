@@ -9,7 +9,10 @@
 .cursor{
     cursor: pointer;
 }
-
+.hms-btn-button{
+    min-width: 90px;
+    font-weight: 500;
+}
 
 .notification-wrapper {
     position: fixed;
@@ -34,7 +37,9 @@
     float: right;
     width: 30px;
     height: 30px;
-    text-align: center;}
+    cursor: pointer;
+    text-align: center;
+}
 
 @keyframes SlideLeft {
     0% {
