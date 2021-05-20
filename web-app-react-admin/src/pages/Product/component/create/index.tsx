@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { TextField, makeStyles, createStyles, Theme, CircularProgress } from '@material-ui/core';
 import { ProductVM, UserVM } from '@/models/index';
 import { apiProduct } from '@/apis/index';
-import { Editor, ImageUploadCard, useNotification } from '@/components/index'
+import { Editor, ImageUploadCard, TreeViewCategory, useNotification } from '@/components/index'
 import { validateField, IsNullOrEmpty } from '@/helpers/utils'
 import { validateProductVm } from '@/models/validateField';
 import { green } from '@material-ui/core/colors';
@@ -120,7 +120,8 @@ export default function ProductCreate(props: IProps) {
                 />
                 <div className="row">
                     <div className="col-6">
-                        <TextField
+                        <TreeViewCategory />
+                        {/* <TextField
                             required
                             inputRef={(r) => refs["productCategoryId"] = r}
                             label="Danh mục"
@@ -130,7 +131,7 @@ export default function ProductCreate(props: IProps) {
                             size="small"
                             className="form-control"
                             onChange={(e) => handleChange(e)}
-                        />
+                        /> */}
                     </div>
                     <div className="col-6">
                         <TextField
@@ -214,7 +215,7 @@ export default function ProductCreate(props: IProps) {
 
                 </div>
                 <div>
-                    <label className="ml-2 ">Mô tả sản phẩm"</label>
+                    <label className="ml-2 ">Mô tả sản phẩm</label>
                     <Editor data="" onChange={(data) => handleOnchangeEditor("content", data)} />
 
                 </div>
