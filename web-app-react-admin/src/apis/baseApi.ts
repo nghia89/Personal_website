@@ -8,6 +8,7 @@ const baseApiPermission = 'permissions/';
 const baseApiFunctions = 'functions/';
 const baseApiProduct = 'products/';
 const baseApiUpload = 'uploadFiles/';
+const baseApiProductCategory = 'productCategory/';
 
 export const UploadImageForCKEditor = `${env.baseApiUrl}/api/${baseApiUpload}upload_image_ckeditor`;
 
@@ -52,4 +53,13 @@ export const apiProduct = {
     update: async (id: string, body: any) => { return await PUT(`${baseApiProduct}update/${id}`, body) },
     delete: async (id: string) => { return await DELETE(`${baseApiProduct}` + id) }
 }
+
+export const apiProductCategory = {
+    getPaging: async (param: string) => { return await GET(`${baseApiProductCategory}paging` + param) },
+    getById: async (id: string) => { return await GET(`${baseApiProductCategory}get/` + id) },
+    create: async (body: any) => { return await POST(`${baseApiProductCategory}add`, body) },
+    update: async (id: string, body: any) => { return await PUT(`${baseApiProductCategory}update/${id}`, body) },
+    delete: async (id: string) => { return await DELETE(`${baseApiProductCategory}` + id) }
+}
+
 

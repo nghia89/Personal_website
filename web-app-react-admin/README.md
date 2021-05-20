@@ -14,3 +14,12 @@
 ### html-webpack-plugin: Giúp clone ra 1 file index.html từ file html ban đầu
 ### mini-css-extract-plugin: Bình thường thì css sẽ nằm trong file js sau khi build. Và khi chạy app thì js sẽ thêm các đoạn css đó vào thẻ <style></style>. Bây giờ mình không muốn như vậy, mình muốn css phải nằm ở file riêng biệt với js và khi chạy app thì js sẽ tự import bằng thẻ <link>. Đó là chức năng của plugin này
 ### webpack-bundle-analyzer: Giúp bạn phân tích bản build, coi thử thư viện nào đang chiếm bao nhiêu % bản build
+
+
+
+### fix yarn install
+    Step 1: open windows powerShell admin
+    
+    Step 2: Get-ExecutionPolicy
+    Step 3: Set-ExecutionPolicy Unrestricted
+    Step 4: Get-ExecutionPolicy

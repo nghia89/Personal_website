@@ -95,6 +95,8 @@ export default function TableCenter(props: IProps) {
             return <TableCell key={"r_cel" + index} align="center">{formatDate(value, null)}</TableCell>
         else if (type === "dateTime")
             return <TableCell key={"r_cel" + index} align="center">{formatDate(value, 'DD/MM/YYYY HH:MM')}</TableCell>
+            else if (type === "status")
+            return <TableCell key={"r_cel" + index} align="center">'status'</TableCell>
         else return <TableCell key={"r_cel" + index} align="center">{value}</TableCell>
     }
 

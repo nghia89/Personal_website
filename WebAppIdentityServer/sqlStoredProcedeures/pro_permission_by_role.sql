@@ -15,10 +15,10 @@ BEGIN
 				sum(case when c.Id = 'DELETE' then 1 else 0 end) as HasDelete,
 				sum(case when c.Id = 'VIEW' then 1 else 0 end) as HasView
                 
-			from inns_managerial_dev.functions f 
-					join inns_managerial_dev.permissions pr on f.Id = pr.FunctionId
-					left join inns_managerial_dev.commands c on pr.CommandId = c.Id
-					left join inns_managerial_dev.approles r on pr.AppRoleId=r.Id
+			from db_heomayshop.functions f 
+					join db_heomayshop.permissions pr on f.Id = pr.FunctionId
+					left join db_heomayshop.commands c on pr.CommandId = c.Id
+					left join db_heomayshop.approles r on pr.AppRoleId=r.Id
                              
 			where pr.AppRoleId = roleId
 			GROUP BY f.Id, f.ParentId; 

@@ -50,6 +50,8 @@ namespace WebAppIdentityServer.Api.Controllers
 
         [HttpPut]
         [Route("update")]
+
+         
         [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.UPDATE)]
         [ApiValidationFilter]
         public async Task<IActionResult> Put([FromBody] ProductVM model)

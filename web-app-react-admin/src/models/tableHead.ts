@@ -1,7 +1,7 @@
 export interface ITableHead {
     name: string,
     fieldName: string,
-    type: 'date' | 'dateTime' | 'stt'
+    type: 'date' | 'dateTime' | 'stt' | 'status'
 }
 
 
@@ -32,4 +32,11 @@ export const tableHeadProduct = [
 export const tableHeadRoleToFunc = [
     { name: 'Tên', fieldName: 'name' },
     { name: 'Mô tả', fieldName: 'description' },
+] as Array<ITableHead>;
+
+
+export const tableHeadCategory = [
+    { name: 'stt', fieldName: 'stt', type: 'stt' },
+    { name: 'Tên', fieldName: 'fullName' },
+    { name: 'Trạng thái', fieldName: 'status' },
 ] as Array<ITableHead>;

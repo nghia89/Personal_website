@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Business.Interfaces;
+using WebAppIdentityServer.ViewModel.Models.Product;
 
 namespace WebAppIdentityServer.Api.Controllers
 {
@@ -28,7 +29,23 @@ namespace WebAppIdentityServer.Api.Controllers
             return new OkObjectResult(data);
         }
 
-        #endregion
+        [HttpPost]
+        [Route("internal/add_product_cate")]
+        [AllowAnonymous]
+        public async Task<ActionResult> Add([FromBody] ProductCategoryVM category)
+        {
+            var data = await _productCategoryBus.Add(category);
+            return new OkObjectResult(data);
+        }
 
+        [HttpPut]
+        [Route("internal/update_product_cate")]
+        [AllowAnonymous]
+        public async Task Update([FromBody] ProductCategoryVM category)
+        {
+            await _productCategoryBus.Update(category);
+        }
+
+        #endregion
     }
 }
