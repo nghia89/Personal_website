@@ -8,7 +8,9 @@ using WebAppIdentityServer.Business.Mappers;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Repository.Interfaces;
+using WebAppIdentityServer.Utilities;
 using WebAppIdentityServer.Utilities.Enum;
+using WebAppIdentityServer.Utilities.Helpers;
 using WebAppIdentityServer.ViewModel.Models.Product;
 
 namespace WebAppIdentityServer.Business.Implementation
@@ -67,6 +69,27 @@ namespace WebAppIdentityServer.Business.Implementation
             var productCategory = productCategoryVm.ToEntity();
             await _productCategoryRep.UpdateAsync(productCategory, productCategory.Id);
             await _unitOfWork.CommitAsync();
+        }
+
+        public async Task<IEnumerable<TreeItem<ProductCategory>>> TreeView()
+        {
+            var data = await _productCategoryRep.FindAllAsync(x => x.Status == Status.Active, null);
+            IEnumerable<ProductCategory> enumList = data.OrderBy(x => x.SortOrder).ToList();
+            var root = GenerateTreeCate(enumList, 0);
+            return root.ToList();
+        }
+
+        public IEnumerable<TreeItem<ProductCategory>> GenerateTreeCate(
+           IEnumerable<ProductCategory> collection, long id)
+        {
+            foreach (var c in collection.Where(x => x.ParentId == id))
+            {
+                yield return new TreeItem<ProductCategory>
+                {
+                    Item = c,
+                    Children = GenerateTreeCate(collection, c.Id)
+                };
+            }
         }
     }
 }

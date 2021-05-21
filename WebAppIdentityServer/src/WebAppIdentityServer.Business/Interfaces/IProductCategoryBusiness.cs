@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebAppIdentityServer.Data.EF.Entities;
+using WebAppIdentityServer.Utilities;
 using WebAppIdentityServer.ViewModel.Models.Product;
 
 namespace WebAppIdentityServer.Business.Interfaces
@@ -17,5 +19,7 @@ namespace WebAppIdentityServer.Business.Interfaces
         Task<List<ProductCategoryVM>> GetAllByParentId(long parentId);
 
         Task<ProductCategoryVM> GetById(long id);
+
+        Task<IEnumerable<TreeItem<ProductCategory>>> TreeView();
     }
 }

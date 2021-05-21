@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAppIdentityServer.Api.Authorization;
 using WebAppIdentityServer.Business.Interfaces;
+using WebAppIdentityServer.Utilities.Constants;
 using WebAppIdentityServer.ViewModel.Models.Product;
 
 namespace WebAppIdentityServer.Api.Controllers
@@ -19,6 +21,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
         [HttpGet]
         [Route("getall")]
+        [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.VIEW)]
         public async Task<ActionResult> GetProductCategory()
         {
             var data = await _productCategoryBus.GetAll(null);
@@ -27,6 +30,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
         [HttpPost]
         [Route("add")]
+        [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.CREATE)]
         public async Task<ActionResult> Add([FromBody] ProductCategoryVM category)
         {
             var data = await _productCategoryBus.Add(category);
@@ -35,9 +39,20 @@ namespace WebAppIdentityServer.Api.Controllers
 
         [HttpPut]
         [Route("update")]
+        [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.UPDATE)]
         public async Task Update([FromBody] ProductCategoryVM category)
         {
             await _productCategoryBus.Update(category);
+        }
+
+
+        [HttpPut]
+        [Route("treeview")]
+        [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.VIEW)]
+        public async Task<ActionResult> TreeView([FromBody] ProductCategoryVM category)
+        {
+            var data = await _productCategoryBus.TreeView();
+            return Ok(data);
         }
     }
 }

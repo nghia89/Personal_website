@@ -18,7 +18,7 @@ namespace WebAppIdentityServer.Business.Mappers
                 return new ProductCategoryVM
                 {
                     Description = model.Description,
-                    HomeOrder = model.HomeOrder,
+                    SortOrder = model.SortOrder,
                     Id = model.Id,
                     Image = model.Image,
                     Name = model.Name,
@@ -43,7 +43,7 @@ namespace WebAppIdentityServer.Business.Mappers
                 return new ProductCategory
                 {
                     Description = model.Description,
-                    HomeOrder = model.HomeOrder,
+                    SortOrder = model.SortOrder,
                     Id = model.Id,
                     Image = model.Image,
                     Name = model.Name,

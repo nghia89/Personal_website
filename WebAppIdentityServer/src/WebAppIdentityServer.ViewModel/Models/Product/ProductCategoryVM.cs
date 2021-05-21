@@ -9,7 +9,7 @@ namespace WebAppIdentityServer.ViewModel.Models.Product
         public string Name { get; set; }
         public string Description { get; set; }
         public long? ParentId { get; set; }
-        public int? HomeOrder { get; set; }
+        public int SortOrder { get; set; }
         public string Image { get; set; }
         public Status Status { set; get; }
         public string SeoAlias { set; get; }
