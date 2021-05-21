@@ -17,12 +17,8 @@ namespace WebAppIdentityServer.Api.Controllers
             this._productCategoryBus = productCategoryBus;
         }
 
-
-        #region  api internal
-
         [HttpGet]
-        [Route("internal/get_product_cate")]
-        [AllowAnonymous]
+        [Route("getall")]
         public async Task<ActionResult> GetProductCategory()
         {
             var data = await _productCategoryBus.GetAll(null);
@@ -30,8 +26,7 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpPost]
-        [Route("internal/add_product_cate")]
-        [AllowAnonymous]
+        [Route("add")]
         public async Task<ActionResult> Add([FromBody] ProductCategoryVM category)
         {
             var data = await _productCategoryBus.Add(category);
@@ -39,13 +34,10 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpPut]
-        [Route("internal/update_product_cate")]
-        [AllowAnonymous]
+        [Route("update")]
         public async Task Update([FromBody] ProductCategoryVM category)
         {
             await _productCategoryBus.Update(category);
         }
-
-        #endregion
     }
 }
