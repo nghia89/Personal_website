@@ -1,11 +1,8 @@
-import { AlertDialogSlide, TableCenter, TableCenter, useNotification } from '@/components';
+import { AlertDialogSlide, TableCenter, useNotification } from '@/components';
 import { commandId, functionId } from '@/constants/utilConstant';
 import { tableHeadProduct, tableHeadUser } from '@/models/tableHead';
 import { CircularProgress, TextField, Select, MenuItem } from '@material-ui/core';
-import { Select } from '@material-ui/core';
-import { functionId } from '@/constants/utilConstant';
 import { tableHeadCategory } from '@/models/tableHead';
-import { CircularProgress, TextField, Select, MenuItem } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 
 import './index.scss'

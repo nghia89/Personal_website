@@ -59,7 +59,8 @@ export const apiProductCategory = {
     getById: async (id: string) => { return await GET(`${baseApiProductCategory}get/` + id) },
     create: async (body: any) => { return await POST(`${baseApiProductCategory}add`, body) },
     update: async (id: string, body: any) => { return await PUT(`${baseApiProductCategory}update/${id}`, body) },
-    delete: async (id: string) => { return await DELETE(`${baseApiProductCategory}` + id) }
+    delete: async (id: string) => { return await DELETE(`${baseApiProductCategory}` + id) },
+    treeViewCate: async () => { return await GET(`${baseApiProductCategory}treeview`) }
 }
 
 

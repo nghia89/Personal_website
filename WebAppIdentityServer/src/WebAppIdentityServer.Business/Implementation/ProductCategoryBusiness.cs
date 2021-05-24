@@ -75,21 +75,8 @@ namespace WebAppIdentityServer.Business.Implementation
         {
             var data = await _productCategoryRep.FindAllAsync(x => x.Status == Status.Active, null);
             IEnumerable<ProductCategory> enumList = data.OrderBy(x => x.SortOrder).ToList();
-            var root = GenerateTreeCate(enumList, 0);
+            var root = enumList.GenerateTree(c => c.Id, c => c.ParentId, 0);
             return root.ToList();
-        }
-
-        public IEnumerable<TreeItem<ProductCategory>> GenerateTreeCate(
-           IEnumerable<ProductCategory> collection, long id)
-        {
-            foreach (var c in collection.Where(x => x.ParentId == id))
-            {
-                yield return new TreeItem<ProductCategory>
-                {
-                    Item = c,
-                    Children = GenerateTreeCate(collection, c.Id)
-                };
-            }
         }
     }
 }

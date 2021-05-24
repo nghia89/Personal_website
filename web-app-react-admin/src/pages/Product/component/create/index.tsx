@@ -52,7 +52,11 @@ export default function ProductCreate(props: IProps) {
         }
     }
 
-
+    function handleOnchangeValue(value, name) {
+        let newFormState: NewType = { ...formState };
+        newFormState[name] = value;
+        setFormState(newFormState);
+    }
 
     function handleUpload(isLoading, path) {
         if (path != null && !isLoading) {
@@ -91,7 +95,7 @@ export default function ProductCreate(props: IProps) {
 
     function renderHeader() {
         return <div className="pb-5 d-flex justify-content-between align-items-center">
-            <h4 className="mr-5 text-dark font-weight-bold">Tạo mới sản phẩm</h4>
+            <h4 className="mr-5 color-black font-weight-bold">Tạo mới sản phẩm</h4>
             <div>
                 <button onClick={async () => await saveData()} type="button" className="mr-3 hms-btn-button btn btn-primary">Lưu</button>
             </div>
@@ -102,7 +106,7 @@ export default function ProductCreate(props: IProps) {
     function renderContentGeneral() {
         return <div className="row pt-3 pb-3">
             <div className="col-2">
-                <h6 className="font-weight-bold">Nội dung chung</h6>
+                <h6 className="color-black font-weight-bold">Nội dung chung</h6>
 
             </div>
             <div className="col-10">
@@ -120,18 +124,10 @@ export default function ProductCreate(props: IProps) {
                 />
                 <div className="row">
                     <div className="col-6">
-                        <TreeViewCategory />
-                        {/* <TextField
-                            required
-                            inputRef={(r) => refs["productCategoryId"] = r}
-                            label="Danh mục"
-                            name="productCategoryId"
-                            value={formState?.productCategoryId}
-                            variant="outlined"
-                            size="small"
-                            className="form-control"
-                            onChange={(e) => handleChange(e)}
-                        /> */}
+                        <TreeViewCategory
+                            handleOnchange={(value) => handleOnchangeValue(value, 'productCategoryId')}
+                            dataValue={formState?.productCategoryId}
+                        />
                     </div>
                     <div className="col-6">
                         <TextField
@@ -182,7 +178,7 @@ export default function ProductCreate(props: IProps) {
                 <div className="row card_select_image" >
 
                     <div className="col-6">
-                        <h6>Ảnh đại diện *</h6>
+                        <h6 className="color-black">Ảnh đại diện *</h6>
                         <ImageUploadCard
                             handleUpload={(isLoading, listPath) => handleUpload(isLoading, listPath)}
                         />
@@ -205,17 +201,17 @@ export default function ProductCreate(props: IProps) {
     function renderContentProduct() {
         return <div className="row  pt-3 pb-3">
             <div className="col-2">
-                <h6 className="font-weight-bold">Mô tả sản phẩm</h6>
+                <h6 className="color-black font-weight-bold">Mô tả sản phẩm</h6>
 
             </div>
             <div className="col-10">
                 <div className="pb-2">
-                    <label className="ml-2 ">Mô tả ngắn</label>
+                    <label className="color-black ml-2 ">Mô tả ngắn</label>
                     <Editor data="" onChange={(data) => handleOnchangeEditor("description", data)} />
 
                 </div>
                 <div>
-                    <label className="ml-2 ">Mô tả sản phẩm</label>
+                    <label className="color-black ml-2 ">Mô tả sản phẩm</label>
                     <Editor data="" onChange={(data) => handleOnchangeEditor("content", data)} />
 
                 </div>
@@ -225,7 +221,7 @@ export default function ProductCreate(props: IProps) {
     function renderContentSeo() {
         return <div className="row pt-3 pb-3">
             <div className="col-2">
-                <h6 className="font-weight-bold">SEO từ khoá</h6>
+                <h6 className="color-black font-weight-bold">SEO từ khoá</h6>
             </div>
             <div className="col-10">
                 <TextField

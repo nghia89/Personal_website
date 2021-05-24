@@ -46,13 +46,13 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
 
-        [HttpPut]
+        [HttpGet]
         [Route("treeview")]
         [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.VIEW)]
-        public async Task<ActionResult> TreeView([FromBody] ProductCategoryVM category)
+        public async Task<ActionResult> TreeView()
         {
             var data = await _productCategoryBus.TreeView();
-            return Ok(data);
+            return new OkObjectResult(data);
         }
     }
 }
