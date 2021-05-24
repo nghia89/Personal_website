@@ -11,13 +11,17 @@ import { apiProductCategory } from '@/apis/index'
 import './index.scss'
 import { TreeCateItem } from '@/models';
 import { Skeleton } from '@material-ui/lab';
+import TreeNode from './treeNode'
 const useStylesTree = makeStyles({
     root: {
         minHeight: 200,
         flexGrow: 1,
         minWidth: 400,
         maxWidth: 800,
-        color: '#212121'
+        color: '#212121',
+        margin: 0,
+        padding: 0,
+        listStyle: 'none',
     },
 });
 
@@ -126,7 +130,7 @@ export default function TreeViewCategory(props: IProps) {
             </div >
         }
     }
-    let classShowDropdown = `dropdown-menu-custom dropdown-menu  animate slideIn  ${isShowDropdown ? 'show' : ""}`
+    let classShowDropdown = `dropdown-menu-custom dropdown-menu p-2  animate slideIn  ${isShowDropdown ? 'show' : ""}`
     return (
         <div className="treeView_wraper">
             <div className="treeView_wraper_input d-flex">
@@ -139,7 +143,17 @@ export default function TreeViewCategory(props: IProps) {
                 </div>
             </div>
             <div className={classShowDropdown} >
-                <TreeView
+                <ul className={classesTree.root}>
+                    {data.map((item, index) => {
+                        return <TreeNode
+                            item={item.item}
+                            children={item.children}
+                        />
+                    })}
+                </ul>
+
+
+                {/* <TreeView
                     color="text.primary"
                     className={classesTree.root}
                     defaultCollapseIcon={<ExpandMoreIcon />}
@@ -153,7 +167,7 @@ export default function TreeViewCategory(props: IProps) {
                         {renderContent()}
                     </div>
 
-                </TreeView>
+                </TreeView> */}
             </div>
         </div>
 
