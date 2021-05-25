@@ -16,6 +16,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 interface IProps {
     item: CategoryVM
     children: Array<TreeCateItem>
+    key: string
 }
 
 
@@ -31,29 +32,30 @@ export default function TreeNode(props: IProps) {
             })}
         </React.Fragment>
     }
-    function renderExpan(nodeId: number) {
+    function renderExpan(nodeId: number, isExpand) {
         let idCollap = `multiCollapse${nodeId}`
-        return <div data-target={`#${idCollap}`} role="button" aria-expanded="false" data-toggle="collapse" aria-controls={idCollap} >
+        return <div onClick={() => setExpanded(expanded == nodeId ? 0 : nodeId)} data-target={`#${idCollap}`} role="button" aria-expanded={isExpand} data-toggle="collapse" aria-controls={idCollap} >
             {
-                (expanded === nodeId) ? <ExpandMoreIcon />
-                    : <NavigateNextIcon />
+                (isExpand) ? <ExpandMoreIcon /> : <NavigateNextIcon />
             }
         </div >
     }
 
     function renderContent(node: CategoryVM, children: Array<TreeCateItem>) {
+        let isExpand = expanded == node.id ? true : false;
+        let expanClass = `cate-treeItem-group MuiCollapse-container collapse ${isExpand ? 'show' : ''}`
         return <React.Fragment>
             {
-                <li className="cate-treeItem-root">
+                <li key={props.key} className="cate-treeItem-root">
                     <div className="cate-treeItem-content">
-                        <div className="cate-treeItem-iconContainer" >
-                            {children[0] && renderExpan(node.id)}
+                        <div className="cate-treeItem-iconContainer"  >
+                            {children[0] && renderExpan(node.id, isExpand)}
                         </div>
                         <div className="cate-treeItem-label cate-typography-body1">
                             {node.name}
                         </div>
                     </div>
-                    <ul className="cate-treeItem-group MuiCollapse-container collapse" id={`multiCollapse${node.id}`}>
+                    <ul className={expanClass} id={`multiCollapse${node.id}`}>
                         {TreeItem(children)}
                     </ul>
                 </li>

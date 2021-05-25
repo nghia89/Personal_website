@@ -146,6 +146,7 @@ export default function TreeViewCategory(props: IProps) {
                 <ul className={classesTree.root}>
                     {data.map((item, index) => {
                         return <TreeNode
+                            key={`node${index}`}
                             item={item.item}
                             children={item.children}
                         />
