@@ -26,8 +26,13 @@ const useStylesTree = makeStyles({
 });
 
 interface IProps {
-    dataValue?: Number
+    dataValue?: number
     handleOnchange: Function
+}
+
+interface ItemSelect {
+    id: number
+    name: string
 }
 
 let isFirst = false;
@@ -35,44 +40,21 @@ let isFirst = false;
 export default function TreeViewCategory(props: IProps) {
 
     const classesTree = useStylesTree();
-    const [expanded, setExpanded] = React.useState<string[]>([]);
-    const [selected, setSelected] = React.useState<string>('');
     const [data, setData] = React.useState<TreeCateItem[]>([]);
+    const [selected, setSelected] = React.useState<ItemSelect>();
     const [isShowDropdown, setShowDropdown] = React.useState<boolean>(false);
-    const [isLoading, setIsLoading] = React.useState<Boolean>(true);
 
     useEffect(() => {
         isFirst = false
         handleCallData()
     }, [])
 
-    useEffect(() => {
-        if (props.dataValue) {
-            console.log(props.dataValue);
-            setSelected(props.dataValue.toString())
 
-        }
-        else setSelected('')
-    }, [props.dataValue])
-
-    useEffect(() => {
-        if (isFirst)
-            handleCheckSelectNode()
-        isFirst = true
-    }, [expanded])
-
-    const handleToggle = (event: React.ChangeEvent<{}>, nodeIds: string[]) => {
-        if (nodeIds.length > 0)
-            setExpanded(nodeIds);
-    };
-
-    const handleSelect = (event: React.ChangeEvent<{}>, nodeIds: string[]) => {
-        setSelected(nodeIds[0]);
-    };
-
-    function handleCheckSelectNode() {
+    function handleCheckSelectNode(item) {
         setShowDropdown(false)
-        props.handleOnchange(selected)
+        props.handleOnchange(item.id)
+
+        setSelected({ id: item.id, name: item.name })
     }
     async function handleShowDropdown() {
         setShowDropdown(!isShowDropdown);
@@ -84,59 +66,17 @@ export default function TreeViewCategory(props: IProps) {
             await apiProductCategory.treeViewCate().then((rsp) => {
                 if (!rsp.isError) {
                     setData(rsp)
-                    setIsLoading(false)
-                } else setIsLoading(false)
+                }
             })
     }
-    function renderChild(item: Array<TreeCateItem>) {
-        return item.map((itemChild) => {
-            return <TreeItem color="text.primary" nodeId={itemChild.item.id.toString()} label={itemChild.item.name} >
-                {renderChild(itemChild.children)}
-            </TreeItem>
-        })
-    }
 
-
-    function renderContent() {
-        if (isLoading) {
-            return <div>
-                <Typography variant="h3">
-                    <Skeleton />
-                </Typography>
-                <Typography variant="h2">
-                    <Skeleton />
-                </Typography>
-                <Typography variant="caption">
-                    <Skeleton />
-                </Typography>
-                <Typography variant="caption">
-                    <Skeleton />
-                </Typography>
-                <Typography variant="caption">
-                    <Skeleton />
-                </Typography>
-            </div>
-        }
-        else {
-            return <div>
-                {
-                    data.map((item, index) => {
-                        let itemCate = item.item;
-                        return <TreeItem color="text.primary" nodeId={itemCate.id.toString()} label={itemCate.name}>
-                            {renderChild(item.children)}
-                        </TreeItem>
-                    })
-                }
-            </div >
-        }
-    }
     let classShowDropdown = `dropdown-menu-custom dropdown-menu p-2  animate slideIn  ${isShowDropdown ? 'show' : ""}`
     return (
         <div className="treeView_wraper">
             <div className="treeView_wraper_input d-flex">
                 <div style={{ display: 'contents' }}
                     onClick={() => handleShowDropdown()}>
-                    <input placeholder="Chọn danh mục" value="" />
+                    <input placeholder="Chọn danh mục" value={selected?.name} />
                 </div>
                 <div onClick={() => handleShowDropdown()} className="cursor-pointer treeView-icon-drop">
                     <ArrowDropDownIcon />
@@ -151,6 +91,8 @@ export default function TreeViewCategory(props: IProps) {
                                 key={`node${index}`}
                                 item={item.item}
                                 children={item.children}
+                                handleSetSelected={(item) => handleCheckSelectNode(item)}
+                                selected={props.dataValue}
                             />
                         })}
                     </ul>

@@ -1,18 +1,18 @@
 export interface ProductVM {
-    id?: Number
-    name?: String
-    image?: String
-    price?: Number
-    code?: String
-    originalPrice?: Number
-    description?: String
-    content?: String
-    ViewCount?: Number
-    tags?: String
-    seoAlias?: String
-    seoKeywords?: String
-    seoDescription?: String
-    productCategoryId?: Number
-    productCategoryName?: Number
-    status?: Number
+    id?: number
+    name?: string
+    image?: string
+    price?: number
+    code?: string
+    originalPrice?: number
+    description?: string
+    content?: string
+    ViewCount?: number
+    tags?: string
+    seoAlias?: string
+    seoKeywords?: string
+    seoDescription?: string
+    productCategoryId?: number
+    productCategoryName?: number
+    status?: number
 }

@@ -16,14 +16,14 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 interface IProps {
     item: CategoryVM
     children: Array<TreeCateItem>
-    key: string
+    key: string,
+    handleSetSelected: Function
+    selected?: number
 }
 
-let refExpan: any = null;
 export default function TreeNode(props: IProps) {
 
     const [expanded, setExpanded] = React.useState<number[]>([]);
-    const [selected, setSelected] = React.useState<number>(0);
 
     function TreeItem(children: Array<TreeCateItem>) {
         return <React.Fragment>
@@ -42,6 +42,10 @@ export default function TreeNode(props: IProps) {
         } else setExpanded([...expanded, nodeId])
 
     }
+    function handleCheckSelect(node: CategoryVM, isSelect) {
+        if (isSelect) handleSetExpan(node.id)
+        else props.handleSetSelected({ id: node.id, name: node.name })
+    }
 
     function renderExpan(nodeId: number, isExpand) {
         return <div onClick={() => handleSetExpan(nodeId)} >
@@ -50,17 +54,18 @@ export default function TreeNode(props: IProps) {
             }
         </div >
     }
-
     function renderContent(node: CategoryVM, children: Array<TreeCateItem>, key: string) {
         let isExpand = expanded.includes(node.id) ? true : false;
+        let isChild = (children[0] != undefined) ? true : false;
+        let itemRootClass = `cate-treeItem-root${props.selected == node.id ? ' cate-tree-selected' : ''}`
         return <React.Fragment>
             {
-                <li key={key} className="cate-treeItem-root">
+                <li key={key} className={itemRootClass}>
                     <div className="cate-treeItem-content">
                         <div className="cate-treeItem-iconContainer"  >
-                            {children[0] && renderExpan(node.id, isExpand)}
+                            {isChild && renderExpan(node.id, isExpand)}
                         </div>
-                        <div className="cate-treeItem-label cate-typography-body1">
+                        <div onClick={() => handleCheckSelect(node, isChild)} className="cate-treeItem-label cate-typography-body1">
                             {node.name}
                         </div>
                     </div>

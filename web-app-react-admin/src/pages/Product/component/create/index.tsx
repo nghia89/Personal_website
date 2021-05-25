@@ -73,7 +73,9 @@ export default function ProductCreate(props: IProps) {
         let messError = validateField(validateProductVm, refs);
         if (messError)
             dispatch('ERROR', messError)
-        else if (IsNullOrEmpty(pathImage)) dispatch('ERROR', "ảnh đại diện sản phẩm.")
+        else if (!formState?.productCategoryId)
+            dispatch('ERROR', 'Vui lòng chọn danh mục sản phẩm')
+        else if (IsNullOrEmpty(pathImage)) dispatch('ERROR', "Vui lòng thêm ảnh đại diện sản phẩm.")
         return messError
 
     }
@@ -122,7 +124,7 @@ export default function ProductCreate(props: IProps) {
                     className="form-control"
                     onChange={(e) => handleChange(e)}
                 />
-                <div className="row">
+                <div className="row align-items-center">
                     <div className="col-6">
                         <TreeViewCategory
                             handleOnchange={(value) => handleOnchangeValue(value, 'productCategoryId')}
@@ -131,10 +133,9 @@ export default function ProductCreate(props: IProps) {
                     </div>
                     <div className="col-6">
                         <TextField
-                            required
-                            inputRef={(r) => refs["code"] = r}
                             label="Mã sp"
                             name="code"
+                            disabled
                             value={formState?.code}
                             variant="outlined"
                             size="small"
