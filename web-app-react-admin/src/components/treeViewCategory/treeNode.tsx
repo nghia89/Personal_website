@@ -4,7 +4,7 @@ import TreeView from '@material-ui/lab/TreeView';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
 import FormControl from '@material-ui/core/FormControl';
-import { InputBase, InputLabel, Typography } from '@material-ui/core';
+import { Collapse, InputBase, InputLabel, Typography } from '@material-ui/core';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { apiProductCategory } from '@/apis/index'
@@ -19,34 +19,43 @@ interface IProps {
     key: string
 }
 
-
+let refExpan: any = null;
 export default function TreeNode(props: IProps) {
 
-    const [expanded, setExpanded] = React.useState<number>(0);
+    const [expanded, setExpanded] = React.useState<number[]>([]);
     const [selected, setSelected] = React.useState<number>(0);
 
     function TreeItem(children: Array<TreeCateItem>) {
         return <React.Fragment>
             {children.map((item, index) => {
-                return renderContent(item.item, item.children)
+                return renderContent(item.item, item.children, `child${index}`)
             })}
         </React.Fragment>
     }
+
+    function handleSetExpan(nodeId: number) {
+        let index = expanded.findIndex(a => a == nodeId);
+        if (index > -1) {
+            let newExpan = [...expanded]
+            newExpan.splice(index, 1);
+            setExpanded(newExpan)
+        } else setExpanded([...expanded, nodeId])
+
+    }
+
     function renderExpan(nodeId: number, isExpand) {
-        let idCollap = `multiCollapse${nodeId}`
-        return <div onClick={() => setExpanded(expanded == nodeId ? 0 : nodeId)} data-target={`#${idCollap}`} role="button" aria-expanded={isExpand} data-toggle="collapse" aria-controls={idCollap} >
+        return <div onClick={() => handleSetExpan(nodeId)} >
             {
                 (isExpand) ? <ExpandMoreIcon /> : <NavigateNextIcon />
             }
         </div >
     }
 
-    function renderContent(node: CategoryVM, children: Array<TreeCateItem>) {
-        let isExpand = expanded == node.id ? true : false;
-        let expanClass = `cate-treeItem-group MuiCollapse-container collapse ${isExpand ? 'show' : ''}`
+    function renderContent(node: CategoryVM, children: Array<TreeCateItem>, key: string) {
+        let isExpand = expanded.includes(node.id) ? true : false;
         return <React.Fragment>
             {
-                <li key={props.key} className="cate-treeItem-root">
+                <li key={key} className="cate-treeItem-root">
                     <div className="cate-treeItem-content">
                         <div className="cate-treeItem-iconContainer"  >
                             {children[0] && renderExpan(node.id, isExpand)}
@@ -55,8 +64,10 @@ export default function TreeNode(props: IProps) {
                             {node.name}
                         </div>
                     </div>
-                    <ul className={expanClass} id={`multiCollapse${node.id}`}>
-                        {TreeItem(children)}
+                    <ul className="cate-treeItem-group ">
+                        <Collapse in={isExpand}>
+                            {TreeItem(children)}
+                        </Collapse>
                     </ul>
                 </li>
             }
@@ -65,6 +76,6 @@ export default function TreeNode(props: IProps) {
     }
 
     return (
-        renderContent(props.item, props.children)
+        renderContent(props.item, props.children, props.key)
     );
 }

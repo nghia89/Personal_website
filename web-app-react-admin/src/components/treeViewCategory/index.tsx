@@ -5,7 +5,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
 import FormControl from '@material-ui/core/FormControl';
-import { InputBase, InputLabel, Typography } from '@material-ui/core';
+import { Collapse, InputBase, InputLabel, Typography } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { apiProductCategory } from '@/apis/index'
 import './index.scss'
@@ -38,7 +38,7 @@ export default function TreeViewCategory(props: IProps) {
     const [expanded, setExpanded] = React.useState<string[]>([]);
     const [selected, setSelected] = React.useState<string>('');
     const [data, setData] = React.useState<TreeCateItem[]>([]);
-    const [isShowDropdown, setShowDropdown] = React.useState<Boolean>(false);
+    const [isShowDropdown, setShowDropdown] = React.useState<boolean>(false);
     const [isLoading, setIsLoading] = React.useState<Boolean>(true);
 
     useEffect(() => {
@@ -142,33 +142,20 @@ export default function TreeViewCategory(props: IProps) {
                     <ArrowDropDownIcon />
                 </div>
             </div>
+
             <div className={classShowDropdown} >
-                <ul className={classesTree.root}>
-                    {data.map((item, index) => {
-                        return <TreeNode
-                            key={`node${index}`}
-                            item={item.item}
-                            children={item.children}
-                        />
-                    })}
-                </ul>
+                <Collapse in={isShowDropdown}>
+                    <ul className={classesTree.root}>
+                        {data.map((item, index) => {
+                            return <TreeNode
+                                key={`node${index}`}
+                                item={item.item}
+                                children={item.children}
+                            />
+                        })}
+                    </ul>
+                </Collapse>
 
-
-                {/* <TreeView
-                    color="text.primary"
-                    className={classesTree.root}
-                    defaultCollapseIcon={<ExpandMoreIcon />}
-                    defaultExpandIcon={<ChevronRightIcon />}
-                    expanded={expanded}
-                    selected={[selected]}
-                    onNodeToggle={handleToggle}
-                    onNodeSelect={handleSelect}
-                >
-                    <div className="p-2">
-                        {renderContent()}
-                    </div>
-
-                </TreeView> */}
             </div>
         </div>
 
