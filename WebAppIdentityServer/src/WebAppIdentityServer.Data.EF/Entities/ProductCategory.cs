@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Utilities.Enum;
 
@@ -9,6 +10,7 @@ namespace WebAppIdentityServer.Data.EF.Entities
     {
         public long Id { get; set; }
         public string Name { get; set; }
+        [StringLength(15)]
         public string Code { get; set; }
         public string Description { get; set; }
         public long? ParentId { get; set; }
