@@ -6,6 +6,6 @@ namespace WebAppIdentityServer.Repository.Interfaces
 {
     public interface ITableRecordRepository : IRepository<TableRecords>
     {
-        Task<long> GetAndUpdateRecord(int type);
+        Task<string> GenarateCodeProduct(string code, int type);
     }
 }

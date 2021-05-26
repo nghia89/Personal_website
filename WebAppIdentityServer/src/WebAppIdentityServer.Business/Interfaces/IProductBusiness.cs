@@ -14,5 +14,6 @@ namespace WebAppIdentityServer.Business.Interfaces
         Task<List<ProductVM>> GetAll();
         Task<(List<ProductVM> data, long totalCount)> Paging(PagingParamModel pagingParam);
         Task<List<ProductVM>> GetProductByCateId(long cateId);
+        Task<string> GenarateCode(string code);
     }
 }

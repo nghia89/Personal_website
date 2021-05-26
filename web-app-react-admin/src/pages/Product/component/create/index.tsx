@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { TextField, makeStyles, createStyles, Theme, CircularProgress } from '@material-ui/core';
+import { TextField, makeStyles, createStyles, Theme, CircularProgress, FormControlLabel, Switch } from '@material-ui/core';
 import { ProductVM, UserVM } from '@/models/index';
-import { apiProduct } from '@/apis/index';
+import { apiProduct, apiProductCategory } from '@/apis/index';
 import { Editor, ImageUploadCard, TreeViewCategory, useNotification } from '@/components/index'
 import { validateField, IsNullOrEmpty } from '@/helpers/utils'
 import { validateProductVm } from '@/models/validateField';
@@ -36,8 +36,28 @@ export default function ProductCreate(props: IProps) {
     const [formState, setFormState] = useState<ProductVM | null>(null)
     const [pathImage, setPathImage] = useState<string>("")
     const [isLoadingImg, setisLoadingImg] = useState<Boolean>(false)
+
+
     useEffect(() => {
-    }, [])
+        if (formState?.productCategoryId) {
+            genarateCode()
+        }
+    }, [formState?.productCategoryId])
+
+    async function genarateCode() {
+        await apiProductCategory.getById(formState?.productCategoryId).then(async (rsp) => {
+            if (!rsp.isError) {
+                await apiProduct.getGenarateCode(rsp.code).then((rsp) => {
+                    if (!rsp.isError) {
+                        let newFormState: NewType = { ...formState };
+                        newFormState['code'] = rsp;
+                        setFormState(newFormState);
+                    };
+                })
+            }
+        })
+    }
+
 
     async function saveData() {
         if (!validateFields()) {
@@ -87,7 +107,7 @@ export default function ProductCreate(props: IProps) {
         setFormState(newFormState);
     };
 
-    function handleOnchangeEditor(name: string, data: any) {
+    function handleOnchange(name: string, data: any) {
         let newFormState: NewType = { ...formState };
         if (name)
             newFormState[name] = data;
@@ -109,7 +129,15 @@ export default function ProductCreate(props: IProps) {
         return <div className="row pt-3 pb-3">
             <div className="col-2">
                 <h6 className="color-black font-weight-bold">Nội dung chung</h6>
-
+                <div>
+                    <label>Trạng thái <span className="text-danger">*</span></label>
+                    <Switch
+                        required
+                        checked={formState?.status == 1 ? true : false}
+                        onChange={() => handleOnchange('status', formState?.status == 1 ? 0 : 1)}
+                        color="primary"
+                    />
+                </div>
             </div>
             <div className="col-10">
 
@@ -133,7 +161,7 @@ export default function ProductCreate(props: IProps) {
                     </div>
                     <div className="col-6">
                         <TextField
-                            label="Mã sp"
+                            placeholder="Mã sản phẫm"
                             name="code"
                             disabled
                             value={formState?.code}
@@ -150,6 +178,7 @@ export default function ProductCreate(props: IProps) {
                 <div className="row">
                     <div className="col-6">
                         <TextField
+                            color={'primary'}
                             required
                             inputRef={(r) => refs["price"] = r}
                             label="Giá bán"
@@ -208,12 +237,12 @@ export default function ProductCreate(props: IProps) {
             <div className="col-10">
                 <div className="pb-2">
                     <label className="color-black ml-2 ">Mô tả ngắn</label>
-                    <Editor data="" onChange={(data) => handleOnchangeEditor("description", data)} />
+                    <Editor data="" onChange={(data) => handleOnchange("description", data)} />
 
                 </div>
                 <div>
                     <label className="color-black ml-2 ">Mô tả sản phẩm</label>
-                    <Editor data="" onChange={(data) => handleOnchangeEditor("content", data)} />
+                    <Editor data="" onChange={(data) => handleOnchange("content", data)} />
 
                 </div>
             </div>

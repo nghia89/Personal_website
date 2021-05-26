@@ -28,6 +28,7 @@ namespace WebAppIdentityServer.Business.Mappers
                     SeoDescription = model.SeoDescription,
                     SeoKeywords = model.SeoKeywords,
                     Status = model.Status,
+                    Code = model.Code
 
                 };
             }
@@ -53,6 +54,7 @@ namespace WebAppIdentityServer.Business.Mappers
                     SeoDescription = model.SeoDescription,
                     SeoKeywords = model.SeoKeywords,
                     Status = model.Status,
+                    Code = model.Code
 
                 };
             }

@@ -48,18 +48,19 @@ export const apiFunction = {
 
 export const apiProduct = {
     getPaging: async (param: string) => { return await GET(`${baseApiProduct}paging` + param) },
-    getById: async (id: string) => { return await GET(`${baseApiProduct}get/` + id) },
+    getById: async (id: number) => { return await GET(`${baseApiProduct}get/` + id) },
     create: async (body: any) => { return await POST(`${baseApiProduct}add`, body) },
-    update: async (id: string, body: any) => { return await PUT(`${baseApiProduct}update/${id}`, body) },
-    delete: async (id: string) => { return await DELETE(`${baseApiProduct}` + id) }
+    update: async (id: number, body: any) => { return await PUT(`${baseApiProduct}update/${id}`, body) },
+    delete: async (id: number) => { return await DELETE(`${baseApiProduct}` + id) },
+    getGenarateCode: async (code: string) => { return await GET(`${baseApiProduct}genarate_code/` + code) }
 }
 
 export const apiProductCategory = {
     getPaging: async (param: string) => { return await GET(`${baseApiProductCategory}paging` + param) },
-    getById: async (id: string) => { return await GET(`${baseApiProductCategory}get/` + id) },
+    getById: async (id?: number) => { return await GET(`${baseApiProductCategory}` + id) },
     create: async (body: any) => { return await POST(`${baseApiProductCategory}add`, body) },
-    update: async (id: string, body: any) => { return await PUT(`${baseApiProductCategory}update/${id}`, body) },
-    delete: async (id: string) => { return await DELETE(`${baseApiProductCategory}` + id) },
+    update: async (id: number, body: any) => { return await PUT(`${baseApiProductCategory}update/${id}`, body) },
+    delete: async (id: number) => { return await DELETE(`${baseApiProductCategory}` + id) },
     treeViewCate: async () => { return await GET(`${baseApiProductCategory}treeview`) }
 }
 

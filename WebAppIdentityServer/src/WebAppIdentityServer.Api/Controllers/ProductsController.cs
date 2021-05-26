@@ -29,6 +29,15 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpGet]
+        [Route("genarate_code/{code}")]
+        [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.VIEW)]
+        public async Task<IActionResult> GenarateCode(string code)
+        {
+            var data = await _productBusiness.GenarateCode(code);
+            return new OkObjectResult(data);
+        }
+
+        [HttpGet]
         [Route("paging")]
         [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.VIEW)]
         public async Task<IActionResult> Paging([FromQuery] PagingParamModel pagingParam)
@@ -51,7 +60,7 @@ namespace WebAppIdentityServer.Api.Controllers
         [HttpPut]
         [Route("update")]
 
-         
+
         [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.UPDATE)]
         [ApiValidationFilter]
         public async Task<IActionResult> Put([FromBody] ProductVM model)

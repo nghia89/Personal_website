@@ -22,15 +22,17 @@ namespace WebAppIdentityServer.Business.Implementation
     {
         private readonly IProductRepository _productRepository;
         private readonly IProductQuantityRepository _productQuantityRep;
+        private readonly ITableRecordRepository _tableRecordRep;
         private readonly ITagRepository _tagRepository;
         private readonly IUnitOfWork _unitOfWork;
         public ProductBusiness(IProductRepository productRepository, IProductQuantityRepository productQuantityRep,
-            ITagRepository tagRepository, IUnitOfWork unitOfWork, IUserResolverService userResolver) : base(userResolver)
+            ITagRepository tagRepository, IUnitOfWork unitOfWork, IUserResolverService userResolver, ITableRecordRepository tableRecordRep) : base(userResolver)
         {
             this._productRepository = productRepository;
             this._productQuantityRep = productQuantityRep;
             this._unitOfWork = unitOfWork;
             this._tagRepository = tagRepository;
+            this._tableRecordRep = tableRecordRep;
         }
 
         public async Task<ProductVM> Add(ProductVM model)
@@ -93,6 +95,12 @@ namespace WebAppIdentityServer.Business.Implementation
 
             await _productRepository.RemoveAsync(entity);
             return true;
+        }
+
+        public async Task<string> GenarateCode(string code)
+        {
+            var codeProduct = await _tableRecordRep.GenarateCodeProduct(code, (int)EnumRecord.Product);
+            return codeProduct;
         }
 
         public async Task<List<ProductVM>> GetAll()

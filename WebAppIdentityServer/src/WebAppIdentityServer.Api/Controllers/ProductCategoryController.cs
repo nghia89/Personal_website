@@ -20,6 +20,15 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpGet]
+        [Route("{id}")]
+        [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.VIEW)]
+        public async Task<ActionResult> Get(int id)
+        {
+            var data = await _productCategoryBus.GetById(id);
+            return Ok(data);
+        }
+
+        [HttpGet]
         [Route("getall")]
         [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.VIEW)]
         public async Task<ActionResult> GetProductCategory()
