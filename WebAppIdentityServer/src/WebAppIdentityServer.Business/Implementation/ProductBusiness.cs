@@ -116,7 +116,7 @@ namespace WebAppIdentityServer.Business.Implementation
 
         public async Task<(List<ProductVM> data, long totalCount)> Paging(PagingParamModel pagingParam)
         {
-            var (data, totalCount) = await _productRepository.Paging(pagingParam.query, pagingParam.page, pagingParam.pageSize, new Expression<Func<Product, object>>[] { a => a.Name }, null, a => a.SelectFieldProduct());
+            var (data, totalCount) = await _productRepository.Paging(pagingParam.query, pagingParam.page, pagingParam.pageSize, new Expression<Func<Product, object>>[] { a => a.Name }, null);
             return (data.Select(a => a.ToModel()).ToList(), totalCount);
         }
 

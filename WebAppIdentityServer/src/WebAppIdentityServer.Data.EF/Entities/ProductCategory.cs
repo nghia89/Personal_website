@@ -9,6 +9,7 @@ namespace WebAppIdentityServer.Data.EF.Entities
     {
         public long Id { get; set; }
         public string Name { get; set; }
+        public string Code { get; set; }
         public string Description { get; set; }
         public long? ParentId { get; set; }
         public int SortOrder { get; set; }

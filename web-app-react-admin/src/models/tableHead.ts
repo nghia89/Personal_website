@@ -1,7 +1,7 @@
 export interface ITableHead {
     name: string,
     fieldName: string,
-    type: 'date' | 'dateTime' | 'stt' | 'status'
+    type: 'date' | 'dateTime' | 'stt' | 'status' | 'image'
 }
 
 
@@ -22,7 +22,7 @@ export const tableHeadRole = [
 
 
 export const tableHeadProduct = [
-    { name: 'Ảnh', fieldName: 'image' },
+    { name: 'Ảnh', fieldName: 'image', type: 'image' },
     { name: 'Tên sản phẩm', fieldName: 'name' },
     { name: 'Loại', fieldName: 'productCategoryName' },
     { name: 'Ngày tạo', fieldName: 'dateCreated', type: 'date' },

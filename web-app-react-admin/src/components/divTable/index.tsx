@@ -37,6 +37,7 @@ export default function DivTable(props: IProps) {
         height: window.innerHeight,
         width: window.innerWidth
     });
+    console.log('props', props);
 
     let { page, pageSize, funcId, isPagination } = props;
 
@@ -82,6 +83,10 @@ export default function DivTable(props: IProps) {
             return <div key={"r_cel" + index} className="divTableCell center">{index + 1}</div>
         else if (type === "date")
             return <div key={"r_cel" + index} className="divTableCell center">{formatDate(value, null)}</div>
+        else if (type === "image")
+            return <div key={"r_cel" + index} className="divTableCell center" style={{ width: '200px' }}>
+                <img height="100px" src={value} />
+            </div>
         else return <div key={"r_cel" + index} className="divTableCell center">{value}</div>
     }
 

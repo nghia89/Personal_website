@@ -29,9 +29,9 @@ export function Product(props: IProps) {
         if (!isLoading) setLoading(true)
         let newParam = SerializeParam(params);
         await apiProduct.getPaging(newParam).then((rsp) => {
-            if (!rsp.error) {
+            if (!rsp.isError) {
                 setLoading(false)
-                setData(rsp)
+                setData(rsp.data)
             } else {
                 setLoading(false)
                 dispatch('ERROR', 'Có lỗi xảy ra.')
@@ -75,7 +75,7 @@ export function Product(props: IProps) {
 
     function renderContent() {
         return <DivTable
-            funcId={functionId.permission}
+            funcId={functionId.product}
             data={data}
             header={tableHeadProduct}
             onchangeParam={(e) => getData()}
