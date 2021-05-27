@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import {
     Table, TableBody, TablePagination, TableCell, makeStyles, TableContainer,
-    TableHead, TableRow, Paper, Tooltip, CircularProgress
+    TableHead, TableRow, Paper, Tooltip, CircularProgress, Switch
 } from '@material-ui/core';
 import { formatDate, checkPermission, IsNullOrEmpty } from '@/helpers/utils';
 import { IBaseParams, ITableHead } from '@/models/index'
@@ -95,8 +95,14 @@ export default function TableCenter(props: IProps) {
             return <TableCell key={"r_cel" + index} align="center">{formatDate(value, null)}</TableCell>
         else if (type === "dateTime")
             return <TableCell key={"r_cel" + index} align="center">{formatDate(value, 'DD/MM/YYYY HH:MM')}</TableCell>
-            else if (type === "status")
-            return <TableCell key={"r_cel" + index} align="center">'status'</TableCell>
+        else if (type === "image")
+            return <div key={"r_cel" + index} className="divTableCell center" style={{ width: '200px' }}>
+                <img height="70px" src={value} />
+            </div>
+        else if (type == "status")
+            return <div key={"r_cel" + index} className="divTableCell center" style={{ width: '100px' }} >
+                <Switch checked={value == 1 ? true : false} color="primary" />
+            </div>
         else return <TableCell key={"r_cel" + index} align="center">{value}</TableCell>
     }
 

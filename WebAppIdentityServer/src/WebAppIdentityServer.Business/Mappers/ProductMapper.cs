@@ -31,7 +31,8 @@ namespace WebAppIdentityServer.Business.Mappers
                     SeoKeywords = model.SeoKeywords,
                     Status = model.Status,
                     Tags = model.Tags,
-                    ViewCount = model.ViewCount
+                    ViewCount = model.ViewCount,
+                    DateCreated = model.DateCreated
                 };
             }
         }

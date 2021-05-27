@@ -3,7 +3,7 @@ import { IBaseParams, ITableHead } from '@/models'
 import './index.css'
 import { formatDate, checkPermission } from '@/helpers/utils';
 import { commandId } from '@/constants/utilConstant'
-import { CircularProgress, makeStyles, TableContainer, TablePagination } from '@material-ui/core';
+import { CircularProgress, makeStyles, Switch, TableContainer, TablePagination } from '@material-ui/core';
 import { IconEmppty } from '@/helpers/svg';
 
 export interface IProps {
@@ -37,8 +37,6 @@ export default function DivTable(props: IProps) {
         height: window.innerHeight,
         width: window.innerWidth
     });
-    console.log('props', props);
-
     let { page, pageSize, funcId, isPagination } = props;
 
 
@@ -85,7 +83,11 @@ export default function DivTable(props: IProps) {
             return <div key={"r_cel" + index} className="divTableCell center">{formatDate(value, null)}</div>
         else if (type === "image")
             return <div key={"r_cel" + index} className="divTableCell center" style={{ width: '200px' }}>
-                <img height="100px" src={value} />
+                <img height="70px" src={value} />
+            </div>
+        else if (type == "status")
+            return <div key={"r_cel" + index} className="divTableCell center" style={{ width: '100px' }} >
+                <Switch checked={value == 1 ? true : false} color="primary" />
             </div>
         else return <div key={"r_cel" + index} className="divTableCell center">{value}</div>
     }
@@ -143,7 +145,7 @@ export default function DivTable(props: IProps) {
 
     return (
         <div>
-            <div style={{ minHeight: (dimensions.height - 280) }}>
+            <div style={{ height: (dimensions.height - 270) }}>
                 {renderContent()}
             </div>
             {!isPagination && <TablePagination

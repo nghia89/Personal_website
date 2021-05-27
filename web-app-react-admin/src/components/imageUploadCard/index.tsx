@@ -119,7 +119,7 @@ function ImageUploadCard(props: IProps) {
 
         await apiUploadFile.UploadImage(formData).then((rsp) => {
             if (!rsp.isError) {
-                dispatch('SUCCESS', 'Thêm user thành công.')
+                dispatch('SUCCESS', 'Thêm ảnh thành công.')
                 setSelectedFile(rsp)
                 setIsLoadingUploaded(false)
             }

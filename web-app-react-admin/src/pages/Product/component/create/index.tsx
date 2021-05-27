@@ -6,7 +6,7 @@ import { Editor, ImageUploadCard, TreeViewCategory, useNotification } from '@/co
 import { validateField, IsNullOrEmpty } from '@/helpers/utils'
 import { validateProductVm } from '@/models/validateField';
 import { green } from '@material-ui/core/colors';
-
+import history from "@/history";
 export interface IProps {
 
 }
@@ -37,6 +37,12 @@ export default function ProductCreate(props: IProps) {
     const [pathImage, setPathImage] = useState<string>("")
     const [isLoadingImg, setisLoadingImg] = useState<Boolean>(false)
 
+    useEffect(() => {
+        let newFormState: NewType = { ...formState };
+        newFormState['status'] = 1;
+        setFormState(newFormState);
+    }, [])
+
 
     useEffect(() => {
         if (formState?.productCategoryId) {
@@ -64,6 +70,7 @@ export default function ProductCreate(props: IProps) {
             await apiProduct.create(formState).then((rsp) => {
                 if (!rsp.isError) {
                     dispatch('SUCCESS', 'Thêm sản phẩm thành công.')
+                    history.goBack()
                     // props.handleClose()
                     // props.handleReload()
                     return

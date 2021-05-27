@@ -64,7 +64,6 @@ namespace WebAppIdentityServer.Business.Implementation
                 }
             }
             var product = model.ToEntity();
-            product.Status = Status.Active;
             product.ProductTags = productTags;
             await _productRepository.AddAsync(product);
             await _unitOfWork.CommitAsync();
