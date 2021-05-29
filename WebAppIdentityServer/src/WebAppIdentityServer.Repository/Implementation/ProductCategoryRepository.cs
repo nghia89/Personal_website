@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
@@ -14,6 +17,12 @@ namespace WebAppIdentityServer.Repository.Implementation
         {
             this._context = context;
             this._unitOfWork = unitOfWork;
+        }
+
+        public async Task<IEnumerable<ProductCategory>> getCateByIds(List<long> ids)
+        {
+            var data = await FindAllAsync(x => ids.Contains(x.Id), null);
+            return data;
         }
     }
 }

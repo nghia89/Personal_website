@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebAppIdentityServer.Data.EF.Migrations
 {
-    public partial class Init_db : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -253,10 +253,12 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Code = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ParentId = table.Column<long>(type: "bigint", nullable: true),
-                    HomeOrder = table.Column<int>(type: "int", nullable: true),
+                    SortOrder = table.Column<int>(type: "int", nullable: false),
                     Image = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Status = table.Column<int>(type: "int", nullable: false),
@@ -359,6 +361,21 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SystemConfigs", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "TableRecords",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Count = table.Column<long>(type: "bigint", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TableRecords", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -665,7 +682,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Content = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Code = table.Column<string>(type: "longtext", nullable: true)
+                    Code = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ViewCount = table.Column<int>(type: "int", nullable: true),
                     Tags = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
@@ -1070,9 +1087,9 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                 column: "Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_Name",
+                name: "IX_Products_Name_Code",
                 table: "Products",
-                column: "Name")
+                columns: new[] { "Name", "Code" })
                 .Annotation("MySql:FullTextIndex", true);
 
             migrationBuilder.CreateIndex(
@@ -1165,6 +1182,9 @@ namespace WebAppIdentityServer.Data.EF.Migrations
 
             migrationBuilder.DropTable(
                 name: "SystemConfigs");
+
+            migrationBuilder.DropTable(
+                name: "TableRecords");
 
             migrationBuilder.DropTable(
                 name: "Announcements");

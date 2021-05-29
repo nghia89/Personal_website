@@ -25,6 +25,7 @@ namespace WebAppIdentityServer.Business.Mappers
                     Price = model.Price,
                     ProductCategory = model.ProductCategory?.ToModel(),
                     ProductCategoryId = model.ProductCategoryId,
+                    ProductCategoryName = model.ProductCategory?.Name,
                     Code = model.Code,
                     SeoAlias = model.SeoAlias,
                     SeoDescription = model.SeoDescription,

@@ -112,12 +112,14 @@ export default function DivTable(props: IProps) {
 
     function renderContent() {
         return <div className="divTable">
-            <div className="divTableBody">
+            <div className="divTableBodyHead">
                 <div className="divTableRow">
                     {props.header.map((item, index) => {
-                        return <div key={`h${index}`} className=" divTableCell center divTableHeading">{item.name}</div>
+                        return <div key={`h${index}`} className=" divTableHead center item-head-sticky">{item.name}</div>
                     })}
                 </div>
+            </div>
+            <div className="divTableBody">
                 {props.isLoading ?
                     <div className="content_table_data_empty" style={{ width: dimensions.width - 300 }}>
                         <CircularProgress />
@@ -145,22 +147,27 @@ export default function DivTable(props: IProps) {
 
     return (
         <div>
-            <div style={{ height: (dimensions.height - 270) }}>
-                {renderContent()}
+            <div className="divTable-wraper" >
+                <div style={{ overflow: 'auto', height: (dimensions.height - 270) }}>
+                    {renderContent()}
+                </div>
+
+                {
+                    !isPagination && <TablePagination
+                        rowsPerPageOptions={[10, 20, 50, 100]}
+                        component="div"
+                        labelRowsPerPage={<span>Hiển thị:</span>}
+                        labelDisplayedRows={(paginationInfo) => renderLabelPage(paginationInfo)}
+                        count={props.total ? props.total : 0}
+                        rowsPerPage={pageSize}
+                        page={page - 1}
+                        onChangePage={handleChangePage}
+                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                    />
+                }
             </div>
-            {!isPagination && <TablePagination
-                rowsPerPageOptions={[10, 20, 50, 100]}
-                component="div"
-                labelRowsPerPage={<span>Hiển thị:</span>}
-                labelDisplayedRows={(paginationInfo) => renderLabelPage(paginationInfo)}
-                count={props.total ? props.total : 0}
-                rowsPerPage={props.pageSize}
-                page={page - 1}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-            }
-        </div>
+
+        </div >
 
     )
 }

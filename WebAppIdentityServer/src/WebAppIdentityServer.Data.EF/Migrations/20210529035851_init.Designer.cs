@@ -9,8 +9,8 @@ using WebAppIdentityServer.Data.EF;
 namespace WebAppIdentityServer.Data.EF.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210526060040_update-cate-length")]
-    partial class updatecatelength
+    [Migration("20210529035851_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

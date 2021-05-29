@@ -13,7 +13,7 @@ import './index.scss'
 interface IProps { }
 
 
-
+let isFirst = false
 export function Product(props: IProps) {
     let history = useHistory();
     const dispatch = useNotification();
@@ -21,17 +21,28 @@ export function Product(props: IProps) {
     const [data, setData] = useState<ProductVM[]>([]);
     const [isLoading, setLoading] = useState<boolean>(true)
     const [params, setParams] = useState<IBaseParams>({ page: 1, pageSize: 20, query: '' })
+
     useEffect(() => {
+        isFirst = false
         getData();
     }, [])
 
+    useEffect(() => {
+        if (isFirst)
+            getData();
+        isFirst = true
+    }, [params.page, params.pageSize])
+
     async function getData() {
         if (!isLoading) setLoading(true)
-        let newParam = SerializeParam(params);
-        await apiProduct.getPaging(newParam).then((rsp) => {
+        let aeriaParam = SerializeParam(params);
+        let newParam = { ...params };
+        await apiProduct.getPaging(aeriaParam).then((rsp) => {
             if (!rsp.isError) {
                 setLoading(false)
                 setData(rsp.data)
+                newParam.totalCount = rsp.total
+                setParams(newParam)
             } else {
                 setLoading(false)
                 dispatch('ERROR', 'Có lỗi xảy ra.')
@@ -49,8 +60,11 @@ export function Product(props: IProps) {
         }
     }
 
-    function handleCreate() {
-
+    function handlechangeParam(e) {
+        let newParam: IBaseParams = { ...params };
+        newParam.page = e.page;
+        newParam.pageSize = e.pageSize
+        setParams(newParam)
     }
 
     function renderHeader() {
@@ -78,7 +92,7 @@ export function Product(props: IProps) {
             funcId={functionId.product}
             data={data}
             header={tableHeadProduct}
-            onchangeParam={(e) => getData()}
+            onchangeParam={(e) => handlechangeParam(e)}
             pageSize={params.pageSize}
             page={params.page}
             total={params.totalCount}

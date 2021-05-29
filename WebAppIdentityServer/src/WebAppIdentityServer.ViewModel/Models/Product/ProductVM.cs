@@ -20,6 +20,7 @@ namespace WebAppIdentityServer.ViewModel.Models.Product
         public string SeoKeywords { get; set; }
         public string SeoDescription { get; set; }
         public long ProductCategoryId { set; get; }
+        public string ProductCategoryName { set; get; }
         public ProductCategoryVM ProductCategory { set; get; }
         //public List<ProductTag> ProductTags { set; get; }
         public Status Status { get; set; }

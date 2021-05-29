@@ -14,7 +14,7 @@ namespace WebAppIdentityServer.Data.EF
     public class EFRepository<T> : BaseRepository, IRepository<T> where T : class
     {
         private readonly ApplicationDbContext _context;
-        public EFRepository(ApplicationDbContext context, IHttpContextAccessor accessor):base(accessor)
+        public EFRepository(ApplicationDbContext context, IHttpContextAccessor accessor) : base(accessor)
         {
             this._context = context;
         }
@@ -212,9 +212,9 @@ namespace WebAppIdentityServer.Data.EF
 
             var tableName = GetTableName<T>();
 
-            var listFields = properties.Select(m => $"{GetNameField(m)} like concat('%',@p0,'%')").ToList();
-
-            var sqlQuery = $"Select * From {tableName} WHERE {string.Join(" OR ", listFields)}";
+            // var listFields = properties.Select(m => $"{GetNameField(m)} like concat('%',@p0,'%')").ToList();
+            var listFieldNam = properties.Select(m => GetNameField(m)).ToList();
+            var sqlQuery = $"Select * From {tableName} WHERE MATCH ({string.Join(",", listFieldNam)}) AGAINST(@p0)";
             return _context.Set<T>().FromSqlRaw<T>(sqlQuery, query.Trim()).AsQueryable();
         }
 

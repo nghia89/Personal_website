@@ -3,6 +3,9 @@
 	display: table;
 	width: 100%;
 }
+.divTable-wraper{
+    box-shadow: 0px 2px 5px 0px rgb(0 0 0 / 30%)
+}
 .divTableRow {
 	display: table-row;
 }
@@ -10,7 +13,13 @@
 .divTableCell, .divTableHead {
     border-bottom: 1px solid rgba(224, 224, 224, 1);
 	display: table-cell;
-	padding: 5px 10px;
+	padding: 15px 5px;
+    color: rgba(0, 0, 0, 0.87);
+}
+.divTableCell, .divTableBody {
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+	display: table-cell;
+	padding: 10px 5px;
     color: rgba(0, 0, 0, 0.87);
 }
 .divTableHeading {
@@ -24,8 +33,26 @@
 }
 .divTableBody {
 	display: table-row-group;
-    box-shadow: 0px 2px 5px 0px rgb(0 0 0 / 30%);
+    /* box-shadow: 0px 2px 5px 0px rgb(0 0 0 / 30%); */
+}
+.divTableBodyHead{
+	display: table-row-group;
+}
+
+.item-head-sticky{
+	background: #f4f6f8;
+	position: sticky; 
+     top: 0px;
+	 z-index: 2;
+}
+.divTableBodyHead> .divTableRow> .divTableHead {
+font-weight: 500;
 }
 .divTableBody  .divTableRow:hover {
    background-color: #e8ecf9;
+}
+
+
+.MuiTablePagination-actions>.MuiIconButton-root{
+	outline: none;
 }

@@ -22,17 +22,22 @@ namespace WebAppIdentityServer.Business.Implementation
     {
         private readonly IProductRepository _productRepository;
         private readonly IProductQuantityRepository _productQuantityRep;
+        private readonly IProductCategoryRepository _productCategoryRep;
         private readonly ITableRecordRepository _tableRecordRep;
         private readonly ITagRepository _tagRepository;
         private readonly IUnitOfWork _unitOfWork;
         public ProductBusiness(IProductRepository productRepository, IProductQuantityRepository productQuantityRep,
-            ITagRepository tagRepository, IUnitOfWork unitOfWork, IUserResolverService userResolver, ITableRecordRepository tableRecordRep) : base(userResolver)
+            ITagRepository tagRepository, IUnitOfWork unitOfWork, IUserResolverService userResolver,
+            IProductCategoryRepository productCategoryRep,
+             ITableRecordRepository tableRecordRep) : base(userResolver)
         {
             this._productRepository = productRepository;
             this._productQuantityRep = productQuantityRep;
             this._unitOfWork = unitOfWork;
             this._tagRepository = tagRepository;
             this._tableRecordRep = tableRecordRep;
+            this._tableRecordRep = tableRecordRep;
+            this._productCategoryRep = productCategoryRep;
         }
 
         public async Task<ProductVM> Add(ProductVM model)
@@ -123,7 +128,14 @@ namespace WebAppIdentityServer.Business.Implementation
 
         public async Task<(List<ProductVM> data, long totalCount)> Paging(PagingParamModel pagingParam)
         {
-            var (data, totalCount) = await _productRepository.Paging(pagingParam.query, pagingParam.page, pagingParam.pageSize, new Expression<Func<Product, object>>[] { a => a.Name }, null);
+            var (data, totalCount) = await _productRepository.Paging(pagingParam.query, pagingParam.page, pagingParam.pageSize, new Expression<Func<Product, object>>[] { a => a.Name, a => a.Code }, null);
+
+            var category = await _productCategoryRep.FindAllAsync(x => x.Status == Status.Active, null);
+            foreach (var item in data)
+            {
+                var categoryBy = category.FirstOrDefault(x => x.Id == item.ProductCategoryId);
+                item.ProductCategory = categoryBy;
+            }
             return (data.Select(a => a.ToModel()).ToList(), totalCount);
         }
 
