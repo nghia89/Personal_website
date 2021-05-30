@@ -111,6 +111,7 @@ export default function DivTable(props: IProps) {
 
 
     function renderContent() {
+        let widthContent = dimensions.width - 300;
         return <div className="divTable">
             <div className="divTableBodyHead">
                 <div className="divTableRow">
@@ -121,15 +122,15 @@ export default function DivTable(props: IProps) {
             </div>
             <div className="divTableBody">
                 {props.isLoading ?
-                    <div className="content_table_data_empty" style={{ width: dimensions.width - 300 }}>
+                    <div className="content_table_data_empty" style={{ width: widthContent }}>
                         <CircularProgress />
                     </div>
                     :
                     props.data.length > 0 ?
                         renderContentTable() :
-                        <div className="content_table_data_empty" style={{ width: dimensions.width - 300 }}>
+                        <div className="content_table_data_empty" style={{ width: widthContent }}>
                             <span>
-                                {IconEmppty()}
+                                {IconEmppty(dimensions.height - 600)}
                             </span>
                             <p className="ml-5 font-weight-bold text-dark">Danh sách đang trống</p>
                         </div>

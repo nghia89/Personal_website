@@ -24,6 +24,7 @@ export const tableHeadRole = [
 export const tableHeadProduct = [
     { name: 'Ảnh', fieldName: 'image', type: 'image' },
     { name: 'Tên sản phẩm', fieldName: 'name' },
+    { name: 'Mã SP', fieldName: 'code' },
     { name: 'Loại', fieldName: 'productCategoryName' },
     { name: 'Ngày tạo', fieldName: 'dateCreated', type: 'date' },
     { name: 'Trạng thái', fieldName: 'status', type: 'status' },

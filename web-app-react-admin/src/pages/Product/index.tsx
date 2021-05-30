@@ -21,6 +21,7 @@ export function Product(props: IProps) {
     const [data, setData] = useState<ProductVM[]>([]);
     const [isLoading, setLoading] = useState<boolean>(true)
     const [params, setParams] = useState<IBaseParams>({ page: 1, pageSize: 20, query: '' })
+    const [textSearch, setTextSearch] = useState<string>('')
 
     useEffect(() => {
         isFirst = false
@@ -31,7 +32,7 @@ export function Product(props: IProps) {
         if (isFirst)
             getData();
         isFirst = true
-    }, [params.page, params.pageSize])
+    }, [params.page, params.pageSize, params.query])
 
     async function getData() {
         if (!isLoading) setLoading(true)
@@ -50,14 +51,20 @@ export function Product(props: IProps) {
         })
     }
 
-    async function handleKeyDown(e) {
+
+    function handleKeyDown(e: any) {
         if (e.key === 'Enter') {
             let { name, value } = e.target;
-            // let param = getParams();
-            // param.query = value;
-            // await getData(param)
-            // setSearchText(value)
+            let newParam = { ...params };
+            newParam.query = value;
+            setParams(newParam)
         }
+    }
+
+    function handleSearch() {
+        let newParam = { ...params };
+        newParam.query = textSearch;
+        setParams(newParam)
     }
 
     function handlechangeParam(e) {
@@ -68,13 +75,13 @@ export function Product(props: IProps) {
     }
 
     function renderHeader() {
-        return <div className="pb-5 d-flex justify-content-between align-items-center">
+        return <div className="pb-5 d-flex justify-content-between align-items-center ">
             <h1 className="h3 mb-1 text-gray-800">Danh sách sản phẩm</h1>
 
             <div className="d-flex col-4">
-                <input onKeyDown={(e) => handleKeyDown(e)} type="text" name="searchText" className="text-dark form-control border-0 small " placeholder="Nhập tìm kiếm bằng Tên, Mã. Enter để tìm kiếm... " aria-label="Search" aria-describedby="basic-addon2" />
+                <input onChange={(e) => setTextSearch(e.target.value)} onKeyDown={(e) => handleKeyDown(e)} type="text" name="searchText" className="text-dark form-control border-0 small " placeholder="Nhập tìm kiếm bằng Tên, Mã. Enter để tìm kiếm... " aria-label="Search" aria-describedby="basic-addon2" />
                 <div className="input-group-append">
-                    <button className="btn btn-primary" type="button">
+                    <button onClick={() => handleSearch()} className="btn btn-primary" type="button">
                         <i className="fas fa-search fa-sm"></i>
                     </button>
                 </div>
