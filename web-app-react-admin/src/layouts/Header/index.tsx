@@ -15,7 +15,7 @@ const Header = (props: Props) => {
   // const [isLoading, SetLoading] = useState(true);
 
   return (
-    <header className="header" id="header">
+    <header className="header align-items-center" id="header">
       <div className="header_toggle d-flex align-items-center">
         <div className="ms-1" >
           <i className='' id="header-toggle">

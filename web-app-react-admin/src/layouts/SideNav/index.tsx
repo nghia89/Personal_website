@@ -6,6 +6,9 @@ import { TreeItem } from '@/models/index';
 import { BulletList } from '@/components/loaders/index'
 import { Profile } from 'oidc-client';
 import { IconGrid, IconHome, IconList } from '@/helpers/svg'
+import history from '@/history';
+import { PATH } from '@/constants/paths';
+
 interface props {
   isAuthentication: boolean,
   claimUser: Profile,
@@ -60,7 +63,7 @@ function SideNav(props: props) {
   function renderContent() {
     if (isLoading) return <BulletList W={180} H={200} />
     else return <div className="nav_list">
-      <NavLink className="nav_link active" to="/dashboard">
+      <NavLink className="nav_link" to="/dashboard">
         {IconGrid()}
         <span className="nav_name">Dashboard</span>
       </NavLink>
@@ -72,10 +75,10 @@ function SideNav(props: props) {
     <div className="l-navbar" id="nav-bar">
       <nav className="nav nav-Sidebar ">
         <div className="sidebar">
-          <NavLink to="/" className="nav_logo-admin">
+          <a className="nav_logo-admin" onClick={() => history.push(PATH.HOME)}>
             {IconHome()}
             <span className="nav_logo-name">ADMIN</span>
-          </NavLink>
+          </a>
           {renderContent()}
         </div>
       </nav>
