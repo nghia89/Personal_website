@@ -22,18 +22,102 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
   <title>React App</title>
-  <link href="/assets/css/fontawesome-free/all.min.css" rel="stylesheet" type="text/css" />
-  <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link href="/assets/css/style.scss" rel="stylesheet" type="text/css" />
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <script async="" src="/assets/js/custom.js"></script>
 </head>
 
-<body id='page-top'>
+<body id='page-top body-pd'>
+
+  <!-- 
+  end -->
+  <header class="header" id="header">
+    <div class="header_toggle">
+      <i class='' id="header-toggle">
+        <span class='bx-menu-show01'>
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-x">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </span>
+        <span class='bx-menu-show02'>
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-menu">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </span>
+      </i>
+
+    </div>
+    <div class="header_img">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="feather feather-menu">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </div>
+  </header>
+  <div class="l-navbar" id="nav-bar">
+    <nav class="nav nav-Sidebar ">
+      <div class="sidebar">
+        <a href="#" class="nav_logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-home">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg> <span class="nav_logo-name">ADMIN</span>
+        </a>
+        <div class="nav_list">
+          <a href="#" class="nav_link active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-grid">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span class="nav_name">Dashboard</span> </a>
+          <a class="nav_link nav-item" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
+            aria-expanded="false" aria-controls="multiCollapseExample1">
+            <i class='bx bx-user nav_icon'></i>
+            <span class="nav_name">Users</span>
+          </a>
+          <div class="collapse collapse-box" id="multiCollapseExample1">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item"> aaaaaa</a>
+            </div>
+          </div>
+          <a href="#" class="nav_link">
+            <i class='bx bx-message-square-detail nav_icon'></i>
+            <span class="nav_name">Messages</span>
+          </a>
+
+        </div>
+    </nav>
+  </div>
+  <!--Container Main start-->
+  <div class="container-fluid mtc-5">
+    <div class="container">
+      <h4>Main Components</h4>
+    </div>
+
+  </div>
+
+  <!-- 
+  end -->
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
 
-  <script type="text/javascript" src="/assets/js/vendor/jquery.min.js"></script>
-  <script type="text/javascript" src="/assets/js/vendor/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="/assets/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
