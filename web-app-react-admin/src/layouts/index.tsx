@@ -9,24 +9,16 @@ interface Props {
 
 function Layout(props: Props) {
     function renderBody() {
-        return <div id="wrapper" >
+        return <div id="body-pd" >
+            <Header />
             <SideNav />
-            <div id="content-wrapper" className="d-flex flex-column">
-                <div id="content">
-                    <Header />
-                    <div className="container-fluid">
-                        <Suspense fallback={<Loader />}>
-                            {props.children}
-                        </Suspense>
-                    </div>
+            <div className="container-fluid mtc-5">
+                <div className="container">
+                    <Suspense fallback={<Loader />}>
+                        {props.children}
+                    </Suspense>
                 </div>
-                {/* <footer className="sticky-footer bg-white">
-                    <div className="container my-auto">
-                        <div className="copyright text-center my-auto">
-                            <span>Copyright © Your Website 2020</span>
-                        </div>
-                    </div>
-                </footer> */}
+
             </div>
         </div >
     }

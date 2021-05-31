@@ -74,7 +74,7 @@ a {
     overflow: hidden
 }
 
-.nav_logo,
+.nav_logo,.nav_logo-admin,
 .nav_link {
     display: grid;
     grid-template-columns: max-content max-content;
@@ -83,15 +83,15 @@ a {
     padding: .5rem 0 .5rem 1.5rem
 }
 
-.nav_logo {
+.nav_logo,.nav_logo-admin {
     margin-bottom: 2rem
 }
 
-.nav_logo svg {
+.nav_logo,.nav_logo-admin svg {
     color: var(--white-color)
 }
 
-.nav_logo-name {
+.nav_logo-name,.nav_logo-admin {
     color: var(--white-color);
     font-weight: 700
 }

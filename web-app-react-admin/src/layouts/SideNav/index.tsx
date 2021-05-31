@@ -5,6 +5,7 @@ import { apiUser } from '@/apis/index';
 import { TreeItem } from '@/models/index';
 import { BulletList } from '@/components/loaders/index'
 import { Profile } from 'oidc-client';
+import { IconGrid, IconHome, IconList } from '@/helpers/svg'
 interface props {
   isAuthentication: boolean,
   claimUser: Profile,
@@ -41,45 +42,44 @@ function SideNav(props: props) {
   function renderMenu() {
     if (!dataMenu) return null;
     return dataMenu.map((item, index) => {
-      let collapseId = `collapse${index}`
-      return <li key={`menu_${index}`} className="nav-item" >
-        <a className="nav-link collapsed" data-toggle="collapse" data-target={`#${collapseId}`} aria-expanded="true" aria-controls={collapseId}>
-          <i className="fas fa-fw fa-cog" />
-          <span>{item.item.name}</span>
+      let collapseId = `collapse${index}`;
+      return <div key={`menu_${index}`}>
+        <a className="nav_link nav-item" data-bs-toggle="collapse" href={`#${collapseId}`} role="button"
+          aria-expanded="false" aria-controls={collapseId}>
+          {IconList()}
+          <span className="nav_name">{item.item.name}</span>
         </a>
-        <div id={collapseId} className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div className="collapse collapse-box" id={collapseId}>
           {item.children?.length > 0 && renderChildren(item.children)}
         </div>
-      </li >
+      </div>
     })
   }
 
 
   function renderContent() {
     if (isLoading) return <BulletList W={180} H={200} />
-    else return <div>
-      <li className="nav-item active" >
-        <NavLink className="nav-link" to="/dashboard">
-          <i className="fas fa-fw fa-tachometer-alt" />
-          <span>Dashboard</span>
-        </NavLink>
-      </li>
+    else return <div className="nav_list">
+      <NavLink className="nav_link active" to="/dashboard">
+        {IconGrid()}
+        <span className="nav_name">Dashboard</span>
+      </NavLink>
       {renderMenu()}
     </div>
   }
 
   return (
-    <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-      <NavLink className="sidebar-brand d-flex align-items-center justify-content-center" to="/">
-        <div className="sidebar-brand-icon rotate-n-15">
-          <i className="fas fa-laugh-wink" />
+    <div className="l-navbar" id="nav-bar">
+      <nav className="nav nav-Sidebar ">
+        <div className="sidebar">
+          <NavLink to="/" className="nav_logo-admin">
+            {IconHome()}
+            <span className="nav_logo-name">ADMIN</span>
+          </NavLink>
+          {renderContent()}
         </div>
-        <div className="sidebar-brand-text mx-3">
-          SB Admin <sup>2</sup>
-        </div>
-      </NavLink>
-      {renderContent()}
-    </ul >
+      </nav>
+    </div>
   )
 }
 

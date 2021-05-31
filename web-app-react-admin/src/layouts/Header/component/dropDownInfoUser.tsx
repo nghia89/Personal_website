@@ -41,10 +41,10 @@ function DropdownInfoUser(props: IProps) {
                             <span className="mr-2 d-none d-lg-inline text-gray-600 small">
                                 {/* {props.user?.name} */}
                             </span>
-                            <img
+                            {/* <img
                                 className="img-profile rounded-circle"
                                 src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
-                            />
+                            /> */}
                         </a>
                         {/* Dropdown - User Information */}
                         <div

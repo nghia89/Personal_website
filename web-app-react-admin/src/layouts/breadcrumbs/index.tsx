@@ -33,13 +33,13 @@ export default function Breadcrumb() {
 
     return (
         <Breadcrumbs aria-label="breadcrumb">
-            <StyledBreadcrumb
+            {/* <StyledBreadcrumb
                 component="a"
                 href="/"
                 label="Home"
                 icon={<HomeIcon fontSize="small" />}
                 onClick={handleClick}
-            />
+            /> */}
         </Breadcrumbs>
     );
 }

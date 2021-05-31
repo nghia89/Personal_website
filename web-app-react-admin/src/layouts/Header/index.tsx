@@ -2,7 +2,7 @@ import React from 'react';
 import DropdownInfoUser from './component/dropDownInfoUser';
 import Notifications from './component/notifications';
 import Breadcrumb from '@/layouts/breadcrumbs/index'
-
+import { IconClose, IconMenu } from '@/helpers/svg'
 interface ReduxProps {
 
 }
@@ -15,19 +15,27 @@ const Header = (props: Props) => {
   // const [isLoading, SetLoading] = useState(true);
 
   return (
-    <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-      <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
-        <i className="fa fa-bars" />
-      </button>
-      <Breadcrumb />
-      <ul className="navbar-nav ml-auto">
-        <Notifications />
-        {/* <div className="topbar-divider d-none d-sm-block" /> */}
-        {/* Nav Item - User Information */}
-        <DropdownInfoUser />
-      </ul>
-
-    </nav >
+    <header className="header" id="header">
+      <div className="header_toggle d-flex align-items-center">
+        <div className="ms-1" >
+          <i className='' id="header-toggle">
+            <span className='bx-menu-show01'>
+              {IconClose()}
+            </span>
+            <span className='bx-menu-show02'>
+              {IconMenu()}
+            </span>
+          </i>
+        </div>
+        <Breadcrumb />
+      </div>
+      <div className="header_img">
+        <ul className="navbar-nav ml-auto">
+          <Notifications />
+          <DropdownInfoUser />
+        </ul>
+      </div>
+    </header>
   )
 
 }
