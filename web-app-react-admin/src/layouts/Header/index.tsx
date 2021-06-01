@@ -14,9 +14,27 @@ const Header = (props: Props) => {
   // const [dataMenu, SetMenu] = useState();
   // const [isLoading, SetLoading] = useState(true);
 
+  function showNavbar(toggleId, navId, bodyId, headerId) {
+    const toggle = document.getElementById(toggleId),
+      nav = document.getElementById(navId),
+      bodypd = document.getElementById(bodyId),
+      headerpd = document.getElementById(headerId)
+
+    // Validate that all variables exist
+    if (toggle && nav && bodypd && headerpd) {
+      nav.classList.toggle('show-slide-bar')
+      // change icon
+      toggle.classList.toggle('bx-menu-show')
+      // add padding to body
+      bodypd.classList.toggle('body-pd')
+      // add padding to header
+      headerpd.classList.toggle('body-pd')
+    }
+  }
+
   return (
     <header className="header align-items-center" id="header">
-      <div className="header_toggle d-flex align-items-center">
+      <div className="header_toggle d-flex align-items-center" onClick={() => showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')}>
         <div className="ms-1" >
           <i className='' id="header-toggle">
             <span className='bx-menu-show01'>

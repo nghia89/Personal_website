@@ -9,7 +9,7 @@ interface Props {
 
 function Layout(props: Props) {
     function renderBody() {
-        return <div id="body-pd" >
+        return <div id="body-pd" className="" >
             <Header />
             <SideNav />
             <div className="container-fluid mtc-5">
