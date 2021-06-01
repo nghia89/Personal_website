@@ -3,12 +3,14 @@ import { apiProduct } from '@/apis/index'
 import { connect } from 'react-redux'
 import { IBaseParams, ProductVM } from '@/models';
 import { checkPermission, SerializeParam } from '@/helpers/utils';
-import { DivTable, useNotification } from '@/components';
+import { DivTable, SearchComponent, useNotification } from '@/components';
 import { commandId, functionId } from '@/constants/utilConstant';
 import { tableHeadProduct } from '@/models/tableHead';
 import { useHistory } from 'react-router-dom';
 import { PATH } from '@/constants/paths';
 import './index.scss'
+import { IconSearch } from '@/helpers/svg';
+import { Button } from '@material-ui/core';
 
 interface IProps { }
 
@@ -21,7 +23,6 @@ export function Product(props: IProps) {
     const [data, setData] = useState<ProductVM[]>([]);
     const [isLoading, setLoading] = useState<boolean>(true)
     const [params, setParams] = useState<IBaseParams>({ page: 1, pageSize: 20, query: '' })
-    const [textSearch, setTextSearch] = useState<string>('')
 
     useEffect(() => {
         isFirst = false
@@ -61,7 +62,7 @@ export function Product(props: IProps) {
         }
     }
 
-    function handleSearch() {
+    function handleSearch(textSearch) {
         let newParam = { ...params };
         newParam.query = textSearch;
         setParams(newParam)
@@ -77,14 +78,12 @@ export function Product(props: IProps) {
     function renderHeader() {
         return <div className="pb-5 d-flex justify-content-between align-items-center ">
             <h1 className="h3 mb-1 text-gray-800">Danh sách sản phẩm</h1>
-
             <div className="d-flex col-4">
-                <input onChange={(e) => setTextSearch(e.target.value)} onKeyDown={(e) => handleKeyDown(e)} type="text" name="searchText" className="text-dark form-control border-0 small " placeholder="Nhập tìm kiếm bằng Tên, Mã. Enter để tìm kiếm... " aria-label="Search" aria-describedby="basic-addon2" />
-                <div className="input-group-append">
-                    <button onClick={() => handleSearch()} className="btn btn-primary" type="button">
-                        <i className="fas fa-search fa-sm"></i>
-                    </button>
-                </div>
+                <SearchComponent
+                    handleSearch={handleSearch}
+                    placeholder="Vui lòng nhập tên hoặc mã. tìm kiếm"
+                    handleKeyDown={handleKeyDown}
+                />
             </div>
             {
                 checkPermission(functionId.product, commandId.create) && <button onClick={() => {

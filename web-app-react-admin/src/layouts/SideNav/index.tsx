@@ -19,14 +19,17 @@ function SideNav(props: props) {
   const [dataMenu, SetMenu] = useState<Array<TreeItem>>();
   const [isLoading, SetLoading] = useState(true);
   const [pathName, SetPathName] = useState<string>('');
+  const [pathUrl, SetPathUrl] = useState<string>('');
   let currentPath = history.location.pathname
   useEffect(() => {
     async function getMenu() {
       await apiUser.getMenu().then((rsp) => {
         SetMenu(rsp)
         let index = rsp.findIndex(a => a.children.findIndex(x => x.item?.url == currentPath) > -1);
-        if (index > -1)
+        if (index > -1) {
+          SetPathUrl(currentPath)
           SetPathName(rsp[index].item.url)
+        }
         else SetPathName(currentPath)
         SetLoading(false)
       });
@@ -41,7 +44,8 @@ function SideNav(props: props) {
     if (children) {
       return <div className="bg-white py-2 collapse-inner rounded">
         {children.map((item, index) => {
-          return <a onClick={() => { SetPathName(pathName); history.push(item.item.url) }} key={`children_${index}`} className="collapse-item">{item.item.name}</a>
+          let classChild = `collapse-item ${item.item.url == pathUrl ? 'collapse-active-item' : ''}`
+          return <a onClick={() => { SetPathName(pathName); SetPathUrl(item.item.url); history.push(item.item.url) }} key={`children_${index}`} className={classChild}>{item.item.name}</a>
         })}
       </div>
     }
@@ -68,10 +72,10 @@ function SideNav(props: props) {
 
 
   function renderContent() {
-    let calssActive = `nav_link ${(pathName == currentPath ? 'active' : '')}`
+    let calssActive = `nav_link ${(pathName == PATH.Dashboard ? 'active' : '')}`
     if (isLoading) return <BulletList W={180} H={200} />
     else return <div className="nav_list">
-      <a className={calssActive} onClick={() => history.push(PATH.Dashboard)}>
+      <a className={calssActive} onClick={() => { SetPathName(PATH.Dashboard); history.push(PATH.Dashboard) }}>
         {IconGrid()}
         <span className="nav_name">Dashboard</span>
       </a>

@@ -1,3 +1,4 @@
+import { IconBell } from '@/helpers/svg'
 import React from 'react'
 interface ReduxProps {
 
@@ -8,7 +9,7 @@ function Notifications(props: Props) {
     return (
         <li className="nav-item dropdown no-arrow mx-1">
             <a className="nav-link dropdown-toggle" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i className="fas fa-bell fa-fw" />
+                {IconBell(20)}
                 <span className="badge badge-danger badge-counter">3+</span>
             </a>
             <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown"

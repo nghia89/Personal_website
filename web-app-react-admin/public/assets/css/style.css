@@ -43,7 +43,7 @@ a {
 }
 
 .header_img {
-    width: 35px;
+    width: 80px;
     height: 35px;
     display: flex;
     justify-content: center;
@@ -168,6 +168,18 @@ padding: .5rem 0;
     white-space: nowrap;
 }
 
+.collapse-item:hover{
+    background: linear-gradient( 
+        0deg
+         ,rgba(41,121,255,.1),rgb(41 121 255 / 26%)),#fff;
+}
+
+.collapse-inner .collapse-active-item{
+    background: linear-gradient( 
+        0deg
+         ,rgba(41,121,255,.1),rgb(41 121 255 / 26%)),#fff;
+}
+
 .l-navbar:hover{
 width: calc(var(--nav-width) + 200px)
 }
@@ -183,7 +195,7 @@ width: calc(var(--nav-width) + 200px)
     }
 
     .header_img {
-        width: 40px;
+        width: 80px;
         height: 40px
     }
 

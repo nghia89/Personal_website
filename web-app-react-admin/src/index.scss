@@ -107,9 +107,18 @@
 }
 
 
+
 /* Let's get this party started */
 ::-webkit-scrollbar {
     width: 12px;
+}
+
+.btn-search{
+    outline: none;
+    margin-left: -1px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    color: #fff;
 }
  
 /* Track */
