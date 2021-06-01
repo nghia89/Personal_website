@@ -130,7 +130,7 @@ export default function DivTable(props: IProps) {
                         renderContentTable() :
                         <div className="content_table_data_empty" style={{ width: widthContent }}>
                             <span>
-                                {IconEmppty(dimensions.height - 600)}
+                                {IconEmppty(dimensions.height - 550)}
                             </span>
                             <p className="ml-5 font-weight-bold text-dark">Danh sách đang trống</p>
                         </div>

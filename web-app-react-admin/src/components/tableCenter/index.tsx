@@ -157,7 +157,7 @@ export default function TableCenter(props: IProps) {
                                     renderContentTable()
                                     : <div className="content_table_data_empty" style={{ width: dimensions.width - 300 }}>
                                         <span>
-                                            {IconEmppty()}
+                                            {IconEmppty(dimensions.height - 550)}
                                         </span>
                                         <p className="ml-5 font-weight-bold text-dark">Danh sách đang trống</p>
                                     </div>

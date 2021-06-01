@@ -24,6 +24,10 @@ function SideNav(props: props) {
     async function getMenu() {
       await apiUser.getMenu().then((rsp) => {
         SetMenu(rsp)
+        let index = rsp.findIndex(a => a.children.findIndex(x => x.item?.url == currentPath) > -1);
+        if (index > -1)
+          SetPathName(rsp[index].item.url)
+        else SetPathName(currentPath)
         SetLoading(false)
       });
     }
@@ -33,24 +37,11 @@ function SideNav(props: props) {
 
   }, [props.isAuthentication])
 
-  useEffect(() => {
-    SetPathName(history.location.pathname)
-    console.log(history.location.pathname);
-
-  }, [history.location.pathname])
-
-  function CheckActive(pathName: string) {
-    debugger
-    let currentPath = history.location.pathname
-    if (pathName == currentPath) return 'active'
-    return ''
-  }
-
-  function renderChildren(children: Array<TreeItem> | undefined) {
+  function renderChildren(children: Array<TreeItem> | undefined, pathName: string) {
     if (children) {
       return <div className="bg-white py-2 collapse-inner rounded">
         {children.map((item, index) => {
-          return <a onClick={() => { SetPathName(item.item.url); history.push(item.item.url) }} key={`children_${index}`} className="collapse-item">{item.item.name}</a>
+          return <a onClick={() => { SetPathName(pathName); history.push(item.item.url) }} key={`children_${index}`} className="collapse-item">{item.item.name}</a>
         })}
       </div>
     }
@@ -60,15 +51,16 @@ function SideNav(props: props) {
     if (!dataMenu) return null;
     return dataMenu.map((item, index) => {
       let collapseId = `collapse${index}`;
+      let calssActive = `nav_link nav-item ${(pathName == item.item.url ? 'active' : '')}`
       return <div key={`menu_${index}`}>
         <a onClick={() => SetPathName(item.item.url)}
-          className="nav_link nav-item" data-bs-toggle="collapse" href={`#${collapseId}`} role="button"
+          className={calssActive} data-bs-toggle="collapse" href={`#${collapseId}`} role="button"
           aria-expanded="false" aria-controls={collapseId}>
           {IconList()}
           <span className="nav_name">{item.item.name}</span>
         </a>
         <div className="collapse collapse-box" id={collapseId}>
-          {item.children?.length > 0 && renderChildren(item.children)}
+          {item.children?.length > 0 && renderChildren(item.children, item.item.url)}
         </div>
       </div>
     })
