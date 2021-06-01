@@ -18,7 +18,8 @@ function SideNav(props: props) {
 
   const [dataMenu, SetMenu] = useState<Array<TreeItem>>();
   const [isLoading, SetLoading] = useState(true);
-
+  const [pathName, SetPathName] = useState<string>('');
+  let currentPath = history.location.pathname
   useEffect(() => {
     async function getMenu() {
       await apiUser.getMenu().then((rsp) => {
@@ -32,11 +33,24 @@ function SideNav(props: props) {
 
   }, [props.isAuthentication])
 
+  useEffect(() => {
+    SetPathName(history.location.pathname)
+    console.log(history.location.pathname);
+
+  }, [history.location.pathname])
+
+  function CheckActive(pathName: string) {
+    debugger
+    let currentPath = history.location.pathname
+    if (pathName == currentPath) return 'active'
+    return ''
+  }
+
   function renderChildren(children: Array<TreeItem> | undefined) {
     if (children) {
       return <div className="bg-white py-2 collapse-inner rounded">
         {children.map((item, index) => {
-          return <NavLink key={`children_${index}`} className="collapse-item" to={item.item.url}>{item.item.name}</NavLink>
+          return <a onClick={() => { SetPathName(item.item.url); history.push(item.item.url) }} key={`children_${index}`} className="collapse-item">{item.item.name}</a>
         })}
       </div>
     }
@@ -47,7 +61,8 @@ function SideNav(props: props) {
     return dataMenu.map((item, index) => {
       let collapseId = `collapse${index}`;
       return <div key={`menu_${index}`}>
-        <a className="nav_link nav-item" data-bs-toggle="collapse" href={`#${collapseId}`} role="button"
+        <a onClick={() => SetPathName(item.item.url)}
+          className="nav_link nav-item" data-bs-toggle="collapse" href={`#${collapseId}`} role="button"
           aria-expanded="false" aria-controls={collapseId}>
           {IconList()}
           <span className="nav_name">{item.item.name}</span>
@@ -61,12 +76,13 @@ function SideNav(props: props) {
 
 
   function renderContent() {
+    let calssActive = `nav_link ${(pathName == currentPath ? 'active' : '')}`
     if (isLoading) return <BulletList W={180} H={200} />
     else return <div className="nav_list">
-      <NavLink className="nav_link" to="/dashboard">
+      <a className={calssActive} onClick={() => history.push(PATH.Dashboard)}>
         {IconGrid()}
         <span className="nav_name">Dashboard</span>
-      </NavLink>
+      </a>
       {renderMenu()}
     </div>
   }
