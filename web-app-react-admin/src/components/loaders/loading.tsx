@@ -2,8 +2,19 @@ import React from 'react'
 
 export default function LoadingPage() {
     return <div className="d-flex justify-content-center">
-        <div className="spinner-border" role="status">
-            <span className="sr-only">Loading...</span>
+        <div className="container-loader">
+            <div className="dot dot-1"></div>
+            <div className="dot dot-2"></div>
+            <div className="dot dot-3"></div>
         </div>
+
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <defs>
+                <filter id="goo">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 21 -7" />
+                </filter>
+            </defs>
+        </svg>
     </div>
 }

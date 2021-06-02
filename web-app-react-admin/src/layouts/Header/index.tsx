@@ -47,8 +47,8 @@ const Header = (props: Props) => {
         </div>
         <Breadcrumb />
       </div>
-      <div className="header_img">
-        <ul className="navbar-nav ml-auto">
+      <div>
+        <ul className="nav">
           <Notifications />
           <DropdownInfoUser />
         </ul>

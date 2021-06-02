@@ -3,6 +3,7 @@ import { AuthContext } from '@/providers/authContext';
 import { Profile } from '@/models/Profile';
 import { connect } from 'react-redux';
 import { setClaimUser } from '@/reducer/claimUser/User.thunks';
+import { IconLogout, IconUser } from '@/helpers/svg';
 
 interface IProps {
     claimUser: Profile,
@@ -35,35 +36,33 @@ function DropdownInfoUser(props: IProps) {
             {context => (
                 <Fragment>
 
-                    <li className="nav-item dropdown no-arrow">
-                        <a className="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    <li className="nav-item">
+                        <a className="nav-link" data-bs-toggle="collapse" href="#collapseUser" role="button" aria-expanded="false" aria-controls="collapseUser"
                         >
                             <span className="mr-2 d-none d-lg-inline text-gray-600 small">
-                                {/* {props.user?.name} */}
+                                {props.claimUser?.name}
                             </span>
-                            {/* <img
-                                className="img-profile rounded-circle"
-                                src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
-                            /> */}
+                            {IconUser()}
                         </a>
                         {/* Dropdown - User Information */}
                         <div
-                            className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                            aria-labelledby="userDropdown"
+                            className="dropdown-list collapse dropdown-menu dropdown-menu-ct dropdown-menu-right shadow animated--grow-in" id="collapseUser"
                         >
-                            <a className="dropdown-item" >
-                                <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400" />
+                            <a className="dropdown-item dropdown-item-ct " >
+                                <span className="mx-2">
+                                    {IconUser(20)}
+                                </span>
+
                                 {props.claimUser?.name}
                             </a>
-                            <a className="dropdown-item" ><i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400" />Settings</a>
-                            <a className="dropdown-item" >
-                                <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400" />
-                                     Activity Log
-                                     </a>
                             <div className="dropdown-divider" />
-                            <a onClick={() => handleClick(context.signOutRedirect)} className="dropdown-item" data-toggle="modal" data-target="#logoutModal"
-                            >
-                                <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" />Đăng xuất</a>
+                            <a onClick={() => handleClick(context.signOutRedirect)} className="dropdown-item" data-toggle="modal" data-target="#logoutModal">
+
+                                <span className="mx-2">
+                                    {IconLogout(20)}
+                                </span>
+                                Đăng xuất
+                                </a>
                         </div>
                     </li>
                 </Fragment>

@@ -7,14 +7,14 @@ interface ReduxProps {
 interface Props extends ReduxProps { }
 function Notifications(props: Props) {
     return (
-        <li className="nav-item dropdown no-arrow mx-1">
-            <a className="nav-link dropdown-toggle" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <li className="nav-item">
+            <a className="nav-link" data-bs-toggle="collapse" href="#collapseNotify" role="button" aria-expanded="false" aria-controls="collapseNotify" style={{ position: 'relative' }}>
                 {IconBell(20)}
                 <span className="badge badge-danger badge-counter">3+</span>
             </a>
-            <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown"
+            <div className="dropdown-list collapse dropdown-menu dropdown-menu-right shadow animated--grow-in" id="collapseNotify"
             >
-                <h6 className="dropdown-header">Alerts Center</h6>
+                <h6 className="dropdown-head dropdown-header">Alerts Center</h6>
                 <a className="dropdown-item d-flex align-items-center" >
                     <div className="mr-3">
                         <div className="icon-circle bg-primary">
