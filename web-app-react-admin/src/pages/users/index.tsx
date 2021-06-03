@@ -4,7 +4,7 @@ import { CircularProgress, TextField, Select, MenuItem } from '@material-ui/core
 import { IBaseParams, RoleVM, UserVM } from '@/models/index';
 import { apiRoles, apiUser } from '@/apis/index';
 import { SerializeParam, checkPermission } from '@/helpers/utils';
-import { TableCenter, AlertDialogSlide, useNotification } from '@/components/index'
+import { TableCenter, AlertDialogSlide, useNotification, SearchComponent } from '@/components/index'
 import UserDetail from './component/detail/index'
 import UserCreate from './component/create/index'
 import { commandId, functionId } from '@/constants/utilConstant'
@@ -126,12 +126,10 @@ export function User(props: IProps) {
         return <div className="pb-5 d-flex justify-content-between align-items-center">
             <h1 className="h3 mb-1 text-gray-800">Danh sách người dùng</h1>
             <div className="d-flex col-6">
-                <input onKeyDown={(e) => handleKeyDown(e)} type="text" name="searchText" className="text-dark form-control border-0 small " placeholder="Nhập tìm kiếm bằng Email, Tên, Sđt. Enter để tìm kiếm... " aria-label="Search" aria-describedby="basic-addon2" />
-                <div className="input-group-append">
-                    <button className="btn btn-primary" type="button">
-                        <i className="fas fa-search fa-sm"></i>
-                    </button>
-                </div>
+                <SearchComponent
+                    placeholder="Nhập tìm kiếm bằng Email, Tên, Sđt. Enter để tìm kiếm... "
+                    handleKeyDown={handleKeyDown}
+                />
             </div>
             {checkPermission(functionId.user, commandId.create) && <button onClick={() => setOpenCreate(true)} type="button" className="mr-3 btn btn-success">Tạo mới</button>}
         </div>

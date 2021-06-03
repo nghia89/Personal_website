@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WebAppIdentityServer.Api.Authorization;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Utilities.Constants;
+using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.Product;
 
 namespace WebAppIdentityServer.Api.Controllers
@@ -62,6 +63,15 @@ namespace WebAppIdentityServer.Api.Controllers
         {
             var data = await _productCategoryBus.TreeView();
             return new OkObjectResult(data);
+        }
+
+        [HttpGet]
+        [Route("paging")]
+        [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.VIEW)]
+        public async Task<IActionResult> Paging([FromQuery] PagingParamModel pagingParam)
+        {
+            var (data, total) = await _productCategoryBus.Paging(pagingParam);
+            return new OkObjectResult(new { data = data, total = total });
         }
     }
 }

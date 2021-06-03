@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Utilities;
+using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.Product;
 
 namespace WebAppIdentityServer.Business.Interfaces
@@ -21,5 +22,6 @@ namespace WebAppIdentityServer.Business.Interfaces
         Task<ProductCategoryVM> GetById(long id);
 
         Task<IEnumerable<TreeItem<ProductCategory>>> TreeView();
+        Task<(List<ProductCategoryVM> data, long totalCount)> Paging(PagingParamModel pagingParam);
     }
 }

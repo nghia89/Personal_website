@@ -1,4 +1,4 @@
-import { AlertDialogSlide, TableCenter, useNotification } from '@/components';
+import { AlertDialogSlide, SearchComponent, TableCenter, useNotification } from '@/components';
 import { commandId, functionId } from '@/constants/utilConstant';
 import { tableHeadProduct, tableHeadUser } from '@/models/tableHead';
 import { CircularProgress, TextField, Select, MenuItem } from '@material-ui/core';
@@ -22,18 +22,16 @@ export default function ProductCategory(props: IProps) {
 
 
     useEffect(() => {
-        getData('');
+        getData();
     }, [])
 
-    async function getData(textSearch?: string) {
+    async function getData() {
         if (!isLoading) setLoading(true)
-        let newParam = { ...params };
-        newParam.query = textSearch
         let serial = SerializeParam(params);
         await apiProductCategory.getPaging(serial).then((rsp) => {
             if (!rsp.error) {
                 setLoading(false)
-                setData(rsp)
+                setData(rsp.data)
             } else {
                 setLoading(false)
                 dispatch('ERROR', 'Có lỗi xảy ra.')
@@ -51,12 +49,10 @@ export default function ProductCategory(props: IProps) {
         return <div className="pb-5 d-flex justify-content-between align-items-center">
             <h1 className="h3 mb-1 text-gray-800">Danh sách danh mục</h1>
             <div className="d-flex col-6">
-                <input onKeyDown={(e) => handleKeyDown(e)} type="text" name="searchText" className="text-dark form-control border-0 small " placeholder="Nhập tìm kiếm bằng Email, Tên, Sđt. Enter để tìm kiếm... " aria-label="Search" aria-describedby="basic-addon2" />
-                <div className="input-group-append">
-                    <button className="btn btn-primary" type="button">
-                        <i className="fas fa-search fa-sm"></i>
-                    </button>
-                </div>
+                <SearchComponent
+                    placeholder="Nhập tên. Enter để tìm kiếm... "
+                    handleKeyDown={handleKeyDown}
+                />
             </div>
             {checkPermission(functionId.category, commandId.create) && <button onClick={() => console.log("create")} type="button" className="mr-3 btn btn-success">Tạo mới</button>}
         </div>
@@ -65,10 +61,10 @@ export default function ProductCategory(props: IProps) {
 
     function renderContent() {
         return <TableCenter
-            funcId={functionId.user}
+            funcId={functionId.category}
             data={data}
             header={tableHeadCategory}
-            fetchData={(value) => getData(value)}
+            fetchData={() => getData()}
             pageSize={params.pageSize}
             page={params.page}
             total={params.totalCount}

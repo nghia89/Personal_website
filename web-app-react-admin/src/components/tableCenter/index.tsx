@@ -117,13 +117,13 @@ export default function TableCenter(props: IProps) {
                 <TableCell key={`r_action`} align="center" >
                     {
                         (checkPermission(funcId, commandId.update) && !props.isHiddenEdit) && <Tooltip title="Sửa" aria-label="Sửa">
-                            <span onClick={() => props.handleEdit(item["id"])} className="material-icons cursor p-2">edit</span>
+                            <span onClick={() => props.handleEdit(item["id"])} className="material-icons cursor p-2">Sửa</span>
                         </Tooltip>
                     }
 
                     {(checkPermission(funcId, commandId.delete) && !props.isHiddenDelete) &&
                         <Tooltip title="Xoá" aria-label="Xoá">
-                            <span onClick={() => props.handleDelete(item["id"])} className="material-icons cursor p-2">delete</span>
+                            <span onClick={() => props.handleDelete(item["id"])} className="material-icons cursor p-2">Xóa</span>
                         </Tooltip>
                     }
                     {(checkPermission(funcId, commandId.update) && props.handleSetRole) &&

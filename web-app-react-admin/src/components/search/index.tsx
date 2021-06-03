@@ -5,7 +5,7 @@ import { IconSearch } from '@/helpers/svg';
 
 interface IProps {
     handleKeyDown?: Function
-    handleSearch: Function
+    handleSearch?: Function
     placeholder: string
     onChange?: Function
 }
@@ -21,7 +21,7 @@ export default function SearchComponent(props: IProps) {
             placeholder={props.placeholder}
             aria-label="Search" aria-describedby="basic-addon2"
             style={{ marginRight: '-10px ' }} />
-        <Button onClick={() => props.handleSearch(textSearch)} variant="contained" color="primary">
+        <Button onClick={() => props.handleSearch && props.handleSearch(textSearch)} variant="contained" color="primary">
             {IconSearch(20)}
         </Button>
     </React.Fragment>

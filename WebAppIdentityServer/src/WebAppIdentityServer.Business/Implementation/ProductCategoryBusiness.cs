@@ -11,6 +11,7 @@ using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.Utilities;
 using WebAppIdentityServer.Utilities.Enum;
 using WebAppIdentityServer.Utilities.Helpers;
+using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.Product;
 
 namespace WebAppIdentityServer.Business.Implementation
@@ -77,6 +78,12 @@ namespace WebAppIdentityServer.Business.Implementation
             IEnumerable<ProductCategory> enumList = data.OrderBy(x => x.SortOrder).ToList();
             var root = enumList.GenerateTree(c => c.Id, c => c.ParentId, 0);
             return root.ToList();
+        }
+
+        public async Task<(List<ProductCategoryVM> data, long totalCount)> Paging(PagingParamModel pagingParam)
+        {
+            var (data, totalCount) = await _productCategoryRep.Paging(pagingParam.query, pagingParam.page, pagingParam.pageSize, new Expression<Func<ProductCategory, object>>[] { a => a.Name }, null);
+            return (data.Select(a => a.ToModel()).ToList(), totalCount);
         }
     }
 }
