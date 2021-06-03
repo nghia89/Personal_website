@@ -70,10 +70,10 @@ export default function TreeViewCategory(props: IProps) {
             })
     }
 
-    let classShowDropdown = `dropdown-menu-custom dropdown-menu p-2  animate slideIn  ${isShowDropdown ? 'show' : ""}`
+    let classShowDropdown = `dropdown-select-custom dropdown-menu p-2  animate slideIn  ${isShowDropdown ? 'show' : ""}`
     return (
         <div className="treeView_wraper">
-            <div className="treeView_wraper_input d-flex">
+            <div className="treeView_wraper_input d-flex mb-1">
                 <div style={{ display: 'contents' }}
                     onClick={() => handleShowDropdown()}>
                     <input placeholder="Chọn danh mục" value={selected?.name} />
@@ -99,7 +99,7 @@ export default function TreeViewCategory(props: IProps) {
                 </Collapse>
 
             </div>
-        </div>
+        </div >
 
     );
 }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { TextField, makeStyles, createStyles, Theme } from '@material-ui/core';
-import { UserVM } from '@/models/index';
+import { CategoryVM } from '@/models/index';
 import { apiUser } from '@/apis/index';
-import { DrawerLayout, useNotification } from '@/components/index'
+import { DrawerLayout, TreeViewCategory, useNotification } from '@/components/index'
 import { validateField } from '@/helpers/utils'
 import { validateUserVm } from '@/models/validateField';
 
@@ -22,13 +22,13 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-
+type NewType = CategoryVM | null;
 export default function ProductCateCreate(props: IProps) {
     const classes = useStyles();
     let dispatch = useNotification();
     let { isOpen } = props;
 
-    const [formState, setFormState] = useState<UserVM | null>(null)
+    const [formState, setFormState] = useState<CategoryVM | null>(null)
     // const [isEdit, setEdit] = useState<boolean>(true)
 
     useEffect(() => {
@@ -56,13 +56,17 @@ export default function ProductCateCreate(props: IProps) {
 
     function handleChange(e) {
         let target = e.target;
-        type NewType = UserVM | null;
-
         let newFormState: NewType = { ...formState };
         if (newFormState)
             newFormState[target.name] = target.value;
         setFormState(newFormState);
     };
+
+    function handleOnchangeValue(value, name) {
+        let newFormState: NewType = { ...formState };
+        newFormState[name] = value;
+        setFormState(newFormState);
+    }
 
 
     function renderHeader() {
@@ -84,18 +88,23 @@ export default function ProductCateCreate(props: IProps) {
                         inputRef={(r) => refs["name"] = r}
                         label="Tên"
                         name="name"
-                        value={formState?.firstName}
+                        value={formState?.name}
                         variant="outlined"
                         size="small"
                         className="form-control"
                         onChange={(e) => handleChange(e)}
+                    />
+                    <TreeViewCategory
+                        className="dropdown-select-custom-cate"
+                        handleOnchange={(value) => handleOnchangeValue(value, 'productCategoryId')}
+                        dataValue={formState?.id}
                     />
                     <TextField
                         required
                         inputRef={(r) => refs["dob"] = r}
                         label="Mô tả"
                         name="description"
-                        defaultValue={formState?.dob}
+                        defaultValue={formState?.description}
                         variant="outlined"
                         size="small"
                         className="form-control"
@@ -107,7 +116,7 @@ export default function ProductCateCreate(props: IProps) {
                         required
                         label="seoAlias"
                         name="seoAlias"
-                        value={formState?.lastName}
+                        value={formState?.seoAlias}
                         variant="outlined"
                         size="small"
                         className="form-control"
@@ -117,7 +126,7 @@ export default function ProductCateCreate(props: IProps) {
                         required
                         label="seoKeywords"
                         name="seoKeywords"
-                        value={formState?.lastName}
+                        value={formState?.seoKeywords}
                         variant="outlined"
                         size="small"
                         className="form-control"
@@ -128,7 +137,7 @@ export default function ProductCateCreate(props: IProps) {
                         required
                         label="seoDescription"
                         name="seoDescription"
-                        value={formState?.lastName}
+                        value={formState?.seoDescription}
                         variant="outlined"
                         size="small"
                         className="form-control"

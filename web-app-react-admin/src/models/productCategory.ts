@@ -4,14 +4,14 @@ export interface TreeCateItem {
 }
 
 export interface CategoryVM {
-    id: number
-    name: string
-    description: string
-    sortOrder: number
-    parentId: number
-    image: string
-    status: number
-    seoAlias: string
-    seoKeywords: string
-    seoDescription: string
+    id?: number
+    name?: string
+    description?: string
+    sortOrder?: number
+    parentId?: number
+    image?: string
+    status?: number
+    seoAlias?: string
+    seoKeywords?: string
+    seoDescription?: string
 }

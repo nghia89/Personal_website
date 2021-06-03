@@ -7,7 +7,7 @@ import { checkPermission, SerializeParam } from '@/helpers/utils';
 import { IBaseParams, CategoryVM } from '@/models';
 import { apiProductCategory } from '@/apis';
 import ProductCateCreate from './component/create';
-
+import './index.css'
 interface IProps {
 
 }
