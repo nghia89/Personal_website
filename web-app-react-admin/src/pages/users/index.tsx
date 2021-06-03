@@ -131,7 +131,7 @@ export function User(props: IProps) {
                     handleKeyDown={handleKeyDown}
                 />
             </div>
-            {checkPermission(functionId.user, commandId.create) && <button onClick={() => setOpenCreate(true)} type="button" className="mr-3 btn btn-success">Tạo mới</button>}
+            {checkPermission(functionId.user, commandId.create) && <button onClick={() => setOpenCreate(true)} type="button" className="mx-3 btn btn-success">Tạo mới</button>}
         </div>
     }
 

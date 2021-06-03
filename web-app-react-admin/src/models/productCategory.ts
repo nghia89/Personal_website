@@ -6,10 +6,9 @@ export interface TreeCateItem {
 export interface CategoryVM {
     id: number
     name: string
-    Description: string
+    description: string
     sortOrder: number
     parentId: number
-    SortOrder: number
     image: string
     status: number
     seoAlias: string

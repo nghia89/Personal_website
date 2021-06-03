@@ -1,14 +1,12 @@
-import { AlertDialogSlide, SearchComponent, TableCenter, useNotification } from '@/components';
+import { SearchComponent, TableCenter, useNotification } from '@/components';
 import { commandId, functionId } from '@/constants/utilConstant';
-import { tableHeadProduct, tableHeadUser } from '@/models/tableHead';
-import { CircularProgress, TextField, Select, MenuItem } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 import { tableHeadCategory } from '@/models/tableHead';
 import React, { useEffect, useState } from 'react';
-
-import './index.scss'
 import { checkPermission, SerializeParam } from '@/helpers/utils';
 import { IBaseParams, CategoryVM } from '@/models';
 import { apiProductCategory } from '@/apis';
+import ProductCateCreate from './component/create';
 
 interface IProps {
 
@@ -19,7 +17,7 @@ export default function ProductCategory(props: IProps) {
     const [data, setData] = useState<CategoryVM[]>([]);
     const [isLoading, setLoading] = useState<boolean>(true)
     const [params, setParams] = useState<IBaseParams>({ page: 1, pageSize: 20, query: '' })
-
+    const [isOpenCreate, setOpenCreate] = useState<boolean>(false)
 
     useEffect(() => {
         getData();
@@ -54,7 +52,7 @@ export default function ProductCategory(props: IProps) {
                     handleKeyDown={handleKeyDown}
                 />
             </div>
-            {checkPermission(functionId.category, commandId.create) && <button onClick={() => console.log("create")} type="button" className="mr-3 btn btn-success">Tạo mới</button>}
+            {checkPermission(functionId.category, commandId.create) && <button onClick={() => setOpenCreate(true)} type="button" className="mx-3 btn btn-success">Tạo mới</button>}
         </div>
     }
 
@@ -82,6 +80,12 @@ export default function ProductCategory(props: IProps) {
                 <CircularProgress />
             </div> :
                 renderContent()}
+
+            {isOpenCreate && <ProductCateCreate
+                isOpen={isOpenCreate}
+                handleClose={() => setOpenCreate(false)}
+                handleReload={async () => await getData()}
+            />}
         </div>
     )
 }

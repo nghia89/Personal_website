@@ -126,7 +126,7 @@ export default function ProductCreate(props: IProps) {
         return <div className="pb-5 d-flex justify-content-between align-items-center">
             <h4 className="mr-5 color-black font-weight-bold">Tạo mới sản phẩm</h4>
             <div>
-                <button onClick={async () => await saveData()} type="button" className="mr-3 hms-btn-button btn btn-primary">Lưu</button>
+                <button onClick={async () => await saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>
             </div>
         </div>
     }

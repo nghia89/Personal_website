@@ -6,7 +6,7 @@ import {
 import { formatDate, checkPermission, IsNullOrEmpty } from '@/helpers/utils';
 import { IBaseParams, ITableHead } from '@/models/index'
 import { commandId } from '@/constants/utilConstant'
-import { IconEmppty } from '@/helpers/svg';
+import { IconEdit, IconEmppty, IconPlushSquare, IconTrash } from '@/helpers/svg';
 
 
 
@@ -96,13 +96,13 @@ export default function TableCenter(props: IProps) {
         else if (type === "dateTime")
             return <TableCell key={"r_cel" + index} align="center">{formatDate(value, 'DD/MM/YYYY HH:MM')}</TableCell>
         else if (type === "image")
-            return <div key={"r_cel" + index} className="divTableCell center" style={{ width: '200px' }}>
+            return <TableCell key={"r_cel" + index} className="divTableCell center" style={{ width: '200px' }}>
                 <img height="70px" src={value} />
-            </div>
+            </TableCell>
         else if (type == "status")
-            return <div key={"r_cel" + index} className="divTableCell center" style={{ width: '100px' }} >
+            return <TableCell key={"r_cel" + index} className="divTableCell center" style={{ width: '100px' }} >
                 <Switch checked={value == 1 ? true : false} color="primary" />
-            </div>
+            </TableCell>
         else return <TableCell key={"r_cel" + index} align="center">{value}</TableCell>
     }
 
@@ -117,18 +117,18 @@ export default function TableCenter(props: IProps) {
                 <TableCell key={`r_action`} align="center" >
                     {
                         (checkPermission(funcId, commandId.update) && !props.isHiddenEdit) && <Tooltip title="Sửa" aria-label="Sửa">
-                            <span onClick={() => props.handleEdit(item["id"])} className="material-icons cursor p-2">Sửa</span>
+                            <span onClick={() => props.handleEdit(item["id"])} className="px-2" >{IconEdit(20)}</span>
                         </Tooltip>
                     }
 
                     {(checkPermission(funcId, commandId.delete) && !props.isHiddenDelete) &&
                         <Tooltip title="Xoá" aria-label="Xoá">
-                            <span onClick={() => props.handleDelete(item["id"])} className="material-icons cursor p-2">Xóa</span>
+                            <span onClick={() => props.handleDelete(item["id"])} className="px-2" >{IconTrash(20)}</span>
                         </Tooltip>
                     }
                     {(checkPermission(funcId, commandId.update) && props.handleSetRole) &&
                         <Tooltip title="Gán quyền" aria-label="Gán quyền">
-                            <span onClick={() => props.handleSetRole && props.handleSetRole(item)} className="material-icons cursor p-2">manage_accounts</span>
+                            <span onClick={() => props.handleSetRole && props.handleSetRole(item)} className="px-2"  >{IconPlushSquare(20)}</span>
                         </Tooltip>
                     }
                 </TableCell>
@@ -150,19 +150,20 @@ export default function TableCenter(props: IProps) {
                             <TableCell key={`h_action`} align="center" ></TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
-                        {
-                            props.isLoading ? <div className="content_table_data_empty"><CircularProgress /></div> :
-                                props.data.length > 0 ?
-                                    renderContentTable()
-                                    : <div className="content_table_data_empty" style={{ width: dimensions.width - 300 }}>
-                                        <span>
-                                            {IconEmppty(dimensions.height - 550)}
-                                        </span>
-                                        <p className="ml-5 font-weight-bold text-dark">Danh sách đang trống</p>
-                                    </div>
-                        }
-                    </TableBody>
+                    {
+                        props.isLoading ? <div className="content_table_data_empty"><CircularProgress /></div> :
+                            props.data.length > 0 ?
+                                <TableBody>
+                                    {renderContentTable()}
+                                </TableBody>
+                                : <div className="content_table_data_empty" style={{ width: dimensions.width - 300 }}>
+                                    <span>
+                                        {IconEmppty(dimensions.height - 550)}
+                                    </span>
+                                    <p className="ml-5 font-weight-bold text-dark">Danh sách đang trống</p>
+                                </div>
+                    }
+
                 </Table>
             </TableContainer >
             <TablePagination

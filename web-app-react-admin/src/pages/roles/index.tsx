@@ -81,7 +81,7 @@ export default function Role(props: IProps) {
         return <div className="pb-5 d-flex justify-content-between align-items-center">
             <h1 className="h3 mb-1 text-gray-800">Danh sách quyền</h1>
 
-            <button hidden={!checkPermission(functionId.role, commandId.create)} onClick={() => setOpenCreate(true)} type="button" className="mr-3 btn btn-success">Tạo mới</button>
+            <button hidden={!checkPermission(functionId.role, commandId.create)} onClick={() => setOpenCreate(true)} type="button" className="mx-3 btn btn-success">Tạo mới</button>
         </div>
     }
 

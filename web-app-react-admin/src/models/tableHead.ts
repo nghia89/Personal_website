@@ -39,5 +39,5 @@ export const tableHeadRoleToFunc = [
 export const tableHeadCategory = [
     { name: 'stt', fieldName: 'stt', type: 'stt' },
     { name: 'Tên', fieldName: 'name' },
-    { name: 'Trạng thái', fieldName: 'status' },
+    { name: 'Trạng thái', fieldName: 'status', type: 'status' },
 ] as Array<ITableHead>;

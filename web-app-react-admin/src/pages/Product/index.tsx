@@ -88,7 +88,7 @@ export function Product(props: IProps) {
             {
                 checkPermission(functionId.product, commandId.create) && <button onClick={() => {
                     history.push(PATH.PRODUCT_CREATE)
-                }} type="button" className="mr-3 btn btn-success">Tạo mới</button>
+                }} type="button" className="mx-3 btn btn-success">Tạo mới</button>
             }
         </div>
     }

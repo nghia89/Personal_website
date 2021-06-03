@@ -166,8 +166,8 @@ export default function PermissionDetail(props: IProps) {
         return <div className="pb-5 d-flex justify-content-between align-items-center">
             <h1 className="h3 mb-1 text-gray-800">Quảng lý phân quyền</h1>
             <div>
-                {checkPermission(functionId.permission, commandId.update) && <button disabled={isEdit} onClick={() => saveData()} type="button" className="mr-3 hms-btn-button btn btn-primary">Lưu</button>}
-                <button onClick={() => handleClose()} type="button" className="mr-3 hms-btn-button btn btn-light">Đóng</button>
+                {checkPermission(functionId.permission, commandId.update) && <button disabled={isEdit} onClick={() => saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>}
+                <button onClick={() => handleClose()} type="button" className="mx-3 hms-btn-button btn btn-light">Đóng</button>
             </div>
         </div>
     }

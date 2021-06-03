@@ -53,7 +53,7 @@ export default function Dashboard() {
                                                 </div>
                                 <div className="row no-gutters align-items-center">
                                     <div className="col-auto">
-                                        <div className="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                        <div className="h5 mb-0 mx-3 font-weight-bold text-gray-800">
                                             50%
                                                          </div>
                                     </div>
