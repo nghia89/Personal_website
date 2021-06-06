@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import { apiUser } from '@/apis/index';
 import { TreeItem } from '@/models/index';
 import { BulletList } from '@/components/loaders/index'
@@ -8,6 +7,8 @@ import { Profile } from 'oidc-client';
 import { IconChevronDown, IconChevronRight, IconGrid, IconHome, IconList } from '@/helpers/svg'
 import history from '@/history';
 import { PATH } from '@/constants/paths';
+import { Collapse } from '@material-ui/core';
+import { renderIconSlideBar } from '@/helpers/utils';
 
 interface props {
   isAuthentication: boolean,
@@ -19,8 +20,10 @@ function SideNav(props: props) {
   const [dataMenu, SetMenu] = useState<Array<TreeItem>>();
   const [isLoading, SetLoading] = useState(true);
   const [pathName, SetPathName] = useState<string>('');
+  const [pathNameExpan, SetPathNameExpan] = useState<Array<string>>([]);
   const [pathUrl, SetPathUrl] = useState<string>('');
-  let currentPath = history.location.pathname
+  let currentPath = history.location.pathname;
+
   useEffect(() => {
     async function getMenu() {
       await apiUser.getMenu().then((rsp) => {
@@ -28,6 +31,7 @@ function SideNav(props: props) {
         let index = rsp.findIndex(a => a.children.findIndex(x => x.item?.url == currentPath) > -1);
         if (index > -1) {
           SetPathUrl(currentPath)
+          handleChangeExpan(rsp[index].item.url)
           SetPathName(rsp[index].item.url)
         }
         else SetPathName(currentPath)
@@ -40,12 +44,18 @@ function SideNav(props: props) {
 
   }, [props.isAuthentication])
 
+  function handleChangeExpan(pathName: string) {
+    if (pathNameExpan.includes(pathName)) {
+      SetPathNameExpan([])
+    } else SetPathNameExpan([pathName])
+  }
+
   function renderChildren(children: Array<TreeItem> | undefined, pathName: string) {
     if (children) {
       return <div className="bg-white collapse-inner rounded">
         {children.map((item, index) => {
           let classChild = `collapse-item ${item.item.url == pathUrl ? 'collapse-active-item' : ''}`
-          return <a onClick={() => { history.push(item.item.url); SetPathName(pathName); SetPathUrl(item.item.url) }} key={`children_${index}`} className={classChild}>{item.item.name}</a>
+          return <a onClick={() => { history.push(item.item.url); SetPathNameExpan([pathName]); SetPathUrl(item.item.url) }} key={`children_${index}`} className={classChild}>{item.item.name}</a>
         })}
       </div>
     }
@@ -54,13 +64,12 @@ function SideNav(props: props) {
   function renderMenu() {
     if (!dataMenu) return null;
     return dataMenu.map((item, index) => {
-      let collapseId = `collapse${index}`;
-      let calssActive = `nav_link nav-item ${(pathName == item.item.url ? 'active' : '')}`
+      let isExpan = pathNameExpan.includes(item.item.url) ? true : false;
+      let calssActive = `nav_link nav-item cursor ${(isExpan ? 'active' : '')}`
       return <div key={`menu_${index}`}>
-        <a onClick={() => SetPathName(item.item.url)}
-          className={calssActive} data-bs-toggle="collapse" href={`#${collapseId}`} role="button"
-          aria-expanded="false" aria-controls={collapseId}>
-          {IconList()}
+        <a onClick={() => handleChangeExpan(item.item.url)}
+          className={calssActive}>
+          {renderIconSlideBar(item.item.icon)}
           <span className="nav_name">{item.item.name}</span>
           <span className="ant-menu-submenu-expand-icon">
             {IconChevronRight(16)}
@@ -69,16 +78,19 @@ function SideNav(props: props) {
             {IconChevronDown(16)}
           </span>
         </a>
-        <div className="collapse collapse-box" id={collapseId}>
-          {item.children?.length > 0 && renderChildren(item.children, item.item.url)}
-        </div>
+        <Collapse in={isExpan}>
+          <div className="collapse-box">
+            {item.children?.length > 0 && renderChildren(item.children, item.item.url)}
+          </div>
+        </Collapse>
+
       </div>
     })
   }
 
 
   function renderContent() {
-    let calssActive = `nav_link ${(pathName == PATH.Dashboard ? 'active' : '')}`
+    let calssActive = `nav_link cursor ${(pathName == PATH.Dashboard ? 'active' : '')}`
     if (isLoading) return <BulletList W={180} H={200} />
     else return <div className="nav_list">
       <a className={calssActive} onClick={() => { SetPathName(PATH.Dashboard); history.push(PATH.Dashboard) }}>
@@ -93,7 +105,7 @@ function SideNav(props: props) {
     <div className="l-navbar" id="nav-bar">
       <nav className="nav nav-Sidebar ">
         <div className="sidebar">
-          <a className="nav_logo-admin" onClick={() => history.push(PATH.HOME)}>
+          <a className="nav_logo-admin cursor" onClick={() => history.push(PATH.HOME)}>
             {IconHome()}
             <span className="nav_logo-name">ADMIN</span>
           </a>

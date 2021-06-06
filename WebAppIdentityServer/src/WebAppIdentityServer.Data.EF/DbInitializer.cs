@@ -82,14 +82,14 @@ namespace WebAppIdentityServer.Data.EF
                 {
                     new Function {Id = "DASHBOARD", Name = "Thống kê", ParentId = "ROOTID", SortOrder = 1,Url = "/dashboard",Icon="fa-dashboard", DateCreated=new DateTime(),DateModified=new DateTime() },
 
-                    new Function {Id = "CONTENT",Name = "Nội dung",ParentId = "ROOTID",Url = "/contents",Icon="fa-table", DateCreated=new DateTime(),DateModified=new DateTime() },
+                    new Function {Id = "CONTENT",Name = "Nội dung",ParentId = "ROOTID",Url = "/contents",Icon="IconShoppingCart", DateCreated=new DateTime(),DateModified=new DateTime() },
 
                     new Function {Id = "CONTENT_CATEGORY",Name = "Danh mục",ParentId ="CONTENT",Url = "/contents/categories" , DateCreated=new DateTime(),DateModified=new DateTime() },
                     new Function {Id = "CONTENT_PRODUCT",Name = "Sản phẫm",ParentId = "CONTENT",SortOrder = 2,Url = "/contents/product",Icon="fa-edit" , DateCreated=new DateTime(),DateModified=new DateTime()},
                     new Function {Id = "CONTENT_COMMENT",Name = "Bình luận",ParentId = "CONTENT",SortOrder = 3,Url = "/contents/product/comments",Icon="fa-edit", DateCreated=new DateTime(),DateModified=new DateTime() },
                     new Function {Id = "CONTENT_REPORT",Name = "Báo xấu",ParentId = "CONTENT",SortOrder = 3,Url = "/contents/product/reports",Icon="fa-edit", DateCreated=new DateTime(),DateModified=new DateTime() },
 
-                    new Function {Id = "SYSTEM", Name = "Hệ thống", ParentId = "ROOTID", Url = "/systems",Icon="fa-th-list" , DateCreated=new DateTime(),DateModified=new DateTime()},
+                    new Function {Id = "SYSTEM", Name = "Hệ thống", ParentId = "ROOTID", Url = "/systems",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
 
                     new Function {Id = "SYSTEM_USER", Name = "Người dùng",ParentId = "SYSTEM",Url = "/systems/users",Icon="fa-desktop", DateCreated=new DateTime(),DateModified=new DateTime()},
                     new Function {Id = "SYSTEM_ROLE", Name = "Nhóm quyền",ParentId = "SYSTEM",Url = "/systems/roles",Icon="fa-desktop", DateCreated=new DateTime(),DateModified=new DateTime()},
