@@ -34,7 +34,7 @@ const Header = (props: Props) => {
 
   return (
     <header className="header align-items-center" id="header">
-      <div className="header_toggle d-flex align-items-center" onClick={() => ('header-toggle', 'nav-bar', 'body-pd', 'header')}>
+      <div className="header_toggle d-flex align-items-center" onClick={() => showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')}>
         <div className="ms-1" >
           <i className='' id="header-toggle">
             <span className='bx-menu-show01'>

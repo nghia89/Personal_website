@@ -5,7 +5,7 @@ import { apiUser } from '@/apis/index';
 import { TreeItem } from '@/models/index';
 import { BulletList } from '@/components/loaders/index'
 import { Profile } from 'oidc-client';
-import { IconChevronRight, IconGrid, IconHome, IconList } from '@/helpers/svg'
+import { IconChevronDown, IconChevronRight, IconGrid, IconHome, IconList } from '@/helpers/svg'
 import history from '@/history';
 import { PATH } from '@/constants/paths';
 
@@ -45,7 +45,7 @@ function SideNav(props: props) {
       return <div className="bg-white collapse-inner rounded">
         {children.map((item, index) => {
           let classChild = `collapse-item ${item.item.url == pathUrl ? 'collapse-active-item' : ''}`
-          return <a onClick={() => { SetPathName(pathName); SetPathUrl(item.item.url); history.push(item.item.url) }} key={`children_${index}`} className={classChild}>{item.item.name}</a>
+          return <a onClick={() => { history.push(item.item.url); SetPathName(pathName); SetPathUrl(item.item.url) }} key={`children_${index}`} className={classChild}>{item.item.name}</a>
         })}
       </div>
     }
@@ -62,7 +62,12 @@ function SideNav(props: props) {
           aria-expanded="false" aria-controls={collapseId}>
           {IconList()}
           <span className="nav_name">{item.item.name}</span>
-          {IconChevronRight(18)}
+          <span className="ant-menu-submenu-expand-icon">
+            {IconChevronRight(16)}
+          </span>
+          <span className="ant-menu-submenu-unexpand-icon">
+            {IconChevronDown(16)}
+          </span>
         </a>
         <div className="collapse collapse-box" id={collapseId}>
           {item.children?.length > 0 && renderChildren(item.children, item.item.url)}

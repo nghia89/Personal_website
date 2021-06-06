@@ -209,3 +209,33 @@ border-bottom: none !important;
 .MuiButton-label svg {
     color: var(--white-color);
 }
+
+.ant-menu-submenu-expand-icon, .ant-menu-submenu-unexpand-icon{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-transition: -webkit-transform .3s cubic-bezier(.645,.045,.355,1);
+    transition: -webkit-transform .3s cubic-bezier(.645,.045,.355,1);
+    transition: transform .3s cubic-bezier(.645,.045,.355,1);
+    transition: transform .3s cubic-bezier(.645,.045,.355,1),-webkit-transform .3s cubic-bezier(.645,.045,.355,1);
+}
+
+.active .ant-menu-submenu-expand-icon{
+    display: none;
+}
+.active .ant-menu-submenu-unexpand-icon{
+    display: block !important;
+}
+
+.ant-menu-submenu-unexpand-icon{
+    display: none;
+}
+.collapsed .ant-menu-submenu-unexpand-icon{
+    display: none !important;
+}
+
+.collapsed .ant-menu-submenu-expand-icon{
+    display: block;
+}
