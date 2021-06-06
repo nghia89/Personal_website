@@ -32,7 +32,7 @@ namespace WebAppIdentityServer.Api.Controllers
                 Name = u.Name,
             }).ToListAsync();
 
-            return Ok(commandVms);
+            return ToOkResult(commandVms);
         }
 
         [HttpPost()]
@@ -44,7 +44,7 @@ namespace WebAppIdentityServer.Api.Controllers
             commands.Add(entity);
             await _context.SaveChangesAsync();
 
-            return Ok(commandVm);
+            return ToOkResult(commandVm);
         }
 
         [HttpGet("{functionId}")]
@@ -70,7 +70,7 @@ namespace WebAppIdentityServer.Api.Controllers
                 Name = x.Name
             }).ToListAsync();
 
-            return Ok(data);
+            return ToOkResult(data);
         }
 
         [HttpGet("{functionId}/not-in-function")]
@@ -96,7 +96,7 @@ namespace WebAppIdentityServer.Api.Controllers
                 Name = x.Name
             }).ToListAsync();
 
-            return Ok(data);
+            return ToOkResult(data);
         }
 
         [HttpPost]
@@ -119,7 +119,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
             if (result > 0)
             {
-                return Ok(await _context.CommandInFunctions.FindAsync(entity.CommandId, entity.FunctionId));
+                return ToOkResult(await _context.CommandInFunctions.FindAsync(entity.CommandId, entity.FunctionId));
             }
             else
             {
@@ -146,7 +146,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
             if (result > 0)
             {
-                return Ok();
+                return ToOkResult();
             }
             else
             {

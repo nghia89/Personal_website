@@ -34,12 +34,12 @@ namespace WebAppIdentityServer.Api.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("upload_image_ckeditor")]
-        public async Task<IActionResult> UploadImageForCKEditor(IFormFile upload, string ckCsrfToken)
+        public async Task<IActionResult> UploadImageForCKEditor(IFormFile upload, string ckCsrfTToOkResulten)
         {
             DateTime now = DateTime.Now;
             if (upload == null)
             {
-                return Ok(new
+                return ToOkResult(new
                 {
                     uploaded = false,
                     error = new
@@ -50,7 +50,7 @@ namespace WebAppIdentityServer.Api.Controllers
             }
             else if (upload.Length > (1024 * 1024 * 2))
             {
-                return Ok(new
+                return ToOkResult(new
                 {
                     uploaded = false,
                     error = new
@@ -82,8 +82,8 @@ namespace WebAppIdentityServer.Api.Controllers
                 if (System.IO.File.Exists(linkFullFile))
                 {
                     var fileName = Path.Combine(imageFolder, filename).Replace(@"\", @"/");
-                    //return Ok($"{_config.Value.BaseUrl}{pathCombine}");
-                    return Ok(new
+                    //return ToOkResult($"{_config.Value.BaseUrl}{pathCombine}");
+                    return ToOkResult(new
                     {
                         uploaded = true,
                         url = $"{_config.Value.BaseUrl}{pathCombine}"
@@ -97,8 +97,8 @@ namespace WebAppIdentityServer.Api.Controllers
                     {
                         await upload.CopyToAsync(fs);
                         await fs.FlushAsync();
-                        // return Ok($"{_config.Value.BaseUrl}{pathCombine}");
-                        return Ok(new
+                        // return ToOkResult($"{_config.Value.BaseUrl}{pathCombine}");
+                        return ToOkResult(new
                         {
                             uploaded = true,
                             url = $"{_config.Value.BaseUrl}{pathCombine}"
@@ -138,7 +138,7 @@ namespace WebAppIdentityServer.Api.Controllers
                 var linkFullFile = folder + @"\" + filename;
                 if (System.IO.File.Exists(linkFullFile))
                 {
-                    return Ok($"{_config.Value.BaseUrl}{pathCombine}");
+                    return ToOkResult($"{_config.Value.BaseUrl}{pathCombine}");
                 }
                 else
                 {
@@ -147,7 +147,7 @@ namespace WebAppIdentityServer.Api.Controllers
                     {
                         await file.CopyToAsync(fs);
                         await fs.FlushAsync();
-                        return Ok($"{_config.Value.BaseUrl}{pathCombine}");
+                        return ToOkResult($"{_config.Value.BaseUrl}{pathCombine}");
                     }
                 }
             }
@@ -203,7 +203,7 @@ namespace WebAppIdentityServer.Api.Controllers
                         }
                     }
                 }
-                return Ok(listFile);
+                return ToOkResult(listFile);
             }
         }
     }

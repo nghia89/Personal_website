@@ -23,7 +23,7 @@ namespace WebAppIdentityServer.Api.Controllers
         [HttpGet]
         [Route("{id}")]
         [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.VIEW)]
-        public async Task<ActionResult> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             var data = await _productCategoryBus.GetById(id);
             return ToOkResult(data);
@@ -32,7 +32,7 @@ namespace WebAppIdentityServer.Api.Controllers
         [HttpDelete]
         [Route("{id}")]
         [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.DELETE)]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             await _productCategoryBus.Delete(id);
             return Ok();
@@ -41,7 +41,7 @@ namespace WebAppIdentityServer.Api.Controllers
         [HttpGet]
         [Route("getall")]
         [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.VIEW)]
-        public async Task<ActionResult> GetProductCategory()
+        public async Task<IActionResult> GetProductCategory()
         {
             var data = await _productCategoryBus.GetAll(null);
             return new OkObjectResult(data);
@@ -50,7 +50,7 @@ namespace WebAppIdentityServer.Api.Controllers
         [HttpPost]
         [Route("add")]
         [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.CREATE)]
-        public async Task<ActionResult> Add([FromBody] ProductCategoryVM category)
+        public async Task<IActionResult> Add([FromBody] ProductCategoryVM category)
         {
             var data = await _productCategoryBus.Add(category);
             return new OkObjectResult(data);
@@ -68,7 +68,7 @@ namespace WebAppIdentityServer.Api.Controllers
         [HttpGet]
         [Route("treeview")]
         [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.VIEW)]
-        public async Task<ActionResult> TreeView()
+        public async Task<IActionResult> TreeView()
         {
             var data = await _productCategoryBus.TreeView();
             return new OkObjectResult(data);

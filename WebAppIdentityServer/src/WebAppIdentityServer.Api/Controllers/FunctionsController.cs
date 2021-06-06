@@ -27,7 +27,7 @@ namespace WebAppIdentityServer.Api.Controllers
         {
             var result = await _functionBu.Add(request);
 
-            return Ok(result);
+            return ToOkResult(result);
         }
 
         [HttpGet]
@@ -37,7 +37,7 @@ namespace WebAppIdentityServer.Api.Controllers
         {
             _logger.LogInformation("Begin PostFunction API");
             var data = await _functionBu.GetAll();
-            return Ok(data);
+            return ToOkResult(data);
         }
 
         [HttpGet]
@@ -52,7 +52,7 @@ namespace WebAppIdentityServer.Api.Controllers
                 Items = items,
                 Total = total,
             };
-            return Ok(pagination);
+            return ToOkResult(pagination);
         }
 
         [HttpGet("{id}")]
@@ -62,10 +62,10 @@ namespace WebAppIdentityServer.Api.Controllers
             var function = await _functionBu.GetById(id);
             if (function == null)
             {
-                return Ok(new ApiNotFound("Không tìm thấy data."));
+                return ToOkResult(new ApiNotFound("Không tìm thấy data."));
             }
 
-            return Ok(function);
+            return ToOkResult(function);
         }
 
         [HttpPut("{id}")]
@@ -86,7 +86,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
             var data = await _functionBu.Update(function);
 
-            return Ok(data);
+            return ToOkResult(data);
         }
 
         [HttpDelete("{id}")]
@@ -94,7 +94,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> Delete(long id)
         {
             var function = await _functionBu.Delete(id);
-            return Ok(function);
+            return ToOkResult(function);
         }
     }
 }

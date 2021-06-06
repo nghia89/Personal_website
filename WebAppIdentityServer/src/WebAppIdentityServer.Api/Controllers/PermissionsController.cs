@@ -61,7 +61,7 @@ namespace WebAppIdentityServer.Api.Controllers
                 });
             }
 
-            return Ok(funcToAction);
+            return ToOkResult(funcToAction);
         }
     }
 }

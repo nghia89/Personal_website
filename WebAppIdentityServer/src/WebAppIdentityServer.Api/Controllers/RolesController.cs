@@ -27,11 +27,11 @@ namespace WebAppIdentityServer.Api.Controllers
             var result = await _rolesBu.Add(request);
             if (result.Succeeded)
             {
-                return Ok(true);
+                return ToOkResult(true);
             }
             else
             {
-                return Ok(new ApiBadRequest(result));
+                return ToOkResult(new ApiBadRequest(result));
             }
         }
 
@@ -46,7 +46,7 @@ namespace WebAppIdentityServer.Api.Controllers
                 Items = items,
                 Total = total,
             };
-            return Ok(pagination);
+            return ToOkResult(pagination);
         }
 
         [HttpGet("{id}")]
@@ -56,10 +56,10 @@ namespace WebAppIdentityServer.Api.Controllers
             var role = await _rolesBu.GetById(id);
             if (role == null)
             {
-                return Ok(new ApiNotFound("Không tìm thấy data."));
+                return ToOkResult(new ApiNotFound("Không tìm thấy data."));
             }
 
-            return Ok(role);
+            return ToOkResult(role);
         }
 
         [HttpGet("getall")]
@@ -69,10 +69,10 @@ namespace WebAppIdentityServer.Api.Controllers
             var role = await _rolesBu.GetAll();
             if (role == null)
             {
-                return Ok(new ApiNotFound("Không tìm thấy data."));
+                return ToOkResult(new ApiNotFound("Không tìm thấy data."));
             }
 
-            return Ok(role);
+            return ToOkResult(role);
         }
 
         [HttpPut("{id}")]
@@ -84,10 +84,10 @@ namespace WebAppIdentityServer.Api.Controllers
             var role = await _rolesBu.Update(id, roleVm);
             if (role == null)
             {
-                return Ok(new ApiNotFound("Không tìm thấy data."));
+                return ToOkResult(new ApiNotFound("Không tìm thấy data."));
             }
 
-            return Ok(role);
+            return ToOkResult(role);
         }
 
         [HttpDelete("{id}")]
@@ -95,7 +95,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var role = await _rolesBu.Delete(id);
-            return Ok(role);
+            return ToOkResult(role);
         }
 
 
@@ -104,7 +104,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> PutPermissionByRoleId(string roleId, [FromBody] UpdatePermissionRequest request)
         {
             var data = await _rolesBu.PutPermissionByRoleId(roleId, request);
-            return Ok(data);
+            return ToOkResult(data);
         }
 
         //[HttpGet("permission_by_role/{roleId}")]
@@ -113,7 +113,7 @@ namespace WebAppIdentityServer.Api.Controllers
         //{
         //    var permissions = await _rolesBu.GetPermissionByRoleId(roleId);
 
-        //    return Ok(permissions);
+        //    return ToOkResult(permissions);
         //}
 
     }

@@ -24,7 +24,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> GetAll()
         {
             var data = await _productBusiness.GetAll();
-            return new OkObjectResult(data);
+            return ToOkResult(data);
 
         }
 
@@ -34,7 +34,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> GenarateCode(string code)
         {
             var data = await _productBusiness.GenarateCode(code);
-            return new OkObjectResult(data);
+            return ToOkResult(data);
         }
 
         [HttpGet]
@@ -43,7 +43,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> Paging([FromQuery] PagingParamModel pagingParam)
         {
             var (data, total) = await _productBusiness.Paging(pagingParam);
-            return new OkObjectResult(new { data = data, total = total });
+            return ToOkResult(new { data = data, total = total });
         }
         // POST: api/Products
 
@@ -54,7 +54,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> Post([FromBody] ProductVM model)
         {
             ProductVM data = await _productBusiness.Add(model);
-            return new OkObjectResult(data);
+            return ToOkResult(data);
         }
 
         [HttpPut]
@@ -66,7 +66,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> Put([FromBody] ProductVM model)
         {
             ProductVM data = await _productBusiness.Update(model);
-            return new OkObjectResult(data);
+            return ToOkResult(data);
         }
 
         #region  api internal
@@ -77,7 +77,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> Paging(long cateId)
         {
             var data = await _productBusiness.GetProductByCateId(cateId);
-            return new OkObjectResult(data);
+            return ToOkResult(data);
         }
 
 

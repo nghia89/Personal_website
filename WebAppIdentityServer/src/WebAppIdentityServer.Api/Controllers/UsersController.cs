@@ -28,7 +28,7 @@ namespace WebAppIdentityServer.Api.Controllers
             var result = await _userBu.Add(request);
             if (result.Succeeded)
             {
-                return Ok(true);
+                return ToOkResult(true);
             }
             else
             {
@@ -47,7 +47,7 @@ namespace WebAppIdentityServer.Api.Controllers
                 Items = items,
                 Total = total,
             };
-            return Ok(pagination);
+            return ToOkResult(pagination);
         }
 
         [HttpGet("{id}")]
@@ -60,7 +60,7 @@ namespace WebAppIdentityServer.Api.Controllers
                 return NotFound();
             }
 
-            return Ok(user);
+            return ToOkResult(user);
         }
 
         [HttpPut("{id}")]
@@ -72,7 +72,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
             if (result.Succeeded)
             {
-                return Ok();
+                return ToOkResult();
             }
             return BadRequest(result.Errors);
         }
@@ -82,7 +82,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var user = await _userBu.Delete(id);
-            return Ok(user);
+            return ToOkResult(user);
 
         }
         [HttpGet("menu")]
@@ -90,7 +90,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> GetMenuByUserPermission()
         {
             var data = await _userBu.GetMenuByUserPermission();
-            return Ok(data);
+            return ToOkResult(data);
         }
 
         [HttpPost("add_role_user")]
@@ -101,7 +101,7 @@ namespace WebAppIdentityServer.Api.Controllers
             var result = await _userBu.AddToRolesAsync(request);
             if (result.Succeeded)
             {
-                return Ok();
+                return ToOkResult();
             }
             else
             {
