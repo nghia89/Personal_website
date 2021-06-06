@@ -33,7 +33,7 @@ async function callApi(method: Method, path: string, body?: any, baseApi?: strin
         console.log("Un Unauthorized");
       }
       throw error;
-    });
+    }).catch((error) => response(error.response));
   }
   // else if (user) {
   //   return authService.signInSilent().then(renewedUser => {

@@ -43,7 +43,6 @@ export default function ProductCategory(props: IProps) {
 
     async function handleDelete() {
         await apiProductCategory.delete(IdSelect).then(async (rsp) => {
-            debugger
             if (!rsp.isError) {
                 dispatch('SUCCESS', 'Xoá thành công.')
                 handleCloseSlide()

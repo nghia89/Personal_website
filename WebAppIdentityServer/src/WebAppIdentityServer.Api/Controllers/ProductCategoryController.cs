@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Api.Authorization;
+using WebAppIdentityServer.Api.Helpers;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Utilities.Constants;
 using WebAppIdentityServer.ViewModel.Common;
@@ -35,7 +36,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _productCategoryBus.Delete(id);
-            return Ok();
+            return ToOkResult();
         }
 
         [HttpGet]
@@ -44,7 +45,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> GetProductCategory()
         {
             var data = await _productCategoryBus.GetAll(null);
-            return new OkObjectResult(data);
+            return ToOkResult(data);
         }
 
         [HttpPost]
@@ -53,7 +54,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> Add([FromBody] ProductCategoryVM category)
         {
             var data = await _productCategoryBus.Add(category);
-            return new OkObjectResult(data);
+            return ToOkResult(data);
         }
 
         [HttpPut]
@@ -71,7 +72,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> TreeView()
         {
             var data = await _productCategoryBus.TreeView();
-            return new OkObjectResult(data);
+            return ToOkResult(data);
         }
 
         [HttpGet]
@@ -80,7 +81,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> Paging([FromQuery] PagingParamModel pagingParam)
         {
             var (data, total) = await _productCategoryBus.Paging(pagingParam);
-            return new OkObjectResult(new { data = data, total = total });
+            return ToOkResult(new { data = data, total = total });
         }
     }
 }
