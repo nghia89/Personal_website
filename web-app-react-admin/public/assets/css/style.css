@@ -1,11 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
+body{
+    background-color: rgb(244, 245, 247 )!important;
+}
 :root {
     --header-height: 3rem;
     --nav-width: 68px;
     --first-color: #122cb9;
     --first-color-light: #AFA5D9;
-    --white-color: #F7F6FB;
+    --white-color: #ffffff;
+    --black-color:rgb(39, 43, 65);
     --body-font: 'Nunito', sans-serif;
     --normal-font-size: 1rem;
     --z-fixed: 100
@@ -33,7 +37,8 @@ a {
     padding: 0 1rem;
     background-color: var(--white-color);
     z-index: var(--z-fixed);
-    transition: .5s
+    transition: .5s;
+    box-shadow: rgb(146 153 184 / 6%) 0px 2px 30px;
 }
 
 .header_toggle {
@@ -61,7 +66,7 @@ a {
     left: -30%;
     width: var(--nav-width);
     height: 100vh;
-    background-color: var(--first-color);
+    background-color: var(--white-color);
     padding: .5rem 1rem 0 0;
     transition: .5s;
     z-index: var(--z-fixed)
@@ -87,24 +92,28 @@ a {
     margin-bottom: 2rem
 }
 
-.nav_logo,.nav_logo-admin svg {
+/* .nav_logo,.nav_logo-admin svg {
     color: var(--white-color)
+} */
+img, svg {
+    color: var(--black-color);
 }
-
 .nav_logo-name,.nav_logo-admin {
-    color: var(--white-color);
+    color: var(--black-color);
     font-weight: 700
 }
 
 .nav_link {
     position: relative;
-    color: var(--first-color-light);
-    margin-bottom: 1.5rem;
+    color: var(--black-color);
     transition: .3s
 }
 
+.nav_name {
+    color: var(--black-color);
+}
 .nav_link:hover {
-    color: var(--white-color)
+    color: #5f63f2
 }
 
 .nav_icon {
@@ -120,7 +129,7 @@ a {
 }
 
 .active {
-    color: var(--white-color)
+    color: var(--black-color)
 }
 		.mtc-5{
 		margin-top: 5rem!important
@@ -152,32 +161,34 @@ display: none
     height: 100vh
 }
 .sidebar .nav_list .collapse-box {
+    padding: 5px 0 0 0;
 	margin: 0 1rem;
 }
 .sidebar .nav_list .collapse-box .collapse-inner{
-padding: .5rem 0;
     min-width: 10rem;
 }
 .sidebar .nav_list .collapse-box .collapse-inner .collapse-item{
-	padding: 0.3rem 1rem;
-    /* margin: 0 .5rem; */
-    display: block;
+    height: 40px;
+    display: flex;
     color: #3a3b45;
     text-decoration: none;
     border-radius: .35rem;
     white-space: nowrap;
+    padding-left: 50px !important;
+    cursor: pointer;
+    align-items: center;
 }
 
 .collapse-item:hover{
-    background: linear-gradient( 
+    /* background: linear-gradient( 
         0deg
-         ,rgba(41,121,255,.1),rgb(41 121 255 / 26%)),#fff;
+         ,rgba(41,121,255,.1),rgb(41 121 255 / 26%)),#fff; */
+         color: #0d6efd !important;
 }
 
 .collapse-inner .collapse-active-item{
-    background: linear-gradient( 
-        0deg
-         ,rgba(41,121,255,.1),rgb(41 121 255 / 26%)),#fff;
+    background-color: #d6ecff;
+    color: #0d6efd !important;
 }
 
 .l-navbar:hover{

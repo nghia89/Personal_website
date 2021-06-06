@@ -11,10 +11,11 @@ import { apiProductCategory } from '@/apis/index'
 import './index.scss'
 import { TreeCateItem, CategoryVM } from '@/models';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import { TreeCategoryVM } from '@/models/productCategory';
 
 
 interface IProps {
-    item: CategoryVM
+    item: TreeCategoryVM
     children: Array<TreeCateItem>
     key: string,
     handleSetSelected: Function
@@ -42,7 +43,7 @@ export default function TreeNode(props: IProps) {
         } else setExpanded([...expanded, nodeId])
 
     }
-    function handleCheckSelect(node: CategoryVM, isSelect) {
+    function handleCheckSelect(node: TreeCategoryVM, isSelect) {
         if (isSelect) handleSetExpan(node.id)
         else props.handleSetSelected({ id: node.id, name: node.name })
     }
@@ -54,7 +55,7 @@ export default function TreeNode(props: IProps) {
             }
         </div >
     }
-    function renderContent(node: CategoryVM, children: Array<TreeCateItem>, key: string) {
+    function renderContent(node: TreeCategoryVM, children: Array<TreeCateItem>, key: string) {
         let isExpand = expanded.includes(node.id) ? true : false;
         let isChild = (children[0] != undefined) ? true : false;
         let itemRootClass = `cate-treeItem-root${props.selected == node.id ? ' cate-tree-selected' : ''}`

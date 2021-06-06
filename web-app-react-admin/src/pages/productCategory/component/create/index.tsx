@@ -95,7 +95,6 @@ export default function ProductCateCreate(props: IProps) {
                         onChange={(e) => handleChange(e)}
                     />
                     <TreeViewCategory
-                        className="dropdown-select-custom-cate"
                         handleOnchange={(value) => handleOnchangeValue(value, 'productCategoryId')}
                         dataValue={formState?.id}
                     />

@@ -5,7 +5,7 @@ import { apiUser } from '@/apis/index';
 import { TreeItem } from '@/models/index';
 import { BulletList } from '@/components/loaders/index'
 import { Profile } from 'oidc-client';
-import { IconGrid, IconHome, IconList } from '@/helpers/svg'
+import { IconChevronRight, IconGrid, IconHome, IconList } from '@/helpers/svg'
 import history from '@/history';
 import { PATH } from '@/constants/paths';
 
@@ -42,7 +42,7 @@ function SideNav(props: props) {
 
   function renderChildren(children: Array<TreeItem> | undefined, pathName: string) {
     if (children) {
-      return <div className="bg-white py-2 collapse-inner rounded">
+      return <div className="bg-white collapse-inner rounded">
         {children.map((item, index) => {
           let classChild = `collapse-item ${item.item.url == pathUrl ? 'collapse-active-item' : ''}`
           return <a onClick={() => { SetPathName(pathName); SetPathUrl(item.item.url); history.push(item.item.url) }} key={`children_${index}`} className={classChild}>{item.item.name}</a>
@@ -62,6 +62,7 @@ function SideNav(props: props) {
           aria-expanded="false" aria-controls={collapseId}>
           {IconList()}
           <span className="nav_name">{item.item.name}</span>
+          {IconChevronRight(18)}
         </a>
         <div className="collapse collapse-box" id={collapseId}>
           {item.children?.length > 0 && renderChildren(item.children, item.item.url)}
