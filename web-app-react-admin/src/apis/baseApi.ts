@@ -59,7 +59,7 @@ export const apiProductCategory = {
     getPaging: async (param: string) => { return await GET(`${baseApiProductCategory}paging` + param) },
     getById: async (id?: number) => { return await GET(`${baseApiProductCategory}` + id) },
     create: async (body: any) => { return await POST(`${baseApiProductCategory}add`, body) },
-    update: async (id: number, body: any) => { return await PUT(`${baseApiProductCategory}update/${id}`, body) },
+    update: async (body: any) => { return await PUT(`${baseApiProductCategory}update`, body) },
     delete: async (id: number) => { return await DELETE(`${baseApiProductCategory}` + id) },
     treeViewCate: async () => { return await GET(`${baseApiProductCategory}treeview`) }
 }

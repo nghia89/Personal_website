@@ -8,9 +8,14 @@ namespace WebAppIdentityServer.Api.Controllers
     [Authorize("Bearer")]
     public class BaseController : ControllerBase
     {
-        public IActionResult ReturnResult<T>(T a)
+        public IActionResult ToOkResult<T>(T a)
         {
-            return new  OkObjectResult(a);
+            return new OkObjectResult(a);
+        }
+
+        public IActionResult ToOkResult()
+        {
+            return Ok();
         }
     }
 }

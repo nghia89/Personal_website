@@ -88,7 +88,7 @@ export default function TreeViewCategory(props: IProps) {
                     <ul className={classesTree.root}>
                         {data.map((item, index) => {
                             return <TreeNode
-                                key={`node${index}`}
+                                keyNote={`node${item.item.id}${index}`}
                                 item={item.item}
                                 children={item.children}
                                 handleSetSelected={(item) => handleCheckSelectNode(item)}

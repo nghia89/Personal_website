@@ -9,6 +9,7 @@ const CompressionPlugin = require("compression-webpack-plugin")
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 
 module.exports = (env, agrv) => {
+    debugger
     const isDev = agrv.mode === "development"
     const isAnalyze = env && env.analyze
     const basePlugins = [

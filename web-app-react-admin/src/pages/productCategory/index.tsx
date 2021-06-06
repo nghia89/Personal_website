@@ -1,4 +1,4 @@
-import { SearchComponent, TableCenter, useNotification } from '@/components';
+import { AlertDialogSlide, SearchComponent, TableCenter, useNotification } from '@/components';
 import { commandId, functionId } from '@/constants/utilConstant';
 import { CircularProgress } from '@material-ui/core';
 import { tableHeadCategory } from '@/models/tableHead';
@@ -8,6 +8,7 @@ import { IBaseParams, CategoryVM } from '@/models';
 import { apiProductCategory } from '@/apis';
 import ProductCateCreate from './component/create';
 import './index.css'
+import ProductCateDetail from './component/detail';
 interface IProps {
 
 }
@@ -18,6 +19,9 @@ export default function ProductCategory(props: IProps) {
     const [isLoading, setLoading] = useState<boolean>(true)
     const [params, setParams] = useState<IBaseParams>({ page: 1, pageSize: 20, query: '' })
     const [isOpenCreate, setOpenCreate] = useState<boolean>(false)
+    const [isOpenEdit, setOpenEdit] = useState<boolean>(false)
+    const [IdSelect, setIdSelect] = useState<number>(0)
+    const [isShowModal, setModal] = useState(false);
 
     useEffect(() => {
         getData();
@@ -37,6 +41,31 @@ export default function ProductCategory(props: IProps) {
         }).catch(() => { setLoading(false); dispatch('ERROR', 'Có lỗi xảy ra.') })
     }
 
+    async function handleDelete() {
+        await apiProductCategory.delete(IdSelect).then(async (rsp) => {
+            debugger
+            if (!rsp.isError) {
+                dispatch('SUCCESS', 'Xoá thành công.')
+                handleCloseSlide()
+                await getData()
+            } else {
+                setLoading(false);
+                dispatch('ERROR', rsp.message)
+            }
+        })
+    }
+
+    async function handleCloseSlide() {
+        setIdSelect(0);
+        setOpenEdit(false)
+        setModal(false)
+        await getData()
+    }
+
+    function handleTableEdit(id) {
+        setIdSelect(id);
+        setOpenEdit(true)
+    }
     async function handleKeyDown(e) {
         if (e.key === 'Enter') {
             let { value } = e.target;
@@ -67,8 +96,8 @@ export default function ProductCategory(props: IProps) {
             page={params.page}
             total={params.totalCount}
             isLoading={isLoading}
-            handleDelete={(id) => console.log()}
-            handleEdit={(id) => console.log()}
+            handleDelete={(id) => { setIdSelect(id); setModal(true) }}
+            handleEdit={(id) => handleTableEdit(id)}
         />
     }
 
@@ -86,6 +115,20 @@ export default function ProductCategory(props: IProps) {
                 handleClose={() => setOpenCreate(false)}
                 handleReload={async () => await getData()}
             />}
+
+            {isOpenEdit && <ProductCateDetail
+                id={IdSelect}
+                isOpen={isOpenEdit}
+                handleClose={() => setOpenEdit(false)}
+                handleReload={async () => await getData()}
+            />}
+
+            <AlertDialogSlide
+                isOpen={isShowModal}
+                handleClose={() => handleCloseSlide()}
+                handleConfirm={() => handleDelete()}
+                note={"Bạn có chắc chắn muốn xoá Danh mục này?"}
+            />
         </div>
     )
 }

@@ -27,3 +27,8 @@ export const validateProductVm = [
     { name: 'price', mess: 'giá sản phẩm' },
     { name: 'originalPrice', mess: 'giá gốc sản phẩm' },
 ] as Array<ValidateVm>
+
+export const validateProductCateVm = [
+    { name: 'name', mess: 'tên danh mục' },
+    { name: 'code', mess: 'mã danh mục' },
+] as Array<ValidateVm>

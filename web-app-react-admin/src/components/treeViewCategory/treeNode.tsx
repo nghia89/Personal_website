@@ -17,7 +17,7 @@ import { TreeCategoryVM } from '@/models/productCategory';
 interface IProps {
     item: TreeCategoryVM
     children: Array<TreeCateItem>
-    key: string,
+    keyNote: string
     handleSetSelected: Function
     selected?: number
 }
@@ -29,7 +29,7 @@ export default function TreeNode(props: IProps) {
     function TreeItem(children: Array<TreeCateItem>) {
         return <React.Fragment>
             {children.map((item, index) => {
-                return renderContent(item.item, item.children, `child${index}`)
+                return renderContent(item.item, item.children, `child${item.item.id}${index}`)
             })}
         </React.Fragment>
     }
@@ -55,13 +55,13 @@ export default function TreeNode(props: IProps) {
             }
         </div >
     }
-    function renderContent(node: TreeCategoryVM, children: Array<TreeCateItem>, key: string) {
+    function renderContent(node: TreeCategoryVM, children: Array<TreeCateItem>, keyNote: string) {
         let isExpand = expanded.includes(node.id) ? true : false;
         let isChild = (children[0] != undefined) ? true : false;
         let itemRootClass = `cate-treeItem-root${props.selected == node.id ? ' cate-tree-selected' : ''}`
-        return <React.Fragment>
+        return <React.Fragment key={keyNote} >
             {
-                <li key={key} className={itemRootClass}>
+                <li className={itemRootClass}>
                     <div className="cate-treeItem-content">
                         <div className="cate-treeItem-iconContainer"  >
                             {isChild && renderExpan(node.id, isExpand)}
@@ -82,6 +82,6 @@ export default function TreeNode(props: IProps) {
     }
 
     return (
-        renderContent(props.item, props.children, props.key)
+        renderContent(props.item, props.children, props.keyNote)
     );
 }

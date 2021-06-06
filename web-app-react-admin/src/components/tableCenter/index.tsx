@@ -34,16 +34,13 @@ export default function TableCenter(props: IProps) {
         width: window.innerWidth
     });
 
-
     const useStyles = makeStyles({
-        table: {
-            minWidth: dimensions.width - 300,
-        }, root: {
+        root: {
             width: '100%',
 
         },
         container: {
-            minHeight: dimensions.height - 300,
+            height: dimensions.height - 300,
         },
     });
 
@@ -141,7 +138,7 @@ export default function TableCenter(props: IProps) {
     function renderContent() {
         return <Paper className={classes.root}>
             <TableContainer className={classes.container}>
-                <Table stickyHeader aria-label="sticky table" className={classes.table} >
+                <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>
                             {props.header.map((item, index) => {

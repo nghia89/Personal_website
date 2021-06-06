@@ -26,7 +26,16 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<ActionResult> Get(int id)
         {
             var data = await _productCategoryBus.GetById(id);
-            return Ok(data);
+            return ToOkResult(data);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.DELETE)]
+        public async Task<ActionResult> Delete(int id)
+        {
+            await _productCategoryBus.Delete(id);
+            return Ok();
         }
 
         [HttpGet]

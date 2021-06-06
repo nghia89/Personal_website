@@ -27,7 +27,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> GetSlide()
         {
             var data = await _slideBus.GetAll();
-            return ReturnResult(data);
+            return ToOkResult(data);
         }
 
         [HttpGet]
@@ -36,7 +36,7 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> GetSystemConfig()
         {
             var data = await _systemConfigBus.GetByFirstSystem();
-            return ReturnResult(data);
+            return ToOkResult(data);
         }
 
         #endregion

@@ -14,13 +14,13 @@
 .divTableCell, .divTableHead {
     border-bottom: 1px solid rgba(224, 224, 224, 1);
 	display: table-cell;
-	padding: 15px 5px;
+	padding: 15px 10px;
     color: rgba(0, 0, 0, 0.87);
 }
 .divTableCell, .divTableBody {
     border-bottom: 1px solid rgba(224, 224, 224, 1);
 	display: table-cell;
-	padding: 10px 5px;
+	padding: 10px 10px;
     color: rgba(0, 0, 0, 0.87);
 }
 .divTableHeading {
@@ -41,7 +41,7 @@
 }
 
 .item-head-sticky{
-	background: #f4f6f8;
+	background: #fafafa;
 	position: sticky; 
      top: 0px;
 	 z-index: 2;

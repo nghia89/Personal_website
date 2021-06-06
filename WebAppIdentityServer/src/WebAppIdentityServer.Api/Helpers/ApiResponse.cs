@@ -4,19 +4,19 @@ namespace WebAppIdentityServer.Api.Helpers
 {
     public class ApiResponse
     {
-        public int statusCode { get; }
+        public int statusCode { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string message { get; }
         public string stackTrace { get; }
         public bool isError { get; }
 
-        public ApiResponse(int statusCode, string message = null, string stackTrace = null)
+        public ApiResponse(int statusCodeOut, string messageOut = null, string stackTraceOut = null)
         {
             isError = true;
-            statusCode = statusCode;
-            stackTrace = stackTrace;
-            message = message ?? GetDefaultMessageForStatusCode(statusCode);
+            statusCode = statusCodeOut;
+            stackTrace = stackTraceOut;
+            message = messageOut ?? GetDefaultMessageForStatusCode(statusCode);
         }
 
         private static string GetDefaultMessageForStatusCode(int statusCode)

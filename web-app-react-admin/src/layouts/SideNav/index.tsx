@@ -49,13 +49,19 @@ function SideNav(props: props) {
       SetPathNameExpan([])
     } else SetPathNameExpan([pathName])
   }
+  function handleChangeExpanActive(url, pathName, pathNameEX) {
+    history.push(url);
+    SetPathUrl(url)
+    SetPathName(pathName);
+    SetPathNameExpan([pathNameEX]);
+  }
 
   function renderChildren(children: Array<TreeItem> | undefined, pathName: string) {
     if (children) {
       return <div className="bg-white collapse-inner rounded">
         {children.map((item, index) => {
           let classChild = `collapse-item ${item.item.url == pathUrl ? 'collapse-active-item' : ''}`
-          return <a onClick={() => { history.push(item.item.url); SetPathNameExpan([pathName]); SetPathUrl(item.item.url) }} key={`children_${index}`} className={classChild}>{item.item.name}</a>
+          return <a onClick={() => handleChangeExpanActive(item.item.url, '', pathName)} key={`children_${index}`} className={classChild}>{item.item.name}</a>
         })}
       </div>
     }
@@ -90,10 +96,10 @@ function SideNav(props: props) {
 
 
   function renderContent() {
-    let calssActive = `nav_link cursor ${(pathName == PATH.Dashboard ? 'active' : '')}`
+    let calssActive = `nav_link cursor ${(pathName == PATH.Dashboard ? 'active font-weight-bold' : '')}`
     if (isLoading) return <BulletList W={180} H={200} />
     else return <div className="nav_list">
-      <a className={calssActive} onClick={() => { SetPathName(PATH.Dashboard); history.push(PATH.Dashboard) }}>
+      <a className={calssActive} onClick={() => handleChangeExpanActive(PATH.Dashboard, PATH.Dashboard, '')}>
         {IconGrid()}
         <span className="nav_name">Dashboard</span>
       </a>
@@ -105,7 +111,7 @@ function SideNav(props: props) {
     <div className="l-navbar" id="nav-bar">
       <nav className="nav nav-Sidebar ">
         <div className="sidebar">
-          <a className="nav_logo-admin cursor" onClick={() => history.push(PATH.HOME)}>
+          <a className="nav_logo-admin cursor" onClick={() => handleChangeExpanActive(PATH.Dashboard, PATH.Dashboard, '')}>
             {IconHome()}
             <span className="nav_logo-name">ADMIN</span>
           </a>

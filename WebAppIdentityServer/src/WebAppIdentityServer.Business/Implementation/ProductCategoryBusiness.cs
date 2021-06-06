@@ -20,17 +20,20 @@ namespace WebAppIdentityServer.Business.Implementation
     {
 
         private readonly IProductCategoryRepository _productCategoryRep;
+        private readonly IProductRepository _productRep;
         private readonly IUnitOfWork _unitOfWork;
-        public ProductCategoryBusiness(IProductCategoryRepository productCategoryRep, IUnitOfWork unitOfWork,
+        public ProductCategoryBusiness(IProductCategoryRepository productCategoryRep, IUnitOfWork unitOfWork, IProductRepository productRep,
               IUserResolverService userResolver) : base(userResolver)
         {
             this._productCategoryRep = productCategoryRep;
             this._unitOfWork = unitOfWork;
+            this._productRep = productRep;
         }
 
         public async Task<ProductCategoryVM> Add(ProductCategoryVM productCategoryVm)
         {
             var productCategory = productCategoryVm.ToEntity();
+            productCategory.Status = Status.Active;
             await _productCategoryRep.AddAsync(productCategory);
             await _unitOfWork.CommitAsync();
             return productCategoryVm;
@@ -38,6 +41,10 @@ namespace WebAppIdentityServer.Business.Implementation
 
         public async Task Delete(long id)
         {
+            var product = await _productRep.FindFirstAsync(x => x.Status == Status.Active && x.ProductCategoryId == id, null);
+            var getChild = await _productCategoryRep.FindFirstAsync(x => x.Status == Status.Active && x.ParentId == id, null);
+            if (product != null) { new AddError("Có sản phẩm trong danh mục"); return; }
+            else if (getChild != null) { new AddError("Tồn tại danh mục con"); return; }
             var enity = await _productCategoryRep.GetByIdAsync(id);
             await _productCategoryRep.RemoveAsync(enity);
         }

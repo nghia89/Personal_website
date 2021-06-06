@@ -14,6 +14,7 @@ export interface CategoryVM {
     seoAlias?: string
     seoKeywords?: string
     seoDescription?: string
+    code?: string
 }
 
 export interface TreeCategoryVM {
@@ -27,4 +28,5 @@ export interface TreeCategoryVM {
     seoAlias: string
     seoKeywords: string
     seoDescription: string
+    code?: string
 }

@@ -20,6 +20,7 @@ export default function DrawerLayout(props: IProps) {
         createStyles({
             drawerPaper: {
                 width: props.width ? props.width : drawerWidth,
+                overflowY: 'initial'
             }
         }),
     );
