@@ -42,8 +42,8 @@ export default function PermissionDetail(props: IProps) {
     async function getData() {
         if (!isLoading) setLoading(true)
         await apiPermission.getPermission(id).then((rsp) => {
-            if (rsp) {
-                setData(rsp);
+            if (!rsp.isError) {
+                setData(rsp.data);
                 setLoading(false)
             } else setLoading(false)
         })

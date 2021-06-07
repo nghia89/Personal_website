@@ -14,7 +14,7 @@ namespace WebAppIdentityServer.Business.Interfaces
         Task<IdentityResult> AddToRolesAsync(AddRoleToUser model);
         Task<UserVm> GetById(string id);
         Task<bool> Delete(string id);
-        Task<(List<UserVm> data, long totalCount)> Paging(PagingParamModel pagingParam);
+        Task<PagedResult<UserVm>> Paging(PagingParamModel pagingParam);
         Task<IEnumerable<TreeItem<FunctionVm>>> GetMenuByUserPermission();
     }
 }

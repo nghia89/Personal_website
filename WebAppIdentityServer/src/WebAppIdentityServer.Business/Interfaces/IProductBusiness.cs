@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebAppIdentityServer.Utilities;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.Product;
 
@@ -12,7 +13,7 @@ namespace WebAppIdentityServer.Business.Interfaces
         Task<ProductVM> GetById(long id);
         Task<bool> Delete(long id);
         Task<List<ProductVM>> GetAll();
-        Task<(List<ProductVM> data, long totalCount)> Paging(PagingParamModel pagingParam);
+        Task<PagedResult<ProductVM>> Paging(PagingParamModel pagingParam);
         Task<List<ProductVM>> GetProductByCateId(long cateId);
         Task<string> GenarateCode(string code);
     }

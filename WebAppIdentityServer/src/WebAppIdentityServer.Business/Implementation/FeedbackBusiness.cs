@@ -5,6 +5,7 @@ using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Repository.Interfaces;
+using WebAppIdentityServer.Utilities;
 using WebAppIdentityServer.ViewModel.Models.Common;
 
 namespace WebAppIdentityServer.Business.Implementation
@@ -40,7 +41,7 @@ namespace WebAppIdentityServer.Business.Implementation
             return;
         }
 
-        public async Task<(List<FeedbackVM> data, long totalCount)> GetAllPaging(string keyword, int page, int pageSize)
+        public async Task<PagedResult<FeedbackVM>> GetAllPaging(string keyword, int page, int pageSize)
         {
             var query = await _feedbackRepository.GetAllAsync(null);
             if (!string.IsNullOrEmpty(keyword))
@@ -53,15 +54,18 @@ namespace WebAppIdentityServer.Business.Implementation
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize);
 
-            return (data.Select(x => new FeedbackVM()
+            return new PagedResult<FeedbackVM>()
             {
-                Id = x.Id,
-                Email = x.Email,
-                Message = x.Message,
-                Name = x.Name,
-                Status = x.Status
-            }).ToList(),
-                 totalRow);
+                Data = data.Select(x => new FeedbackVM()
+                {
+                    Id = x.Id,
+                    Email = x.Email,
+                    Message = x.Message,
+                    Name = x.Name,
+                    Status = x.Status
+                }).ToList(),
+                TotalCount = totalRow
+            };
         }
 
         public async Task<FeedbackVM> GetById(int id)

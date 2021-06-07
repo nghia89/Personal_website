@@ -8,6 +8,7 @@ using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Repository.Interfaces;
+using WebAppIdentityServer.Utilities;
 using WebAppIdentityServer.Utilities.Helpers;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.System;
@@ -82,7 +83,7 @@ namespace WebAppIdentityServer.Business.Implementation
         }
 
 
-        public async Task<(List<RoleVm> data, long totalCount)> Paging(PagingParamModel pagingParam)
+        public async Task<PagedResult<RoleVm>> Paging(PagingParamModel pagingParam)
         {
             var query = _roleManager.Roles;
             if (!string.IsNullOrEmpty(pagingParam.query))
@@ -98,7 +99,11 @@ namespace WebAppIdentityServer.Business.Implementation
                     Name = u.Name,
                     Description = u.Description
                 }).ToListAsync();
-            return (items, totalRecords);
+            return new PagedResult<RoleVm>()
+            {
+                Data = items,
+                TotalCount = totalRecords
+            };
         }
 
         public async Task<bool> PutPermissionByRoleId(string roleId, UpdatePermissionRequest model)

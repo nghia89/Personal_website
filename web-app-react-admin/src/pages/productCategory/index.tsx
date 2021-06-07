@@ -33,7 +33,7 @@ export default function ProductCategory(props: IProps) {
         await apiProductCategory.getPaging(serial).then((rsp) => {
             if (!rsp.error) {
                 setLoading(false)
-                setData(rsp.data)
+                setData(rsp.data.data)
             } else {
                 setLoading(false)
                 dispatch('ERROR', 'Có lỗi xảy ra.')

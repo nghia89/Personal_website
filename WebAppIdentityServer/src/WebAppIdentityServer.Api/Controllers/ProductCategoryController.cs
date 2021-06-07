@@ -80,8 +80,8 @@ namespace WebAppIdentityServer.Api.Controllers
         [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.VIEW)]
         public async Task<IActionResult> Paging([FromQuery] PagingParamModel pagingParam)
         {
-            var (data, total) = await _productCategoryBus.Paging(pagingParam);
-            return ToOkResult(new { data = data, total = total });
+            var data = await _productCategoryBus.Paging(pagingParam);
+            return ToOkResult(data);
         }
     }
 }

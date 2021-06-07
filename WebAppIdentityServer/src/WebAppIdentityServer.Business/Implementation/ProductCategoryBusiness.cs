@@ -87,10 +87,14 @@ namespace WebAppIdentityServer.Business.Implementation
             return root.ToList();
         }
 
-        public async Task<(List<ProductCategoryVM> data, long totalCount)> Paging(PagingParamModel pagingParam)
+        public async Task<PagedResult<ProductCategoryVM>> Paging(PagingParamModel pagingParam)
         {
             var (data, totalCount) = await _productCategoryRep.Paging(pagingParam.query, pagingParam.page, pagingParam.pageSize, new Expression<Func<ProductCategory, object>>[] { a => a.Name }, null);
-            return (data.Select(a => a.ToModel()).ToList(), totalCount);
+            return new PagedResult<ProductCategoryVM>()
+            {
+                Data = data.Select(a => a.ToModel()).ToList(),
+                TotalCount = totalCount
+            };
         }
     }
 }

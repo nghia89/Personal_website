@@ -36,7 +36,7 @@ export default function Role(props: IProps) {
 
     async function handleDelete(id) {
         await apiRoles.delete(id).then(async (rsp) => {
-            if (rsp) {
+            if (!rsp.isError) {
                 dispatch('SUCCESS', 'Xoá thành công.')
                 setModal(false)
                 let param = getParams();
@@ -63,9 +63,9 @@ export default function Role(props: IProps) {
 
         let newParam = SerializeParam({ query: '', page: param.page, pageSize: param.pageSize });
         await apiRoles.getUserPaging(newParam).then((rsp) => {
-            if (rsp) {
-                stateTable.data = rsp.items
-                stateTable.totalCount = rsp.total
+            if (!rsp.isError) {
+                stateTable.data = rsp.data.items
+                stateTable.totalCount = rsp.data.total
 
                 seStateTable(stateTable);
                 setLoading(false)

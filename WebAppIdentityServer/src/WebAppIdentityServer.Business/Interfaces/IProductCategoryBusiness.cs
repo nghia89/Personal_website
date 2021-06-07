@@ -22,6 +22,6 @@ namespace WebAppIdentityServer.Business.Interfaces
         Task<ProductCategoryVM> GetById(long id);
 
         Task<IEnumerable<TreeItem<ProductCategory>>> TreeView();
-        Task<(List<ProductCategoryVM> data, long totalCount)> Paging(PagingParamModel pagingParam);
+        Task<PagedResult<ProductCategoryVM>> Paging(PagingParamModel pagingParam);
     }
 }

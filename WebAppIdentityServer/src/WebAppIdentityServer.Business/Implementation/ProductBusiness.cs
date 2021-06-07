@@ -10,6 +10,7 @@ using WebAppIdentityServer.Business.Mappers;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Repository.Interfaces;
+using WebAppIdentityServer.Utilities;
 using WebAppIdentityServer.Utilities.Constants;
 using WebAppIdentityServer.Utilities.Enum;
 using WebAppIdentityServer.Utilities.Helpers;
@@ -126,7 +127,7 @@ namespace WebAppIdentityServer.Business.Implementation
             return (data.Select(a => a.ToModel()).ToList());
         }
 
-        public async Task<(List<ProductVM> data, long totalCount)> Paging(PagingParamModel pagingParam)
+        public async Task<PagedResult<ProductVM>> Paging(PagingParamModel pagingParam)
         {
             var (data, totalCount) = await _productRepository.Paging(pagingParam.query, pagingParam.page, pagingParam.pageSize, new Expression<Func<Product, object>>[] { a => a.Name, a => a.Code }, null);
 
@@ -136,7 +137,11 @@ namespace WebAppIdentityServer.Business.Implementation
                 var categoryBy = category.FirstOrDefault(x => x.Id == item.ProductCategoryId);
                 item.ProductCategory = categoryBy;
             }
-            return (data.Select(a => a.ToModel()).ToList(), totalCount);
+            return new PagedResult<ProductVM>()
+            {
+                Data = data.Select(a => a.ToModel()).ToList(),
+                TotalCount = totalCount
+            };
         }
 
         public async Task<ProductVM> Update(ProductVM product)

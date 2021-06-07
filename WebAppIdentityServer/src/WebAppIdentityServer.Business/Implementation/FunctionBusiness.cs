@@ -8,6 +8,7 @@ using WebAppIdentityServer.Business.Mappers;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Repository.Interfaces;
+using WebAppIdentityServer.Utilities;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.System;
 
@@ -65,10 +66,14 @@ namespace WebAppIdentityServer.Business.Implementation
             return data.Select(a => a.ToModel()).ToList();
         }
 
-        public async Task<(List<FunctionVm> data, long totalCount)> Paging(PagingParamModel pagingParam)
+        public async Task<PagedResult<FunctionVm>> Paging(PagingParamModel pagingParam)
         {
             var (data, totalCount) = await _functionRep.Paging(pagingParam.query, pagingParam.page, pagingParam.pageSize, new Expression<Func<Function, object>>[] { a => a.Name }, null, null);
-            return (data.Select(a => a.ToModel()).ToList(), totalCount);
+            return new PagedResult<FunctionVm>()
+            {
+                Data = (data.Select(a => a.ToModel()).ToList()),
+                TotalCount = totalCount
+            };
         }
 
         public async Task<FunctionVm> Update(FunctionVm model)

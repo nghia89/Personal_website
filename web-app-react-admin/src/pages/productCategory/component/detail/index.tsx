@@ -43,7 +43,7 @@ export default function ProductCateDetail(props: IProps) {
     async function fetchData() {
         await apiProductCategory.getById(props.id).then((rsp) => {
             if (rsp) {
-                setFormState(rsp);
+                setFormState(rsp.data);
                 setIsReload(false)
                 setIsLoading(false)
             }

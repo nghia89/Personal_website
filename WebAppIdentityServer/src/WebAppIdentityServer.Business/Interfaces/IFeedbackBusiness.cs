@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebAppIdentityServer.Utilities;
 using WebAppIdentityServer.ViewModel.Models.Common;
 
 namespace WebAppIdentityServer.Business.Interfaces
@@ -10,7 +11,7 @@ namespace WebAppIdentityServer.Business.Interfaces
 
         Task Delete(int id);
 
-        Task<(List<FeedbackVM> data, long totalCount)> GetAllPaging(string keyword, int page, int pageSize);
+        Task<PagedResult<FeedbackVM>> GetAllPaging(string keyword, int page, int pageSize);
 
         Task<FeedbackVM> GetById(int id);
 

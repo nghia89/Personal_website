@@ -56,8 +56,8 @@ export default function UserDetail(props: IProps) {
         if (!state.isLoading)
             setStateInit(true, null)
         await apiUser.getById(id).then((rsp) => {
-            if (rsp) {
-                setFormState(rsp);
+            if (!rsp.isError) {
+                setFormState(rsp.data);
                 setIsReload(false)
                 setStateInit(false, null)
             }

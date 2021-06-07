@@ -42,8 +42,8 @@ export function Product(props: IProps) {
         await apiProduct.getPaging(aeriaParam).then((rsp) => {
             if (!rsp.isError) {
                 setLoading(false)
-                setData(rsp.data)
-                newParam.totalCount = rsp.total
+                setData(rsp.data.data)
+                newParam.totalCount = rsp.data.total
                 setParams(newParam)
             } else {
                 setLoading(false)

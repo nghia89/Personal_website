@@ -2,12 +2,13 @@
 
 namespace WebAppIdentityServer.Utilities
 {
-    public class PagedResult<T> : PagedResultBase where T : class
+    public class PagedResult<T>
     {
         public PagedResult()
         {
-            Results = new List<T>();
+            Data = new List<T>();
         }
-        public IList<T> Results { get; set; }
+        public IList<T> Data { get; set; }
+        public long TotalCount { get; set; }
     }
 }

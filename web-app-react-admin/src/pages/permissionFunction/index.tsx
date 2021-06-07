@@ -40,9 +40,9 @@ export default function PermissionFunction(props: IProps) {
 
         let newParam = SerializeParam({ query: '', page: param.page, pageSize: param.pageSize });
         await apiRoles.getUserPaging(newParam).then((rsp) => {
-            if (rsp) {
-                stateTable.data = rsp.items
-                stateTable.totalCount = rsp.total
+            if (!rsp.isError) {
+                stateTable.data = rsp.data.items
+                stateTable.totalCount = rsp.data.total
 
                 seStateTable(stateTable);
                 setLoading(false)

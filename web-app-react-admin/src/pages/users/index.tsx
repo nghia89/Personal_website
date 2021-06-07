@@ -50,7 +50,7 @@ export function User(props: IProps) {
     async function getListRole() {
         await apiRoles.getAll().then((rsp) => {
             if (!rsp?.isError)
-                setDataRole(rsp)
+                setDataRole(rsp.data)
         })
     }
 
@@ -86,9 +86,9 @@ export function User(props: IProps) {
 
         let newParam = SerializeParam({ query: param.query ? param.query : '', page: param.page, pageSize: param.pageSize });
         await apiUser.getUserPaging(newParam).then((rsp) => {
-            if (rsp) {
-                setData(rsp.items)
-                seTotal(rsp.total)
+            if (!rsp.isError) {
+                setData(rsp.data.items)
+                seTotal(rsp.data.total)
                 setLoading(false)
             } else setLoading(false)
         }).catch(err => {

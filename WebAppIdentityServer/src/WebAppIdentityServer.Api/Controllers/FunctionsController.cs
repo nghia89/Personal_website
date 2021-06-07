@@ -45,14 +45,9 @@ namespace WebAppIdentityServer.Api.Controllers
         [ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.VIEW)]
         public async Task<IActionResult> Paging([FromQuery] PagingParamModel pagingParam)
         {
-            var (items, total) = await _functionBu.Paging(pagingParam);
+            var items = await _functionBu.Paging(pagingParam);
 
-            var pagination = new Pagination<FunctionVm>
-            {
-                Items = items,
-                Total = total,
-            };
-            return ToOkResult(pagination);
+            return ToOkResult(items);
         }
 
         [HttpGet("{id}")]

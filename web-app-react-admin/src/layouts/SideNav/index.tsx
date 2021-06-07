@@ -27,12 +27,12 @@ function SideNav(props: props) {
   useEffect(() => {
     async function getMenu() {
       await apiUser.getMenu().then((rsp) => {
-        SetMenu(rsp)
-        let index = rsp.findIndex(a => a.children.findIndex(x => x.item?.url == currentPath) > -1);
+        SetMenu(rsp.data)
+        let index = rsp.data.findIndex(a => a.children.findIndex(x => x.item?.url == currentPath) > -1);
         if (index > -1) {
           SetPathUrl(currentPath)
-          handleChangeExpan(rsp[index].item.url)
-          SetPathName(rsp[index].item.url)
+          handleChangeExpan(rsp.data[index].item.url)
+          SetPathName(rsp.data[index].item.url)
         }
         else SetPathName(currentPath)
         SetLoading(false)

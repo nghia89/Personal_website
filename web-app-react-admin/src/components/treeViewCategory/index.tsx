@@ -65,7 +65,7 @@ export default function TreeViewCategory(props: IProps) {
         if (data.length <= 0)
             await apiProductCategory.treeViewCate().then((rsp) => {
                 if (!rsp.isError) {
-                    setData(rsp)
+                    setData(rsp.data)
                 }
             })
     }

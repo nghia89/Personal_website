@@ -57,8 +57,8 @@ export default function RoleDetail(props: IProps) {
         if (!state.isLoading)
             setStateInit(true, null)
         await apiRoles.getById(id).then((rsp) => {
-            if (rsp) {
-                setFormState(rsp);
+            if (!rsp.isError) {
+                setFormState(rsp.data);
                 setIsReload(false)
                 setStateInit(false, null)
             }

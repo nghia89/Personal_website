@@ -126,7 +126,7 @@ namespace WebAppIdentityServer.Business.Implementation
             return root.Where(a => a.Children.Any()).ToList();
         }
 
-        public async Task<(List<UserVm> data, long totalCount)> Paging(PagingParamModel pagingParam)
+        public async Task<PagedResult<UserVm>> Paging(PagingParamModel pagingParam)
         {
             var query = _userManager.Users;
             if (!string.IsNullOrEmpty(pagingParam.query))
@@ -163,7 +163,11 @@ namespace WebAppIdentityServer.Business.Implementation
                     FullName = u.FullName,
                     DateCreated = u.DateCreated,
                 }).ToListAsync();
-            return (items, totalRecords);
+            return new PagedResult<UserVm>()
+            {
+                Data = items,
+                TotalCount = totalRecords
+            };
         }
 
         public async Task<IdentityResult> Update(string id, UserVm model)

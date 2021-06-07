@@ -56,7 +56,7 @@ export default function ProductCreate(props: IProps) {
                 await apiProduct.getGenarateCode(rsp.code).then((rsp) => {
                     if (!rsp.isError) {
                         let newFormState: NewType = { ...formState };
-                        newFormState['code'] = rsp;
+                        newFormState['code'] = rsp.data;
                         setFormState(newFormState);
                     };
                 })

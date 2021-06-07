@@ -15,14 +15,23 @@ namespace WebAppIdentityServer.Api.Controllers
     public class BaseController : ControllerBase
     {
 
-        public IActionResult ToOkResult<T>(T a)
+        public IActionResult ToOkResult<T>(T a, bool? isError = false, string messageOut = null)
         {
-            return new OkObjectResult(a);
+            return new OkObjectResult(new
+            {
+                Data = a,
+                IsError = isError,
+                Message = messageOut
+            });
         }
 
-        public IActionResult ToOkResult()
+        public IActionResult ToOkResult(bool? isError = false, string messageOut = null)
         {
-            return Ok();
+            return Ok(new
+            {
+                IsError = isError,
+                Message = messageOut
+            });
         }
     }
 }

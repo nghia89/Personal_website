@@ -42,8 +42,8 @@ namespace WebAppIdentityServer.Api.Controllers
         [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.VIEW)]
         public async Task<IActionResult> Paging([FromQuery] PagingParamModel pagingParam)
         {
-            var (data, total) = await _productBusiness.Paging(pagingParam);
-            return ToOkResult(new { data = data, total = total });
+            var data = await _productBusiness.Paging(pagingParam);
+            return ToOkResult(data);
         }
         // POST: api/Products
 
