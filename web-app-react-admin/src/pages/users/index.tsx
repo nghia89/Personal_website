@@ -87,8 +87,8 @@ export function User(props: IProps) {
         let newParam = SerializeParam({ query: param.query ? param.query : '', page: param.page, pageSize: param.pageSize });
         await apiUser.getUserPaging(newParam).then((rsp) => {
             if (!rsp.isError) {
-                setData(rsp.data.items)
-                seTotal(rsp.data.total)
+                setData(rsp.data.data)
+                seTotal(rsp.data.totalCount)
                 setLoading(false)
             } else setLoading(false)
         }).catch(err => {

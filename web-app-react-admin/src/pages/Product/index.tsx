@@ -43,7 +43,7 @@ export function Product(props: IProps) {
             if (!rsp.isError) {
                 setLoading(false)
                 setData(rsp.data.data)
-                newParam.totalCount = rsp.data.total
+                newParam.totalCount = rsp.data.totalCount
                 setParams(newParam)
             } else {
                 setLoading(false)

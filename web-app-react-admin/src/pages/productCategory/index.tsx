@@ -30,10 +30,13 @@ export default function ProductCategory(props: IProps) {
     async function getData() {
         if (!isLoading) setLoading(true)
         let serial = SerializeParam(params);
+        let newParam = { ...params };
         await apiProductCategory.getPaging(serial).then((rsp) => {
             if (!rsp.error) {
                 setLoading(false)
                 setData(rsp.data.data)
+                newParam.totalCount = rsp.data.totalCount
+                setParams(newParam)
             } else {
                 setLoading(false)
                 dispatch('ERROR', 'Có lỗi xảy ra.')
