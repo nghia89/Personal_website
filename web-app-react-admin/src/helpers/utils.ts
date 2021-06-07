@@ -30,6 +30,13 @@ export function checkPath(pathname) {
     var objKeys = Object.keys(PATH);
     for (var i = 0; i < objKeys.length - 1; i++) {
         if (PATH[objKeys[i]] === pathname) return true
+        else {
+            let split = pathname.split("/");
+            if (split.length > 3) {
+                split.splice(3, 1);
+                if (split.join("/" == PATH[objKeys[i]])) return true
+            }
+        }
     }
     return false;
 }

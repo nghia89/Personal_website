@@ -66,6 +66,11 @@ export default function TreeViewCategory(props: IProps) {
             await apiProductCategory.treeViewCate().then((rsp) => {
                 if (!rsp.isError) {
                     setData(rsp.data)
+                    if (props.dataValue) {
+                        var index = rsp.data.findIndex(a => a.item?.id == props.dataValue)
+                        if (index > -1)
+                            setSelected({ id: rsp.data[index].item?.id, name: rsp.data[index].item?.name })
+                    }
                 }
             })
     }

@@ -50,7 +50,7 @@ export const apiProduct = {
     getPaging: async (param: string) => { return await GET(`${baseApiProduct}paging` + param) },
     getById: async (id: number) => { return await GET(`${baseApiProduct}get/` + id) },
     create: async (body: any) => { return await POST(`${baseApiProduct}add`, body) },
-    update: async (id: number, body: any) => { return await PUT(`${baseApiProduct}update/${id}`, body) },
+    update: async (body: any) => { return await PUT(`${baseApiProduct}update`, body) },
     delete: async (id: number) => { return await DELETE(`${baseApiProduct}` + id) },
     getGenarateCode: async (code: string) => { return await GET(`${baseApiProduct}genarate_code/` + code) }
 }

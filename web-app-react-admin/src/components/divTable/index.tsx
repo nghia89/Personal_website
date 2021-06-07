@@ -94,7 +94,7 @@ export default function DivTable(props: IProps) {
 
     function renderContentTable() {
         return props.data.map((item, index) => (
-            <div onClick={() => props.handleEdit && props.handleEdit(item["id"])} className="divTableRow" key={`r${index}`}>
+            <div onClick={() => checkPermission(funcId, commandId.update) && props.handleEdit && props.handleEdit(item["id"])} className="divTableRow" key={`r${index}`}>
                 {
                     props.header.map((header, indexCel) => {
                         return renderCell(header["type"], item[header["fieldName"]], (index + indexCel))

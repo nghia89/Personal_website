@@ -8,7 +8,7 @@ import { env } from '@/environments/config';
 
 interface IProps {
     onChange: Function,
-    data: string
+    data?: string
 }
 export default function Editor(props: IProps) {
     return (

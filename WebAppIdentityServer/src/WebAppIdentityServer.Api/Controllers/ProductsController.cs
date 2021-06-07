@@ -18,6 +18,16 @@ namespace WebAppIdentityServer.Api.Controllers
             this._productBusiness = productBusiness;
         }
         // GET: api/Products
+
+        [HttpGet]
+        [Route("get/{id}")]
+        [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.VIEW)]
+        public async Task<IActionResult> Get(long id)
+        {
+            var data = await _productBusiness.GetById(id);
+            return ToOkResult(data);
+
+        }
         [HttpGet]
         [Route("getAll")]
         [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.VIEW)]
