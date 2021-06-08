@@ -3,8 +3,8 @@ import { IBaseParams, ITableHead } from '@/models'
 import './index.css'
 import { formatDate, checkPermission } from '@/helpers/utils';
 import { commandId } from '@/constants/utilConstant'
-import { CircularProgress, makeStyles, Switch, TableContainer, TablePagination } from '@material-ui/core';
-import { IconEmppty } from '@/helpers/svg';
+import { CircularProgress, makeStyles, Switch, TableContainer, TablePagination, Tooltip } from '@material-ui/core';
+import { IconEdit, IconEmppty, IconTrash } from '@/helpers/svg';
 
 export interface IProps {
     funcId: string,
@@ -94,18 +94,30 @@ export default function DivTable(props: IProps) {
 
     function renderContentTable() {
         return props.data.map((item, index) => (
-            <div onClick={() => checkPermission(funcId, commandId.update) && props.handleEdit && props.handleEdit(item["id"])} className="divTableRow" key={`r${index}`}>
-                {
-                    props.header.map((header, indexCel) => {
-                        return renderCell(header["type"], item[header["fieldName"]], (index + indexCel))
-                    })
-                }
-                {
-                    (props.handleDelete) && <div className="divTableCell center">
-                        {checkPermission(funcId, commandId.delete) && <span onClick={() => props.handleDelete && props.handleDelete(item["id"])} className="material-icons cursor p-2">delete</span>}
-                    </div>
-                }
+            <div className="divTableRow"  >
+                <div onClick={() => checkPermission(funcId, commandId.update) && props.handleEdit && props.handleEdit(item["id"])} key={`r${index}`}>
+                    {
+                        props.header.map((header, indexCel) => {
+                            return renderCell(header["type"], item[header["fieldName"]], (index + indexCel))
+                        })
+                    }
+
+                </div >
+                <div className="divTableCell center">
+                    {
+                        (checkPermission(funcId, commandId.update) && <Tooltip title="Sửa" aria-label="Sửa">
+                            <span onClick={() => props.handleEdit && props.handleEdit(item["id"])} className="px-2" >{IconEdit(20)}</span>
+                        </Tooltip>)
+                    }
+
+                    {(checkPermission(funcId, commandId.delete) && (props.handleDelete) &&
+                        <Tooltip title="Xoá" aria-label="Xoá">
+                            <span onClick={() => props.handleDelete && props.handleDelete(item["id"])} className="px-2" >{IconTrash(20)}</span>
+                        </Tooltip>)
+                    }
+                </div>
             </div>
+
         ))
     }
 
