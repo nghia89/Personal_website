@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
-import TreeView from '@material-ui/lab/TreeView';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import TreeItem from '@material-ui/lab/TreeItem';
-import FormControl from '@material-ui/core/FormControl';
-import { Collapse, InputBase, InputLabel, Typography } from '@material-ui/core';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import React from 'react'
+import { Collapse } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { apiProductCategory } from '@/apis/index'
 import './index.scss'
-import { TreeCateItem, CategoryVM } from '@/models';
+import { TreeCateItem } from '@/models';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { TreeCategoryVM } from '@/models/productCategory';
 
@@ -35,7 +28,7 @@ export default function TreeNode(props: IProps) {
     }
 
     function handleSetExpan(nodeId: number) {
-        let index = expanded.findIndex(a => a == nodeId);
+        let index = expanded.findIndex(a => a === nodeId);
         if (index > -1) {
             let newExpan = [...expanded]
             newExpan.splice(index, 1);
@@ -58,7 +51,7 @@ export default function TreeNode(props: IProps) {
     function renderContent(node: TreeCategoryVM, children: Array<TreeCateItem>, keyNote: string) {
         let isExpand = expanded.includes(node.id) ? true : false;
         let isChild = (children[0] != undefined) ? true : false;
-        let itemRootClass = `cate-treeItem-root${props.selected == node.id ? ' cate-tree-selected' : ''}`
+        let itemRootClass = `cate-treeItem-root${props.selected === node.id ? ' cate-tree-selected' : ''}`
         return <React.Fragment key={keyNote} >
             {
                 <li className={itemRootClass}>

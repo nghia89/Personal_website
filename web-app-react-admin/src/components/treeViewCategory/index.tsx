@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
-import TreeView from '@material-ui/lab/TreeView';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import TreeItem from '@material-ui/lab/TreeItem';
-import FormControl from '@material-ui/core/FormControl';
-import { Collapse, InputBase, InputLabel, Typography } from '@material-ui/core';
+import React, { useEffect } from 'react'
+import { makeStyles } from '@material-ui/core/styles';
+import { Collapse } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { apiProductCategory } from '@/apis/index'
 import './index.scss'
 import { TreeCateItem } from '@/models';
-import { Skeleton } from '@material-ui/lab';
 import TreeNode from './treeNode'
 const useStylesTree = makeStyles({
     root: {
@@ -67,7 +61,7 @@ export default function TreeViewCategory(props: IProps) {
                 if (!rsp.isError) {
                     setData(rsp.data)
                     if (props.dataValue) {
-                        var index = rsp.data.findIndex(a => a.item?.id == props.dataValue)
+                        var index = rsp.data.findIndex(a => a.item?.id === props.dataValue)
                         if (index > -1)
                             setSelected({ id: rsp.data[index].item?.id, name: rsp.data[index].item?.name })
                     }

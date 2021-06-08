@@ -8,14 +8,14 @@ interface Props extends ReduxProps { }
 function Notifications(props: Props) {
     return (
         <li className="nav-item">
-            <a className="nav-link" data-bs-toggle="collapse" href="#collapseNotify" role="button" aria-expanded="false" aria-controls="collapseNotify" style={{ position: 'relative' }}>
+            <a className="nav-link" type="button" id="dropdownNotify" data-bs-toggle="dropdown" aria-expanded="false" style={{ position: 'relative' }}>
                 {IconBell(20)}
                 <span className="badge badge-danger badge-counter">3+</span>
             </a>
-            <div className="dropdown-list collapse dropdown-menu dropdown-menu-right shadow animated--grow-in" id="collapseNotify"
+            <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="dropdownNotify"
             >
                 <h6 className="dropdown-head dropdown-header">Alerts Center</h6>
-                <a className="dropdown-item d-flex align-items-center" >
+                <a className="dropdown-item d-flex align-items-center cursor" >
                     <div className="mx-3">
                         <div className="icon-circle bg-primary">
                             <i className="fas fa-file-alt text-white" />
@@ -28,7 +28,7 @@ function Notifications(props: Props) {
          </span>
                     </div>
                 </a>
-                <a className="dropdown-item d-flex align-items-center" >
+                <a className="dropdown-item d-flex align-items-center cursor" >
                     <div className="mx-3">
                         <div className="icon-circle bg-success">
                             <i className="fas fa-donate text-white" />
@@ -39,7 +39,7 @@ function Notifications(props: Props) {
       $290.29 has been deposited into your account!
        </div>
                 </a>
-                <a className="dropdown-item d-flex align-items-center" >
+                <a className="dropdown-item d-flex align-items-center cursor" >
                     <div className="mx-3">
                         <div className="icon-circle bg-warning">
                             <i className="fas fa-exclamation-triangle text-white" />

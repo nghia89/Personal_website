@@ -137,8 +137,8 @@ export default function ProductCateDetail(props: IProps) {
                         <label>Trạng thái <span className="text-danger">*</span></label>
                         <Switch
                             required
-                            checked={formState?.status == 1 ? true : false}
-                            onChange={() => handleOnchangeValue(formState?.status == 1 ? 0 : 1, 'status')}
+                            checked={formState?.status === 1 ? true : false}
+                            onChange={() => handleOnchangeValue(formState?.status === 1 ? 0 : 1, 'status')}
                             color="primary"
                         />
                     </div>

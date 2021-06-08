@@ -3,8 +3,8 @@ import { IBaseParams, ITableHead } from '@/models'
 import './index.css'
 import { formatDate, checkPermission } from '@/helpers/utils';
 import { commandId } from '@/constants/utilConstant'
-import { CircularProgress, makeStyles, Switch, TableContainer, TablePagination, Tooltip } from '@material-ui/core';
-import { IconEdit, IconEmppty, IconTrash } from '@/helpers/svg';
+import { CircularProgress, makeStyles, Switch, TablePagination, Tooltip } from '@material-ui/core';
+import { IconEdit, IconEmppty } from '@/helpers/svg';
 
 export interface IProps {
     funcId: string,
@@ -20,17 +20,6 @@ export interface IProps {
     handleDelete?: (id: any) => void
 }
 
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
-    }, root: {
-        width: '100%',
-
-    },
-    container: {
-        minHeight: 495,
-    },
-});
 
 export default function DivTable(props: IProps) {
     const [dimensions, setDimensions] = React.useState({
@@ -85,24 +74,21 @@ export default function DivTable(props: IProps) {
             return <div key={"r_cel" + index} className="divTableCell center" style={{ width: '200px' }}>
                 <img height="70px" src={value} />
             </div>
-        else if (type == "status")
+        else if (type === "status")
             return <div key={"r_cel" + index} className="divTableCell center" style={{ width: '100px' }} >
-                <Switch checked={value == 1 ? true : false} color="primary" />
+                <Switch checked={value === 1 ? true : false} color="primary" />
             </div>
         else return <div key={"r_cel" + index} className="divTableCell center">{value}</div>
     }
 
     function renderContentTable() {
         return props.data.map((item, index) => (
-            <div className="divTableRow"  >
-                <div onClick={() => checkPermission(funcId, commandId.update) && props.handleEdit && props.handleEdit(item["id"])} key={`r${index}`}>
-                    {
-                        props.header.map((header, indexCel) => {
-                            return renderCell(header["type"], item[header["fieldName"]], (index + indexCel))
-                        })
-                    }
-
-                </div >
+            <div className="divTableRow" onClick={() => checkPermission(funcId, commandId.update) && props.handleEdit && props.handleEdit(item["id"])} key={`r${index}`} >
+                {
+                    props.header.map((header, indexCel) => {
+                        return renderCell(header["type"], item[header["fieldName"]], (index + indexCel))
+                    })
+                }
                 <div className="divTableCell center">
                     {
                         (checkPermission(funcId, commandId.update) && <Tooltip title="Sửa" aria-label="Sửa">
@@ -110,11 +96,11 @@ export default function DivTable(props: IProps) {
                         </Tooltip>)
                     }
 
-                    {(checkPermission(funcId, commandId.delete) && (props.handleDelete) &&
+                    {/* {(checkPermission(funcId, commandId.delete) && (props.handleDelete) &&
                         <Tooltip title="Xoá" aria-label="Xoá">
                             <span onClick={() => props.handleDelete && props.handleDelete(item["id"])} className="px-2" >{IconTrash(20)}</span>
                         </Tooltip>)
-                    }
+                    } */}
                 </div>
             </div>
 
@@ -130,6 +116,7 @@ export default function DivTable(props: IProps) {
                     {props.header.map((item, index) => {
                         return <div key={`h${index}`} className=" divTableHead center item-head-sticky">{item.name}</div>
                     })}
+                    <div key={`action`} className=" divTableHead center item-head-sticky">#</div>
                 </div>
             </div>
             <div className="divTableBody">

@@ -321,7 +321,7 @@ export default function ProductDetail(props: IProps) {
             <div className="col-12 mt-3">
                 {renderHeader()}
 
-                {isLoading ? <Animations /> : renderContent()}
+                {isLoading ? <Animations W={100} /> : renderContent()}
             </div>
         </div>
     </div>

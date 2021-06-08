@@ -96,9 +96,9 @@ export default function TableCenter(props: IProps) {
             return <TableCell key={"r_cel" + index} className="divTableCell center" style={{ width: '200px' }}>
                 <img height="70px" src={value} />
             </TableCell>
-        else if (type == "status")
+        else if (type === "status")
             return <TableCell key={"r_cel" + index} className="divTableCell center" style={{ width: '100px' }} >
-                <Switch checked={value == 1 ? true : false} color="primary" />
+                <Switch checked={value === 1 ? true : false} color="primary" />
             </TableCell>
         else return <TableCell key={"r_cel" + index} align="center">{value}</TableCell>
     }

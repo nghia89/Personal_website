@@ -1,5 +1,5 @@
 import React from 'react';
-import DropdownInfoUser from './component/dropDownInfoUser';
+import DropdownAccountUser from './component/DropdownAccountUser';
 import Notifications from './component/notifications';
 import Breadcrumb from '@/layouts/breadcrumbs/index'
 import { IconClose, IconMenu } from '@/helpers/svg'
@@ -34,24 +34,30 @@ const Header = (props: Props) => {
 
   return (
     <header className="header align-items-center" id="header">
-      <div className="header_toggle d-flex align-items-center" onClick={() => showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')}>
-        <div className="ms-1" >
-          <i className='' id="header-toggle">
-            <span className='bx-menu-show01'>
-              {IconClose()}
-            </span>
-            <span className='bx-menu-show02'>
-              {IconMenu()}
-            </span>
-          </i>
+      <div className="row " style={{ display: 'contents' }}>
+        <div className="col-sm-1">
+          <div className="header_toggle d-flex align-items-center" onClick={() => showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')}>
+            <div className="ms-1" style={{ marginTop: '-6px' }} >
+              <i className='' id="header-toggle">
+                <span className='bx-menu-show01'>
+                  {IconClose()}
+                </span>
+                <span className='bx-menu-show02'>
+                  {IconMenu()}
+                </span>
+              </i>
+            </div>
+          </div>
         </div>
-        <Breadcrumb />
-      </div>
-      <div>
-        <ul className="nav">
-          <Notifications />
-          <DropdownInfoUser />
-        </ul>
+        <div className="col-sm-11 justify-content-between align-items-center d-flex">
+          <Breadcrumb />
+          <div>
+            <ul className="nav">
+              <Notifications />
+              <DropdownAccountUser />
+            </ul>
+          </div>
+        </div>
       </div>
     </header>
   )

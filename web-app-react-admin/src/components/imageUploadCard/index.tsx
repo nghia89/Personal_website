@@ -195,8 +195,8 @@ function ImageUploadCard(props: IProps) {
 
     return (
         <React.Fragment>
-            {mainState == "initial" && renderInitialState()}
-            {  mainState == "search" && renderSearchState()}
+            {mainState === "initial" && renderInitialState()}
+            {  mainState === "search" && renderSearchState()}
         </React.Fragment>
     );
 }

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Button, Drawer } from '@material-ui/core';
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react'
+import { Button } from '@material-ui/core';
 import { IconSearch } from '@/helpers/svg';
 
 interface IProps {

@@ -103,7 +103,7 @@ export function Product(props: IProps) {
             page={params.page}
             total={params.totalCount}
             isLoading={isLoading}
-            handleEdit={(id) => history.push(`${PATH.PRODUCT_DETAIL}/${id}`)
+            handleEdit={(id) => history.push(`${PATH.PRODUCT_DETAIL}${id}`)
             }
         />
     }

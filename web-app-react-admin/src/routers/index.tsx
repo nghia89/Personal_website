@@ -51,7 +51,7 @@ export const Routes = (
             <PrivateRoute path={PATH.PRODUCT} component={Product} />
             <PrivateRoute path={PATH.PRODUCT} component={Product} />
             <PrivateRoute path={PATH.PRODUCT_CREATE} component={ProductCreate} />
-            <PrivateRoute path={`${PATH.PRODUCT_DETAIL}/:id`} component={ProductDetail} />
+            <PrivateRoute path={`${PATH.PRODUCT_DETAIL}:id`} component={ProductDetail} />
             <PrivateRoute path={PATH.CATEGORIES} component={ProductCategory} />
 
             <PrivateRoute path={PATH.HOME} component={Home} />

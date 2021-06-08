@@ -34,7 +34,8 @@ export function checkPath(pathname) {
             let split = pathname.split("/");
             if (split.length > 3) {
                 split.splice(3, 1);
-                if (split.join("/" == PATH[objKeys[i]])) return true
+                split.push("")
+                if (split.join("/") === PATH[objKeys[i]]) return true
             }
         }
     }
@@ -92,7 +93,7 @@ export function validateField(arrayField: Array<ValidateVm>, refs) {
                         messError = `Vui lòng nhập ${item.mess}.`;
                         break;
                     }
-                    var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+                    let pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
                     valid = !pattern.test(value);
                     messError = valid ? '' : 'email không đúng định dạn.';
                     break;
@@ -111,8 +112,8 @@ export function validateField(arrayField: Array<ValidateVm>, refs) {
                         messError = `Vui lòng nhập ${item.mess}.`;
                         break;
                     }
-                    var pattern = new RegExp(/^[0-9\b]+$/);
-                    valid = !pattern.test(value);
+                    let patternNumber = new RegExp(/^[0-9\b]+$/);
+                    valid = !patternNumber.test(value);
                     validLength = value.length <= 10 && value.length <= 11;
                     if (!valid) messError = 'Số điện thoại không đúng định dạn.';
                     else if (!validLength) { valid = true; messError = 'Số điện thoại phải lớn 10 và nhỏ hơn 11.'; }

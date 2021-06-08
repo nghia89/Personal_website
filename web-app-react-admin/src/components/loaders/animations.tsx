@@ -9,7 +9,7 @@ interface IProps {
 export default function Animations(props: IProps) {
     const useStyles = makeStyles({
         root: {
-            width: props?.W ? props.W : 300,
+            width: props?.W ? `${props.W}%` : 300,
         },
     });
     const classes = useStyles();

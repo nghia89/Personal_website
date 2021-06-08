@@ -10,7 +10,7 @@ interface IProps {
     setClaimUser: (payload: Profile) => {}
 }
 
-function DropdownInfoUser(props: IProps) {
+function DropdownAccountUser(props: IProps) {
 
     const [loading, setLoading] = useState<boolean>(true)
     const context = useContext(AuthContext);
@@ -37,7 +37,7 @@ function DropdownInfoUser(props: IProps) {
                 <Fragment>
 
                     <li className="nav-item">
-                        <a className="nav-link" data-bs-toggle="collapse" href="#collapseUser" role="button" aria-expanded="false" aria-controls="collapseUser"
+                        <a className="nav-link" id="dropdownAccountUser" data-bs-toggle="dropdown" aria-expanded="false"
                         >
                             <span className="mr-2 d-none d-lg-inline text-gray-600 small">
                                 {props.claimUser?.name}
@@ -46,9 +46,9 @@ function DropdownInfoUser(props: IProps) {
                         </a>
                         {/* Dropdown - User Information */}
                         <div
-                            className="dropdown-list collapse dropdown-menu dropdown-menu-ct dropdown-menu-right shadow animated--grow-in" id="collapseUser"
+                            className=" dropdown-menu dropdown-menu-ct dropdown-menu-right shadow animated--grow-in" aria-labelledby="dropdownAccountUser"
                         >
-                            <a className="dropdown-item dropdown-item-ct " >
+                            <a className="dropdown-item dropdown-item-ct cursor " >
                                 <span className="mx-2">
                                     {IconUser(20)}
                                 </span>
@@ -56,7 +56,7 @@ function DropdownInfoUser(props: IProps) {
                                 {props.claimUser?.name}
                             </a>
                             <div className="dropdown-divider" />
-                            <a onClick={() => handleClick(context.signOutRedirect)} className="dropdown-item" data-toggle="modal" data-target="#logoutModal">
+                            <a onClick={() => handleClick(context.signOutRedirect)} className="dropdown-item cursor" data-toggle="modal" data-target="#logoutModal">
 
                                 <span className="mx-2">
                                     {IconLogout(20)}
@@ -92,4 +92,4 @@ const mapStateToProps = state => {
 
 
 const mapDispatchToProps = { setClaimUser }
-export default connect(mapStateToProps, mapDispatchToProps)(DropdownInfoUser)
+export default connect(mapStateToProps, mapDispatchToProps)(DropdownAccountUser)
