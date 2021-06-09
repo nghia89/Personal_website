@@ -4,3 +4,9 @@ export interface IBaseParams {
     query?: string,
     totalCount?: number
 }
+
+
+export interface IBreadcrumbs {
+    name: string,
+    path?: string
+}

@@ -1,10 +1,11 @@
-import React from 'react';
-import { emphasize, withStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import React, { useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Chip from '@material-ui/core/Chip';
-import HomeIcon from '@material-ui/icons/Home';
 import { Link, useHistory } from "react-router-dom";
 import { Typography } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { IBreadcrumbs } from '@/models/commonM';
+import { IsNullOrEmpty } from '@/helpers/utils'
 
 const useStyles = makeStyles({
     root: {
@@ -12,24 +13,39 @@ const useStyles = makeStyles({
     }
 });
 
+interface IProps {
+    breadcrumbs: IBreadcrumbs[]
+}
 
-export default function Breadcrumb() {
+
+function Breadcrumb(props: IProps) {
     const classes = useStyles();
     let history = useHistory();
 
-    function handleClick(event: React.MouseEvent<Element, MouseEvent>) {
-        event.preventDefault();
-        history.push('/');
-    }
+    let { breadcrumbs } = props;
 
     return (
         <Breadcrumbs aria-label="breadcrumb">
             <Breadcrumbs aria-label="breadcrumb">
-                <Link color="inherit" to="/" onClick={handleClick}>
-                    Material-UI
-                </Link>
-                <Typography color="textPrimary">Breadcrumb</Typography>
-            </Breadcrumbs>
-        </Breadcrumbs>
+                {breadcrumbs?.map((item, index) => {
+                    if (!IsNullOrEmpty(item.path))
+                        return <Typography key={`breadcrumb${index}`} variant="h6" color="textPrimary" > {item.name}</Typography>
+                    else
+                        return <Link key={`breadcrumb${index}`} className="font-size-13" color="inherit" to={item.path ? item.path : ""} >
+                            {item.name}
+                        </Link>
+                })}
+
+
+            </Breadcrumbs >
+        </Breadcrumbs >
     );
 }
+
+const mapStateToProps = state => {
+    return {
+        breadcrumbs: state.breadcrumb.breadcrumbs
+    };
+};
+
+export default connect(mapStateToProps)(Breadcrumb)

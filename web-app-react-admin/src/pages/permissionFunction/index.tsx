@@ -7,12 +7,14 @@ import { tableHeadRoleToFunc } from '@/models/tableHead'
 import { DivTable } from '@/components/index'
 import PermissionDetail from './component/detail/index'
 import { functionId } from '@/constants/utilConstant'
+import { IBreadcrumbs } from '@/models/commonM';
+import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
+import { connect } from 'react-redux';
 export interface IProps {
-
+    setBreadcrumb: (payload: IBreadcrumbs[]) => {}
 }
 
-
-export default function PermissionFunction(props: IProps) {
+function PermissionFunction(props: IProps) {
     const [isLoading, setLoading] = useState(true);
     const [stateTable, seStateTable] = useState<IBaseTable>({ page: 1, pageSize: 10, totalCount: 0, data: [] as Array<RoleVM> });
     const [idSelect, setIdSelect] = useState('');
@@ -20,6 +22,9 @@ export default function PermissionFunction(props: IProps) {
 
 
     useEffect(() => {
+        props.setBreadcrumb([
+            { name: 'Danh sách phân quyền' }
+        ]);
         let param = getParams();
         getData(param)
     }, [])
@@ -54,12 +59,6 @@ export default function PermissionFunction(props: IProps) {
         return;
     }
 
-    function renderHeader() {
-        return <div className="pb-5 d-flex justify-content-between align-items-center">
-            <h1 className="h3 mb-1 text-gray-800">Danh sách phân quyền</h1>
-        </div>
-    }
-
 
     function renderContent() {
         return <DivTable
@@ -78,7 +77,6 @@ export default function PermissionFunction(props: IProps) {
 
     return (
         <div className="align-items-center justify-content-between mb-4">
-            {renderHeader()}
             {isLoading ? <div className="d-flex justify-content-center">
                 <CircularProgress />
             </div> :
@@ -93,3 +91,14 @@ export default function PermissionFunction(props: IProps) {
         </div>
     )
 }
+
+
+const mapStateToProps = state => ({
+})
+
+const mapDispatchToProps = {
+    setBreadcrumb
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PermissionFunction)
+

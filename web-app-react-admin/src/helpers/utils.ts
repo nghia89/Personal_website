@@ -55,18 +55,18 @@ export function SerializeParam(ObjParam) {
 
 export const IsNullOrEmpty = (value) => {
     if (value === undefined) {
-        return true;
+        return false;
     }
     else if (value === null) {
-        return true;
+        return false;
     }
-    else if (value === '' && value !== 0 && value !== false) {
-        return true;
+    else if (value === '' && value !== false) {
+        return false;
     }
     else if (value.trim && value.trim() === '') {
-        return true;
+        return false;
     }
-    return false;
+    return true;
 }
 
 export function formatDate(date, format) {
@@ -88,7 +88,7 @@ export function validateField(arrayField: Array<ValidateVm>, refs) {
             const item = arrayField[index];
             switch (item.name) {
                 case 'email':
-                    if (IsNullOrEmpty(value)) {
+                    if (!IsNullOrEmpty(value)) {
                         valid = true;
                         messError = `Vui lòng nhập ${item.mess}.`;
                         break;
@@ -98,7 +98,7 @@ export function validateField(arrayField: Array<ValidateVm>, refs) {
                     messError = valid ? '' : 'email không đúng định dạn.';
                     break;
                 case 'password':
-                    if (IsNullOrEmpty(value)) {
+                    if (!IsNullOrEmpty(value)) {
                         valid = true;
                         messError = `Vui lòng nhập ${item.mess}.`;
                         break;
@@ -107,7 +107,7 @@ export function validateField(arrayField: Array<ValidateVm>, refs) {
                     messError = valid ? '' : ' Mật khẩu phải lớn hơn 6';
                     break;
                 case ('phoneNumber' || 'phone'):
-                    if (IsNullOrEmpty(value)) {
+                    if (!IsNullOrEmpty(value)) {
                         valid = true;
                         messError = `Vui lòng nhập ${item.mess}.`;
                         break;
@@ -119,7 +119,7 @@ export function validateField(arrayField: Array<ValidateVm>, refs) {
                     else if (!validLength) { valid = true; messError = 'Số điện thoại phải lớn 10 và nhỏ hơn 11.'; }
                     break;
                 default:
-                    if (IsNullOrEmpty(value)) {
+                    if (!IsNullOrEmpty(value)) {
                         valid = true;
                         messError = `Vui lòng nhập ${item.mess}.`;
                         break;

@@ -9,8 +9,12 @@ import { tableHeadProduct } from '@/models/tableHead';
 import { useHistory } from 'react-router-dom';
 import { PATH } from '@/constants/paths';
 import './index.scss'
+import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
+import { IBreadcrumbs } from '@/models/commonM';
 
-interface IProps { }
+interface IProps {
+    setBreadcrumb: (payload: IBreadcrumbs[]) => {}
+}
 
 
 let isFirst = false
@@ -23,8 +27,10 @@ export function Product(props: IProps) {
     const [params, setParams] = useState<IBaseParams>({ page: 1, pageSize: 20, query: '' })
 
     useEffect(() => {
+        props.setBreadcrumb([{ name: 'Danh sách sản phẩm' }]);
         isFirst = false
         getData();
+
     }, [])
 
     useEffect(() => {
@@ -75,7 +81,6 @@ export function Product(props: IProps) {
 
     function renderHeader() {
         return <div className="pb-5 d-flex justify-content-between align-items-center ">
-            <h1 className="h3 mb-1 text-gray-800">Danh sách sản phẩm</h1>
             <div className="d-flex col-4">
                 <SearchComponent
                     handleSearch={handleSearch}
@@ -119,6 +124,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
+    setBreadcrumb
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product)

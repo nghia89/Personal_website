@@ -8,11 +8,14 @@ import { TableCenter, AlertDialogSlide, useNotification, SearchComponent } from 
 import UserDetail from './component/detail/index'
 import UserCreate from './component/create/index'
 import { commandId, functionId } from '@/constants/utilConstant'
+import { IBreadcrumbs } from '@/models/commonM';
+import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
+import { connect } from 'react-redux';
 export interface IProps {
-
+    setBreadcrumb: (payload: IBreadcrumbs[]) => {}
 }
 
-export function User(props: IProps) {
+function User(props: IProps) {
     const dispatch = useNotification();
 
     const [isLoading, setLoading] = useState(true);
@@ -33,6 +36,10 @@ export function User(props: IProps) {
 
 
     useEffect(() => {
+        props.setBreadcrumb([
+            { name: 'Danh sách người dùng' }
+        ]);
+
         let param = getParams();
         async function fetchApi() {
             await getData(param)
@@ -124,7 +131,6 @@ export function User(props: IProps) {
 
     function renderHeader() {
         return <div className="pb-5 d-flex justify-content-between align-items-center">
-            <h1 className="h3 mb-1 text-gray-800">Danh sách người dùng</h1>
             <div className="d-flex col-6">
                 <SearchComponent
                     placeholder="Nhập tìm kiếm bằng Email, Tên, Sđt. Enter để tìm kiếm... "
@@ -228,4 +234,13 @@ export function User(props: IProps) {
     )
 }
 
-export default User
+const mapStateToProps = state => ({
+})
+
+const mapDispatchToProps = {
+    setBreadcrumb
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(User)
+
+

@@ -1,8 +1,18 @@
 
-import React from 'react';
+import React, { useEffect } from 'react'
+import { IBreadcrumbs } from '@/models/commonM';
+import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
+import { connect } from 'react-redux';
+export interface IProps {
+    setBreadcrumb: (payload: IBreadcrumbs[]) => {}
+}
 
-export default function Dashboard() {
-
+function Dashboard(props: IProps) {
+    useEffect(() => {
+        props.setBreadcrumb([
+            { name: 'Dashboard' }
+        ]);
+    }, [])
     return (
         <div className="row">
             <div className="col-xl-3 col-md-6 mb-4">
@@ -100,3 +110,15 @@ export default function Dashboard() {
         </div >
     )
 }
+
+
+
+const mapStateToProps = state => ({
+})
+
+const mapDispatchToProps = {
+    setBreadcrumb
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+

@@ -9,11 +9,13 @@ import { apiProductCategory } from '@/apis';
 import ProductCateCreate from './component/create';
 import './index.css'
 import ProductCateDetail from './component/detail';
+import { IBreadcrumbs } from '@/models/commonM';
+import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
+import { connect } from 'react-redux';
 interface IProps {
-
+    setBreadcrumb: (payload: IBreadcrumbs[]) => {}
 }
-
-export default function ProductCategory(props: IProps) {
+function ProductCategory(props: IProps) {
     const dispatch = useNotification();
     const [data, setData] = useState<CategoryVM[]>([]);
     const [isLoading, setLoading] = useState<boolean>(true)
@@ -24,6 +26,9 @@ export default function ProductCategory(props: IProps) {
     const [isShowModal, setModal] = useState(false);
 
     useEffect(() => {
+        props.setBreadcrumb([
+            { name: 'Danh sách danh mục' }
+        ]);
         getData();
     }, [])
 
@@ -76,7 +81,6 @@ export default function ProductCategory(props: IProps) {
 
     function renderHeader() {
         return <div className="pb-5 d-flex justify-content-between align-items-center">
-            <h1 className="h3 mb-1 text-gray-800">Danh sách danh mục</h1>
             <div className="d-flex col-6">
                 <SearchComponent
                     placeholder="Nhập tên. Enter để tìm kiếm... "
@@ -134,3 +138,13 @@ export default function ProductCategory(props: IProps) {
         </div>
     )
 }
+
+const mapStateToProps = state => ({
+})
+
+const mapDispatchToProps = {
+    setBreadcrumb
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCategory)
+

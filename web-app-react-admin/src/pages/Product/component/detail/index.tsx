@@ -8,8 +8,13 @@ import { validateProductVm } from '@/models/validateField';
 import { green } from '@material-ui/core/colors';
 import history from "@/history";
 import { Animations, LoadingPage } from '@/components/loaders';
+import { IBreadcrumbs } from '@/models/commonM';
+import { PATH } from '@/constants/paths'
+import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
+import { connect } from 'react-redux';
 export interface IProps {
     match: { params: { id: any } }
+    setBreadcrumb: (payload: IBreadcrumbs[]) => {}
 }
 
 let refs = {};
@@ -31,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-export default function ProductDetail(props: IProps) {
+function ProductDetail(props: IProps) {
     const classes = useStyles();
     let dispatch = useNotification();
     type NewType = ProductVM | null;
@@ -42,6 +47,10 @@ export default function ProductDetail(props: IProps) {
     const [isLoading, setIsLoading] = useState<Boolean>(true)
 
     useEffect(() => {
+        props.setBreadcrumb([
+            { name: 'Danh sách nhân viên', path: PATH.PRODUCT },
+            { name: 'Chi tiết sản phẩm' }
+        ]);
         fetchData()
     }, [])
 
@@ -116,7 +125,7 @@ export default function ProductDetail(props: IProps) {
             dispatch('ERROR', messError)
         else if (!formState?.productCategoryId)
             dispatch('ERROR', 'Vui lòng chọn danh mục sản phẩm')
-        else if (IsNullOrEmpty(pathImage)) dispatch('ERROR', "Vui lòng thêm ảnh đại diện sản phẩm.")
+        else if (!IsNullOrEmpty(pathImage)) dispatch('ERROR', "Vui lòng thêm ảnh đại diện sản phẩm.")
         return messError
 
     }
@@ -137,8 +146,7 @@ export default function ProductDetail(props: IProps) {
 
 
     function renderHeader() {
-        return <div className="pb-5 d-flex justify-content-between align-items-center">
-            <h4 className="mr-5 color-black font-weight-bold">Tạo mới sản phẩm</h4>
+        return <div className="pb-5 d-flex justify-content-end align-items-center">
             <div>
                 <button onClick={async () => await saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>
             </div>
@@ -326,4 +334,14 @@ export default function ProductDetail(props: IProps) {
         </div>
     </div>
 }
+
+
+const mapStateToProps = state => ({
+})
+
+const mapDispatchToProps = {
+    setBreadcrumb
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail)
 

@@ -8,12 +8,15 @@ import { TableCenter, AlertDialogSlide, useNotification } from '@/components/ind
 import RoleDetail from './component/detail/index'
 import RoleCreate from './component/create/index'
 import { commandId, functionId } from '@/constants/utilConstant'
+import { IBreadcrumbs } from '@/models/commonM';
+import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
+import { connect } from 'react-redux';
 export interface IProps {
-
+    setBreadcrumb: (payload: IBreadcrumbs[]) => {}
 }
 
 
-export default function Role(props: IProps) {
+function Role(props: IProps) {
     const dispatch = useNotification();
 
     const [isLoading, setLoading] = useState(true);
@@ -25,6 +28,10 @@ export default function Role(props: IProps) {
 
 
     useEffect(() => {
+        props.setBreadcrumb([
+            { name: 'Danh sách quyền' }
+        ]);
+
         let param = getParams();
         getData(param)
     }, [])
@@ -78,8 +85,7 @@ export default function Role(props: IProps) {
     }
 
     function renderHeader() {
-        return <div className="pb-5 d-flex justify-content-between align-items-center">
-            <h1 className="h3 mb-1 text-gray-800">Danh sách quyền</h1>
+        return <div className="pb-5 d-flex justify-content-end align-items-center">
 
             <button hidden={!checkPermission(functionId.role, commandId.create)} onClick={() => setOpenCreate(true)} type="button" className="mx-3 btn btn-success">Tạo mới</button>
         </div>
@@ -129,3 +135,13 @@ export default function Role(props: IProps) {
         </div>
     )
 }
+
+const mapStateToProps = state => ({
+})
+
+const mapDispatchToProps = {
+    setBreadcrumb
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Role)
+
