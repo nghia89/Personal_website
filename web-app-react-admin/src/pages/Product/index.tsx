@@ -9,8 +9,6 @@ import { tableHeadProduct } from '@/models/tableHead';
 import { useHistory } from 'react-router-dom';
 import { PATH } from '@/constants/paths';
 import './index.scss'
-import { IconSearch } from '@/helpers/svg';
-import { Button } from '@material-ui/core';
 
 interface IProps { }
 
@@ -103,8 +101,8 @@ export function Product(props: IProps) {
             page={params.page}
             total={params.totalCount}
             isLoading={isLoading}
-            handleEdit={(id) => history.push(`${PATH.PRODUCT_DETAIL}${id}`)
-            }
+            handleEdit={(id) => history.push(`${PATH.PRODUCT_DETAIL}${id}`)}
+            handleDelete={() => console.log("1111")}
         />
     }
 

@@ -76,7 +76,7 @@ export function User(props: IProps) {
         setIdSelect(id);
         setOpenDrawer(true)
     }
-    async function getData(param: IBaseParams) {
+    function getData(param: IBaseParams) {
         if (!isLoading) setLoading(true)
 
         if (param.page !== page)
@@ -85,7 +85,7 @@ export function User(props: IProps) {
             setPageSize(param.pageSize)
 
         let newParam = SerializeParam({ query: param.query ? param.query : '', page: param.page, pageSize: param.pageSize });
-        await apiUser.getUserPaging(newParam).then((rsp) => {
+        apiUser.getUserPaging(newParam).then((rsp) => {
             if (!rsp.isError) {
                 setData(rsp.data.data)
                 seTotal(rsp.data.totalCount)
