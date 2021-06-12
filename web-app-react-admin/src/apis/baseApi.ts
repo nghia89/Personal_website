@@ -9,6 +9,7 @@ const baseApiFunctions = 'functions/';
 const baseApiProduct = 'products/';
 const baseApiUpload = 'uploadFiles/';
 const baseApiProductCategory = 'productCategory/';
+const baseApiSystemConfig = 'systemConfig/';
 
 export const UploadImageForCKEditor = `${env.baseApiUrl}/api/${baseApiUpload}upload_image_ckeditor`;
 
@@ -65,3 +66,8 @@ export const apiProductCategory = {
 }
 
 
+export const apiSystemConfig = {
+    create: async (body: any) => { return await POST(`${baseApiSystemConfig}add`, body) },
+    update: async (body: any) => { return await PUT(`${baseApiSystemConfig}update`, body) },
+    detail: async () => { return await GET(`${baseApiSystemConfig}get_by_first_system`) }
+}

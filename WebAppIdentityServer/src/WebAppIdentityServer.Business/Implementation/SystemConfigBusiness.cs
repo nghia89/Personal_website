@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using WebAppIdentityServer.Business.Interfaces;
+using WebAppIdentityServer.Business.Mappers;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Repository.Interfaces;
@@ -21,15 +22,7 @@ namespace WebAppIdentityServer.Business.Implementation
 
         public async Task Add(SystemConfigVM model)
         {
-            var entity = new SystemConfig()
-            {
-                Author = model.Author,
-                Copyright = model.Copyright,
-                Description = model.Description,
-                Keywords = model.Keywords,
-                Logo = model.Logo,
-                Title = model.Title
-            };
+            var entity = model.ToEntity();
             await _systemConfigRep.AddAsync(entity);
             await _unitOfWork.CommitAsync();
             return;
@@ -37,22 +30,9 @@ namespace WebAppIdentityServer.Business.Implementation
 
         public async Task<SystemConfigVM> GetByFirstSystem()
         {
-            var data = await _systemConfigRep.FindFirstAsync(null, null);
-            if (data == null)
-            {
-                new AddError("có lổi xảy ra");
-            }
-
-            return new SystemConfigVM()
-            {
-                Id = data.Id,
-                Author = data.Author,
-                Copyright = data.Copyright,
-                Description = data.Description,
-                Keywords = data.Keywords,
-                Logo = data.Logo,
-                Title = data.Title
-            };
+            var data = await _systemConfigRep.FindFirstAsync(a => a.Id != 0, null);
+            if (data == null) return null;
+            return data.ToModel();
         }
 
         public async Task<SystemConfigVM> GetById(long id)
@@ -63,16 +43,7 @@ namespace WebAppIdentityServer.Business.Implementation
                 new AddError("có lổi xảy ra");
             }
 
-            return new SystemConfigVM()
-            {
-                Id = data.Id,
-                Author = data.Author,
-                Copyright = data.Copyright,
-                Description = data.Description,
-                Keywords = data.Keywords,
-                Logo = data.Logo,
-                Title = data.Title
-            };
+            return data.ToModel();
         }
 
         public async Task Update(SystemConfigVM model)
@@ -81,12 +52,14 @@ namespace WebAppIdentityServer.Business.Implementation
 
             if (entity != null) { new AddError("có lổi xảy ra"); return; }
 
-            entity.Author = model.Author;
-            entity.Copyright = model.Copyright;
             entity.Description = model.Description;
             entity.Keywords = model.Keywords;
             entity.Logo = model.Logo;
             entity.Title = model.Title;
+            entity.PhoneNumber = model.PhoneNumber;
+            entity.GoogleAnalytics = model.GoogleAnalytics;
+            entity.Googletag = model.Googletag;
+            entity.FacebookMessager = model.FacebookMessager;
 
             await _systemConfigRep.UpdateAsync(entity, entity.Id);
             await _unitOfWork.CommitAsync();

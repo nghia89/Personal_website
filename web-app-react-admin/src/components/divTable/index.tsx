@@ -120,7 +120,7 @@ export default function DivTable(props: IProps) {
                     {props.header.map((item, index) => {
                         return <div key={`h${index}`} className=" divTableHead center item-head-sticky">{item.name}</div>
                     })}
-                    {(props.handleDelete || props.handleDelete) && <div key={`action`} className="divTableHead center item-head-sticky">#</div>}
+                    {(props.handleDelete || props.handleEdit) && <div key={`action`} className="divTableHead center item-head-sticky">#</div>}
                 </div>
             </div>
             <div className="divTableBody">

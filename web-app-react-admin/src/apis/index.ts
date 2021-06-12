@@ -1,4 +1,4 @@
-import { apiUser, apiRoles, apiPermission, apiFunction, apiProduct, apiUploadFile,apiProductCategory } from './baseApi';
+import { apiUser, apiRoles, apiPermission, apiFunction, apiProduct, apiUploadFile, apiProductCategory, apiSystemConfig } from './baseApi';
 
 
-export { apiUser, apiRoles, apiPermission, apiFunction, apiProduct, apiUploadFile,apiProductCategory };
+export { apiUser, apiRoles, apiPermission, apiFunction, apiProduct, apiUploadFile, apiProductCategory, apiSystemConfig };

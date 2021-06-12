@@ -7,7 +7,7 @@ import { RoleVM } from './roles'
 import { PermissionVM, PermissionRequest } from './permission'
 import { IBaseParams } from './commonM'
 import { ProductVM } from './product'
-
+import { SystemConfigVM } from './systemConfig'
 import { TreeCateItem, CategoryVM } from './productCategory'
 
 
@@ -20,5 +20,6 @@ export {
     ValidateVm, IBaseTable,
     RoleVM, PermissionVM,
     PermissionRequest, ProductVM,
-    IBaseParams, TreeCateItem, CategoryVM
+    IBaseParams, TreeCateItem, CategoryVM,
+    SystemConfigVM
 };
