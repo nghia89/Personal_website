@@ -146,6 +146,13 @@ namespace WebAppIdentityServer.Data.EF.Configurations
                entity.ToTable("TableRecords");
                entity.HasKey(x => x.Id);
            });
+            builder.Entity<ProductImages>(entity =>
+            {
+                entity.ToTable("ProductImages");
+                entity.HasKey(x => x.Id);
+                entity.HasIndex(x => x.Id);
+                entity.HasIndex(x => x.ProductId);
+            });
         }
     }
 }

@@ -9,6 +9,7 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public int Id { get; set; }
         [StringLength(250)]
         public string Name { get; set; }
+        public string ColorCode { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
         public string CreatedBy { get; set; }
