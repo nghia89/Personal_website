@@ -1,17 +1,16 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using WebAppIdentityServer.Api.Authorization;
-using WebAppIdentityServer.Business.Implementation;
+using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Utilities.Constants;
 using WebAppIdentityServer.ViewModel.Models.Common;
-using WebAppIdentityServer.ViewModel.Models.System;
 
 namespace WebAppIdentityServer.Api.Controllers
 {
     public class SystemConfigController : BaseController
     {
-        private readonly SystemConfigBusiness _systemConfigBus;
-        public SystemConfigController(SystemConfigBusiness systemConfigBus)
+        private readonly ISystemConfigBusiness _systemConfigBus;
+        public SystemConfigController(ISystemConfigBusiness systemConfigBus)
         {
             _systemConfigBus = systemConfigBus;
         }

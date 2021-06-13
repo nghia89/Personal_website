@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.ViewModel.Models.System;
 using static WebAppIdentityServer.Utilities.Constants.SystemConstants;

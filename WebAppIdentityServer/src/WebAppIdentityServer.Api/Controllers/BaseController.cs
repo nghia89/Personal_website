@@ -1,11 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using WebAppIdentityServer.Api.Helpers;
-using WebAppIdentityServer.Utilities.Helpers;
 
 namespace WebAppIdentityServer.Api.Controllers
 {

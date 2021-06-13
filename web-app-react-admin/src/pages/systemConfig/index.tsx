@@ -29,7 +29,7 @@ function SystemConfig(props: IProps) {
     async function getData() {
         if (!isLoading) setLoading(true)
         await apiSystemConfig.detail().then((rsp) => {
-            if (!rsp.error) {
+            if (!rsp.isError) {
                 setLoading(false)
                 setData(rsp.data.data)
             } else {

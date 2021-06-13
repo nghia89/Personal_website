@@ -4,7 +4,6 @@ using WebAppIdentityServer.Api.Authorization;
 using WebAppIdentityServer.Api.Helpers;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Utilities.Constants;
-using WebAppIdentityServer.ViewModel;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.System;
 

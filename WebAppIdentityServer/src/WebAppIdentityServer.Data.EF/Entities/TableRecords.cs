@@ -1,6 +1,3 @@
-
-using System.ComponentModel.DataAnnotations;
-
 namespace WebAppIdentityServer.Data.EF.Entities
 {
     public class TableRecords

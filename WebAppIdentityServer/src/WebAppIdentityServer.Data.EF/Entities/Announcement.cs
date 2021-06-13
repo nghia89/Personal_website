@@ -17,7 +17,7 @@ namespace WebAppIdentityServer.Data.EF.Entities
 
         //public virtual AppUser AppUser { get; set; }
 
-        public  IEnumerable<AnnouncementUser> AnnouncementUsers { get; set; }
+        public IEnumerable<AnnouncementUser> AnnouncementUsers { get; set; }
 
         public Status Status { set; get; }
         public string CreatedBy { get; set; }

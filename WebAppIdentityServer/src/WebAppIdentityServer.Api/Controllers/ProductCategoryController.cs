@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Api.Authorization;
-using WebAppIdentityServer.Api.Helpers;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Utilities.Constants;
 using WebAppIdentityServer.ViewModel.Common;

@@ -5,8 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Net.Http;
 using WebAppIdentityServer.Client.Services;
 using WebAppIdentityServer.Client.Services.Interfaces;
 

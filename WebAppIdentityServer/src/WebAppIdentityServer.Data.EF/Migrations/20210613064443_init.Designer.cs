@@ -9,7 +9,7 @@ using WebAppIdentityServer.Data.EF;
 namespace WebAppIdentityServer.Data.EF.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210529035851_init")]
+    [Migration("20210613064443_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1073,22 +1073,28 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Author")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Copyright")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("FacebookMessager")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("GoogleAnalytics")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Googletag")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Keywords")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Logo")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Title")

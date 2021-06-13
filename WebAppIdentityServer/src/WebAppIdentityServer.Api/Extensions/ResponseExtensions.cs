@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace WebAppIdentityServer.Api.Extensions
 {
     // public class ResponseExtensions<T>

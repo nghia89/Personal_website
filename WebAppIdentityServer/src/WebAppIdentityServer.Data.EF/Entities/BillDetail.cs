@@ -1,8 +1,6 @@
-﻿using WebAppIdentityServer.Data.EF.Interfaces;
-
-namespace WebAppIdentityServer.Data.EF.Entities
+﻿namespace WebAppIdentityServer.Data.EF.Entities
 {
-    public class BillDetail 
+    public class BillDetail
     {
         public long Id { get; set; }
         public int Quantity { set; get; }

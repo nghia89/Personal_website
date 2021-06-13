@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using WebAppIdentityServer.Utilities.Enum;
 
 namespace WebAppIdentityServer.ViewModel.Models.System
 {
-  public  class ResourceOrganizationVM
+    public class ResourceOrganizationVM
     {
         public long Id { get; set; }
         public string Name { get; set; }

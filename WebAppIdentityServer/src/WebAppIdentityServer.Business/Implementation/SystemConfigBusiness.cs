@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Business.Mappers;
-using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.Utilities.Helpers;
