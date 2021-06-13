@@ -83,17 +83,21 @@ namespace WebAppIdentityServer.Data.EF
                     new Function {Id = "DASHBOARD", Name = "Thống kê", ParentId = "ROOTID", SortOrder = 1,Url = "/dashboard",Icon="fa-dashboard", DateCreated=new DateTime(),DateModified=new DateTime() },
 
 
-                    new Function {Id = "CONTENT",Name = "Nội dung",ParentId = "ROOTID", SortOrder = 2,Url = "/contents",Icon="IconShoppingCart", DateCreated=new DateTime(),DateModified=new DateTime() },
+                    new Function {Id = "CONTENT",Name = "Sản phẩm",ParentId = "ROOTID", SortOrder = 2,Url = "/contents",Icon="IconShoppingCart", DateCreated=new DateTime(),DateModified=new DateTime() },
                     new Function {Id = "CONTENT_CATEGORY",Name = "Danh mục",ParentId ="CONTENT",Url = "/contents/categories" , DateCreated=new DateTime(),DateModified=new DateTime() },
                     new Function {Id = "CONTENT_PRODUCT",Name = "Sản phẫm",ParentId = "CONTENT",SortOrder = 2,Url = "/contents/product",Icon="fa-edit" , DateCreated=new DateTime(),DateModified=new DateTime()},
                     new Function {Id = "CONTENT_COMMENT",Name = "Bình luận",ParentId = "CONTENT",SortOrder = 3,Url = "/contents/product/comments",Icon="fa-edit", DateCreated=new DateTime(),DateModified=new DateTime() },
                     new Function {Id = "CONTENT_REPORT",Name = "Báo xấu",ParentId = "CONTENT",SortOrder = 3,Url = "/contents/product/reports",Icon="fa-edit", DateCreated=new DateTime(),DateModified=new DateTime() },
 
 
-                    new Function {Id = "SYSTEM", Name = "Hệ thống", ParentId = "ROOTID", SortOrder = 3, Url = "/systems",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
+                    new Function {Id = "SYSTEM", Name = "Hệ thống", ParentId = "ROOTID", SortOrder = 3, Url = "/systems",Icon="IconUsers" , DateCreated=new DateTime(),DateModified=new DateTime()},
                     new Function {Id = "SYSTEM_USER", Name = "Người dùng",ParentId = "SYSTEM",Url = "/systems/users",Icon="fa-desktop", DateCreated=new DateTime(),DateModified=new DateTime()},
                     new Function {Id = "SYSTEM_ROLE", Name = "Nhóm quyền",ParentId = "SYSTEM",Url = "/systems/roles",Icon="fa-desktop", DateCreated=new DateTime(),DateModified=new DateTime()},
                     new Function {Id = "SYSTEM_PERMISSION", Name = "Quyền hạn",ParentId = "SYSTEM",Url = "/systems/permissions",Icon="fa-desktop", DateCreated=new DateTime(),DateModified=new DateTime()},
+
+                    new Function {Id = "SYSTEM_CONFIG", Name = "Cấu hình", ParentId = "ROOTID", SortOrder = 4, Url = "/systemconfigs",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
+                    new Function {Id = "SYSTEMCONFIG_GENERAL", Name = "Cấu hình website", ParentId = "SYSTEM_CONFIG", SortOrder = 4, Url = "/systemconfig/general",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
+
                 });
                 await _context.SaveChangesAsync();
             }

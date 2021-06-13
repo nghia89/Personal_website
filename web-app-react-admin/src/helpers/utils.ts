@@ -3,8 +3,21 @@ import { PATH } from '@/constants/paths'
 import moment from 'moment'
 import { ValidateVm } from '@/models/index';
 import { getProfile } from './httpCommon'
-import { IconSetting, IconShoppingCart } from './svg';
+import { IconSetting, IconShoppingCart, IconUser } from './svg';
 
+
+export function renderIconSlideBar(icon) {
+    switch (icon) {
+        case "IconShoppingCart":
+            return IconShoppingCart()
+        case "IconSetting":
+            return IconSetting()
+        case "IconUsers":
+            return IconUser()
+        default:
+            return null;
+    }
+}
 
 export function checkPermission(funcId: string, commandId: string) {
     let profile = getProfile();
@@ -144,15 +157,4 @@ export function randomUId() {
     const max = 100;
     const rand = min + Math.random() * (max - min);
     return rand
-}
-
-export function renderIconSlideBar(icon) {
-    switch (icon) {
-        case "IconShoppingCart":
-            return IconShoppingCart()
-        case "IconSetting":
-            return IconSetting()
-        default:
-            return null;
-    }
 }

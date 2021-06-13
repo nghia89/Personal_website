@@ -23,7 +23,7 @@ namespace WebAppIdentityServer.Api.Controllers
             return ToOkResult();
         }
 
-        [HttpGet('get_by_first_system')]
+        [HttpGet("get_by_first_system")]
         public async Task<IActionResult> GetByFirstSystem()
         {
             var data = await _systemConfigBus.GetByFirstSystem();
@@ -44,7 +44,7 @@ namespace WebAppIdentityServer.Api.Controllers
             return ToOkResult(user);
         }
 
-        [HttpPut('update')]
+        [HttpPut("update")]
         [ClaimRequirement(FunctionCode.SYSTEM_USER, CommandCode.UPDATE)]
         public async Task<IActionResult> Put([FromBody] SystemConfigVM request)
         {

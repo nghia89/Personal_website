@@ -6,7 +6,6 @@ import React, { useEffect, useState } from 'react';
 import { checkPermission, SerializeParam } from '@/helpers/utils';
 import { IBaseParams, SystemConfigVM } from '@/models';
 import { apiSystemConfig } from '@/apis';
-import './index.css'
 import { IBreadcrumbs } from '@/models/commonM';
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
@@ -49,19 +48,38 @@ function SystemConfig(props: IProps) {
     };
 
     function renderContent() {
-        return <form noValidate autoComplete="off">
-            <div className="row">
-                <div className="col">
-                    <TextField
-                        label="Tên"
-                        name="name"
-                        value={data?.title}
-                        variant="outlined"
-                        size="small"
-                        className="form-control"
-                        onChange={(e) => handleChange(e)}
-                    />
-                </div>
+        return <form autoComplete="off">
+            <div className="mb-3">
+                <label htmlFor="title" className="form-label">Tiêu đề</label>
+                <input type="email" className="form-control" id="title" aria-describedby="emailHelp" />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="keywords" className="form-label">Từ khóa</label>
+                <input className="form-control" id="keywords" />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="description" className="form-label">Mô tả</label>
+                <input className="form-control" id="description" />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="phoneNumber" className="form-label">Số điện thoại</label>
+                <input className="form-control" id="phoneNumber" />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label">Logo</label>
+                <input className="form-control" id="exampleInputPassword1" />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="googleAnalytics" className="form-label">GoogleAnalytics</label>
+                <textarea className="form-control" id="googleAnalytics" name="googleAnalytics" />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="googleAnaTag" className="form-label">GoogleTag</label>
+                <textarea className="form-control" id="googleAnaTag" />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="facebookMessager" className="form-label">FacebookMessager</label>
+                <textarea className="form-control" id="facebookMessager" />
             </div>
         </form>
     }

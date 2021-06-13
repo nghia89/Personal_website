@@ -70,7 +70,7 @@ export default function ProductCateCreate(props: IProps) {
 
 
     function renderHeader() {
-        return <div className="pb-5 d-flex justify-content-between align-items-center">
+        return <div className="pb-3 d-flex justify-content-between align-items-center">
             <h5 className="mr-5 font-weight-bold">Tạo mới danh mục</h5>
             <div>
                 <button onClick={() => props.handleClose()} type="button" className="mx-3 hms-btn-button btn btn-light">Đóng</button>
