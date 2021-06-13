@@ -265,12 +265,12 @@ function ProductDetail(props: IProps) {
             </div>
             <div className="col-10">
                 <div className="pb-2">
-                    <label className="color-black ml-2 ">Mô tả ngắn</label>
+                    <label className="color-black mx-2 ">Mô tả ngắn</label>
                     <Editor data={formState?.description} onChange={(data) => handleOnchange("description", data)} />
 
                 </div>
                 <div>
-                    <label className="color-black ml-2 ">Mô tả sản phẩm</label>
+                    <label className="color-black mx-2 ">Mô tả sản phẩm</label>
                     <Editor data={formState?.content} onChange={(data) => handleOnchange("content", data)} />
 
                 </div>

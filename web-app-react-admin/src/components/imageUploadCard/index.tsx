@@ -88,7 +88,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IProps {
     isMultiple?: boolean,
-    handleUpload: Function
+    handleUpload: Function,
+    isHidenInputUrl?: boolean,
+    style?: any
 }
 
 let isFirst = false;
@@ -120,7 +122,7 @@ function ImageUploadCard(props: IProps) {
         await apiUploadFile.UploadImage(formData).then((rsp) => {
             if (!rsp.isError) {
                 dispatch('SUCCESS', 'Thêm ảnh thành công.')
-                setSelectedFile(rsp)
+                setSelectedFile(rsp.data)
                 setIsLoadingUploaded(false)
             }
         })
@@ -135,7 +137,7 @@ function ImageUploadCard(props: IProps) {
         return (
             <React.Fragment>
                 <CardContent>
-                    <Grid container justify="center" alignItems="center">
+                    <Grid style={props.style} container justify="center" alignItems="center">
                         <input
                             accept="image/*"
                             className={classes.input}
@@ -149,9 +151,9 @@ function ImageUploadCard(props: IProps) {
                                 <AddPhotoAlternateIcon />
                             </Fab>
                         </label>
-                        <Fab className={classes.button} onClick={handleSearchClick}>
+                        {!props.isHidenInputUrl && <Fab className={classes.button} onClick={handleSearchClick}>
                             <SearchIcon />
-                        </Fab>
+                        </Fab>}
 
                     </Grid>
                 </CardContent>
@@ -196,7 +198,7 @@ function ImageUploadCard(props: IProps) {
     return (
         <React.Fragment>
             {mainState === "initial" && renderInitialState()}
-            {  mainState === "search" && renderSearchState()}
+            {mainState === "search" && renderSearchState()}
         </React.Fragment>
     );
 }

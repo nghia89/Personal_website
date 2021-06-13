@@ -1,4 +1,4 @@
-import { AlertDialogSlide, SearchComponent, TableCenter, useNotification } from '@/components';
+import { AlertDialogSlide, ImageUploadCard, SearchComponent, TableCenter, useNotification } from '@/components';
 import { commandId, functionId } from '@/constants/utilConstant';
 import { CircularProgress, TextField } from '@material-ui/core';
 import { tableHeadCategory } from '@/models/tableHead';
@@ -18,6 +18,7 @@ function SystemConfig(props: IProps) {
     const dispatch = useNotification();
     const [data, setData] = useState<SystemConfigVM>();
     const [isLoading, setLoading] = useState<boolean>(true)
+    const [isLoadingImg, setisLoadingImg] = useState<Boolean>(false)
 
     useEffect(() => {
         props.setBreadcrumb([
@@ -31,13 +32,46 @@ function SystemConfig(props: IProps) {
         await apiSystemConfig.detail().then((rsp) => {
             if (!rsp.isError) {
                 setLoading(false)
-                setData(rsp.data.data)
+                setData(rsp.data)
             } else {
                 setLoading(false)
                 dispatch('ERROR', 'Có lỗi xảy ra.')
             }
         }).catch(() => { setLoading(false); dispatch('ERROR', 'Có lỗi xảy ra.') })
     }
+
+
+    async function saveData() {
+        if (data?.id) {
+            await apiSystemConfig.update(data).then((rsp) => {
+                if (!rsp.isError) {
+                    dispatch('SUCCESS', 'Cập nhật thành công.')
+                    return
+                } else
+                    dispatch('ERROR', 'Có lỗi xảy ra.')
+            })
+        } else {
+            await apiSystemConfig.create(data).then((rsp) => {
+                if (!rsp.isError) {
+                    dispatch('SUCCESS', 'Thêm thành công.')
+                    return
+                } else
+                    dispatch('ERROR', 'Có lỗi xảy ra.')
+            })
+        }
+
+    }
+
+    function handleUpload(isLoading, path) {
+        if (path != null && !isLoading) {
+            setisLoadingImg(false)
+            let newFormState: NewType = { ...data };
+            newFormState['logo'] = path;
+            setData(newFormState);
+        } else
+            setisLoadingImg(true)
+    }
+
 
     function handleChange(e) {
         let target = e.target;
@@ -47,46 +81,78 @@ function SystemConfig(props: IProps) {
         setData(newFormState);
     };
 
+    function renderHeader() {
+        return <div className="pb-3 d-flex justify-content-end align-items-center">
+            <div>
+                <button onClick={async () => await saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>
+            </div>
+        </div>
+    }
+
     function renderContent() {
         return <form autoComplete="off">
             <div className="mb-3">
                 <label htmlFor="title" className="form-label">Tiêu đề</label>
-                <input type="email" className="form-control" id="title" aria-describedby="emailHelp" />
+                <input type="title" onChange={(e) => handleChange(e)} name="title" value={data?.title} className="form-control" id="title" aria-describedby="emailHelp" />
             </div>
-            <div className="mb-3">
-                <label htmlFor="keywords" className="form-label">Từ khóa</label>
-                <input className="form-control" id="keywords" />
+            <div className="row">
+                <div className="col-6 mb-3">
+                    <label htmlFor="keywords" className="form-label">Từ khóa</label>
+                    <textarea onChange={(e) => handleChange(e)} name="keywords" value={data?.keywords} className="form-control" id="keywords" />
+                </div>
+                <div className="col-6 mb-3">
+                    <label htmlFor="description" className="form-label">Mô tả</label>
+                    <textarea onChange={(e) => handleChange(e)} name="description" value={data?.description} className="form-control" id="description" />
+                </div>
             </div>
-            <div className="mb-3">
-                <label htmlFor="description" className="form-label">Mô tả</label>
-                <input className="form-control" id="description" />
+            <div className="row">
+                <div className="col-6" >
+                    <label htmlFor="exampleInputPassword1" className="form-label">Logo</label>
+                    <div className="row bg-white mb-3" style={{ marginRight: '0px', marginLeft: '0px' }}>
+                        <div className="col-2">
+                            <ImageUploadCard
+                                style={{ justifyContent: 'end' }}
+                                isHidenInputUrl
+                                handleUpload={(isLoading, listPath) => handleUpload(isLoading, listPath)}
+                            />
+                        </div>
+
+                        <div className="col-10 justify-content-center pt-2 pb-2">
+                            {
+                                isLoadingImg ?
+                                    <CircularProgress size={68} />
+                                    :
+                                    <img width={420} src={data?.logo} />
+
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div className="col-6 mb-3">
+                    <label htmlFor="phoneNumber" className="form-label">Số điện thoại</label>
+                    <input onChange={(e) => handleChange(e)} name="phoneNumber" value={data?.phoneNumber} className="form-control" type="number" id="phoneNumber" />
+                </div>
             </div>
-            <div className="mb-3">
-                <label htmlFor="phoneNumber" className="form-label">Số điện thoại</label>
-                <input className="form-control" id="phoneNumber" />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="exampleInputPassword1" className="form-label">Logo</label>
-                <input className="form-control" id="exampleInputPassword1" />
-            </div>
+
             <div className="mb-3">
                 <label htmlFor="googleAnalytics" className="form-label">GoogleAnalytics</label>
-                <textarea className="form-control" id="googleAnalytics" name="googleAnalytics" />
+                <textarea onChange={(e) => handleChange(e)} name="googleAnalytics" value={data?.googleAnalytics} className="form-control" id="googleAnalytics" />
             </div>
             <div className="mb-3">
-                <label htmlFor="googleAnaTag" className="form-label">GoogleTag</label>
-                <textarea className="form-control" id="googleAnaTag" />
+                <label htmlFor="googleTag" className="form-label">GoogleTag</label>
+                <textarea onChange={(e) => handleChange(e)} name="googleTag" value={data?.googletag} className="form-control" id="googleTag" />
             </div>
             <div className="mb-3">
                 <label htmlFor="facebookMessager" className="form-label">FacebookMessager</label>
-                <textarea className="form-control" id="facebookMessager" />
+                <textarea onChange={(e) => handleChange(e)} name="facebookMessager" value={data?.facebookMessager} className="form-control" id="facebookMessager" />
             </div>
         </form>
     }
 
 
     return (
-        <div className="align-items-center justify-content-between mb-4">
+        <div className="align-items-center justify-content-between mb-4 col-10 mx-auto">
+            {renderHeader()}
             {isLoading ? <div className="d-flex justify-content-center">
                 <CircularProgress />
             </div> :

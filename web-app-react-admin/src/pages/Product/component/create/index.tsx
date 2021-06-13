@@ -251,12 +251,12 @@ function ProductCreate(props: IProps) {
             </div>
             <div className="col-10">
                 <div className="pb-2">
-                    <label className="color-black ml-2 ">Mô tả ngắn</label>
+                    <label className="color-black mx-2 ">Mô tả ngắn</label>
                     <Editor data="" onChange={(data) => handleOnchange("description", data)} />
 
                 </div>
                 <div>
-                    <label className="color-black ml-2 ">Mô tả sản phẩm</label>
+                    <label className="color-black mx-2 ">Mô tả sản phẩm</label>
                     <Editor data="" onChange={(data) => handleOnchange("content", data)} />
 
                 </div>
