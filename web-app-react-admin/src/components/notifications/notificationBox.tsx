@@ -27,13 +27,13 @@ export default function NotificationBox(props) {
   };
 
   const handleCloseNotification = () => {
-    // setExit(true);
-    // handlePauseTimer();
-    // setTimeout(() =>
-    //   props.dispatch({
-    //     type: "REMOVE_NOTIFICATION",
-    //     id: props.id
-    //   }), 400)
+    setExit(true);
+    handlePauseTimer();
+    setTimeout(() =>
+      props.dispatch({
+        type: "REMOVE_NOTIFICATION",
+        id: props.id
+      }), 400)
   };
 
   useEffect(() => {
