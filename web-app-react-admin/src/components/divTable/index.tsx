@@ -113,7 +113,7 @@ export default function DivTable(props: IProps) {
 
 
     function renderContent() {
-        let widthContent = dimensions.width - 300;
+        let widthContent = dimensions.width - 620;
         return <div className="divTable">
             <div className="divTableBodyHead" >
                 <div className="divTableRow">
