@@ -1,3 +1,4 @@
+import { IConCheckSuccess, IConCheckError } from "@/helpers/svg";
 import React, { useState, useEffect } from "react";
 
 export default function NotificationBox(props) {
@@ -26,13 +27,13 @@ export default function NotificationBox(props) {
   };
 
   const handleCloseNotification = () => {
-    setExit(true);
-    handlePauseTimer();
-    setTimeout(() =>
-      props.dispatch({
-        type: "REMOVE_NOTIFICATION",
-        id: props.id
-      }), 400)
+    // setExit(true);
+    // handlePauseTimer();
+    // setTimeout(() =>
+    //   props.dispatch({
+    //     type: "REMOVE_NOTIFICATION",
+    //     id: props.id
+    //   }), 400)
   };
 
   useEffect(() => {
@@ -53,9 +54,16 @@ export default function NotificationBox(props) {
       className={`notification-item ${props.type === "SUCCESS" ? "show_success" : "show_error"} ${exit ? "exit" : ""}`
       }
     >
-      <p>{props.message}
+      <div className="d-flex justify-content-center align-items-center">
+        <span>
+          {props.type === "SUCCESS" ? IConCheckSuccess() : IConCheckError()}
+        </span>
+        <p>{props.message}
+
+        </p>
         <span className={"close"} onClick={() => handleCloseNotification()}>x</span>
-      </p>
+      </div>
+
       < div className={"bar"} style={{ width: `${width}%` }} />
     </div>
   )

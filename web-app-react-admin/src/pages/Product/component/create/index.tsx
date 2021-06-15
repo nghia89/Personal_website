@@ -62,7 +62,7 @@ function ProductCreate(props: IProps) {
     async function genarateCode() {
         await apiProductCategory.getById(formState?.productCategoryId).then(async (rsp) => {
             if (!rsp.isError) {
-                await apiProduct.getGenarateCode(rsp.code).then((rsp) => {
+                await apiProduct.getGenarateCode(rsp.data.code).then((rsp) => {
                     if (!rsp.isError) {
                         let newFormState: NewType = { ...formState };
                         newFormState['code'] = rsp.data;
