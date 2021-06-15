@@ -2,19 +2,19 @@
 {
     public class ProductQuantityVM
     {
-        public int ProductId { get; set; }
-
-        public int SizeId { get; set; }
-
-
-        public int ColorId { get; set; }
-
-        public int Quantity { get; set; }
-
+        public long Id { get; set; }
+        public long ProductId { get; set; }
         public ProductVM Product { get; set; }
-
+        public string Name { get; set; }
+        public string Sku { get; set; }
+        public int? SizeId { get; set; }
         public SizeVM Size { get; set; }
-
+        public int? ColorId { get; set; }
         public ColorVM Color { get; set; }
+        public int Quantity { get; set; }
+        public int QuantitySold { get; set; }
+        public string ImageUrl { get; set; }
+        public bool AllowPurchaseWhenSoldOut { get; set; }
+        public string OptionVariant { get; set; }
     }
 }

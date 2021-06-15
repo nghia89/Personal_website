@@ -11,6 +11,14 @@
     min-width: 90px;
     font-weight: 500;
 }
+.body-pd .container-fluid{
+    margin-left: inherit !important;
+}
+
+.body-pd .container-fluid .container{
+    margin-left: inherit !important;
+}
+
 
 .notification-wrapper {
     position: fixed;
@@ -250,4 +258,21 @@ border-bottom: none !important;
 
 legend{
     float: none;
+}
+
+.wrapper-content {
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+    padding: 20px;
+    padding-left: 5px;
+}
+.ui-information-title{
+    line-height: 18px;
+    text-transform: capitalize;
+    color: #0b3d88;
+}
+
+.zindex-dropdown{
+    z-index: 10;
 }

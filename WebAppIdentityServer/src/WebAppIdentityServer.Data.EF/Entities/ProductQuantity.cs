@@ -18,6 +18,7 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public int QuantitySold { get; set; }
         public string ImageUrl { get; set; }
         public bool AllowPurchaseWhenSoldOut { get; set; }
+        public string OptionVariant { get; set; }
 
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
