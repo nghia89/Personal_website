@@ -80,7 +80,7 @@ namespace WebAppIdentityServer.Data.EF
             {
                 _context.Functions.AddRange(new List<Function>
                 {
-                    new Function {Id = "DASHBOARD", Name = "Thống kê", ParentId = "ROOTID", SortOrder = 1,Url = "/dashboard",Icon="fa-dashboard", DateCreated=new DateTime(),DateModified=new DateTime() },
+                    new Function {Id = "DASHBOARD", Name = "Dashboard", ParentId = "ROOTID", SortOrder = 1,Url = "/dashboard",Icon="fa-dashboard", DateCreated=new DateTime(),DateModified=new DateTime() },
 
 
                     new Function {Id = "CONTENT",Name = "Sản phẩm",ParentId = "ROOTID", SortOrder = 2,Url = "/contents",Icon="IconShoppingCart", DateCreated=new DateTime(),DateModified=new DateTime() },

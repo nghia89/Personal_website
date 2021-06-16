@@ -41,7 +41,7 @@ export default function ProductCateCreate(props: IProps) {
                     dispatch('SUCCESS', 'Thêm danh mục thành công.')
                     props.handleClose()
                     props.handleReload()
-                }
+                } else dispatch('ERROR', rsp.message)
             })
         }
     }
@@ -131,6 +131,7 @@ export default function ProductCateCreate(props: IProps) {
                         onChange={(e) => handleChange(e)}
                     />
                     <TextField
+                        disabled
                         label="seoAlias"
                         name="seoAlias"
                         value={formState?.seoAlias}

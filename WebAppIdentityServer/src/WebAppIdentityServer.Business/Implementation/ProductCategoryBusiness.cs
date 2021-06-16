@@ -32,8 +32,15 @@ namespace WebAppIdentityServer.Business.Implementation
 
         public async Task<ProductCategoryVM> Add(ProductCategoryVM productCategoryVm)
         {
+            var checkCode = await _productCategoryRep.FindFirstAsync(x => x.Code == productCategoryVm.Code && !string.IsNullOrEmpty(x.Code), null);
+            if (checkCode != null)
+            {
+                AddError("Mã danh mục đã tồn tại."); return null;
+            }
             var productCategory = productCategoryVm.ToEntity();
+            if (productCategory.ParentId == null) productCategory.ParentId = 0;
             productCategory.Status = Status.Active;
+            productCategory.SeoAlias = productCategory.Name.ToUnsignString();
             await _productCategoryRep.AddAsync(productCategory);
             await _unitOfWork.CommitAsync();
             return productCategoryVm;
@@ -75,6 +82,7 @@ namespace WebAppIdentityServer.Business.Implementation
         public async Task Update(ProductCategoryVM productCategoryVm)
         {
             var productCategory = productCategoryVm.ToEntity();
+            if (productCategory.ParentId == null) productCategory.ParentId = 0;
             await _productCategoryRep.UpdateAsync(productCategory, productCategory.Id);
             await _unitOfWork.CommitAsync();
         }

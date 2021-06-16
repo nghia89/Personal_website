@@ -9,7 +9,7 @@ import { IBaseParams } from './commonM'
 import { ProductVM } from './product'
 import { SystemConfigVM } from './systemConfig'
 import { TreeCateItem, CategoryVM } from './productCategory'
-
+import { productQuantityVM } from './productQuantity'
 
 
 
@@ -21,5 +21,5 @@ export {
     RoleVM, PermissionVM,
     PermissionRequest, ProductVM,
     IBaseParams, TreeCateItem, CategoryVM,
-    SystemConfigVM
+    SystemConfigVM, productQuantityVM
 };

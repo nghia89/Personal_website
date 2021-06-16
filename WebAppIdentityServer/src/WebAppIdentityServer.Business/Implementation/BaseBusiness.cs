@@ -1,4 +1,5 @@
 ﻿using WebAppIdentityServer.Business.Interfaces;
+using WebAppIdentityServer.Utilities.Helpers;
 using WebAppIdentityServer.ViewModel.Models.System;
 
 namespace WebAppIdentityServer.Business.Implementation
@@ -17,5 +18,10 @@ namespace WebAppIdentityServer.Business.Implementation
         public string UserName => this.User?.UserName;
         public string Email => this.User?.Email;
         public string Role => this.User?.Role;
+        public void AddError(string message)
+        {
+            new AddError(message);
+            return;
+        }
     }
 }

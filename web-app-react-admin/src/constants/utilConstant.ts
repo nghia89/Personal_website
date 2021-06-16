@@ -1,3 +1,8 @@
+export interface IObjectSelect {
+    value: string,
+    label: string
+}
+
 interface IObject {
     id: string,
     name: string
@@ -9,7 +14,7 @@ interface IFunction {
     user: string,
     permission: string,
     product: string,
-    category:string
+    category: string
 }
 
 interface ICommand {
@@ -36,11 +41,17 @@ export const functionId: IFunction =
     role: 'SYSTEM_ROLE',
     user: 'SYSTEM_USER',
     product: 'CONTENT_PRODUCT',
-    category:'CONTENT_CATEGORY'
+    category: 'CONTENT_CATEGORY'
 }
 
 export const functionRoot: Array<IObject> = [
     { id: 'CONTENT', name: 'Nội dung' },
     { id: 'SYSTEM', name: 'Hệ thống' },
     { id: 'DASHBOARD', name: 'Thống kê' }
+]
+
+export const OptionVariant: Array<IObjectSelect> = [
+    { value: "color", label: 'Màu sắc' },
+    { value: "size", label: 'kích thước' },
+    { value: "name", label: 'Tiêu đề' }
 ]

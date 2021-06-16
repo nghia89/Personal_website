@@ -31,7 +31,7 @@ function Breadcrumb(props: IProps) {
                     if (!IsNullOrEmpty(item.path))
                         return <Typography key={`breadcrumb${index}`} variant="h6" color="textPrimary" > {item.name}</Typography>
                     else
-                        return <Link key={`breadcrumb${index}`} className="font-size-13" color="inherit" to={item.path ? item.path : ""} >
+                        return <Link key={`breadcrumb${index}`} className="font-size-13 text-muted" to={item.path ? item.path : ""} >
                             {item.name}
                         </Link>
                 })}

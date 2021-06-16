@@ -56,7 +56,7 @@ export default function ProductCateDetail(props: IProps) {
                     dispatch('SUCCESS', 'Thêm danh mục thành công.')
                     props.handleClose()
                     props.handleReload()
-                }
+                } else dispatch('ERROR', rsp.message)
             })
         }
     }
