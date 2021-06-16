@@ -7,7 +7,6 @@ namespace WebAppIdentityServer.Data.EF.Entities
     {
         public long Id { get; set; }
         public long ProductId { get; set; }
-        public Product Product { get; set; }
         public string Name { get; set; }
         public string Sku { get; set; }
         public int? SizeId { get; set; }
