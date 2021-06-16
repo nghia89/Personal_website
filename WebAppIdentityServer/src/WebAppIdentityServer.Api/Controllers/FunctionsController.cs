@@ -20,7 +20,7 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpPost]
-        [ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.CREATE)]
+        //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.CREATE)]
         [ApiValidationFilter]
         public async Task<IActionResult> Post([FromBody] FunctionVm request)
         {
@@ -40,8 +40,17 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpGet]
+        [Route("funcroot")]
+        //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.VIEW)]
+        public async Task<IActionResult> GetRoot()
+        {
+            var data = await _functionBu.GetAll();
+            return ToOkResult(data);
+        }
+
+        [HttpGet]
         [Route("paging")]
-        [ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.VIEW)]
+        //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.VIEW)]
         public async Task<IActionResult> Paging([FromQuery] PagingParamModel pagingParam)
         {
             var items = await _functionBu.Paging(pagingParam);
@@ -50,7 +59,7 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        [ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.VIEW)]
+        //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.VIEW)]
         public async Task<IActionResult> GetById(long id)
         {
             var function = await _functionBu.GetById(id);
@@ -63,7 +72,7 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        [ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.UPDATE)]
+        //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.UPDATE)]
         [ApiValidationFilter]
         public async Task<IActionResult> Put(long id, [FromBody] FunctionVm request)
         {

@@ -13,6 +13,7 @@ namespace WebAppIdentityServer.Business.Interfaces
         Task<FunctionVm> GetById(long id);
         Task<bool> Delete(long id);
         Task<List<FunctionVm>> GetAll();
+        Task<List<FunctionVm>> GetFuncRoot();
         Task<List<FunctionVm>> GetFuncChild();
         Task<PagedResult<FunctionVm>> Paging(PagingParamModel pagingParam);
     }

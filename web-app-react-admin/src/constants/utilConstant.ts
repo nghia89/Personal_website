@@ -1,6 +1,6 @@
 export interface IObjectSelect {
-    value: string,
-    label: string
+    value?: string,
+    label?: string
 }
 
 interface IObject {
@@ -44,11 +44,6 @@ export const functionId: IFunction =
     category: 'CONTENT_CATEGORY'
 }
 
-export const functionRoot: Array<IObject> = [
-    { id: 'CONTENT', name: 'Nội dung' },
-    { id: 'SYSTEM', name: 'Hệ thống' },
-    { id: 'DASHBOARD', name: 'Thống kê' }
-]
 
 export const OptionVariant: Array<IObjectSelect> = [
     { value: "color", label: 'Màu sắc' },

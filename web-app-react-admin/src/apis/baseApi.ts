@@ -10,6 +10,8 @@ const baseApiProduct = 'products/';
 const baseApiUpload = 'uploadFiles/';
 const baseApiProductCategory = 'productCategory/';
 const baseApiSystemConfig = 'systemConfig/';
+const baseApiColor = 'color/';
+const baseApiSize = 'size/';
 
 export const UploadImageForCKEditor = `${env.baseApiUrl}/api/${baseApiUpload}upload_image_ckeditor`;
 
@@ -44,8 +46,24 @@ export const apiPermission = {
 }
 
 export const apiFunction = {
-    getAll: async () => { return await GET(`${baseApiFunctions}getall`) }
+    getAll: async () => { return await GET(`${baseApiFunctions}getall`) },
+    getFuncRoot: async () => { return await GET(`${baseApiFunctions}funcroot`) }
 }
+
+export const apiColor = {
+    getAll: async () => { return await GET(`${baseApiColor}getall`) },
+    getById: async (id: number) => { return await GET(`${baseApiColor}get/` + id) },
+    create: async (body: any) => { return await POST(`${baseApiColor}add`, body) },
+    update: async (body: any) => { return await PUT(`${baseApiColor}update`, body) },
+}
+
+export const apiSize = {
+    getAll: async () => { return await GET(`${baseApiSize}getall`) },
+    getById: async (id: number) => { return await GET(`${baseApiSize}get/` + id) },
+    create: async (body: any) => { return await POST(`${baseApiSize}add`, body) },
+    update: async (body: any) => { return await PUT(`${baseApiSize}update`, body) },
+}
+
 
 export const apiProduct = {
     getPaging: async (param: string) => { return await GET(`${baseApiProduct}paging` + param) },

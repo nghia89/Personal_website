@@ -101,14 +101,16 @@ export const IconSetting = (size?: number) => {
 }
 
 
-export const IConCheckSuccess = () => {
-    return <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const IConCheckSuccess = (size?: number) => {
+    let newSize = size ? size : 24;
+    return <svg width={newSize} height={newSize} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M10.5 1.75C5.67525 1.75 1.75 5.67525 1.75 10.5C1.75 15.3247 5.67525 19.25 10.5 19.25C15.3247 19.25 19.25 15.3247 19.25 10.5C19.25 5.67525 15.3247 1.75 10.5 1.75ZM8.75088 14.3614L5.502 11.1195L6.7375 9.8805L8.74912 11.8886L13.3814 7.25638L14.6186 8.49362L8.75088 14.3614Z" fill="#30C894" />
     </svg>
 }
 
-export const IConCheckError = () => {
-    return <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const IConCheckError = (size?: number) => {
+    let newSize = size ? size : 24;
+    return <svg width={newSize} height={newSize} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M10.5 1.75C5.67525 1.75 1.75 5.67525 1.75 10.5C1.75 15.3247 5.67525 19.25 10.5 19.25C15.3247 19.25 19.25 15.3247 19.25 10.5C19.25 5.67525 15.3247 1.75 10.5 1.75ZM14.1811 12.9439L12.9439 14.1811L10.5 11.7372L8.05612 14.1811L6.81888 12.9439L9.26275 10.5L6.81888 8.05612L8.05612 6.81888L10.5 9.26275L12.9439 6.81888L14.1811 8.05612L11.7372 10.5L14.1811 12.9439Z" fill="#FC625D" />
     </svg>
 }

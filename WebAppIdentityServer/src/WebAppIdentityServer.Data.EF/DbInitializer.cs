@@ -95,8 +95,8 @@ namespace WebAppIdentityServer.Data.EF
                     new Function {Id = "SYSTEM_ROLE", Name = "Nhóm quyền",ParentId = "SYSTEM",Url = "/systems/roles",Icon="fa-desktop", DateCreated=new DateTime(),DateModified=new DateTime()},
                     new Function {Id = "SYSTEM_PERMISSION", Name = "Quyền hạn",ParentId = "SYSTEM",Url = "/systems/permissions",Icon="fa-desktop", DateCreated=new DateTime(),DateModified=new DateTime()},
 
-                    new Function {Id = "SYSTEM_CONFIG", Name = "Cấu hình", ParentId = "ROOTID", SortOrder = 4, Url = "/systemconfigs",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
-                    new Function {Id = "SYSTEMCONFIG_GENERAL", Name = "Cấu hình website", ParentId = "SYSTEM_CONFIG", SortOrder = 4, Url = "/systemconfig/general",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
+                    new Function {Id = "SETTING", Name = "Cấu hình", ParentId = "ROOTID", SortOrder = 4, Url = "/systemconfigs",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
+                    new Function {Id = "SETTING_CONFIG_GENERAL", Name = "Cấu hình website", ParentId = "SETTING", SortOrder = 4, Url = "/setting/config/general",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
 
                 });
                 await _context.SaveChangesAsync();

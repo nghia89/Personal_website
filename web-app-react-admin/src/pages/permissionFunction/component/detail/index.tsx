@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Checkbox } from '@material-ui/core';
-import { PermissionVM, PermissionRequest } from '@/models/index';
-import { apiPermission, apiRoles } from '@/apis/index';
+import { PermissionVM, PermissionRequest, FunctionVM } from '@/models/index';
+import { apiPermission, apiRoles, apiFunction } from '@/apis/index';
 import { useNotification, DrawerLayout } from '@/components/index'
-import { commandCode, commandId, functionId, functionRoot } from '@/constants/utilConstant';
+import { commandCode, commandId, functionId } from '@/constants/utilConstant';
 import { checkPermission } from '@/helpers/utils';
 import { makeStyles } from '@material-ui/core/styles';
 import TreeView from '@material-ui/lab/TreeView';
@@ -33,11 +33,19 @@ export default function PermissionDetail(props: IProps) {
     const [isLoading, setLoading] = useState(false);
     const [isEdit, setEdit] = useState(true);
     const [data, setData] = useState<Array<PermissionVM>>([]);
-
+    const [functionRoot, setFunctionRoot] = useState<FunctionVM[]>([])
 
     useEffect(() => {
+        getFuncRoot()
         getData()
     }, [])
+
+    async function getFuncRoot() {
+        let data = await apiFunction.getFuncRoot();
+        if (!data.isError) {
+            setFunctionRoot(data.data)
+        }
+    }
 
     async function getData() {
         if (!isLoading) setLoading(true)

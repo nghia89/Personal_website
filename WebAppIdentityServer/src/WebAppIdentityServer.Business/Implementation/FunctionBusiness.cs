@@ -66,6 +66,16 @@ namespace WebAppIdentityServer.Business.Implementation
             return data.Select(a => a.ToModel()).ToList();
         }
 
+        public async Task<List<FunctionVm>> GetFuncRoot()
+        {
+            Expression<Func<Function, bool>> Filter()
+            {
+                return x => x.ParentId == "ROOTID";
+            }
+            var data = await _functionRep.FindAllAsync(Filter(), null);
+            return data.Select(a => a.ToModel()).ToList();
+        }
+
         public async Task<PagedResult<FunctionVm>> Paging(PagingParamModel pagingParam)
         {
             var (data, totalCount) = await _functionRep.Paging(pagingParam.query, pagingParam.page, pagingParam.pageSize, new Expression<Func<Function, object>>[] { a => a.Name }, null, null);

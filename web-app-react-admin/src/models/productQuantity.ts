@@ -1,3 +1,4 @@
+import { ColorVM, SizeVM } from './index'
 export interface productQuantityVM {
     id?: number
     productId?: number
@@ -10,4 +11,6 @@ export interface productQuantityVM {
     imageUrl?: string
     allowPurchaseWhenSoldOut?: string
     optionVariant?: string
+    color?: ColorVM,
+    size?: SizeVM
 }

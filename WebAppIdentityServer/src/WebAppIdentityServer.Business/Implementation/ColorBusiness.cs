@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Business.Interfaces;
@@ -30,6 +31,12 @@ namespace WebAppIdentityServer.Business.Implementation
             await _context.Colors.AddAsync(entity);
             await _unitOfWork.CommitAsync();
             return;
+        }
+
+        public async Task<List<ColorVM>> GetAll()
+        {
+            var data = await _context.Colors.ToListAsync();
+            return data.Select(x => new ColorVM() { Id = x.Id, ColorCode = x.ColorCode, Name = x.Name }).ToList();
         }
 
         public async Task<ColorVM> GetById(int id)

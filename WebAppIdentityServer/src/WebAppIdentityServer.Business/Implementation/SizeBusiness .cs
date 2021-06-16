@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Business.Interfaces;
@@ -17,7 +18,7 @@ namespace WebAppIdentityServer.Business.Implementation
     {
         private readonly ApplicationDbContext _context;
         private readonly IUnitOfWork _unitOfWork;
-        public SizeBusiness (ApplicationDbContext context, IUnitOfWork unitOfWork,
+        public SizeBusiness(ApplicationDbContext context, IUnitOfWork unitOfWork,
             IUserResolverService userResolver) : base(userResolver)
         {
             this._context = context;
@@ -26,10 +27,16 @@ namespace WebAppIdentityServer.Business.Implementation
 
         public async Task Add(SizeVM model)
         {
-            var entity = new Size() {Name = model.Name };
+            var entity = new Size() { Name = model.Name };
             await _context.Sizes.AddAsync(entity);
             await _unitOfWork.CommitAsync();
             return;
+        }
+
+        public async Task<List<SizeVM>> GetAll()
+        {
+            var data = await _context.Sizes.ToListAsync();
+            return data.Select(x => new SizeVM() { Id = x.Id, Name = x.Name }).ToList();
         }
 
         public async Task<SizeVM> GetById(int id)
@@ -40,7 +47,7 @@ namespace WebAppIdentityServer.Business.Implementation
                 new AddError("có lổi xảy ra");
             }
 
-            return new SizeVM() {Id=data.Id, Name = data.Name }; 
+            return new SizeVM() { Id = data.Id, Name = data.Name };
         }
 
         public async Task Update(SizeVM model)

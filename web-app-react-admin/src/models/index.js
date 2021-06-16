@@ -10,8 +10,9 @@ import { ProductVM } from './product'
 import { SystemConfigVM } from './systemConfig'
 import { TreeCateItem, CategoryVM } from './productCategory'
 import { productQuantityVM } from './productQuantity'
-
-
+import { FunctionVM } from './functions'
+import { ColorVM } from './color'
+import { SizeVM } from './size'
 
 
 export {
@@ -21,5 +22,6 @@ export {
     RoleVM, PermissionVM,
     PermissionRequest, ProductVM,
     IBaseParams, TreeCateItem, CategoryVM,
-    SystemConfigVM, productQuantityVM
+    SystemConfigVM, productQuantityVM, FunctionVM,
+    ColorVM, SizeVM
 };
