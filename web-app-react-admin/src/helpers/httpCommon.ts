@@ -31,7 +31,8 @@ async function callApi(method: Method, path: string, body?: any, baseApi?: strin
       if (error.response.status === 401 || error.response.status === 403) {
         history.push(PATH.error401)
         console.log("Un Unauthorized");
-      }
+      } else if (error.response.status === 503)
+        history.push(PATH.error401)
       throw error;
     }).catch((error) => response(error.response));
   }

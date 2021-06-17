@@ -4,7 +4,7 @@ import { PATH } from '@/constants/paths'
 
 import { PrivateRoute } from './privateRoute';
 import Layout from '@/layouts/index';
-import { Error401 } from '@/pages/index'
+import { Error401, Error404, Error503 } from '@/pages/index'
 const Dashboard = React.lazy(() => import('@/pages/dashboard/index'));
 const Home = React.lazy(() => import('@/pages/home/index'));
 
@@ -45,6 +45,7 @@ export const Routes = (
             <Route exact path="/auth-callback" component={Callback} />
             <Route exact path="/silent-renew" component={SilentRenewClient} />
             <Route exact path="/error401" component={Error401} />
+            <Route exact path={PATH.error503} component={Error503} />
 
             <PrivateRoute path={PATH.Dashboard} component={Dashboard} />
 

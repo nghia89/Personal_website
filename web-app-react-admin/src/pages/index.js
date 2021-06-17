@@ -3,6 +3,7 @@ import Dashboard from './dashboard/index';
 import { Product } from './Product/index';
 import Error404 from './error/error404.js';
 import Error401 from './error/error401';
+import Error503 from './error/error503';
 import Callback from './auth/callback';
 import LogoutCallback from './auth/logoutCallback';
 import silentRenewClient from './auth/silentRenewClient';
@@ -17,6 +18,7 @@ export {
     Product,
     Error404,
     Error401,
+    Error503,
     Callback,
     LogoutCallback,
     silentRenewClient,

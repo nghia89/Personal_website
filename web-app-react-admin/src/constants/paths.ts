@@ -1,9 +1,10 @@
 const system = '/systems/';
 const content = '/contents/';
-const systemconfig = '/systemconfig/'
+const systemconfig = '/setting/'
 
 export const PATH = {
   error401: '/error401',
+  error503: '/error503',
   HOME: '/',
   Dashboard: '/dashboard',
   //#region  systems
@@ -19,7 +20,7 @@ export const PATH = {
   PRODUCT_CREATE: `${content}product-create`,
   PRODUCT_DETAIL: `${content}product-detail/`,
   CATEGORIES: `${content}categories`,
-  SYSTEMCONFIG: `${systemconfig}general`,
+  SYSTEMCONFIG: `${systemconfig}config/general`,
   //#endregion
 
   LOGIN: '/login',

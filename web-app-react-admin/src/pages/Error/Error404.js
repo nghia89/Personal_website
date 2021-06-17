@@ -1,12 +1,19 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Svg404 from '@/images/400-error-bad-request.svg'
 
 export default function Error404() {
     return (
-        <div className="text-center">
-            <div className="error mx-auto" data-text="404">404</div>
-            <p className="lead text-gray-800 mb-5">Không tìm thấy trang</p>
-            <NavLink to="/dashboard">&larr; Back to Dashboard</NavLink>
+        <div className="container-xl px-4">
+            <div className="row justify-content-center">
+                <div className="col-lg-6">
+                    <div className="text-center mt-4">
+                        <img className="img-fluid p-4" src={Svg404} alt="" />
+                        <p className="lead">Không tìm thấy trang.</p>
+                        <NavLink className="text-arrow-icon" to="/dashboard">&larr; Back to Dashboard</NavLink>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
