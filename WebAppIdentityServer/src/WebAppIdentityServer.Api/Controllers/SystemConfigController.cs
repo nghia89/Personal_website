@@ -31,7 +31,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
 
         [HttpGet("{id}")]
-        [ClaimRequirement(FunctionCode.SYSTEM_USER, CommandCode.VIEW)]
+        [ClaimRequirement(FunctionCode.SETTING_CONFIG_GENERAL, CommandCode.VIEW)]
         public async Task<IActionResult> GetById(long id)
         {
             var user = await _systemConfigBus.GetById(id);
@@ -44,7 +44,7 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpPut("update")]
-        [ClaimRequirement(FunctionCode.SYSTEM_USER, CommandCode.UPDATE)]
+        [ClaimRequirement(FunctionCode.SETTING_CONFIG_GENERAL, CommandCode.UPDATE)]
         public async Task<IActionResult> Put([FromBody] SystemConfigVM request)
         {
             await _systemConfigBus.Update(request);

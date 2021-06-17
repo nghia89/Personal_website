@@ -127,7 +127,7 @@ function ProductQuantity(props: IProps) {
                     })
 
                 }
-                <div onClick={() => handlePushOption()} className="mt-5 btn-add-custom" >
+                <div onClick={() => handlePushOption()} className="mt-5 btn-add-custom cursor" >
                     {IconPlushSquare()}
                     <a className="px-2 text-white">
                         Thêm thuộc tính khác</a>

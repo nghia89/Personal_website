@@ -57,6 +57,7 @@ namespace WebAppIdentityServer.Business.Implementation
             if (entity == null) { new AddError("có lổi xảy ra"); return; }
 
             entity.Name = model.Name;
+            entity.ColorCode = model.ColorCode;
             _context.Colors.Update(entity);
             await _unitOfWork.CommitAsync();
             return;

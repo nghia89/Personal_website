@@ -14,7 +14,10 @@ interface IFunction {
     user: string,
     permission: string,
     product: string,
-    category: string
+    category: string,
+    color: string,
+    size: string,
+    systemConfig: string
 }
 
 interface ICommand {
@@ -41,7 +44,10 @@ export const functionId: IFunction =
     role: 'SYSTEM_ROLE',
     user: 'SYSTEM_USER',
     product: 'CONTENT_PRODUCT',
-    category: 'CONTENT_CATEGORY'
+    category: 'CONTENT_CATEGORY',
+    systemConfig: 'SETTING_CONFIG_GENERAL',
+    color: 'SETTING_COLOR',
+    size: 'SETTING_SIZE'
 }
 
 

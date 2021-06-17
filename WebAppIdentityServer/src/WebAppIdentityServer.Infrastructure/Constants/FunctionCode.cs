@@ -19,5 +19,9 @@
         SYSTEM_ORG,
         SYSTEM_FUNCTION,
         SYSTEM_PERMISSION,
+
+
+        SETTING,
+        SETTING_CONFIG_GENERAL
     }
 }

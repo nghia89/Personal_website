@@ -302,3 +302,34 @@ legend{
 .btn-add-custom a:hover {
 	color: #404040 !important;
 }
+
+.btn-add-custom:hover {
+	color: #404040 !important;
+}
+
+
+.color-picker {
+    width: 36px;
+    height: 28px;
+    border-radius: 2px;
+  }
+
+  .swatch-picker {
+    padding: 5px;
+    background: #fff;
+    border-radius: 1px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.1);
+    display: inline-block;
+    cursor: pointer;
+  }
+  .popover-picker{
+    position: absolute;
+    z-index: 2;
+  }
+  .cover-picker{
+    position: fixed;
+    top:0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+  }

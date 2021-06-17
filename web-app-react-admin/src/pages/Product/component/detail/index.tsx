@@ -125,7 +125,7 @@ function ProductDetail(props: IProps) {
             dispatch('ERROR', messError)
         else if (!formState?.productCategoryId)
             dispatch('ERROR', 'Vui lòng chọn danh mục sản phẩm')
-        else if (!IsNullOrEmpty(pathImage)) dispatch('ERROR', "Vui lòng thêm ảnh đại diện sản phẩm.")
+        else if (IsNullOrEmpty(pathImage)) dispatch('ERROR', "Vui lòng thêm ảnh đại diện sản phẩm.")
         return messError
 
     }

@@ -29,8 +29,9 @@ const ProductDetail = React.lazy(() => import('@/pages/Product/component/detail/
 const ProductCategory = React.lazy(() => import('@/pages/productCategory/index'));
 //#endregion
 
-//#region  systemConfigs 
+//#region  Setting 
 const SystemConfig = React.lazy(() => import('@/pages/systemConfig/index'));
+const Colors = React.lazy(() => import('@/pages/color/index'));
 //#endregion
 
 
@@ -59,7 +60,8 @@ export const Routes = (
             <PrivateRoute path={`${PATH.PRODUCT_DETAIL}:id`} component={ProductDetail} />
             <PrivateRoute path={PATH.CATEGORIES} component={ProductCategory} />
 
-            <PrivateRoute path={PATH.SYSTEMCONFIG} component={SystemConfig} />
+            <PrivateRoute path={PATH.SETTINGCONFIG} component={SystemConfig} />
+            <PrivateRoute path={PATH.SETTING_COLOR} component={Colors} />
 
             <PrivateRoute path={PATH.HOME} component={Home} />
 

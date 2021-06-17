@@ -20,7 +20,13 @@ export const PATH = {
   PRODUCT_CREATE: `${content}product-create`,
   PRODUCT_DETAIL: `${content}product-detail/`,
   CATEGORIES: `${content}categories`,
-  SYSTEMCONFIG: `${systemconfig}config/general`,
+  //#endregion
+
+
+  //#region Setting
+  SETTINGCONFIG: `${systemconfig}config/general`,
+  SETTING_COLOR: `${systemconfig}colors`,
+  SETTING_SIZE: `${systemconfig}sizes`,
   //#endregion
 
   LOGIN: '/login',

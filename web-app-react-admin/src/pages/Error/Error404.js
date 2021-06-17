@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Svg404 from '@/images/400-error-bad-request.svg'
+import Svg404 from '@/images/404-error-with-a-cute-animal.svg'
 
 export default function Error404() {
     return (

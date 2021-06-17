@@ -13,7 +13,7 @@ export interface IProps {
     pageSize: number,
     total?: number,
     header: Array<ITableHead>,
-    onchangeParam: Function,
+    onchangeParam?: Function,
     isLoading: boolean,
     isPagination?: boolean,
     handleEdit?: (id: any) => void,

@@ -111,12 +111,6 @@ namespace WebAppIdentityServer.Data.EF.Configurations
                 entity.HasKey(x => x.Id);
                 entity.HasIndex(x => new { x.Id });
             });
-            builder.Entity<CommandInFunction>(entity =>
-            {
-                entity.ToTable("CommandInFunctions");
-                entity.HasKey(x => new { x.CommandId, x.FunctionId });
-                entity.HasIndex(x => new { x.CommandId, x.FunctionId });
-            });
             builder.Entity<Permission>(entity =>
             {
                 entity.ToTable("Permissions");

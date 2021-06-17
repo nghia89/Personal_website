@@ -52,14 +52,14 @@ export const apiFunction = {
 
 export const apiColor = {
     getAll: async () => { return await GET(`${baseApiColor}getall`) },
-    getById: async (id: number) => { return await GET(`${baseApiColor}get/` + id) },
+    getById: async (id: string) => { return await GET(`${baseApiColor}` + id) },
     create: async (body: any) => { return await POST(`${baseApiColor}add`, body) },
     update: async (body: any) => { return await PUT(`${baseApiColor}update`, body) },
 }
 
 export const apiSize = {
     getAll: async () => { return await GET(`${baseApiSize}getall`) },
-    getById: async (id: number) => { return await GET(`${baseApiSize}get/` + id) },
+    getById: async (id: number) => { return await GET(`${baseApiSize}` + id) },
     create: async (body: any) => { return await POST(`${baseApiSize}add`, body) },
     update: async (body: any) => { return await PUT(`${baseApiSize}update`, body) },
 }

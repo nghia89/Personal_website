@@ -96,7 +96,9 @@ namespace WebAppIdentityServer.Data.EF
                     new Function {Id = "SYSTEM_PERMISSION", Name = "Quyền hạn",ParentId = "SYSTEM",Url = "/systems/permissions",Icon="fa-desktop", DateCreated=new DateTime(),DateModified=new DateTime()},
 
                     new Function {Id = "SETTING", Name = "Cấu hình", ParentId = "ROOTID", SortOrder = 4, Url = "/systemconfigs",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
-                    new Function {Id = "SETTING_CONFIG_GENERAL", Name = "Cấu hình website", ParentId = "SETTING", SortOrder = 4, Url = "/setting/config/general",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
+                    new Function {Id = "SETTING_CONFIG_GENERAL", Name = "Cấu hình website", ParentId = "SETTING", SortOrder =1, Url = "/setting/config/general",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
+                    new Function {Id = "SETTING_COLOR", Name = "Cấu hình màu sắc", ParentId = "SETTING", SortOrder = 2, Url = "/setting/colors",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
+                    new Function {Id = "SETTING_SIZE", Name = "Cấu hình kích thước", ParentId = "SETTING", SortOrder = 3, Url = "/setting/sizes",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
 
                 });
                 await _context.SaveChangesAsync();
@@ -117,39 +119,6 @@ namespace WebAppIdentityServer.Data.EF
             #endregion Chức năng
 
             var functions = _context.Functions;
-
-            if (!_context.CommandInFunctions.Any())
-            {
-                foreach (var function in functions)
-                {
-                    var createAction = new CommandInFunction()
-                    {
-                        CommandId = "CREATE",
-                        FunctionId = function.Id
-                    };
-                    _context.CommandInFunctions.Add(createAction);
-
-                    var updateAction = new CommandInFunction()
-                    {
-                        CommandId = "UPDATE",
-                        FunctionId = function.Id
-                    };
-                    _context.CommandInFunctions.Add(updateAction);
-                    var deleteAction = new CommandInFunction()
-                    {
-                        CommandId = "DELETE",
-                        FunctionId = function.Id
-                    };
-                    _context.CommandInFunctions.Add(deleteAction);
-
-                    var viewAction = new CommandInFunction()
-                    {
-                        CommandId = "VIEW",
-                        FunctionId = function.Id
-                    };
-                    _context.CommandInFunctions.Add(viewAction);
-                }
-            }
 
             if (!_context.Permissions.Any())
             {

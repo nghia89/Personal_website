@@ -28,7 +28,7 @@ function Breadcrumb(props: IProps) {
         <Breadcrumbs aria-label="breadcrumb">
             <Breadcrumbs aria-label="breadcrumb">
                 {breadcrumbs?.map((item, index) => {
-                    if (!IsNullOrEmpty(item.path))
+                    if (IsNullOrEmpty(item.path))
                         return <Typography key={`breadcrumb${index}`} variant="h6" color="textPrimary" > {item.name}</Typography>
                     else
                         return <Link key={`breadcrumb${index}`} className="font-size-13 text-muted" to={item.path ? item.path : ""} >
