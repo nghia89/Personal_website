@@ -8,6 +8,7 @@ import Select from 'react-select'
 import { OptionVariant, IObjectSelect } from '@/constants/utilConstant';
 import { apiColor, apiSize } from '@/apis';
 export interface IProps {
+    handlePostQuantity: Function
 }
 
 
@@ -53,6 +54,19 @@ function ProductQuantity(props: IProps) {
         }
     }
 
+    function handleRemoveItem(index) {
+        let newList = [...dataProQuantity]
+        if (index > -1 && newList.length > 1) {
+            newList.splice(index, 1)
+            setDataProQuantity(newList)
+        }
+        handlePostQuantity(newList)
+    }
+
+    function handlePostQuantity(newList) {
+        props.handlePostQuantity(newList)
+    }
+
 
     function handleChangeOption(selectedOption, index) {
         let newOptionSelect = [...dataProQuantity]
@@ -60,7 +74,7 @@ function ProductQuantity(props: IProps) {
         setDataProQuantity(newOptionSelect)
     }
 
-    function handleOnchangeValue(selectedOption, index, isColor, isSize) {
+    function handleOnchangeValue(selectedOption, index, isColor, isSize, target) {
         let newOptionSelect = [...dataProQuantity]
         if (isColor) {
             newOptionSelect[index].colorId = selectedOption.value
@@ -69,12 +83,16 @@ function ProductQuantity(props: IProps) {
         else if (isSize) {
             newOptionSelect[index].sizeId = selectedOption.value
             newOptionSelect[index].size = { id: selectedOption.value, name: selectedOption.label }
+        } else if (target) {
+            newOptionSelect[index][target.name] = target.value
         }
+
         setDataProQuantity(newOptionSelect)
+        handlePostQuantity(newOptionSelect)
+
     }
 
     function renderItem(item: productQuantityVM, index) {
-        debugger
         let optionVariant = OptionVariant.find(x => x.value == item.optionVariant);
         let isColor = optionVariant?.value == OptionVariant[0].value ? true : false
         let isSize = optionVariant?.value == OptionVariant[1].value ? true : false
@@ -82,7 +100,7 @@ function ProductQuantity(props: IProps) {
         return <div className="row mb-3">
             <div className="col-3">
                 <Select
-                    className="basic-single zindex-dropdown"
+                    className="basic-single "
                     placeholder="Biến thể..."
                     classNamePrefix="select"
                     value={optionVariant}
@@ -94,19 +112,19 @@ function ProductQuantity(props: IProps) {
             <div className="col-8">
                 {
                     (isColor || isSize) ? <Select
-                        className="basic-single zindex-dropdown"
+                        className="basic-single "
                         placeholder="Chọn giá trị..."
                         classNamePrefix="select"
                         value={valueOption}
                         name="color"
                         options={optionVariant?.value == OptionVariant[0].value ? colors : sizes}
-                        onChange={(selectedOption) => handleOnchangeValue(selectedOption, index, isColor, isSize)}
+                        onChange={(selectedOption) => handleOnchangeValue(selectedOption, index, isColor, isSize, null)}
                     /> :
-                        <input name="phoneNumber" className="form-control" type="text" />
+                        <input name="phoneNumber" onChange={(e) => handleOnchangeValue(null, index, null, null, e.target)} className="form-control" type="text" />
                 }
             </div>
             <div className="col-1">
-                <span className="cursor">
+                <span className="cursor" onClick={() => handleRemoveItem(index)}>
                     {IconTrash()}
                 </span>
             </div>

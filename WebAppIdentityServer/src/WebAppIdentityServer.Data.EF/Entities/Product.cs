@@ -27,6 +27,7 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public ProductCategory ProductCategory { set; get; }
 
         public IEnumerable<ProductTag> ProductTags { set; get; }
+        public IEnumerable<ProductQuantity> ProductQuantity { set; get; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime DateCreated { get; set; }

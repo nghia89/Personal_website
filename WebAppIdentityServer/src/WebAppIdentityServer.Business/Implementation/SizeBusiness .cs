@@ -41,7 +41,7 @@ namespace WebAppIdentityServer.Business.Implementation
 
         public async Task<SizeVM> GetById(int id)
         {
-            var data = await _context.Colors.FirstOrDefaultAsync(a => a.Id == id);
+            var data = await _context.Sizes.FirstOrDefaultAsync(a => a.Id == id);
             if (data == null)
             {
                 new AddError("có lổi xảy ra");

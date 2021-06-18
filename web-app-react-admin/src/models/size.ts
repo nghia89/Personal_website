@@ -1,5 +1,5 @@
 export interface SizeVM {
-    id: string,
+    id?: number,
     name?: string,
     value?: string
     label?: string

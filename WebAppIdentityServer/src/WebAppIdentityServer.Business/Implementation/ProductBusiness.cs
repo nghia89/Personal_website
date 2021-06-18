@@ -44,7 +44,7 @@ namespace WebAppIdentityServer.Business.Implementation
         public async Task<ProductVM> Add(ProductVM model)
         {
             List<ProductTag> productTags = new List<ProductTag>();
-
+            var product = model.ToEntity();
             if (!string.IsNullOrEmpty(model.Tags))
             {
                 string[] tags = model.Tags.Split(',');
@@ -69,18 +69,26 @@ namespace WebAppIdentityServer.Business.Implementation
                     });
                 }
             }
-            var product = model.ToEntity();
+            if (model.ProductQuantity != null)
+            {
+                model.ProductQuantity.ForEach((item) => item.Price = product.Price);
+            }
+
+
             product.ProductTags = productTags;
             await _productRepository.AddAsync(product);
             await _unitOfWork.CommitAsync();
+
+            await AddQuantityAsync(product.Id, model.ProductQuantity);
             return model;
         }
 
-        public void AddQuantity(int productId, List<ProductQuantityVM> quantities)
+        public async Task AddQuantityAsync(long productId, List<ProductQuantityVM> quantities)
         {
+            if (quantities == null) return;
             foreach (var quantity in quantities)
             {
-                _productQuantityRep.Add(new ProductQuantity()
+                await _productQuantityRep.AddAsync(new ProductQuantity()
                 {
                     ProductId = productId,
                     ColorId = quantity.ColorId,
@@ -88,6 +96,7 @@ namespace WebAppIdentityServer.Business.Implementation
                     Quantity = quantity.Quantity
                 });
             }
+            await _productQuantityRep.SaveAsync();
         }
 
         public async Task<bool> Delete(long id)
@@ -118,6 +127,8 @@ namespace WebAppIdentityServer.Business.Implementation
         public async Task<ProductVM> GetById(long id)
         {
             var data = await _productRepository.GetByIdAsync(id);
+            var productQuantity = await _productQuantityRep.getByProductIds(id);
+            data.ProductQuantity = productQuantity;
             return data.ToModel();
         }
 

@@ -3,7 +3,7 @@ import { apiProduct } from '@/apis/index'
 import { connect } from 'react-redux'
 import { IBaseParams, ProductVM } from '@/models';
 import { checkPermission, SerializeParam } from '@/helpers/utils';
-import { DivTable, SearchComponent, useNotification } from '@/components';
+import { AlertDialogSlide, DivTable, SearchComponent, useNotification } from '@/components';
 import { commandId, functionId } from '@/constants/utilConstant';
 import { tableHeadProduct } from '@/models/tableHead';
 import { useHistory } from 'react-router-dom';
@@ -24,6 +24,8 @@ export function Product(props: IProps) {
 
     const [data, setData] = useState<ProductVM[]>([]);
     const [isLoading, setLoading] = useState<boolean>(true)
+    const [isShowModal, setIsShowModal] = useState(false)
+    const [idSelect, setIdSelect] = useState(0)
     const [params, setParams] = useState<IBaseParams>({ page: 1, pageSize: 20, query: '' })
 
     useEffect(() => {
@@ -52,6 +54,19 @@ export function Product(props: IProps) {
             } else {
                 setLoading(false)
                 dispatch('ERROR', 'Có lỗi xảy ra.')
+            }
+        })
+    }
+
+    async function handleDelete() {
+        await apiProduct.delete(idSelect).then(async (rsp) => {
+            if (!rsp.isError) {
+                dispatch('SUCCESS', 'Xoá thành công.')
+                setIsShowModal(false)
+                await getData()
+            } else {
+                setLoading(false);
+                dispatch('ERROR', rsp.message)
             }
         })
     }
@@ -107,7 +122,7 @@ export function Product(props: IProps) {
             total={params.totalCount}
             isLoading={isLoading}
             handleEdit={(id) => history.push(`${PATH.PRODUCT_DETAIL}${id}`)}
-            handleDelete={() => console.log("1111")}
+            handleDelete={(id) => { setIsShowModal(true); setIdSelect(id) }}
         />
     }
 
@@ -116,6 +131,12 @@ export function Product(props: IProps) {
         <div className="align-items-center justify-content-between mb-4">
             {renderHeader()}
             {renderContent()}
+            <AlertDialogSlide
+                isOpen={isShowModal}
+                handleClose={() => { setIdSelect(0); setIsShowModal(false) }}
+                handleConfirm={() => handleDelete()}
+                note={"Bạn có chắc chắn muốn xoá sản phẩm này?"}
+            />
         </div>
     )
 }

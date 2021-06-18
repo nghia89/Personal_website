@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import { CircularProgress } from '@material-ui/core';
-import { ColorVM, IBaseTable, IBaseParams } from '@/models/index';
-import { apiColor } from '@/apis/index';
+import { SizeVM, IBaseTable, IBaseParams } from '@/models/index';
+import { apiSize } from '@/apis/index';
 import { checkPermission, SerializeParam } from '@/helpers/utils';
-import { tableHeadColor } from '@/models/tableHead'
+import { tableHeadSize } from '@/models/tableHead'
 import { DivTable } from '@/components/index'
 import { commandId, functionId } from '@/constants/utilConstant'
 import { IBreadcrumbs } from '@/models/commonM';
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
-import ColorCreateAndEdit from './component/index'
+import SizeCreateAndEdit from './component/index'
 export interface IProps {
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
 }
 
-function Colors(props: IProps) {
+function Sizes(props: IProps) {
     const [isLoading, setLoading] = useState(true);
-    const [data, seData] = useState<ColorVM[]>([]);
+    const [data, seData] = useState<SizeVM[]>([]);
     const [idSelect, setIdSelect] = useState(0);
     const [isOpenDrawer, setOpenDrawer] = useState(false);
 
 
     useEffect(() => {
         props.setBreadcrumb([
-            { name: 'Danh sách màu' }
+            { name: 'Danh sách kích thước' }
         ]);
         getData()
     }, [])
@@ -35,7 +35,7 @@ function Colors(props: IProps) {
     async function getData() {
         if (!isLoading) setLoading(true)
 
-        await apiColor.getAll().then((rsp) => {
+        await apiSize.getAll().then((rsp) => {
             if (!rsp.isError) {
                 seData(rsp.data);
                 setLoading(false)
@@ -52,7 +52,7 @@ function Colors(props: IProps) {
         return <DivTable
             funcId={functionId.permission}
             data={data}
-            header={tableHeadColor}
+            header={tableHeadSize}
             pageSize={0}
             page={0}
             total={0}
@@ -74,7 +74,7 @@ function Colors(props: IProps) {
             </div> :
                 renderContent()}
 
-            {isOpenDrawer && <ColorCreateAndEdit
+            {isOpenDrawer && <SizeCreateAndEdit
                 id={idSelect}
                 isOpen={isOpenDrawer}
                 handleClose={() => { setOpenDrawer(false); setIdSelect(0) }}
@@ -92,5 +92,5 @@ const mapDispatchToProps = {
     setBreadcrumb
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Colors)
+export default connect(mapStateToProps, mapDispatchToProps)(Sizes)
 

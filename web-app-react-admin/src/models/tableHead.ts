@@ -46,3 +46,8 @@ export const tableHeadColor = [
     { name: 'stt', fieldName: 'stt', type: 'stt' },
     { name: 'Tên', fieldName: 'name' }
 ] as Array<ITableHead>;
+
+export const tableHeadSize = [
+    { name: 'stt', fieldName: 'stt', type: 'stt' },
+    { name: 'Tên', fieldName: 'name' }
+] as Array<ITableHead>;

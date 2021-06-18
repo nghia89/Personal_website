@@ -54,14 +54,18 @@ export default function NotificationBox(props) {
       className={`notification-item ${props.type === "SUCCESS" ? "show_success" : "show_error"} ${exit ? "exit" : ""}`
       }
     >
-      <div className="d-flex justify-content-center align-items-center">
-        <span>
+      <div className="d-flex align-items-center">
+        <span style={{
+          marginLeft: '5px',
+          justifyContent: 'center'
+        }}>
           {props.type === "SUCCESS" ? IConCheckSuccess() : IConCheckError()}
         </span>
-        <p>{props.message}
+        <div className="d-flex align-items-center">
+          <p style={{ width: '235px' }}>{props.message}</p>
+          <span className={"close"} onClick={() => handleCloseNotification()}>x</span>
+        </div>
 
-        </p>
-        <span className={"close"} onClick={() => handleCloseNotification()}>x</span>
       </div>
 
       < div className={"bar"} style={{ width: `${width}%` }} />

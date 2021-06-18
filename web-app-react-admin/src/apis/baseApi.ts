@@ -52,7 +52,7 @@ export const apiFunction = {
 
 export const apiColor = {
     getAll: async () => { return await GET(`${baseApiColor}getall`) },
-    getById: async (id: string) => { return await GET(`${baseApiColor}` + id) },
+    getById: async (id: number) => { return await GET(`${baseApiColor}` + id) },
     create: async (body: any) => { return await POST(`${baseApiColor}add`, body) },
     update: async (body: any) => { return await PUT(`${baseApiColor}update`, body) },
 }
@@ -70,7 +70,7 @@ export const apiProduct = {
     getById: async (id: number) => { return await GET(`${baseApiProduct}get/` + id) },
     create: async (body: any) => { return await POST(`${baseApiProduct}add`, body) },
     update: async (body: any) => { return await PUT(`${baseApiProduct}update`, body) },
-    delete: async (id: number) => { return await DELETE(`${baseApiProduct}` + id) },
+    delete: async (id: number) => { return await DELETE(`${baseApiProduct}delete/` + id) },
     getGenarateCode: async (code: string) => { return await GET(`${baseApiProduct}genarate_code/` + code) }
 }
 

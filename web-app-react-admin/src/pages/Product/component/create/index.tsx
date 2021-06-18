@@ -317,21 +317,25 @@ function ProductCreate(props: IProps) {
                 <h6 className="color-black font-weight-bold ui-information-title">Biến Thể</h6>
             </div>
             <div className="col-10">
-                <div className="wrapper-content ">
-                    <FormControlLabel
-                        className="pb-4"
-                        style={{ marginLeft: '-5px' }}
-                        control={
-                            <Checkbox
-                                checked={isShowMoreVariant}
-                                onChange={() => setIsShowMoreVariant(!isShowMoreVariant)}
-                                name="checkedB"
-                                color="primary"
-                            />
-                        }
-                        label="Sản phẩm này có nhiều biến thể. Ví dụ như khác nhau về kích thước, màu sắc..."
-                    />
-                    {isShowMoreVariant && <ProductQuantity />}
+                <div className="wrapper-content">
+                    <div className=" mb-3 ">
+                        <Checkbox
+                            checked={isShowMoreVariant}
+                            onChange={() => setIsShowMoreVariant(!isShowMoreVariant)}
+                            name="checkedB"
+                            color="primary"
+                        />
+                        <label>Sản phẩm này có nhiều biến thể. Ví dụ như khác nhau về kích thước, màu sắc...</label>
+                    </div>
+
+
+                    {isShowMoreVariant && <ProductQuantity
+                        handlePostQuantity={(data) => {
+                            let newData = { ...formState }
+                            newData.productQuantity = data
+                            setFormState(newData)
+                        }}
+                    />}
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using WebAppIdentityServer.Utilities.Enum;
 
 namespace WebAppIdentityServer.ViewModel.Models.Product
@@ -22,7 +23,7 @@ namespace WebAppIdentityServer.ViewModel.Models.Product
         public long ProductCategoryId { set; get; }
         public string ProductCategoryName { set; get; }
         public ProductCategoryVM ProductCategory { set; get; }
-        //public List<ProductTag> ProductTags { set; get; }
+        public List<ProductQuantityVM> ProductQuantity { set; get; }
         public Status Status { get; set; }
         public DateTime DateCreated { get; set; }
     }

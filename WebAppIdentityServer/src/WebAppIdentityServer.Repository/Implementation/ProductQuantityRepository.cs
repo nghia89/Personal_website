@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
@@ -14,6 +19,12 @@ namespace WebAppIdentityServer.Repository.Implementation
         {
             this._context = context;
             this._unitOfWork = unitOfWork;
+        }
+
+        public async Task<IEnumerable<ProductQuantity>> getByProductIds(long productId)
+        {
+            var data = await FindAllAsync(x => x.ProductId == productId, new Expression<Func<ProductQuantity, object>>[] { c => c.Size, c => c.Color });
+            return data;
         }
     }
 }

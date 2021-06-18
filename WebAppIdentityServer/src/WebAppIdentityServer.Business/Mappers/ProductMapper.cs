@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.ViewModel.Models.Product;
 
@@ -33,7 +34,8 @@ namespace WebAppIdentityServer.Business.Mappers
                     Status = model.Status,
                     Tags = model.Tags,
                     ViewCount = model.ViewCount,
-                    DateCreated = model.DateCreated
+                    DateCreated = model.DateCreated,
+                    ProductQuantity = model.ProductQuantity?.Select(x => x.ToModel()).ToList()
                 };
             }
         }

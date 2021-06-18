@@ -1,5 +1,5 @@
 export interface ColorVM {
-    id?: string,
+    id?: number,
     name?: string
     colorCode?: string
 

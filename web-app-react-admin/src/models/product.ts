@@ -1,3 +1,5 @@
+import { productQuantityVM } from "./productQuantity";
+
 export interface ProductVM {
     id?: number
     name?: string
@@ -15,4 +17,5 @@ export interface ProductVM {
     productCategoryId?: number
     productCategoryName?: number
     status?: number
+    productQuantity?: productQuantityVM[]
 }

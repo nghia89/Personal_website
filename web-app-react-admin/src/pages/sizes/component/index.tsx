@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { ColorVM } from '@/models/index';
-import { apiColor } from '@/apis/index';
+import { SizeVM } from '@/models/index';
+import { apiSize } from '@/apis/index';
 import { useNotification, DrawerLayout } from '@/components/index'
 import { commandId, functionId } from '@/constants/utilConstant';
 import { checkPermission, IsNullOrEmpty } from '@/helpers/utils';
 import { makeStyles } from '@material-ui/core/styles';
 import { Animations } from '@/components/loaders'
 import { TextField } from '@material-ui/core';
-import { SketchPicker } from 'react-color';
 
 export interface IProps {
     id: number,
@@ -28,7 +27,7 @@ export default function ColorCreateAndEdit(props: IProps) {
 
     let { id, isOpen } = props;
     const [isLoading, setLoading] = useState(false);
-    const [data, setData] = useState<ColorVM>();
+    const [data, setData] = useState<SizeVM>();
     const [displayColorPicker, setDisplayColorPicker] = useState(false);
 
     useEffect(() => {
@@ -39,7 +38,7 @@ export default function ColorCreateAndEdit(props: IProps) {
     async function getData() {
         if (!isLoading) setLoading(true)
         if (props.id) {
-            await apiColor.getById(id).then((rsp) => {
+            await apiSize.getById(id).then((rsp) => {
                 if (!rsp.isError) {
                     if (!rsp.data.colorCode)
                         rsp.data.colorCode = "#fff"
@@ -57,22 +56,6 @@ export default function ColorCreateAndEdit(props: IProps) {
         props.handleClose()
     }
 
-    function handleClick() {
-        setDisplayColorPicker(!displayColorPicker)
-    };
-
-    function handleClosePicker() {
-        setDisplayColorPicker(false)
-    };
-
-    function handleChangeColor(color, name) {
-        let newFormState: ColorVM = { ...data }
-        if (newFormState)
-            newFormState[name] = color.hex;
-        setData(newFormState);
-    };
-
-
     async function saveData() {
 
         if (IsNullOrEmpty(data?.name)) {
@@ -80,14 +63,14 @@ export default function ColorCreateAndEdit(props: IProps) {
             refs["name"].focus()
         }
         else if (data?.id) {
-            await apiColor.update(data).then((rsp) => {
+            await apiSize.update(data).then((rsp) => {
                 if (rsp) {
                     dispatch('SUCCESS', 'Cập nhật thành công.');
                     setLoading(false)
                 } else setLoading(false)
             })
         } else {
-            await apiColor.create(data).then((rsp) => {
+            await apiSize.create(data).then((rsp) => {
                 if (rsp) {
                     dispatch('SUCCESS', 'Tạo mới thành công.');
                     setLoading(false)
@@ -98,7 +81,7 @@ export default function ColorCreateAndEdit(props: IProps) {
 
     function handleChange(e) {
         let target = e.target;
-        let newFormState: ColorVM = { ...data }
+        let newFormState: SizeVM = { ...data }
         if (newFormState)
             newFormState[target.name] = target.value;
         setData(newFormState);
@@ -130,16 +113,6 @@ export default function ColorCreateAndEdit(props: IProps) {
                         className="form-control"
                         onChange={(e) => handleChange(e)}
                     />
-                </div>
-                <div className="col">
-                    <div className="swatch-picker " onClick={handleClick}>
-                        <div className="color-picker" style={{ background: data?.colorCode }} />
-                    </div>
-                    {displayColorPicker && <div className="popover-picker">
-                        <div className="cover-picker" onClick={handleClosePicker} />
-                        <SketchPicker color={data?.colorCode} onChange={(color) => handleChangeColor(color, 'colorCode')} />
-                    </div>}
-
                 </div>
             </div>
         </form>

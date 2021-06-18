@@ -28,6 +28,15 @@ namespace WebAppIdentityServer.Api.Controllers
             return ToOkResult(data);
 
         }
+        [HttpDelete]
+        [Route("delete/{id}")]
+        [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.DELETE)]
+        public async Task<IActionResult> Delete(long id)
+        {
+            await _productBusiness.Delete(id);
+            return ToOkResult();
+
+        }
         [HttpGet]
         [Route("getAll")]
         [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.VIEW)]
