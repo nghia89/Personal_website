@@ -76,6 +76,8 @@ namespace WebAppIdentityServer.Business.Implementation
 
 
             product.ProductTags = productTags;
+            product.Title = String.IsNullOrEmpty(model.Title) ? model.Name : model.Title;
+            product.SeoAlias = String.IsNullOrEmpty(model.SeoAlias) ? model.Name.ToUnsignString() : model.SeoAlias;
             await _productRepository.AddAsync(product);
             await _unitOfWork.CommitAsync();
 

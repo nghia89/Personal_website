@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { TextField, makeStyles, createStyles, Theme, CircularProgress, FormControlLabel, Switch } from '@material-ui/core';
-import { ProductVM, UserVM } from '@/models/index';
+import { ProductVM } from '@/models/index';
 import { apiProduct, apiProductCategory } from '@/apis/index';
 import { Editor, ImageUploadCard, TreeViewCategory, useNotification } from '@/components/index'
 import { validateField, IsNullOrEmpty } from '@/helpers/utils'
 import { validateProductVm } from '@/models/validateField';
 import { green } from '@material-ui/core/colors';
 import history from "@/history";
-import { Animations, LoadingPage } from '@/components/loaders';
+import { Animations } from '@/components/loaders';
 import { IBreadcrumbs } from '@/models/commonM';
 import { PATH } from '@/constants/paths'
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
 import ProductQuantity from './productQuantity';
+import { env } from '@/environments/config';
 export interface IProps {
     match: { params: { id: any } }
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
@@ -47,6 +48,7 @@ function ProductDetail(props: IProps) {
     const [isLoading, setIsLoading] = useState<Boolean>(true)
     const [productIdCurrent, setProductIdCurrent] = useState<number>(0)
     const [productCodeCurrent, setProductCodeCurrent] = useState<string>('')
+    const [isShowSeo, setIsShowSeo] = useState<Boolean>(false)
 
     useEffect(() => {
         props.setBreadcrumb([
@@ -170,8 +172,8 @@ function ProductDetail(props: IProps) {
                     <label>Trạng thái <span className="text-danger">*</span></label>
                     <Switch
                         required
-                        checked={formState?.status == 1 ? true : false}
-                        onChange={() => handleOnchange('status', formState?.status == 1 ? 0 : 1)}
+                        checked={formState?.status === 1 ? true : false}
+                        onChange={() => handleOnchange('status', formState?.status === 1 ? 0 : 1)}
                         color="primary"
                     />
                 </div>
@@ -295,36 +297,55 @@ function ProductDetail(props: IProps) {
             </div>
             <div className="col-10">
                 <div className="wrapper-content ">
-                    <TextField
-                        //inputRef={(r) => refs["seoAlias"] = r}
-                        label="SEO Alias"
-                        name="seoAlias"
-                        value={formState?.seoAlias}
-                        variant="outlined"
-                        size="small"
-                        className="form-control"
-                        onChange={(e) => handleChange(e)}
-                    />
-                    <TextField
-                        //inputRef={(r) => refs["seoKeywords"] = r}
-                        label="SEO Keywords"
-                        name="seoKeywords"
-                        value={formState?.seoKeywords}
-                        variant="outlined"
-                        size="small"
-                        className="form-control"
-                        onChange={(e) => handleChange(e)}
-                    />
-                    <TextField
-                        //inputRef={(r) => refs["seoDescription"] = r}
-                        label="SEO Description"
-                        name="seoDescription"
-                        value={formState?.seoDescription}
-                        variant="outlined"
-                        size="small"
-                        className="form-control"
-                        onChange={(e) => handleChange(e)}
-                    />
+                    <div style={{ textAlign: 'right', display: 'block' }}>
+                        <a onClick={() => setIsShowSeo(!isShowSeo)} className="text-label-custom ps-2 font-weight-500">Chỉnh sửa SEO</a>
+                    </div>
+                    {isShowSeo && <div>
+                        <div className="ms-2 mb-3">
+                            {
+                                !formState?.title ? <div >
+                                    Thiết lập các thẻ mô tả giúp khách hàng dễ dàng tìm thấy danh mục này trên công cụ tìm kiếm như Google
+                                </div> :
+                                    <div>
+                                        <p className="hms-seo--preview-title mb-1 mt-2">{formState.title}</p>
+                                        <p className="hms-seo--preview-meta mb-1">{formState.seoDescription}</p>
+                                        <p className="hms-seo--preview-url text-truncate mb-0">{env.clientBase}/{formState.seoAlias}</p>
+                                    </div>
+                            }
+                        </div>
+                        <TextField
+                            label="Tiêu đề"
+                            name="title"
+                            value={formState?.title}
+                            variant="outlined"
+                            size="small"
+                            className="form-control"
+                            onChange={(e) => handleChange(e)}
+                        />
+                        <TextField
+                            label="Từ khóa"
+                            name="seoKeywords"
+                            value={formState?.seoKeywords}
+                            variant="outlined"
+                            size="small"
+                            className="form-control"
+                            onChange={(e) => handleChange(e)}
+                        />
+                        <TextField
+                            label="Mô tả trang"
+                            name="seoDescription"
+                            value={formState?.seoDescription}
+                            variant="outlined"
+                            size="small"
+                            className="form-control"
+                            onChange={(e) => handleChange(e)}
+                        />
+
+                        <div className="next-input--stylized ms-2 mb-2">
+                            <div className="next-input-add-on next-input__add-on--before">{env.clientBase}/</div>
+                            <input name="seoAlias" onChange={(e) => handleChange(e)} type="text" className="next-input next-input--invisible" placeholder="Seo Đường dẫn" step="1" value={formState?.seoAlias}></input>
+                        </div>
+                    </div>}
                 </div>
             </div>
         </div>

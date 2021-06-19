@@ -59,6 +59,7 @@ function Colors(props: IProps) {
             isLoading={isLoading}
             isPagination
             handleEdit={(id) => handleCloseTableEdit(id)}
+            onchangeParam={() => console.log()}
         />
     }
     function renderHeader() {

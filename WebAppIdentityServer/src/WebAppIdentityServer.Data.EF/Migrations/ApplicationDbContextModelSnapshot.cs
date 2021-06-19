@@ -806,6 +806,9 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
 
+                    b.Property<string>("Title")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("longtext");
 

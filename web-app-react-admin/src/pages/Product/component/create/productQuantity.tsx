@@ -121,7 +121,10 @@ function ProductQuantity(props: IProps) {
         let isColor = optionVariant?.value == OptionVariant[0].value ? true : false
         let isSize = optionVariant?.value == OptionVariant[1].value ? true : false
         let valueOption = isColor ? { value: item.colorId, label: item.color?.name } : isSize ? { value: item.sizeId, label: item.size?.name } : null;
-        return <div className="row mb-3">
+        let lsOptionGroup = dataProQuantity.filter(a => a.groupId == groupId);
+
+        let lsOptionVariant = OptionVariant.filter(a => lsOptionGroup.findIndex(x => x.optionVariant == a.value) <= -1)
+        return <div className="row mb-3 align-items-center">
             <div className="col-3">
                 <Select
                     className="basic-single "
@@ -129,7 +132,7 @@ function ProductQuantity(props: IProps) {
                     classNamePrefix="select"
                     value={optionVariant}
                     name="color"
-                    options={OptionVariant}
+                    options={lsOptionVariant}
                     onChange={(selectedOption) => handleChangeOption(selectedOption, index, groupId)}
                 />
             </div>
@@ -140,7 +143,6 @@ function ProductQuantity(props: IProps) {
                         placeholder="Chọn giá trị..."
                         classNamePrefix="select"
                         value={valueOption}
-                        name="color"
                         options={optionVariant?.value == OptionVariant[0].value ? colors : sizes}
                         onChange={(selectedOption) => handleOnchangeValue(selectedOption, index, isColor, isSize, null, groupId)}
                     /> :
@@ -165,7 +167,7 @@ function ProductQuantity(props: IProps) {
                     let groupId = item
                     let quantityGroup = dataProQuantity.filter(x => x.groupId == item)
                     return <div key={`group${i}`}>
-                        <label style={{ fontWeight: 700, marginBottom: '10px' }}>Thuộc tính {++i}</label>
+                        <label style={{ fontWeight: 700, marginBottom: '10px' }}>Nhóm thuộc tính {++i}</label>
                         {
                             quantityGroup.map((item, index) => {
                                 return <Fragment key={`variant${index}`}>

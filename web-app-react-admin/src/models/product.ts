@@ -3,6 +3,7 @@ import { productQuantityVM } from "./productQuantity";
 export interface ProductVM {
     id?: number
     name?: string
+    title?: string
     image?: string
     price?: number
     code?: string

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import { TextField, makeStyles, createStyles, Theme, CircularProgress, FormControlLabel, Switch, Checkbox } from '@material-ui/core';
-import { productQuantityVM, ProductVM, UserVM } from '@/models/index';
+import { productQuantityVM, ProductVM } from '@/models/index';
 import { apiProduct, apiProductCategory } from '@/apis/index';
 import { Editor, ImageUploadCard, TreeViewCategory, useNotification } from '@/components/index'
 import { validateField, IsNullOrEmpty, groupBy, formatPrice } from '@/helpers/utils'
@@ -13,6 +13,7 @@ import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
 import ProductQuantity from './productQuantity'
 import { OptionVariant } from '@/constants/utilConstant';
+import { env } from '@/environments/config';
 export interface IProps {
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
 }
@@ -42,6 +43,7 @@ function ProductCreate(props: IProps) {
     const [formState, setFormState] = useState<ProductVM | null>(null)
     const [pathImage, setPathImage] = useState<string>("")
     const [isLoadingImg, setisLoadingImg] = useState<Boolean>(false)
+    const [isShowSeo, setIsShowSeo] = useState<Boolean>(false)
 
     useEffect(() => {
         props.setBreadcrumb([
@@ -105,15 +107,15 @@ function ProductCreate(props: IProps) {
             objectKey?.forEach((item) => {
                 let objQuantity: productQuantityVM = {}
                 grouped[item]?.forEach((e) => {
-                    if (e.optionVariant == OptionVariant[0].value) {
+                    if (e.optionVariant === OptionVariant[0].value) {
                         objQuantity.colorId = e.colorId
                         objQuantity.optionVariantColor = e.optionVariant
                     }
-                    if (e.optionVariant == OptionVariant[1].value) {
+                    if (e.optionVariant === OptionVariant[1].value) {
                         objQuantity.optionVariantSize = e.optionVariant
                         objQuantity.sizeId = e.sizeId
                     }
-                    if (e.optionVariant == OptionVariant[2].value) {
+                    if (e.optionVariant === OptionVariant[2].value) {
                         objQuantity.name = e.name
                         objQuantity.optionVariantName = e.optionVariant
                     }
@@ -187,8 +189,8 @@ function ProductCreate(props: IProps) {
                     <label>Trạng thái <span className="text-danger">*</span></label>
                     <Switch
                         required
-                        checked={formState?.status == 1 ? true : false}
-                        onChange={() => handleOnchange('status', formState?.status == 1 ? 0 : 1)}
+                        checked={formState?.status === 1 ? true : false}
+                        onChange={() => handleOnchange('status', formState?.status === 1 ? 0 : 1)}
                         color="primary"
                     />
                 </div>
@@ -315,39 +317,58 @@ function ProductCreate(props: IProps) {
             </div>
             <div className="col-10">
                 <div className="wrapper-content ">
-                    <TextField
-                        //inputRef={(r) => refs["seoAlias"] = r}
-                        label="SEO Đường dẫn"
-                        name="seoAlias"
-                        value={formState?.seoAlias}
-                        variant="outlined"
-                        size="small"
-                        className="form-control"
-                        onChange={(e) => handleChange(e)}
-                    />
-                    <TextField
-                        //inputRef={(r) => refs["seoKeywords"] = r}
-                        label="SEO Từ khóa"
-                        name="seoKeywords"
-                        value={formState?.seoKeywords}
-                        variant="outlined"
-                        size="small"
-                        className="form-control"
-                        onChange={(e) => handleChange(e)}
-                    />
-                    <TextField
-                        //inputRef={(r) => refs["seoDescription"] = r}
-                        label="Mô tả trang"
-                        name="seoDescription"
-                        value={formState?.seoDescription}
-                        variant="outlined"
-                        size="small"
-                        className="form-control"
-                        onChange={(e) => handleChange(e)}
-                    />
+                    <div style={{ textAlign: 'right', display: 'block' }}>
+                        <a onClick={() => setIsShowSeo(!isShowSeo)} className="text-label-custom ps-2 font-weight-500">Chỉnh sửa SEO</a>
+                    </div>
+                    {isShowSeo && <div>
+                        <div className="ms-2 mb-3">
+                            {
+                                !formState?.title ? <div >
+                                    Thiết lập các thẻ mô tả giúp khách hàng dễ dàng tìm thấy danh mục này trên công cụ tìm kiếm như Google
+                                </div> :
+                                    <div>
+                                        <p className="hms-seo--preview-title mb-1 mt-2">{formState.title}</p>
+                                        <p className="hms-seo--preview-meta mb-1">{formState.seoDescription}</p>
+                                        <p className="hms-seo--preview-url text-truncate mb-0">{env.clientBase}/{formState.seoAlias}</p>
+                                    </div>
+                            }
+                        </div>
+                        <TextField
+                            label="Tiêu đề"
+                            name="title"
+                            value={formState?.title}
+                            variant="outlined"
+                            size="small"
+                            className="form-control"
+                            onChange={(e) => handleChange(e)}
+                        />
+                        <TextField
+                            label="Từ khóa"
+                            name="seoKeywords"
+                            value={formState?.seoKeywords}
+                            variant="outlined"
+                            size="small"
+                            className="form-control"
+                            onChange={(e) => handleChange(e)}
+                        />
+                        <TextField
+                            label="Mô tả trang"
+                            name="seoDescription"
+                            value={formState?.seoDescription}
+                            variant="outlined"
+                            size="small"
+                            className="form-control"
+                            onChange={(e) => handleChange(e)}
+                        />
+
+                        <div className="next-input--stylized ms-2 mb-2">
+                            <div className="next-input-add-on next-input__add-on--before">{env.clientBase}/</div>
+                            <input name="seoAlias" onChange={(e) => handleChange(e)} type="text" className="next-input next-input--invisible" placeholder="Seo Đường dẫn" step="1" value={formState?.seoAlias}></input>
+                        </div>
+                    </div>}
                 </div>
             </div>
-        </div>
+        </div >
     }
 
     function renderProductQuantity() {

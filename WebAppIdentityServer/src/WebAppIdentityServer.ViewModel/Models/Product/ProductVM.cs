@@ -8,6 +8,7 @@ namespace WebAppIdentityServer.ViewModel.Models.Product
     {
         public long Id { get; set; }
         public string Name { get; set; }
+        public string Title { set; get; }
         public string Image { get; set; }
         public decimal Price { get; set; }
         public decimal OriginalPrice { get; set; }
