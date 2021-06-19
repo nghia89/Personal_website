@@ -93,7 +93,12 @@ namespace WebAppIdentityServer.Business.Implementation
                     ProductId = productId,
                     ColorId = quantity.ColorId,
                     SizeId = quantity.SizeId,
-                    Quantity = quantity.Quantity
+                    Quantity = quantity.Quantity,
+                    Name = quantity.Name,
+                    Price = quantity.Price,
+                    OptionVariantColor = quantity.OptionVariantColor,
+                    OptionVariantSize = quantity.OptionVariantSize,
+                    OptionVariantName = quantity.OptionVariantName
                 });
             }
             await _productQuantityRep.SaveAsync();

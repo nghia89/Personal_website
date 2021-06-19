@@ -1,9 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import { TextField, makeStyles, createStyles, Theme, CircularProgress, FormControlLabel, Switch, Checkbox } from '@material-ui/core';
-import { ProductVM, UserVM } from '@/models/index';
+import { productQuantityVM, ProductVM, UserVM } from '@/models/index';
 import { apiProduct, apiProductCategory } from '@/apis/index';
 import { Editor, ImageUploadCard, TreeViewCategory, useNotification } from '@/components/index'
-import { validateField, IsNullOrEmpty } from '@/helpers/utils'
+import { validateField, IsNullOrEmpty, groupBy, formatPrice } from '@/helpers/utils'
 import { validateProductVm } from '@/models/validateField';
 import { green } from '@material-ui/core/colors';
 import history from "@/history";
@@ -12,6 +12,7 @@ import { PATH } from '@/constants/paths'
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
 import ProductQuantity from './productQuantity'
+import { OptionVariant } from '@/constants/utilConstant';
 export interface IProps {
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
 }
@@ -41,11 +42,10 @@ function ProductCreate(props: IProps) {
     const [formState, setFormState] = useState<ProductVM | null>(null)
     const [pathImage, setPathImage] = useState<string>("")
     const [isLoadingImg, setisLoadingImg] = useState<Boolean>(false)
-    const [isShowMoreVariant, setIsShowMoreVariant] = useState<boolean>(false)
 
     useEffect(() => {
         props.setBreadcrumb([
-            { name: 'Danh sách nhân viên', path: PATH.PRODUCT },
+            { name: 'Danh sách sản phẩm', path: PATH.PRODUCT },
             { name: 'Tạo mới sản phẩm' }
         ]);
 
@@ -57,11 +57,11 @@ function ProductCreate(props: IProps) {
 
     useEffect(() => {
         if (formState?.productCategoryId) {
-            genarateCode()
+            generateCode()
         }
     }, [formState?.productCategoryId])
 
-    async function genarateCode() {
+    async function generateCode() {
         await apiProductCategory.getById(formState?.productCategoryId).then(async (rsp) => {
             if (!rsp.isError) {
                 await apiProduct.getGenarateCode(rsp.data.code).then((rsp) => {
@@ -78,6 +78,9 @@ function ProductCreate(props: IProps) {
 
     async function saveData() {
         if (!validateFields()) {
+            var lsQuantity = mapProQuantityModel()
+            if (lsQuantity[0] && formState)
+                formState.productQuantity = lsQuantity
             await apiProduct.create(formState).then((rsp) => {
                 if (!rsp.isError) {
                     dispatch('SUCCESS', 'Thêm sản phẩm thành công.')
@@ -88,6 +91,38 @@ function ProductCreate(props: IProps) {
                 }
             })
         }
+    }
+
+
+
+
+    function mapProQuantityModel() {
+        let proQuantityModel: productQuantityVM[] = []
+        let groupQuantity = formState?.productQuantity;
+        if (groupQuantity && groupQuantity[0]) {
+            var grouped = groupBy("groupId", groupQuantity)
+            let objectKey = Object.keys(grouped);
+            objectKey?.forEach((item) => {
+                let objQuantity: productQuantityVM = {}
+                grouped[item]?.forEach((e) => {
+                    if (e.optionVariant == OptionVariant[0].value) {
+                        objQuantity.colorId = e.colorId
+                        objQuantity.optionVariantColor = e.optionVariant
+                    }
+                    if (e.optionVariant == OptionVariant[1].value) {
+                        objQuantity.optionVariantSize = e.optionVariant
+                        objQuantity.sizeId = e.sizeId
+                    }
+                    if (e.optionVariant == OptionVariant[2].value) {
+                        objQuantity.name = e.name
+                        objQuantity.optionVariantName = e.optionVariant
+                    }
+                })
+                if (Object.keys(objQuantity).length > 0)
+                    proQuantityModel.push(objQuantity)
+            })
+        }
+        return proQuantityModel;
     }
 
     function handleOnchangeValue(value, name) {
@@ -142,10 +177,12 @@ function ProductCreate(props: IProps) {
     }
 
 
+
+
     function renderContentGeneral() {
         return <div className="row pt-3 pb-3">
             <div className="col-2">
-                <h6 className="color-black font-weight-bold ui-information-title">Nội dung chung</h6>
+                <h6 className="font-weight-bold ui-information-title">Nội dung chung</h6>
                 <div>
                     <label>Trạng thái <span className="text-danger">*</span></label>
                     <Switch
@@ -199,9 +236,10 @@ function ProductCreate(props: IProps) {
                                     inputRef={(r) => refs["price"] = r}
                                     label="Giá bán"
                                     name="price"
-                                    value={formState?.price}
+                                    value={formatPrice(formState?.price)}
                                     variant="outlined"
                                     size="small"
+                                    type="number"
                                     className="form-control"
                                     onChange={(e) => handleChange(e)}
                                 />
@@ -212,9 +250,10 @@ function ProductCreate(props: IProps) {
                                     inputRef={(r) => refs["originalPrice"] = r}
                                     label="Giá gốc"
                                     name="originalPrice"
-                                    value={formState?.originalPrice}
+                                    value={formatPrice(formState?.originalPrice)}
                                     variant="outlined"
                                     size="small"
+                                    type="number"
                                     className="form-control"
                                     onChange={(e) => handleChange(e)}
                                 />
@@ -318,22 +357,17 @@ function ProductCreate(props: IProps) {
             </div>
             <div className="col-10">
                 <div className="wrapper-content">
-                    <div className=" mb-3 ">
-                        <Checkbox
-                            checked={isShowMoreVariant}
-                            onChange={() => setIsShowMoreVariant(!isShowMoreVariant)}
-                            name="checkedB"
-                            color="primary"
-                        />
-                        <label>Sản phẩm này có nhiều biến thể. Ví dụ như khác nhau về kích thước, màu sắc...</label>
-                    </div>
-
-
-                    {isShowMoreVariant && <ProductQuantity
-                        handlePostQuantity={(data) => {
-                            let newData = { ...formState }
-                            newData.productQuantity = data
-                            setFormState(newData)
+                    {<ProductQuantity
+                        handlePostQuantity={(data, isShowMoreVariant) => {
+                            if (isShowMoreVariant) {
+                                let newData = { ...formState }
+                                newData.productQuantity = data
+                                setFormState(newData)
+                            } else {
+                                let newData = { ...formState }
+                                newData.productQuantity = []
+                                setFormState(newData)
+                            }
                         }}
                     />}
                 </div>

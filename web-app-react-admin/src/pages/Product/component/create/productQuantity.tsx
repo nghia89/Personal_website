@@ -7,21 +7,24 @@ import { green } from '@material-ui/core/colors';
 import Select from 'react-select'
 import { OptionVariant, IObjectSelect } from '@/constants/utilConstant';
 import { apiColor, apiSize } from '@/apis';
+import { FormControlLabel } from '@material-ui/core';
+import { Checkbox } from '@material-ui/core';
 export interface IProps {
     handlePostQuantity: Function
 }
 
-
+let groupId = 1;
 function ProductQuantity(props: IProps) {
-    type NewType = ProductVM | null;
-
-    const [formState, setFormState] = useState<ProductVM | null>(null)
-    const [dataOption, setDataOption] = useState<productQuantityVM[]>()
+    const initOption: productQuantityVM[] = [{ optionVariant: OptionVariant[0].value, groupId: groupId }, { optionVariant: OptionVariant[1].value, groupId: groupId }, { optionVariant: OptionVariant[2].value, groupId: groupId }]
     const [colors, setColors] = useState<ColorVM[]>()
     const [sizes, setSizes] = useState<SizeVM[]>()
-    const [dataProQuantity, setDataProQuantity] = useState<productQuantityVM[]>([{ optionVariant: OptionVariant[0].value }])
+    const [dataProQuantity, setDataProQuantity] = useState<productQuantityVM[]>(initOption)
+    const [listGroup, setListGroup] = useState([groupId])
+    const [isLoadingImg, setisLoadingImg] = useState<Boolean>(false)
+    const [isShowMoreVariant, setIsShowMoreVariant] = useState<boolean>(false)
 
     useEffect(() => {
+        groupId = 1
         fetchColor()
         fetchSize()
     }, [])
@@ -38,9 +41,19 @@ function ProductQuantity(props: IProps) {
     }
 
     function handlePushOption() {
+        ++groupId;
+        let newGroup = [...listGroup]
+        newGroup.push(groupId)
+        setListGroup(newGroup)
+
         let newOptionSelect = [...dataProQuantity]
-        newOptionSelect.push({ optionVariant: OptionVariant[0].value })
-        setDataProQuantity(newOptionSelect)
+
+        initOption[0].groupId = groupId
+        initOption[1].groupId = groupId
+        initOption[2].groupId = groupId
+
+        let optionConcat = newOptionSelect.concat(initOption)
+        setDataProQuantity(optionConcat)
     }
 
     async function fetchSize() {
@@ -54,37 +67,48 @@ function ProductQuantity(props: IProps) {
         }
     }
 
-    function handleRemoveItem(index) {
+    function handleRemoveItem(name, groupId) {
         let newList = [...dataProQuantity]
+        let index = newList.findIndex(x => x.groupId == groupId && x.optionVariant == name)
         if (index > -1 && newList.length > 1) {
             newList.splice(index, 1)
             setDataProQuantity(newList)
+        }
+        let checkLenght = newList.filter(a => a.groupId == groupId).length == 0;
+        if (checkLenght) {
+            let indexGroup = listGroup.findIndex(a => a == groupId)
+            if (indexGroup > -1) {
+                listGroup.splice(indexGroup, 1)
+                setListGroup(listGroup)
+            }
         }
         handlePostQuantity(newList)
     }
 
     function handlePostQuantity(newList) {
-        props.handlePostQuantity(newList)
+        props.handlePostQuantity(newList, isShowMoreVariant)
     }
 
 
-    function handleChangeOption(selectedOption, index) {
+    function handleChangeOption(selectedOption, index, groupId) {
         let newOptionSelect = [...dataProQuantity]
-        newOptionSelect[index].optionVariant = selectedOption.value
+        let optionGroup = newOptionSelect.filter(x => x.groupId == groupId)
+        optionGroup[index].optionVariant = selectedOption.value
         setDataProQuantity(newOptionSelect)
     }
 
-    function handleOnchangeValue(selectedOption, index, isColor, isSize, target) {
+    function handleOnchangeValue(selectedOption, index, isColor, isSize, target, groupId) {
         let newOptionSelect = [...dataProQuantity]
+        let optionGroup = newOptionSelect.filter(x => x.groupId == groupId)
         if (isColor) {
-            newOptionSelect[index].colorId = selectedOption.value
-            newOptionSelect[index].color = { id: selectedOption.value, name: selectedOption.label }
+            optionGroup[index].colorId = selectedOption.value
+            optionGroup[index].color = { id: selectedOption.value, name: selectedOption.label }
         }
         else if (isSize) {
-            newOptionSelect[index].sizeId = selectedOption.value
-            newOptionSelect[index].size = { id: selectedOption.value, name: selectedOption.label }
+            optionGroup[index].sizeId = selectedOption.value
+            optionGroup[index].size = { id: selectedOption.value, name: selectedOption.label }
         } else if (target) {
-            newOptionSelect[index][target.name] = target.value
+            optionGroup[index][target.name] = target.value
         }
 
         setDataProQuantity(newOptionSelect)
@@ -92,7 +116,7 @@ function ProductQuantity(props: IProps) {
 
     }
 
-    function renderItem(item: productQuantityVM, index) {
+    function renderItem(item: productQuantityVM, index, groupId) {
         let optionVariant = OptionVariant.find(x => x.value == item.optionVariant);
         let isColor = optionVariant?.value == OptionVariant[0].value ? true : false
         let isSize = optionVariant?.value == OptionVariant[1].value ? true : false
@@ -106,7 +130,7 @@ function ProductQuantity(props: IProps) {
                     value={optionVariant}
                     name="color"
                     options={OptionVariant}
-                    onChange={(selectedOption) => handleChangeOption(selectedOption, index)}
+                    onChange={(selectedOption) => handleChangeOption(selectedOption, index, groupId)}
                 />
             </div>
             <div className="col-8">
@@ -118,13 +142,13 @@ function ProductQuantity(props: IProps) {
                         value={valueOption}
                         name="color"
                         options={optionVariant?.value == OptionVariant[0].value ? colors : sizes}
-                        onChange={(selectedOption) => handleOnchangeValue(selectedOption, index, isColor, isSize, null)}
+                        onChange={(selectedOption) => handleOnchangeValue(selectedOption, index, isColor, isSize, null, groupId)}
                     /> :
-                        <input name="phoneNumber" onChange={(e) => handleOnchangeValue(null, index, null, null, e.target)} className="form-control" type="text" />
+                        <input name="name" onChange={(e) => handleOnchangeValue(null, index, null, null, e.target, groupId)} className="form-control" type="text" />
                 }
             </div>
             <div className="col-1">
-                <span className="cursor" onClick={() => handleRemoveItem(index)}>
+                <span className="cursor" onClick={() => handleRemoveItem(item.optionVariant, groupId)}>
                     {IconTrash()}
                 </span>
             </div>
@@ -137,14 +161,21 @@ function ProductQuantity(props: IProps) {
     function renderContent() {
         return <Fragment>
             <div style={{ marginLeft: '5px' }}>
-                {
-                    dataProQuantity.map((item, index) => {
-                        return <Fragment key={`variant${index}`}>
-                            {renderItem(item, index)}
-                        </Fragment>
-                    })
+                {listGroup.map((item, i) => {
+                    let groupId = item
+                    let quantityGroup = dataProQuantity.filter(x => x.groupId == item)
+                    return <div key={`group${i}`}>
+                        <label style={{ fontWeight: 700, marginBottom: '10px' }}>Thuộc tính {++i}</label>
+                        {
+                            quantityGroup.map((item, index) => {
+                                return <Fragment key={`variant${index}`}>
+                                    {renderItem(item, index, groupId)}
+                                </Fragment>
+                            })
+                        }
+                    </div>
+                })}
 
-                }
                 <div onClick={() => handlePushOption()} className="mt-5 btn-add-custom cursor" >
                     {IconPlushSquare()}
                     <a className="px-2 text-white">
@@ -154,7 +185,25 @@ function ProductQuantity(props: IProps) {
         </Fragment>
     }
 
-    return renderContent()
+    return (
+        <div>
+            {isShowMoreVariant && renderContent()}
+            <div className="mb-3 mt-3 mx-2">
+                < FormControlLabel
+                    control={
+                        <Checkbox
+                            checked={isShowMoreVariant}
+                            onChange={() => { setIsShowMoreVariant(!isShowMoreVariant); handlePostQuantity(dataProQuantity) }}
+                            name="checkedB"
+                            color="primary"
+                        />
+                    }
+                    label="Sản phẩm này có nhiều biến thể. Ví dụ như khác nhau về kích thước, màu sắc..."
+                />
+            </div>
+        </div>
+
+    )
 }
 
 

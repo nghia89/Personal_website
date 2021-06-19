@@ -14,7 +14,9 @@
         public int QuantitySold { get; set; }
         public string ImageUrl { get; set; }
         public bool AllowPurchaseWhenSoldOut { get; set; }
-        public string OptionVariant { get; set; }
+        public string OptionVariantColor { get; set; }
+        public string OptionVariantSize { get; set; }
+        public string OptionVariantName { get; set; }
         public decimal Price { get; set; }
     }
 }

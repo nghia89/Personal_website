@@ -173,11 +173,6 @@
     right: 0;
 }
 
-.dropdown-menu {
-    width: 20rem!important;
-    right: .75rem;
-    font-size: .85rem;
-}
  .dropdown-list {
     padding: 0;
     border: none;
@@ -332,4 +327,41 @@ legend{
     right: 0px;
     bottom: 0px;
     left: 0px;
+  }
+
+  .border-line-botton{
+    box-shadow: inset 0 -1px 0 rgb(38 50 56 / 10%);
+  }
+
+  .text-label-custom{
+    text-align: right;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    color: #2962ff;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    cursor: pointer;
+  }
+
+  .btn-light:focus{
+    box-shadow: 0 0 0 0.15rem rgb(211 212 213 / 50%) !important
+  }
+
+  .hmt-image-thumbnail{
+    max-width: 50px;
+    max-height: 50px;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ebecf0;
+    vertical-align: middle;
+    background: #fff;
+    margin-right: 15px;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }

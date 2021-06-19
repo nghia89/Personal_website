@@ -150,3 +150,21 @@ export function randomUId() {
     const rand = min + Math.random() * (max - min);
     return rand
 }
+
+
+export function groupBy(key, array) {
+    return array.reduce(
+        (objectsByKeyValue, obj) => ({
+            ...objectsByKeyValue,
+            [obj[key]]: (objectsByKeyValue[obj[key]] || []).concat(obj)
+        }),
+        {}
+    );
+}
+
+export function formatPrice(value) {
+    if (value) {
+        let newValue = value.replaceAll(',', '')
+        return newValue.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    }
+}

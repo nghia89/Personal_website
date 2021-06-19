@@ -12,6 +12,7 @@ import { IBreadcrumbs } from '@/models/commonM';
 import { PATH } from '@/constants/paths'
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
+import ProductQuantity from './productQuantity';
 export interface IProps {
     match: { params: { id: any } }
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
@@ -35,7 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-
 function ProductDetail(props: IProps) {
     const classes = useStyles();
     let dispatch = useNotification();
@@ -45,10 +45,12 @@ function ProductDetail(props: IProps) {
     const [pathImage, setPathImage] = useState<string>("")
     const [isLoadingImg, setisLoadingImg] = useState<Boolean>(false)
     const [isLoading, setIsLoading] = useState<Boolean>(true)
+    const [productIdCurrent, setProductIdCurrent] = useState<number>(0)
+    const [productCodeCurrent, setProductCodeCurrent] = useState<string>('')
 
     useEffect(() => {
         props.setBreadcrumb([
-            { name: 'Danh sách nhân viên', path: PATH.PRODUCT },
+            { name: 'Danh sách sản phẩm', path: PATH.PRODUCT },
             { name: 'Chi tiết sản phẩm' }
         ]);
         fetchData()
@@ -56,8 +58,11 @@ function ProductDetail(props: IProps) {
 
 
     useEffect(() => {
-        if (formState?.productCategoryId && formState?.id) {
+        if (formState?.productCategoryId && formState?.id && productIdCurrent != formState?.productCategoryId) {
             genarateCode()
+        } else {
+            handleOnchangeValue(productIdCurrent, 'productCategoryId')
+            handleOnchangeValue(productCodeCurrent, 'code')
         }
     }, [formState?.productCategoryId])
 
@@ -66,7 +71,10 @@ function ProductDetail(props: IProps) {
     async function fetchData() {
         await apiProduct.getById(props.match?.params?.id).then((rsp) => {
             if (!rsp.isError) {
+                setProductIdCurrent(rsp.data.productCategoryId)
+                setProductCodeCurrent(rsp.data.code)
                 setFormState(rsp.data);
+
                 setPathImage(rsp.data.image)
                 setIsLoading(false)
             }
@@ -157,7 +165,7 @@ function ProductDetail(props: IProps) {
     function renderContentGeneral() {
         return <div className="row pt-3 pb-3">
             <div className="col-2">
-                <h6 className="color-black font-weight-bold">Nội dung chung</h6>
+                <h6 className="ui-information-title font-weight-bold">Nội dung chung</h6>
                 <div>
                     <label>Trạng thái <span className="text-danger">*</span></label>
                     <Switch
@@ -169,87 +177,88 @@ function ProductDetail(props: IProps) {
                 </div>
             </div>
             <div className="col-10">
+                <div className="wrapper-content ">
+                    <TextField
+                        required
+                        inputRef={(r) => refs["name"] = r}
+                        label="Tên sản phẩm"
+                        name="name"
+                        value={formState?.name}
+                        variant="outlined"
+                        size="small"
+                        className="form-control"
+                        onChange={(e) => handleChange(e)}
+                    />
+                    <div className="row align-items-center">
+                        <div className="col-6">
+                            <TreeViewCategory
+                                handleOnchange={(value) => handleOnchangeValue(value, 'productCategoryId')}
+                                dataValue={formState?.productCategoryId}
+                            />
+                        </div>
+                        <div className="col-6">
+                            <TextField
+                                placeholder="Mã sản phẫm"
+                                name="code"
+                                disabled
+                                value={formState?.code}
+                                variant="outlined"
+                                size="small"
+                                className="form-control"
+                                onChange={(e) => handleChange(e)}
+                            />
+                        </div>
 
-                <TextField
-                    required
-                    inputRef={(r) => refs["name"] = r}
-                    label="Tên sản phẩm"
-                    name="name"
-                    value={formState?.name}
-                    variant="outlined"
-                    size="small"
-                    className="form-control"
-                    onChange={(e) => handleChange(e)}
-                />
-                <div className="row align-items-center">
-                    <div className="col-6">
-                        <TreeViewCategory
-                            handleOnchange={(value) => handleOnchangeValue(value, 'productCategoryId')}
-                            dataValue={formState?.productCategoryId}
-                        />
+
                     </div>
-                    <div className="col-6">
-                        <TextField
-                            placeholder="Mã sản phẫm"
-                            name="code"
-                            disabled
-                            value={formState?.code}
-                            variant="outlined"
-                            size="small"
-                            className="form-control"
-                            onChange={(e) => handleChange(e)}
-                        />
+
+                    <div className="row">
+                        <div className="col-6">
+                            <TextField
+                                color={'primary'}
+                                required
+                                inputRef={(r) => refs["price"] = r}
+                                label="Giá bán"
+                                name="price"
+                                value={formState?.price}
+                                variant="outlined"
+                                size="small"
+                                className="form-control"
+                                onChange={(e) => handleChange(e)}
+                            />
+                        </div>
+                        <div className="col-6">
+                            <TextField
+                                required
+                                inputRef={(r) => refs["originalPrice"] = r}
+                                label="Giá gốc"
+                                name="originalPrice"
+                                value={formState?.originalPrice}
+                                variant="outlined"
+                                size="small"
+                                className="form-control"
+                                onChange={(e) => handleChange(e)}
+                            />
+                        </div>
                     </div>
 
+                    <div className="row card_select_image" >
 
-                </div>
+                        <div className="col-6">
+                            <h6 className="color-black">Ảnh đại diện *</h6>
+                            <ImageUploadCard
+                                handleUpload={(isLoading, listPath) => handleUpload(isLoading, listPath)}
+                            />
+                        </div>
+                        <div className="col-6">
+                            {
+                                isLoadingImg ?
+                                    <CircularProgress size={68} className={classes.fabProgress} />
+                                    :
+                                    <img width={450} src={pathImage} />
 
-                <div className="row">
-                    <div className="col-6">
-                        <TextField
-                            color={'primary'}
-                            required
-                            inputRef={(r) => refs["price"] = r}
-                            label="Giá bán"
-                            name="price"
-                            value={formState?.price}
-                            variant="outlined"
-                            size="small"
-                            className="form-control"
-                            onChange={(e) => handleChange(e)}
-                        />
-                    </div>
-                    <div className="col-6">
-                        <TextField
-                            required
-                            inputRef={(r) => refs["originalPrice"] = r}
-                            label="Giá gốc"
-                            name="originalPrice"
-                            value={formState?.originalPrice}
-                            variant="outlined"
-                            size="small"
-                            className="form-control"
-                            onChange={(e) => handleChange(e)}
-                        />
-                    </div>
-                </div>
-
-                <div className="row card_select_image" >
-
-                    <div className="col-6">
-                        <h6 className="color-black">Ảnh đại diện *</h6>
-                        <ImageUploadCard
-                            handleUpload={(isLoading, listPath) => handleUpload(isLoading, listPath)}
-                        />
-                    </div>
-                    <div className="col-6">
-                        {
-                            isLoadingImg ?
-                                <CircularProgress size={68} className={classes.fabProgress} />
-                                :
-                                <img width={450} src={pathImage} />
-
-                        }
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
@@ -260,19 +269,21 @@ function ProductDetail(props: IProps) {
     function renderContentProduct() {
         return <div className="row  pt-3 pb-3">
             <div className="col-2">
-                <h6 className="color-black font-weight-bold">Mô tả sản phẩm</h6>
+                <h6 className="ui-information-title font-weight-bold">Mô tả sản phẩm</h6>
 
             </div>
             <div className="col-10">
-                <div className="pb-2">
-                    <label className="color-black mx-2 ">Mô tả ngắn</label>
-                    <Editor data={formState?.description} onChange={(data) => handleOnchange("description", data)} />
+                <div className="wrapper-content ">
+                    <div className="pb-2">
+                        <label className="color-black mx-2 ">Mô tả ngắn</label>
+                        <Editor data={formState?.description} onChange={(data) => handleOnchange("description", data)} />
 
-                </div>
-                <div>
-                    <label className="color-black mx-2 ">Mô tả sản phẩm</label>
-                    <Editor data={formState?.content} onChange={(data) => handleOnchange("content", data)} />
+                    </div>
+                    <div>
+                        <label className="color-black mx-2 ">Mô tả sản phẩm</label>
+                        <Editor data={formState?.content} onChange={(data) => handleOnchange("content", data)} />
 
+                    </div>
                 </div>
             </div>
         </div>
@@ -280,39 +291,61 @@ function ProductDetail(props: IProps) {
     function renderContentSeo() {
         return <div className="row pt-3 pb-3">
             <div className="col-2">
-                <h6 className="color-black font-weight-bold">SEO từ khoá</h6>
+                <h6 className="ui-information-title font-weight-bold">SEO từ khoá</h6>
             </div>
             <div className="col-10">
-                <TextField
-                    //inputRef={(r) => refs["seoAlias"] = r}
-                    label="SEO Alias"
-                    name="seoAlias"
-                    value={formState?.seoAlias}
-                    variant="outlined"
-                    size="small"
-                    className="form-control"
-                    onChange={(e) => handleChange(e)}
-                />
-                <TextField
-                    //inputRef={(r) => refs["seoKeywords"] = r}
-                    label="SEO Keywords"
-                    name="seoKeywords"
-                    value={formState?.seoKeywords}
-                    variant="outlined"
-                    size="small"
-                    className="form-control"
-                    onChange={(e) => handleChange(e)}
-                />
-                <TextField
-                    //inputRef={(r) => refs["seoDescription"] = r}
-                    label="SEO Description"
-                    name="seoDescription"
-                    value={formState?.seoDescription}
-                    variant="outlined"
-                    size="small"
-                    className="form-control"
-                    onChange={(e) => handleChange(e)}
-                />
+                <div className="wrapper-content ">
+                    <TextField
+                        //inputRef={(r) => refs["seoAlias"] = r}
+                        label="SEO Alias"
+                        name="seoAlias"
+                        value={formState?.seoAlias}
+                        variant="outlined"
+                        size="small"
+                        className="form-control"
+                        onChange={(e) => handleChange(e)}
+                    />
+                    <TextField
+                        //inputRef={(r) => refs["seoKeywords"] = r}
+                        label="SEO Keywords"
+                        name="seoKeywords"
+                        value={formState?.seoKeywords}
+                        variant="outlined"
+                        size="small"
+                        className="form-control"
+                        onChange={(e) => handleChange(e)}
+                    />
+                    <TextField
+                        //inputRef={(r) => refs["seoDescription"] = r}
+                        label="SEO Description"
+                        name="seoDescription"
+                        value={formState?.seoDescription}
+                        variant="outlined"
+                        size="small"
+                        className="form-control"
+                        onChange={(e) => handleChange(e)}
+                    />
+                </div>
+            </div>
+        </div>
+    }
+
+    function renderProductQuantity() {
+        return <div className="row  pt-3 pb-3">
+            <div className="col-2">
+                <h6 className="color-black font-weight-bold ui-information-title">Biến Thể</h6>
+            </div>
+            <div className="col-10">
+                <div className="wrapper-content">
+                    {<ProductQuantity
+                        data={formState?.productQuantity}
+                        handlePostQuantity={(data) => {
+                            let newData = { ...formState }
+                            newData.productQuantity = data
+                            setFormState(newData)
+                        }}
+                    />}
+                </div>
             </div>
         </div>
     }
@@ -320,6 +353,7 @@ function ProductDetail(props: IProps) {
         return <form className={classes.root} noValidate autoComplete="off">
             {renderContentGeneral()}
             {renderContentProduct()}
+            {renderProductQuantity()}
             {renderContentSeo()}
         </form >
     }

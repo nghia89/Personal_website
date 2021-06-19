@@ -28,7 +28,10 @@ namespace WebAppIdentityServer.Business.Mappers
                     Size = model.Size != null ? new SizeVM() { Id = model.Size.Id, Name = model.Size.Name } : null,
                     SizeId = model.SizeId,
                     Sku = model.Sku,
-                    Price = model.Price
+                    Price = model.Price,
+                    OptionVariantColor = model.OptionVariantColor,
+                    OptionVariantName = model.OptionVariantName,
+                    OptionVariantSize = model.OptionVariantSize
                 };
             }
         }
@@ -52,7 +55,10 @@ namespace WebAppIdentityServer.Business.Mappers
                     QuantitySold = model.QuantitySold,
                     SizeId = model.SizeId,
                     Sku = model.Sku,
-                    Price = model.Price
+                    Price = model.Price,
+                    OptionVariantColor = model.OptionVariantColor,
+                    OptionVariantName = model.OptionVariantName,
+                    OptionVariantSize = model.OptionVariantSize
                 };
             }
         }

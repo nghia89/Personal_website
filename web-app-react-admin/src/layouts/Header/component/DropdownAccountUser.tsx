@@ -46,7 +46,7 @@ function DropdownAccountUser(props: IProps) {
                         </a>
                         {/* Dropdown - User Information */}
                         <div
-                            className=" dropdown-menu dropdown-menu-ct dropdown-menu-right shadow animated--grow-in" aria-labelledby="dropdownAccountUser"
+                            className="dropdown-menu dropdown-menu-ct dropdown-menu-right shadow animated--grow-in" aria-labelledby="dropdownAccountUser"
                         >
                             <a className="dropdown-item dropdown-item-ct cursor " >
                                 <span className="mx-2">
@@ -62,7 +62,7 @@ function DropdownAccountUser(props: IProps) {
                                     {IconLogout(20)}
                                 </span>
                                 Đăng xuất
-                                </a>
+                            </a>
                         </div>
                     </li>
                 </Fragment>

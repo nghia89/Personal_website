@@ -7,10 +7,17 @@ export interface productQuantityVM {
     sizeId?: number
     colorId?: number
     quantity?: number
+    price?: number
     quantitySold?: string
     imageUrl?: string
     allowPurchaseWhenSoldOut?: string
     optionVariant?: string
+    optionVariantColor?: string
+    optionVariantSize?: string
+    optionVariantName?: string
     color?: ColorVM,
-    size?: SizeVM
+    size?: SizeVM,
+
+
+    groupId?: number
 }
