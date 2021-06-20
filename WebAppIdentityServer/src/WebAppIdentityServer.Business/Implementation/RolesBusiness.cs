@@ -76,7 +76,7 @@ namespace WebAppIdentityServer.Business.Implementation
             var role = await _roleManager.FindByIdAsync(id);
             if (role == null)
             {
-                new AddError("có lổi xảy ra");
+                AddError("có lổi xảy ra");
             }
 
             return new RoleVm() { Id = role.Id.ToString(), Name = role.Name, Description = role.Description };

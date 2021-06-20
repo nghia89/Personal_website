@@ -50,8 +50,8 @@ namespace WebAppIdentityServer.Business.Implementation
         {
             var product = await _productRep.FindFirstAsync(x => x.Status == Status.Active && x.ProductCategoryId == id, null);
             var getChild = await _productCategoryRep.FindFirstAsync(x => x.Status == Status.Active && x.ParentId == id, null);
-            if (product != null) { new AddError("Có sản phẩm trong danh mục"); return; }
-            else if (getChild != null) { new AddError("Tồn tại danh mục con"); return; }
+            if (product != null) { AddError("Có sản phẩm trong danh mục"); return; }
+            else if (getChild != null) { AddError("Tồn tại danh mục con"); return; }
             var enity = await _productCategoryRep.GetByIdAsync(id);
             await _productCategoryRep.RemoveAsync(enity);
         }

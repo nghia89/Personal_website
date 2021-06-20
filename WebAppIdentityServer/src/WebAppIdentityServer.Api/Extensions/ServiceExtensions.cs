@@ -44,6 +44,7 @@ namespace WebAppIdentityServer.Api.Extensions
             services.AddTransient<IFeedbackBusiness, FeedbackBusiness>();
             services.AddTransient<IColorBusiness, ColorBusiness>();
             services.AddTransient<ISizeBusiness, SizeBusiness>();
+            services.AddTransient<IProductQuantityBusiness, ProductQuantityBusiness>();
 
             #endregion
 

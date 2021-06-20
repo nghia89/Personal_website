@@ -30,13 +30,22 @@ namespace WebAppIdentityServer.Business.Implementation
             return;
         }
 
+        public async Task Delete(long id)
+        {
+            var data = await _quantityRep.GetByIdAsync(id);
+            if (data == null)
+            {
+                AddError("Không tìm thấy dữ liệu.");
+            }
+            await _quantityRep.RemoveAsync(data);
+        }
 
         public async Task<ProductQuantityVM> GetById(long id)
         {
             var data = await _quantityRep.GetByIdAsync(id);
             if (data == null)
             {
-                new AddError("có lổi xảy ra");
+                AddError("có lổi xảy ra");
             }
             return data.ToModel();
         }
@@ -47,16 +56,16 @@ namespace WebAppIdentityServer.Business.Implementation
             var data = await _quantityRep.FindAllAsync(a => a.ProductId == productId, null);
             if (data == null)
             {
-                new AddError("có lổi xảy ra");
+                AddError("có lổi xảy ra");
             }
-            return data.Select(x=>x.ToModel()).ToList();
+            return data.Select(x => x.ToModel()).ToList();
         }
 
         public async Task Update(ProductQuantityVM model)
         {
             var data = await _quantityRep.GetByIdAsync(model.Id);
 
-            if (data == null) { new AddError("có lổi xảy ra"); return; }
+            if (data == null) { AddError("có lổi xảy ra"); return; }
             var entity = model.ToEntity();
             await _quantityRep.UpdateAsync(entity, entity.Id);
             await _unitOfWork.CommitAsync();

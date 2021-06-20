@@ -241,7 +241,6 @@ function ProductCreate(props: IProps) {
                                     value={formatPrice(formState?.price)}
                                     variant="outlined"
                                     size="small"
-                                    type="number"
                                     className="form-control"
                                     onChange={(e) => handleChange(e)}
                                 />
@@ -255,7 +254,6 @@ function ProductCreate(props: IProps) {
                                     value={formatPrice(formState?.originalPrice)}
                                     variant="outlined"
                                     size="small"
-                                    type="number"
                                     className="form-control"
                                     onChange={(e) => handleChange(e)}
                                 />
@@ -296,12 +294,12 @@ function ProductCreate(props: IProps) {
             <div className="col-10">
                 <div className="wrapper-content ">
                     <div className="pb-2">
-                        <label className="color-black mx-2 ">Mô tả ngắn</label>
+                        <label className="color-black mx-2 mb-2">Mô tả ngắn</label>
                         <Editor data="" onChange={(data) => handleOnchange("description", data)} />
 
                     </div>
                     <div>
-                        <label className="color-black mx-2 ">Mô tả sản phẩm</label>
+                        <label className="color-black mx-2 mb-2">Mô tả sản phẩm</label>
                         <Editor data="" onChange={(data) => handleOnchange("content", data)} />
 
                     </div>
@@ -317,11 +315,11 @@ function ProductCreate(props: IProps) {
             </div>
             <div className="col-10">
                 <div className="wrapper-content ">
-                    <div style={{ textAlign: 'right', display: 'block' }}>
+                    <div className="border-line-bottom pb-3" style={{ textAlign: 'right', display: 'block', marginLeft: '5px' }}>
                         <a onClick={() => setIsShowSeo(!isShowSeo)} className="text-label-custom ps-2 font-weight-500">Chỉnh sửa SEO</a>
                     </div>
                     {isShowSeo && <div>
-                        <div className="ms-2 mb-3">
+                        <div className="ms-2 mb-3 mt-2">
                             {
                                 !formState?.title ? <div >
                                     Thiết lập các thẻ mô tả giúp khách hàng dễ dàng tìm thấy danh mục này trên công cụ tìm kiếm như Google

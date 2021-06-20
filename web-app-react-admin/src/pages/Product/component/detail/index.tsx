@@ -3,7 +3,7 @@ import { TextField, makeStyles, createStyles, Theme, CircularProgress, FormContr
 import { ProductVM } from '@/models/index';
 import { apiProduct, apiProductCategory } from '@/apis/index';
 import { Editor, ImageUploadCard, TreeViewCategory, useNotification } from '@/components/index'
-import { validateField, IsNullOrEmpty } from '@/helpers/utils'
+import { validateField, IsNullOrEmpty, formatPrice } from '@/helpers/utils'
 import { validateProductVm } from '@/models/validateField';
 import { green } from '@material-ui/core/colors';
 import history from "@/history";
@@ -222,7 +222,7 @@ function ProductDetail(props: IProps) {
                                 inputRef={(r) => refs["price"] = r}
                                 label="Giá bán"
                                 name="price"
-                                value={formState?.price}
+                                value={formatPrice(formState?.price)}
                                 variant="outlined"
                                 size="small"
                                 className="form-control"
@@ -235,7 +235,7 @@ function ProductDetail(props: IProps) {
                                 inputRef={(r) => refs["originalPrice"] = r}
                                 label="Giá gốc"
                                 name="originalPrice"
-                                value={formState?.originalPrice}
+                                value={formatPrice(formState?.originalPrice)}
                                 variant="outlined"
                                 size="small"
                                 className="form-control"
@@ -277,12 +277,12 @@ function ProductDetail(props: IProps) {
             <div className="col-10">
                 <div className="wrapper-content ">
                     <div className="pb-2">
-                        <label className="color-black mx-2 ">Mô tả ngắn</label>
+                        <label className="color-black mx-2 mb-2">Mô tả ngắn</label>
                         <Editor data={formState?.description} onChange={(data) => handleOnchange("description", data)} />
 
                     </div>
                     <div>
-                        <label className="color-black mx-2 ">Mô tả sản phẩm</label>
+                        <label className="color-black mx-2 mb-2">Mô tả sản phẩm</label>
                         <Editor data={formState?.content} onChange={(data) => handleOnchange("content", data)} />
 
                     </div>
@@ -297,8 +297,8 @@ function ProductDetail(props: IProps) {
             </div>
             <div className="col-10">
                 <div className="wrapper-content ">
-                    <div style={{ textAlign: 'right', display: 'block' }}>
-                        <a onClick={() => setIsShowSeo(!isShowSeo)} className="text-label-custom ps-2 font-weight-500">Chỉnh sửa SEO</a>
+                    <div className="border-line-bottom pb-3" style={{ textAlign: 'right', display: 'block', marginLeft: '5px' }}>
+                        <a onClick={() => setIsShowSeo(!isShowSeo)} className="text-label-custom ps-3 font-weight-500">Chỉnh sửa SEO</a>
                     </div>
                     {isShowSeo && <div>
                         <div className="ms-2 mb-3">
@@ -359,6 +359,7 @@ function ProductDetail(props: IProps) {
             <div className="col-10">
                 <div className="wrapper-content">
                     {<ProductQuantity
+                        productId={props.match?.params?.id}
                         data={formState?.productQuantity}
                         handlePostQuantity={(data) => {
                             let newData = { ...formState }
@@ -382,9 +383,12 @@ function ProductDetail(props: IProps) {
     return <div className="container">
         <div className="row">
             <div className="col-12 mt-3">
-                {renderHeader()}
+                {!isLoading && renderHeader()}
 
                 {isLoading ? <Animations W={100} /> : renderContent()}
+                <div className="mt-3 mb-3">
+                    {!isLoading && renderHeader()}
+                </div>
             </div>
         </div>
     </div>

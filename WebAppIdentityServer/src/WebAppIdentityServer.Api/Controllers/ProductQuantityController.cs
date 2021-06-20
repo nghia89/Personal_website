@@ -27,6 +27,13 @@ namespace WebAppIdentityServer.Api.Controllers
             return ToOkResult();
         }
 
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete(long id)
+        {
+            await _productQuantityBus.Delete(id);
+            return ToOkResult();
+        }
+
         [HttpGet("get_by_proctid/{productid}")]
         public async Task<IActionResult> GetByProductId(long productid)
         {

@@ -40,6 +40,17 @@ function ProductQuantity(props: IProps) {
         }
     }
 
+    async function fetchSize() {
+        let data = await apiSize.getAll();
+        if (!data.isError) {
+            let lsSize: ColorVM[] = []
+            data.data?.map((item) => {
+                lsSize.push({ ...item, value: item.id, label: item.name })
+            })
+            setSizes(lsSize)
+        }
+    }
+
     function handlePushOption() {
         ++groupId;
         let newGroup = [...listGroup]
@@ -56,16 +67,7 @@ function ProductQuantity(props: IProps) {
         setDataProQuantity(optionConcat)
     }
 
-    async function fetchSize() {
-        let data = await apiSize.getAll();
-        if (!data.isError) {
-            let lsSize: ColorVM[] = []
-            data.data?.map((item) => {
-                lsSize.push({ ...item, value: item.id, label: item.name })
-            })
-            setSizes(lsSize)
-        }
-    }
+
 
     function handleRemoveItem(name, groupId) {
         let newList = [...dataProQuantity]
@@ -192,6 +194,7 @@ function ProductQuantity(props: IProps) {
             {isShowMoreVariant && renderContent()}
             <div className="mb-3 mt-3 mx-2">
                 < FormControlLabel
+                    className="poiter"
                     control={
                         <Checkbox
                             checked={isShowMoreVariant}

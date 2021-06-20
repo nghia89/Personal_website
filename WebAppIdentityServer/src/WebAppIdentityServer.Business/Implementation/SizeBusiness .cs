@@ -44,7 +44,7 @@ namespace WebAppIdentityServer.Business.Implementation
             var data = await _context.Sizes.FirstOrDefaultAsync(a => a.Id == id);
             if (data == null)
             {
-                new AddError("có lổi xảy ra");
+                AddError("có lổi xảy ra");
             }
 
             return new SizeVM() { Id = data.Id, Name = data.Name };
@@ -54,7 +54,7 @@ namespace WebAppIdentityServer.Business.Implementation
         {
             var entity = await _context.Sizes.FirstOrDefaultAsync(a => a.Id == model.Id);
 
-            if (entity == null) { new AddError("có lổi xảy ra"); return; }
+            if (entity == null) { AddError("có lổi xảy ra"); return; }
 
             entity.Name = model.Name;
             _context.Sizes.Update(entity);

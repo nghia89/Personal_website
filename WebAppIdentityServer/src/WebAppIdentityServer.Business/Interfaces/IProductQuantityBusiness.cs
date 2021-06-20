@@ -7,9 +7,10 @@ using WebAppIdentityServer.ViewModel.Models.Product;
 
 namespace WebAppIdentityServer.Business.Interfaces
 {
-   public interface IProductQuantityBusiness
+    public interface IProductQuantityBusiness
     {
         Task Add(ProductQuantityVM model);
+        Task Delete(long id);
         Task Update(ProductQuantityVM model);
         Task<ProductQuantityVM> GetById(long id);
         Task<List<ProductQuantityVM>> GetByProductId(long productId);

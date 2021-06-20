@@ -12,6 +12,7 @@ const baseApiProductCategory = 'productCategory/';
 const baseApiSystemConfig = 'systemConfig/';
 const baseApiColor = 'color/';
 const baseApiSize = 'size/';
+const baseApiProductQuantity = 'productQuantity/'
 
 export const UploadImageForCKEditor = `${env.baseApiUrl}/api/${baseApiUpload}upload_image_ckeditor`;
 
@@ -88,4 +89,10 @@ export const apiSystemConfig = {
     create: async (body: any) => { return await POST(`${baseApiSystemConfig}add`, body) },
     update: async (body: any) => { return await PUT(`${baseApiSystemConfig}update`, body) },
     detail: async () => { return await GET(`${baseApiSystemConfig}get_by_first_system`) }
+}
+
+export const apiProductQuantity = {
+    create: async (body: any) => { return await POST(`${baseApiProductQuantity}add`, body) },
+    update: async (body: any) => { return await PUT(`${baseApiProductQuantity}update`, body) },
+    delete: async (id: number) => { return await DELETE(`${baseApiProductQuantity}delete/` + id) },
 }

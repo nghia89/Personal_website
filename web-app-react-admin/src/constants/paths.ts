@@ -1,6 +1,6 @@
 const system = '/systems/';
 const content = '/contents/';
-const systemconfig = '/setting/'
+const systemConfig = '/setting/'
 
 export const PATH = {
   error401: '/error401',
@@ -17,16 +17,17 @@ export const PATH = {
 
   //#region Content
   PRODUCT: `${content}product`,
-  PRODUCT_CREATE: `${content}product-create`,
-  PRODUCT_DETAIL: `${content}product-detail/`,
+  PRODUCT_CREATE: `${content}product_create`,
+  PRODUCT_DETAIL: `${content}product_detail/`,
+  PRODUCT_VARIANT: `${content}variant_new/`,
   CATEGORIES: `${content}categories`,
   //#endregion
 
 
   //#region Setting
-  SETTINGCONFIG: `${systemconfig}config/general`,
-  SETTING_COLOR: `${systemconfig}colors`,
-  SETTING_SIZE: `${systemconfig}sizes`,
+  SETTINGCONFIG: `${systemConfig}config/general`,
+  SETTING_COLOR: `${systemConfig}colors`,
+  SETTING_SIZE: `${systemConfig}sizes`,
   //#endregion
 
   LOGIN: '/login',

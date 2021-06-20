@@ -9,17 +9,20 @@ import { OptionVariant, IObjectSelect } from '@/constants/utilConstant';
 import { apiColor, apiSize } from '@/apis';
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import { IsNullOrEmpty } from '@/helpers/utils';
+import { useHistory } from 'react-router-dom';
+import { PATH } from '@/constants/paths';
 
 
 export interface IProps {
     handlePostQuantity: Function
     data?: productQuantityVM[]
+    productId: number
 }
 
 
 function ProductQuantity(props: IProps) {
     type NewType = ProductVM | null;
-
+    let history = useHistory();
     const [formState, setFormState] = useState<ProductVM | null>(null)
     const [dataOption, setDataOption] = useState<productQuantityVM[]>()
     const [colors, setColors] = useState<ColorVM[]>()
@@ -111,13 +114,13 @@ function ProductQuantity(props: IProps) {
 
     function renderItem(item: productQuantityVM, index) {
         return <div key={index} className="col-11 mb-3" style={{ margin: '0 auto' }}>
-            <div className="d-flex border-line-botton justify-content-center align-items-center p-3">
+            <div className="d-flex border-line-bottom justify-content-center align-items-center p-3">
                 <div className="col-10 d-flex align-items-center">
                     <span className="hmt-image-thumbnail">
                         <AddPhotoAlternateIcon />
                     </span>
-                    <div>
-                        <p style={{ margin: 0, fontSize: '14px', color: '#2962ff', fontWeight: 500 }}>
+                    <div className="cursor">
+                        <p onClick={() => history.push(`${PATH.PRODUCT_VARIANT}${props.productId}/variant/${item.id}`)} style={{ margin: 0, fontSize: '14px', color: '#2962ff', fontWeight: 500 }}>
                             {renderNamevariant(item.color?.name, item.size?.name, item.name)}
                         </p>
                         {item.sku && <p style={{ fontSize: '14px', margin: 0 }}>
@@ -141,8 +144,8 @@ function ProductQuantity(props: IProps) {
     function renderContent() {
         return <Fragment>
             <div style={{ marginLeft: '5px' }}>
-                <div className="col-12 border-line-botton pb-3 d-flex justify-content-end" style={{ display: 'grid' }}>
-                    <div className="btn btn-light pe-2">
+                <div className="col-12 border-line-bottom pb-3 d-flex justify-content-end" style={{ display: 'grid' }}>
+                    <div onClick={() => history.push(`${PATH.PRODUCT_VARIANT}${props.productId}`)} className="btn btn-light pe-2">
                         {IconEdit(14)}
                         <a className="text-label-custom ps-2">Thêm mới biến thể</a>
                     </div>

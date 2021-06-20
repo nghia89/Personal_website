@@ -39,7 +39,7 @@ namespace WebAppIdentityServer.Business.Implementation
             var data = await _systemConfigRep.GetByIdAsync(id);
             if (data == null)
             {
-                new AddError("có lổi xảy ra");
+                AddError("có lổi xảy ra");
             }
 
             return data.ToModel();
@@ -49,7 +49,7 @@ namespace WebAppIdentityServer.Business.Implementation
         {
             var entity = await _systemConfigRep.GetByIdAsync(model.Id);
 
-            if (entity == null) { new AddError("có lổi xảy ra"); return; }
+            if (entity == null) { AddError("có lổi xảy ra"); return; }
 
             entity.Description = model.Description;
             entity.Keywords = model.Keywords;

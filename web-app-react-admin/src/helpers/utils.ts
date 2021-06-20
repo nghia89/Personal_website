@@ -164,7 +164,10 @@ export function groupBy(key, array) {
 
 export function formatPrice(value) {
     if (value) {
-        let newValue = value.replaceAll(',', '')
+        let newValue = value.toString().replaceAll(',', '')
+        var regex = new RegExp("^-?[0-9][0-9,\.]+$");
+        if (!regex.test(newValue))
+            newValue = newValue.replace(/\D+/g, '');
         return newValue.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     }
 }

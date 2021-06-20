@@ -169,7 +169,8 @@ namespace WebAppIdentityServer.Business.Implementation
             {
                 return null;
             }
-
+            product.Title = String.IsNullOrEmpty(product.Title) ? product.Name : product.Title;
+            product.SeoAlias = String.IsNullOrEmpty(product.SeoAlias) ? product.Name.ToUnsignString() : product.SeoAlias;
             var entitySetvalue = await _productRepository.UpdateAsync(product.ToEntity(), product.Id);
             await _unitOfWork.CommitAsync();
             return entitySetvalue.ToModel();
