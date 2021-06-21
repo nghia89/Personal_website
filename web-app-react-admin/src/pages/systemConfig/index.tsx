@@ -153,10 +153,7 @@ function SystemConfig(props: IProps) {
     return (
         <div className="align-items-center justify-content-between mb-4 col-10 mx-auto">
             {renderHeader()}
-            {isLoading ? <div className="d-flex justify-content-center">
-                <CircularProgress />
-            </div> :
-                renderContent()}
+            {renderContent()}
         </div>
     )
 }

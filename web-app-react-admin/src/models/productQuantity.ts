@@ -10,7 +10,7 @@ export interface productQuantityVM {
     price?: number
     quantitySold?: string
     imageUrl?: string
-    allowPurchaseWhenSoldOut?: string
+    allowPurchaseWhenSoldOut?: boolean
     optionVariant?: string
     optionVariantColor?: string
     optionVariantSize?: string

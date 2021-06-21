@@ -7,7 +7,7 @@ import { validateField, IsNullOrEmpty, formatPrice } from '@/helpers/utils'
 import { validateProductVm } from '@/models/validateField';
 import { green } from '@material-ui/core/colors';
 import history from "@/history";
-import { Animations } from '@/components/loaders';
+import { Animations, Loading } from '@/components/loaders';
 import { IBreadcrumbs } from '@/models/commonM';
 import { PATH } from '@/constants/paths'
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
@@ -385,7 +385,8 @@ function ProductDetail(props: IProps) {
             <div className="col-12 mt-3">
                 {!isLoading && renderHeader()}
 
-                {isLoading ? <Animations W={100} /> : renderContent()}
+                {isLoading ? <div className="justify-content-center d-flex mt-5"><Loading /></div>
+                    : renderContent()}
                 <div className="mt-3 mb-3">
                     {!isLoading && renderHeader()}
                 </div>

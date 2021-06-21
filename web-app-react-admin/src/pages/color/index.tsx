@@ -70,10 +70,7 @@ function Colors(props: IProps) {
     return (
         <div className="align-items-center justify-content-between mb-4">
             {renderHeader()}
-            {isLoading ? <div className="d-flex justify-content-center">
-                <CircularProgress />
-            </div> :
-                renderContent()}
+            {renderContent()}
 
             {isOpenDrawer && <ColorCreateAndEdit
                 id={idSelect}

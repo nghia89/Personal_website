@@ -16,6 +16,7 @@ import { env } from '@/environments/config';
 import Select from 'react-select'
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import { IconTrash } from '@/helpers/svg';
+import { Loading } from '@/components/loaders';
 export interface IProps {
     match: { params: { id: any, quantityid: any } }
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
@@ -47,12 +48,11 @@ function VariantNew(props: IProps) {
     const [sizes, setSizes] = useState<SizeVM[]>()
     const [dataProQuantity, setDataProQuantity] = useState<productQuantityVM>({})
     const [dataProduct, setDataProduct] = useState<ProductVM>()
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
     const [isHiddenColor, setHiddenColor] = useState<boolean>(false)
     const [isHiddenSize, setHiddenSize] = useState<boolean>(false)
     const [isHiddenName, setHiddenName] = useState<boolean>(false)
     const [isShowModal, setIsShowModal] = useState<boolean>(false)
-    const [isAllowPurchaseWhenSoldOut, setAllowPurchaseWhenSoldOut] = useState<boolean>(false)
 
     let { quantityid } = props.match.params
     useEffect(() => {
@@ -85,6 +85,7 @@ function VariantNew(props: IProps) {
                 if (quantity) setDataProQuantity(quantity)
             }
             setDataProduct(rsp.data)
+            setIsLoading(false)
         }
     }
 
@@ -172,6 +173,13 @@ function VariantNew(props: IProps) {
         setDataProQuantity(newFormState);
     }
 
+    function handleOnchangeCheck(e) {
+        let target = e.target;
+        let newFormState = { ...dataProQuantity };
+        newFormState[target.name] = target.checked;
+        setDataProQuantity(newFormState);
+    }
+
     function renderLeft() {
         return <div className="col-4">
             <div className="wrapper-content mb-5">
@@ -245,8 +253,8 @@ function VariantNew(props: IProps) {
                             className="poiter"
                             control={
                                 <Checkbox
-                                    checked={isAllowPurchaseWhenSoldOut}
-                                    onChange={(e) => { setAllowPurchaseWhenSoldOut(!isAllowPurchaseWhenSoldOut); handleOnchange(e) }}
+                                    checked={dataProQuantity.allowPurchaseWhenSoldOut}
+                                    onChange={(e) => handleOnchangeCheck(e)}
                                     name="allowPurchaseWhenSoldOut"
                                     color="primary"
                                 />
@@ -377,13 +385,16 @@ function VariantNew(props: IProps) {
     return <div className="container">
         <div className="row">
             {renderHeader()}
-            {renderContent()}
+            {isLoading ? <div className="content_table_data_empty" >
+                <Loading />
+            </div>
+                : renderContent()}
             <div className="pb-3 d-flex justify-content-between align-items-center">
-                {
-                    quantityid && <div>
-                        <button onClick={async () => setIsShowModal(true)} type="button" className="mx-3 hms-btn-button btn btn-danger">Xóa biến thể</button>
-                    </div>
-                }
+
+                <div>
+                    {quantityid && <button onClick={async () => setIsShowModal(true)} type="button" className="mx-3 hms-btn-button btn btn-danger">Xóa biến thể</button>}
+                </div>
+
                 <div>
                     <button onClick={async () => await saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>
                 </div>

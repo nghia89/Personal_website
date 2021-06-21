@@ -7,6 +7,7 @@ import { formatDate, checkPermission, IsNullOrEmpty } from '@/helpers/utils';
 import { IBaseParams, ITableHead } from '@/models/index'
 import { commandId } from '@/constants/utilConstant'
 import { IconEdit, IconEmppty, IconPlushSquare, IconTrash } from '@/helpers/svg';
+import { Loading } from '../loaders';
 
 
 
@@ -136,6 +137,7 @@ export default function TableCenter(props: IProps) {
 
 
     function renderContent() {
+        let widthContent = dimensions.width - 620;
         return <Paper className={classes.root}>
             <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">
@@ -148,12 +150,12 @@ export default function TableCenter(props: IProps) {
                         </TableRow>
                     </TableHead>
                     {
-                        props.isLoading ? <div className="content_table_data_empty"><CircularProgress /></div> :
+                        props.isLoading ? <div className="content_table_data_empty mt-5" style={{ width: widthContent }}> <Loading /></div> :
                             props.data.length > 0 ?
                                 <TableBody>
                                     {renderContentTable()}
                                 </TableBody>
-                                : <div className="content_table_data_empty" style={{ width: dimensions.width - 300 }}>
+                                : <div className="content_table_data_empty" style={{ width: widthContent }}>
                                     <span>
                                         {IconEmppty(dimensions.height - 550)}
                                     </span>

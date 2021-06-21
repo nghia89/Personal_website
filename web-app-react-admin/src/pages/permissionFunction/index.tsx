@@ -77,10 +77,7 @@ function PermissionFunction(props: IProps) {
 
     return (
         <div className="align-items-center justify-content-between mb-4">
-            {isLoading ? <div className="d-flex justify-content-center">
-                <CircularProgress />
-            </div> :
-                renderContent()}
+            {renderContent()}
 
             {isOpenDrawer && <PermissionDetail
                 id={idSelect}

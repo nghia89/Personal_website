@@ -5,6 +5,7 @@ import { formatDate, checkPermission } from '@/helpers/utils';
 import { commandId } from '@/constants/utilConstant'
 import { CircularProgress, makeStyles, Switch, TablePagination, Tooltip } from '@material-ui/core';
 import { IconEdit, IconEmppty, IconTrash } from '@/helpers/svg';
+import { Loading } from '../loaders';
 
 export interface IProps {
     funcId: string,
@@ -125,8 +126,8 @@ export default function DivTable(props: IProps) {
             </div>
             <div className="divTableBody">
                 {props.isLoading ?
-                    <div className="content_table_data_empty" style={{ width: widthContent }}>
-                        <CircularProgress />
+                    <div className="content_table_data_empty mt-5" style={{ width: widthContent }}>
+                        <Loading />
                     </div>
                     :
                     props.data.length > 0 ?

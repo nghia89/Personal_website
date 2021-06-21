@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import ProductQuantity from './productQuantity'
 import { OptionVariant } from '@/constants/utilConstant';
 import { env } from '@/environments/config';
+import { Loading } from '@/components/loaders';
 export interface IProps {
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
 }

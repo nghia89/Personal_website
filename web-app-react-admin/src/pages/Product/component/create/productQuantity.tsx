@@ -172,7 +172,7 @@ function ProductQuantity(props: IProps) {
                         <label style={{ fontWeight: 700, marginBottom: '10px' }}>Nhóm thuộc tính {++i}</label>
                         {
                             quantityGroup.map((item, index) => {
-                                return <Fragment key={`variant${index}`}>
+                                return <Fragment key={`variant${index + i}`}>
                                     {renderItem(item, index, groupId)}
                                 </Fragment>
                             })
