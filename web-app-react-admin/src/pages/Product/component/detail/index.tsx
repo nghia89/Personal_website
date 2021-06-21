@@ -301,7 +301,7 @@ function ProductDetail(props: IProps) {
                         <a onClick={() => setIsShowSeo(!isShowSeo)} className="text-label-custom ps-3 font-weight-500">Chỉnh sửa SEO</a>
                     </div>
                     {isShowSeo && <div>
-                        <div className="ms-2 mb-3">
+                        <div className="ms-2 mb-3 mt-2">
                             {
                                 !formState?.title ? <div >
                                     Thiết lập các thẻ mô tả giúp khách hàng dễ dàng tìm thấy danh mục này trên công cụ tìm kiếm như Google
