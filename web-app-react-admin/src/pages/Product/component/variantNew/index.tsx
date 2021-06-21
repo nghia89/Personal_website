@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import { TextField, makeStyles, createStyles, Theme, CircularProgress, FormControlLabel, Switch, Checkbox } from '@material-ui/core';
 import { ColorVM, productQuantityVM, ProductVM, SizeVM } from '@/models/index';
 import { apiColor, apiProduct, apiProductQuantity, apiSize } from '@/apis/index';
-import { AlertDialogSlide, Editor, ImageUploadCard, TreeViewCategory, useNotification } from '@/components/index'
+import { AlertDialogSlide, Editor, ImageUploadCard, InputComponent, TreeViewCategory, useNotification } from '@/components/index'
 import { validateField, IsNullOrEmpty, groupBy, formatPrice } from '@/helpers/utils'
 import { validateProductVm } from '@/models/validateField';
 import { green } from '@material-ui/core/colors';
@@ -254,22 +254,32 @@ function VariantNew(props: IProps) {
                             label="Đồng ý đặt hàng khi đã hết hàng"
                         />
                         <div className=" col-12 col-md-6 ui-information-body pt-3">
-                            <label>Giá bán</label>
-                            <div className="next-input--has-border-left">
-                                <input type="text" name="price" onChange={(e) => handleOnchange(e)} className="next-input" placeholder="0" value={formatPrice(dataProQuantity.price)} />
-                            </div>
+                            <InputComponent
+                                label="Giá bán"
+                                name="price"
+                                onChange={(e) => handleOnchange(e)}
+                                isFormatPrice
+                                placeholder="0"
+                                value={dataProQuantity.price}
+                            />
                         </div>
                         <div className=" col-12 col-md-6 ui-information-body pt-3">
-                            <label>SKU</label>
-                            <div className="next-input--has-border-left">
-                                <input type="text" name="sku" onChange={(e) => handleOnchange(e)} className="next-input" value={dataProQuantity.sku} />
-                            </div>
+                            <InputComponent
+                                label="SKU"
+                                name="sku"
+                                onChange={(e) => handleOnchange(e)}
+                                value={dataProQuantity.sku}
+                            />
                         </div>
-                        <div className=" col-12 col-md-6 ui-information-body pt-3">
-                            <label>Số lượng</label>
-                            <div className="next-input--has-border-left">
-                                <input type="number" name="quantity" onChange={(e) => handleOnchange(e)} className="next-input" placeholder="0" value={dataProQuantity.quantity} />
-                            </div>
+                        <div className="col-12 col-md-6 ui-information-body pt-3">
+                            <InputComponent
+                                label="Số lượng"
+                                name="quantity"
+                                onChange={(e) => handleOnchange(e)}
+                                placeholder="0"
+                                type='number'
+                                value={dataProQuantity.quantity}
+                            />
                         </div>
                     </div>
                 </div>

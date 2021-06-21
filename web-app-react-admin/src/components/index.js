@@ -10,10 +10,11 @@ import ImageUploadCard from './imageUploadCard'
 import Editor from './editor/index'
 import TreeViewCategory from './treeViewCategory'
 import SearchComponent from './search'
+import InputComponent from './common/input'
 
 
 export {
     TableCenter, AlertDialogSlide, DrawerLayout, DatePickers, NotificationBox,
     NotificationProvider, useNotification, DivTable, ImageUploadCard, Editor,
-    TreeViewCategory, SearchComponent
+    TreeViewCategory, SearchComponent, InputComponent
 };
