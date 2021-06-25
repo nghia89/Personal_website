@@ -20,7 +20,7 @@ namespace WebAppIdentityServer.Business.Mappers
                     Content = model.Content,
                     Description = model.Description,
                     Id = model.Id,
-                    Image = model.Image,
+                    Image = model.ProductImages.Any() ? model.ProductImages.OrderBy(x => x.SortOrder).FirstOrDefault().Path : null,
                     Name = model.Name,
                     OriginalPrice = model.OriginalPrice,
                     Price = model.Price,
