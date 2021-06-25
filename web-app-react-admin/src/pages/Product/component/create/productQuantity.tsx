@@ -1,11 +1,8 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { TextField, makeStyles, createStyles, Theme } from '@material-ui/core';
-import { ColorVM, productQuantityVM, ProductVM, SizeVM } from '@/models/index';
-import { useNotification } from '@/components/index'
+import { ColorVM, productQuantityVM, SizeVM } from '@/models/index';
 import { IconPlushSquare, IconTrash } from '@/helpers/svg'
-import { green } from '@material-ui/core/colors';
 import Select from 'react-select'
-import { OptionVariant, IObjectSelect } from '@/constants/utilConstant';
+import { OptionVariant } from '@/constants/utilConstant';
 import { apiColor, apiSize } from '@/apis';
 import { FormControlLabel } from '@material-ui/core';
 import { Checkbox } from '@material-ui/core';
@@ -20,7 +17,6 @@ function ProductQuantity(props: IProps) {
     const [sizes, setSizes] = useState<SizeVM[]>()
     const [dataProQuantity, setDataProQuantity] = useState<productQuantityVM[]>(initOption)
     const [listGroup, setListGroup] = useState([groupId])
-    const [isLoadingImg, setisLoadingImg] = useState<Boolean>(false)
     const [isShowMoreVariant, setIsShowMoreVariant] = useState<boolean>(false)
 
     useEffect(() => {

@@ -1,10 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { TextField, makeStyles, createStyles, Theme, CircularProgress, FormControlLabel, Switch, Checkbox } from '@material-ui/core';
+import { makeStyles, createStyles, Theme, Checkbox, FormControlLabel } from '@material-ui/core';
 import { ColorVM, productQuantityVM, ProductVM, SizeVM } from '@/models/index';
 import { apiColor, apiProduct, apiProductQuantity, apiSize } from '@/apis/index';
-import { AlertDialogSlide, Editor, ImageUploadCard, InputComponent, TreeViewCategory, useNotification } from '@/components/index'
-import { validateField, IsNullOrEmpty, groupBy, formatPrice } from '@/helpers/utils'
-import { validateProductVm } from '@/models/validateField';
+import { AlertDialogSlide, InputComponent, useNotification } from '@/components/index'
+import { IsNullOrEmpty, validateField } from '@/helpers/utils'
 import { green } from '@material-ui/core/colors';
 import history from "@/history";
 import { IBreadcrumbs } from '@/models/commonM';
@@ -12,11 +11,11 @@ import { PATH } from '@/constants/paths'
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
 import { OptionVariant } from '@/constants/utilConstant';
-import { env } from '@/environments/config';
 import Select from 'react-select'
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import { IconTrash } from '@/helpers/svg';
 import { Loading } from '@/components/loaders';
+import { validateProductQuantityVm } from '@/models/validateField';
 export interface IProps {
     match: { params: { id: any, quantityid: any } }
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
@@ -110,23 +109,34 @@ function VariantNew(props: IProps) {
     }
 
     async function saveData() {
-        if (quantityid) {
-            await apiProductQuantity.update(dataProQuantity).then((rsp) => {
-                if (!rsp.isError) {
-                    dispatch('SUCCESS', 'Cập nhật biến thể thành công.')
-                    fetchDetail()
-                }
-            })
-        } else {
-            dataProQuantity.productId = props.match.params.id;
-            await apiProductQuantity.create(dataProQuantity).then((rsp) => {
-                if (!rsp.isError) {
-                    dispatch('SUCCESS', 'Tạo mới biến thể thành công.')
-                    fetchDetail()
-                }
-            })
+        if (!validateFields()) {
+            if (quantityid) {
+                await apiProductQuantity.update(dataProQuantity).then((rsp) => {
+                    if (!rsp.isError) {
+                        dispatch('SUCCESS', 'Cập nhật biến thể thành công.')
+                        fetchDetail()
+                    }
+                })
+            } else {
+                dataProQuantity.productId = props.match.params.id;
+                await apiProductQuantity.create(dataProQuantity).then((rsp) => {
+                    if (!rsp.isError) {
+                        dispatch('SUCCESS', 'Tạo mới biến thể thành công.')
+                        fetchDetail()
+                    }
+                })
+            }
         }
     }
+
+    function validateFields() {
+        let messError = validateField(validateProductQuantityVm, refs);
+        if (messError)
+            dispatch('ERROR', messError)
+        return messError
+    }
+
+
 
     function handleOnchangeValue(selectedOption, isColor, isSize, target) {
         let newDataQuantity = { ...dataProQuantity }
@@ -313,6 +323,7 @@ function VariantNew(props: IProps) {
                                             <div className={!quantityid ? "col-11 pt-3" : "col-12 pt-3"}>
                                                 <label>Màu sắc</label>
                                                 <Select
+                                                    ref={(r) => refs['color'] = r}
                                                     className="basic-single "
                                                     placeholder="Chọn giá trị..."
                                                     classNamePrefix="select"
@@ -335,6 +346,7 @@ function VariantNew(props: IProps) {
                                         <div className={!quantityid ? "col-11 pt-3" : "col-12 pt-3"}>
                                             <label>Kích thước</label>
                                             <Select
+                                                ref={(r) => refs['size'] = r}
                                                 className="basic-single "
                                                 placeholder="Chọn giá trị..."
                                                 classNamePrefix="select"
@@ -355,7 +367,9 @@ function VariantNew(props: IProps) {
                                             <div className={!quantityid ? "col-11 pt-3" : "col-12 pt-3"}>
                                                 <label>Tiêu đề</label>
                                                 <div className="next-input--has-border-left">
-                                                    <input type="text" name="name" onChange={(e) => handleOnchangeValue(null, null, null, e.target)} className="next-input" placeholder=" " step="1" value={dataProQuantity.name} />
+                                                    <input ref={(r) => refs['name'] = r} type="text" name="name"
+                                                        onChange={(e) => handleOnchangeValue(null, null, null, e.target)}
+                                                        className="next-input" placeholder=" " value={dataProQuantity.name} />
                                                 </div>
                                             </div>
                                             {!quantityid && <div className="col-1 pt-3" style={{ marginTop: '30px' }}>

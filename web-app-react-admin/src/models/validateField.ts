@@ -32,3 +32,9 @@ export const validateProductCateVm = [
     { name: 'name', mess: 'tên danh mục' },
     { name: 'code', mess: 'mã danh mục' },
 ] as Array<ValidateVm>
+
+export const validateProductQuantityVm = [
+    { name: 'color', mess: 'Vui lòng nhập màu.' },
+    { name: 'size', mess: 'Vui lòng nhập kích thước.' },
+    { name: 'name', mess: 'Vui lòng nhập tiêu đề.' }
+] as Array<ValidateVm>

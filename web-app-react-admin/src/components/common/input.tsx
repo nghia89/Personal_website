@@ -12,6 +12,7 @@ interface IProps {
     type?: 'text' | 'number' | "email" | 'password'
     value: any
     isFormatPrice?: boolean
+    ref?: Function
 }
 
 export default function InputComponent(props: IProps) {
@@ -22,7 +23,10 @@ export default function InputComponent(props: IProps) {
         <label>{label} {required && <span className="required">*</span>} </label>
         <div className="next-input--has-border-left">
             {
-                <input type={type ? type : 'text'} name={name} onChange={(e) => props.onChange && props.onChange(e)} className="next-input" placeholder={placeholder} value={isFormatPrice ? formatPrice(value) : value} />
+                <input ref={(r) => props.ref && props.ref(r)} type={type ? type : 'text'}
+                    name={name} onChange={(e) => props.onChange && props.onChange(e)}
+                    className="next-input" placeholder={placeholder}
+                    value={isFormatPrice ? formatPrice(value) : value} />
             }
         </div>
     </React.Fragment>

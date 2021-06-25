@@ -61,7 +61,7 @@ function ProductDetail(props: IProps) {
 
     useEffect(() => {
         if (formState?.productCategoryId && formState?.id && productIdCurrent != formState?.productCategoryId) {
-            genarateCode()
+            generateCode()
         } else {
             handleOnchangeValue(productIdCurrent, 'productCategoryId')
             handleOnchangeValue(productCodeCurrent, 'code')
@@ -83,7 +83,7 @@ function ProductDetail(props: IProps) {
         })
     }
 
-    async function genarateCode() {
+    async function generateCode() {
         await apiProductCategory.getById(formState?.productCategoryId).then(async (rsp) => {
             if (!rsp.isError) {
                 await apiProduct.getGenarateCode(rsp.data.code).then((rsp) => {
@@ -167,7 +167,7 @@ function ProductDetail(props: IProps) {
     function renderContentGeneral() {
         return <div className="row pt-3 pb-3">
             <div className="col-2">
-                <h6 className="ui-information-title font-weight-bold">Nội dung chung</h6>
+                <h6 className="ui-information-title font-weight-bold">Thông tin chung</h6>
                 <div>
                     <label>Trạng thái <span className="text-danger">*</span></label>
                     <Switch

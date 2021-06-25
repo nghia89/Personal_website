@@ -48,7 +48,7 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpGet]
-        [Route("genarate_code/{code}")]
+        [Route("generate_code/{code}")]
         [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.VIEW)]
         public async Task<IActionResult> GenarateCode(string code)
         {
@@ -72,7 +72,7 @@ namespace WebAppIdentityServer.Api.Controllers
         [ApiValidationFilter]
         public async Task<IActionResult> Post([FromBody] ProductVM model)
         {
-            ProductVM data = await _productBusiness.Add(model);
+            long data = await _productBusiness.Add(model);
             return ToOkResult(data);
         }
 

@@ -89,6 +89,7 @@ export function validateField(arrayField: Array<ValidateVm>, refs) {
     if (arrayField) {
         let arrayLength = arrayField.length;
         for (let index = 0; index < arrayLength; index++) {
+            if (refs[arrayField[index].name] == null) continue;
             const value = refs[arrayField[index].name]?.value
             const item = arrayField[index];
             switch (item.name) {

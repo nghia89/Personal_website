@@ -1,20 +1,19 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import { TextField, makeStyles, createStyles, Theme, CircularProgress, FormControlLabel, Switch, Checkbox } from '@material-ui/core';
 import { productQuantityVM, ProductVM } from '@/models/index';
-import { apiProduct, apiProductCategory } from '@/apis/index';
-import { Editor, ImageUploadCard, TreeViewCategory, useNotification } from '@/components/index'
+import { apiProduct, apiProductCategory, apiUploadFile } from '@/apis/index';
+import { Editor, ImageUploadCard, TreeViewCategory, useNotification, FileUpload } from '@/components/index'
 import { validateField, IsNullOrEmpty, groupBy, formatPrice } from '@/helpers/utils'
 import { validateProductVm } from '@/models/validateField';
 import { green } from '@material-ui/core/colors';
 import history from "@/history";
-import { IBreadcrumbs } from '@/models/commonM';
+import { Attachments, IBreadcrumbs } from '@/models/commonM';
 import { PATH } from '@/constants/paths'
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
 import ProductQuantity from './productQuantity'
 import { OptionVariant } from '@/constants/utilConstant';
 import { env } from '@/environments/config';
-import { Loading } from '@/components/loaders';
 export interface IProps {
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
 }
@@ -45,6 +44,7 @@ function ProductCreate(props: IProps) {
     const [pathImage, setPathImage] = useState<string>("")
     const [isLoadingImg, setisLoadingImg] = useState<Boolean>(false)
     const [isShowSeo, setIsShowSeo] = useState<Boolean>(false)
+    const [listImage, setListImage] = useState<Array<Attachments>>([])
 
     useEffect(() => {
         props.setBreadcrumb([
@@ -84,13 +84,16 @@ function ProductCreate(props: IProps) {
             var lsQuantity = mapProQuantityModel()
             if (lsQuantity[0] && formState)
                 formState.productQuantity = lsQuantity
-            await apiProduct.create(formState).then((rsp) => {
+            await apiProduct.create(formState).then(async (rsp) => {
                 if (!rsp.isError) {
                     dispatch('SUCCESS', 'Thêm sản phẩm thành công.')
-                    history.goBack()
-                    // props.handleClose()
-                    // props.handleReload()
-                    return
+                    if (listImage[0]) {
+                        const formData = new FormData();
+                        listImage.forEach((file) => formData.append('File', file.path))
+                        let rspImg = await apiUploadFile.UploadProductImage(rsp.data, formData);
+                        if (!rspImg.isError)
+                            history.push(`${PATH.PRODUCT_DETAIL}${rsp.data}`)
+                    } else history.push(`${PATH.PRODUCT_DETAIL}${rsp.data}`)
                 }
             })
         }
@@ -149,9 +152,11 @@ function ProductCreate(props: IProps) {
         let messError = validateField(validateProductVm, refs);
         if (messError)
             dispatch('ERROR', messError)
-        else if (!formState?.productCategoryId)
+        else if (!formState?.productCategoryId) {
             dispatch('ERROR', 'Vui lòng chọn danh mục sản phẩm')
-        else if (IsNullOrEmpty(pathImage)) dispatch('ERROR', "Vui lòng thêm ảnh đại diện sản phẩm.")
+            return true
+        }
+        // else if (IsNullOrEmpty(pathImage)) dispatch('ERROR', "Vui lòng thêm ảnh đại diện sản phẩm.")
         return messError
 
     }
@@ -185,7 +190,7 @@ function ProductCreate(props: IProps) {
     function renderContentGeneral() {
         return <div className="row pt-3 pb-3">
             <div className="col-2">
-                <h6 className="font-weight-bold ui-information-title">Nội dung chung</h6>
+                <h6 className="font-weight-bold ui-information-title">Thông tin chung</h6>
                 <div>
                     <label>Trạng thái <span className="text-danger">*</span></label>
                     <Switch
@@ -261,7 +266,7 @@ function ProductCreate(props: IProps) {
                             </div>
                         </div>
 
-                        <div className="row card_select_image" >
+                        {/* <div className="row card_select_image" >
 
                             <div className="col-6">
                                 <h6 className="color-black">Ảnh đại diện *</h6>
@@ -278,7 +283,7 @@ function ProductCreate(props: IProps) {
 
                                 }
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
@@ -286,6 +291,26 @@ function ProductCreate(props: IProps) {
 
         </div>
     }
+
+
+    function renderProductImages() {
+        return <div className="row  pt-3 pb-3">
+            <div className="col-2">
+                <h6 className="color-black font-weight-bold ui-information-title">Hình Ảnh Sản Phẩm</h6>
+            </div>
+            <div className="col-10">
+                <div className="wrapper-content" style={{ paddingLeft: '15px', paddingRight: '15px' }}>
+                    <FileUpload
+                        files={listImage}
+                        multiple
+                        onchangeFiles={(files) => console.log(files)}
+                        accept=".jpg,.png,.jpeg"
+                    />
+                </div>
+            </div>
+        </div>
+    }
+
 
     function renderContentProduct() {
         return <div className="row  pt-3 pb-3">
@@ -399,6 +424,7 @@ function ProductCreate(props: IProps) {
         return <Fragment>
             <form className={classes.root} noValidate autoComplete="off">
                 {renderContentGeneral()}
+                {renderProductImages()}
                 {renderContentProduct()}
                 {renderProductQuantity()}
                 {renderContentSeo()}

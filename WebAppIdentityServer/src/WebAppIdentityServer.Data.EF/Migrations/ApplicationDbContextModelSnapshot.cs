@@ -905,6 +905,9 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                     b.Property<string>("Extension")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("FileName")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Path")
                         .HasColumnType("longtext");
 
@@ -1389,7 +1392,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.ProductImages", b =>
                 {
                     b.HasOne("WebAppIdentityServer.Data.EF.Entities.Product", "Product")
-                        .WithMany()
+                        .WithMany("ProductImages")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1452,6 +1455,8 @@ namespace WebAppIdentityServer.Data.EF.Migrations
 
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.Product", b =>
                 {
+                    b.Navigation("ProductImages");
+
                     b.Navigation("ProductQuantity");
 
                     b.Navigation("ProductTags");

@@ -19,4 +19,21 @@ export interface ProductVM {
     productCategoryName?: number
     status?: number
     productQuantity?: productQuantityVM[]
+    productImages?: ProductImageVM[]
+}
+
+export interface ProductImageVM {
+    id: number
+    productId: number
+    fileName: string
+    path: string
+    size: number
+    extension: string
+    type: string
+    sortOrder: number
+    caption: string
+    createdBy: string
+    updatedBy: string
+    dateCreated: Date
+    dateModified: Date
 }

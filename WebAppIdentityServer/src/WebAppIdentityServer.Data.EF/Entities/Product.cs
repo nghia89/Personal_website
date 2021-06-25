@@ -23,10 +23,9 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public string SeoAlias { get; set; }
         public string SeoKeywords { get; set; }
         public string SeoDescription { get; set; }
-
         public long ProductCategoryId { set; get; }
         public ProductCategory ProductCategory { set; get; }
-
+        public IEnumerable<ProductImages> ProductImages { set; get; }
         public IEnumerable<ProductTag> ProductTags { set; get; }
         public IEnumerable<ProductQuantity> ProductQuantity { set; get; }
         public string CreatedBy { get; set; }

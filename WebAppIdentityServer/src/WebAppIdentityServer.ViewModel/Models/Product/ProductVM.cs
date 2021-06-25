@@ -25,6 +25,7 @@ namespace WebAppIdentityServer.ViewModel.Models.Product
         public string ProductCategoryName { set; get; }
         public ProductCategoryVM ProductCategory { set; get; }
         public List<ProductQuantityVM> ProductQuantity { set; get; }
+        public List<ProductImageVM> ProductImages { set; get; }
         public Status Status { get; set; }
         public DateTime DateCreated { get; set; }
     }

@@ -17,7 +17,8 @@ const baseApiProductQuantity = 'productQuantity/'
 export const UploadImageForCKEditor = `${env.baseApiUrl}/api/${baseApiUpload}upload_image_ckeditor`;
 
 export const apiUploadFile = {
-    UploadImage: async (body: any) => { return await POST(`${baseApiUpload}upload_image`, body) }
+    UploadImage: async (body: any) => { return await POST(`${baseApiUpload}upload_image`, body) },
+    UploadProductImage: async (id: number, body: any) => { return await POST(`${baseApiUpload}product/${id}/images`, body) }
 }
 
 export const apiUser = {
@@ -72,7 +73,7 @@ export const apiProduct = {
     create: async (body: any) => { return await POST(`${baseApiProduct}add`, body) },
     update: async (body: any) => { return await PUT(`${baseApiProduct}update`, body) },
     delete: async (id: number) => { return await DELETE(`${baseApiProduct}delete/` + id) },
-    getGenarateCode: async (code: string) => { return await GET(`${baseApiProduct}genarate_code/` + code) }
+    getGenarateCode: async (code: string) => { return await GET(`${baseApiProduct}generate_code/` + code) }
 }
 
 export const apiProductCategory = {

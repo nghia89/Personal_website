@@ -9,13 +9,10 @@ namespace WebAppIdentityServer.Data.EF.Entities
     {
         public long Id { get; set; }
         public long ProductId { get; set; }
-
-        [ForeignKey("ProductId")]
-        public  Product Product { get; set; }
-
+        public Product Product { get; set; }
+        public string FileName { get; set; }
         public string Path { get; set; }
         public int Size { get; set; }
-        public string Extension { get; set; }
         public string Type { get; set; }
         public int SortOrder { get; set; }
         [StringLength(250)]

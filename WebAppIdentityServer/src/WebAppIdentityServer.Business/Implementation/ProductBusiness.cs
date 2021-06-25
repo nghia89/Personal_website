@@ -24,12 +24,13 @@ namespace WebAppIdentityServer.Business.Implementation
         private readonly IProductRepository _productRepository;
         private readonly IProductQuantityRepository _productQuantityRep;
         private readonly IProductCategoryRepository _productCategoryRep;
+        private readonly IProductImageBusiness _productImageBus;
         private readonly ITableRecordRepository _tableRecordRep;
         private readonly ITagRepository _tagRepository;
         private readonly IUnitOfWork _unitOfWork;
         public ProductBusiness(IProductRepository productRepository, IProductQuantityRepository productQuantityRep,
             ITagRepository tagRepository, IUnitOfWork unitOfWork, IUserResolverService userResolver,
-            IProductCategoryRepository productCategoryRep,
+            IProductCategoryRepository productCategoryRep, IProductImageBusiness productImageBus,
              ITableRecordRepository tableRecordRep) : base(userResolver)
         {
             this._productRepository = productRepository;
@@ -39,9 +40,10 @@ namespace WebAppIdentityServer.Business.Implementation
             this._tableRecordRep = tableRecordRep;
             this._tableRecordRep = tableRecordRep;
             this._productCategoryRep = productCategoryRep;
+            this._productImageBus = productImageBus;
         }
 
-        public async Task<ProductVM> Add(ProductVM model)
+        public async Task<long> Add(ProductVM model)
         {
             List<ProductTag> productTags = new List<ProductTag>();
             var product = model.ToEntity();
@@ -82,7 +84,7 @@ namespace WebAppIdentityServer.Business.Implementation
             await _unitOfWork.CommitAsync();
 
             await AddQuantityAsync(product.Id, model.ProductQuantity);
-            return model;
+            return product.Id;
         }
 
         public async Task AddQuantityAsync(long productId, List<ProductQuantityVM> quantities)
@@ -135,8 +137,12 @@ namespace WebAppIdentityServer.Business.Implementation
         {
             var data = await _productRepository.GetByIdAsync(id);
             var productQuantity = await _productQuantityRep.getByProductIds(id);
+            var productImages = await _productImageBus.GetByProductId(id);
             data.ProductQuantity = productQuantity;
-            return data.ToModel();
+
+            var dataModel = data.ToModel();
+            dataModel.ProductImages = productImages;
+            return dataModel;
         }
 
         public async Task<List<ProductVM>> GetProductByCateId(long cateId)

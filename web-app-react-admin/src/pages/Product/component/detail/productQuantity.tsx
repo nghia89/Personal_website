@@ -21,92 +21,20 @@ export interface IProps {
 
 
 function ProductQuantity(props: IProps) {
-    type NewType = ProductVM | null;
     let history = useHistory();
-    const [formState, setFormState] = useState<ProductVM | null>(null)
-    const [dataOption, setDataOption] = useState<productQuantityVM[]>()
-    const [colors, setColors] = useState<ColorVM[]>()
-    const [sizes, setSizes] = useState<SizeVM[]>()
     const [dataProQuantity, setDataProQuantity] = useState<productQuantityVM[]>([])
 
     useEffect(() => {
-        fetchColor()
-        fetchSize()
         setDataProQuantity(props.data ? props.data : [])
     }, [])
 
-    async function fetchColor() {
-        let data = await apiColor.getAll();
-        if (!data.isError) {
-            let lsColor: ColorVM[] = []
-            data.data?.map((item) => {
-                lsColor.push({ ...item, value: item.id, label: item.name })
-            })
-            setColors(lsColor)
-        }
-    }
 
-    function handlePushOption() {
-        let newOptionSelect = [...dataProQuantity]
-        newOptionSelect.push({ optionVariant: OptionVariant[0].value })
-        setDataProQuantity(newOptionSelect)
-    }
-
-    async function fetchSize() {
-        let data = await apiSize.getAll();
-        if (!data.isError) {
-            let lsSize: ColorVM[] = []
-            data.data?.map((item) => {
-                lsSize.push({ ...item, value: item.id, label: item.name })
-            })
-            setSizes(lsSize)
-        }
-    }
-
-    function handleRemoveItem(index) {
-        let newList = [...dataProQuantity]
-        if (index > -1 && newList.length > 1) {
-            newList.splice(index, 1)
-            setDataProQuantity(newList)
-        }
-        handlePostQuantity(newList)
-    }
-
-    function handlePostQuantity(newList) {
-        props.handlePostQuantity(newList)
-    }
-
-
-    function handleChangeOption(selectedOption, index) {
-        let newOptionSelect = [...dataProQuantity]
-        newOptionSelect[index].optionVariant = selectedOption.value
-        setDataProQuantity(newOptionSelect)
-    }
-
-    function handleOnchangeValue(selectedOption, index, isColor, isSize, target) {
-        let newOptionSelect = [...dataProQuantity]
-        if (isColor) {
-            newOptionSelect[index].colorId = selectedOption.value
-            newOptionSelect[index].color = { id: selectedOption.value, name: selectedOption.label }
-        }
-        else if (isSize) {
-            newOptionSelect[index].sizeId = selectedOption.value
-            newOptionSelect[index].size = { id: selectedOption.value, name: selectedOption.label }
-        } else if (target) {
-            newOptionSelect[index][target.name] = target.value
-        }
-
-        setDataProQuantity(newOptionSelect)
-        handlePostQuantity(newOptionSelect)
-
-    }
-
-    function renderNamevariant(colorName, sizename, name) {
+    function renderNameVariant(colorName, sizeName, name) {
         let text = '';
         if (!IsNullOrEmpty(colorName))
             text += colorName
-        if (!IsNullOrEmpty(sizename))
-            text += IsNullOrEmpty(text) ? sizename : ` / ${sizename}`
+        if (!IsNullOrEmpty(sizeName))
+            text += IsNullOrEmpty(text) ? sizeName : ` / ${sizeName}`
         if (!IsNullOrEmpty(name))
             text += IsNullOrEmpty(text) ? name : ` / ${name}`
         return text;
@@ -121,7 +49,7 @@ function ProductQuantity(props: IProps) {
                     </span>
                     <div className="cursor">
                         <p onClick={() => history.push(`${PATH.PRODUCT_VARIANT}${props.productId}/variant/${item.id}`)} style={{ margin: 0, fontSize: '14px', color: '#2962ff', fontWeight: 500 }}>
-                            {renderNamevariant(item.color?.name, item.size?.name, item.name)}
+                            {renderNameVariant(item.color?.name, item.size?.name, item.name)}
                         </p>
                         {item.sku && <p style={{ fontSize: '14px', margin: 0 }}>
                             SKU: {item.sku}
@@ -134,7 +62,6 @@ function ProductQuantity(props: IProps) {
 
                 </div>
             </div>
-
         </div>
     }
 

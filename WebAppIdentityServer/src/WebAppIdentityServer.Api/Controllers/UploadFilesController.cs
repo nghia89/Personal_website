@@ -2,14 +2,22 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using WebAppIdentityServer.Business.Interfaces;
+using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.Common;
+using WebAppIdentityServer.ViewModel.Models.Product;
 
 namespace WebAppIdentityServer.Api.Controllers
 {
@@ -17,10 +25,15 @@ namespace WebAppIdentityServer.Api.Controllers
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IOptions<AppSettingConfig> _config;
-        public UploadFilesController(IWebHostEnvironment webHostEnvironment, IOptions<AppSettingConfig> config)
+        private readonly IProductImageBusiness _productImage;
+        private readonly ILogger<FunctionsController> _logger;
+        public UploadFilesController(IWebHostEnvironment webHostEnvironment, IOptions<AppSettingConfig> config, IProductImageBusiness productImage,
+         ILogger<FunctionsController> logger)
         {
             _webHostEnvironment = webHostEnvironment;
             _config = config;
+            _productImage = productImage;
+            _logger = logger;
         }
 
 
@@ -41,14 +54,14 @@ namespace WebAppIdentityServer.Api.Controllers
                     }
                 });
             }
-            else if (upload.Length > (1024 * 1024 * 2))
+            else if (upload.Length > (1024 * 1024 * 5))
             {
                 return ToOkResult(new
                 {
                     uploaded = false,
                     error = new
                     {
-                        message = "Tệp này hơn 2MB. Xin lỗi, nó phải nhỏ hơn hoặc bằng 2MB."
+                        message = "Tệp này hơn 5MB. Xin lỗi, nó phải nhỏ hơn hoặc bằng 5MB."
                     }
                 });
             }
@@ -101,54 +114,12 @@ namespace WebAppIdentityServer.Api.Controllers
             }
 
         }
+
         [HttpPost]
         [Route("upload_image")]
-        public async Task<IActionResult> UploadImage([FromForm] IFormFile file)
+        public async Task<IActionResult> UploadImage()
         {
-            DateTime now = DateTime.Now;
-            if (file == null)
-            {
-                return new BadRequestObjectResult(file);
-            }
-            else
-            {
-                var getFilename = ContentDispositionHeaderValue
-                                .Parse(file.ContentDisposition)
-                                .FileName
-                                .Trim('"').ToLower();
-
-                var filename = Regex.Replace(getFilename, @"\s+", "_");
-
-                var imageFolder = $@"\uploaded\images\{now.ToString("yyyyMMdd")}";
-
-                string folder = _webHostEnvironment.WebRootPath + imageFolder;
-                var pathCombine = Path.Combine(imageFolder, filename).Replace(@"\", @"/");
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-
-                }
-                var linkFullFile = folder + @"\" + filename;
-                if (System.IO.File.Exists(linkFullFile))
-                {
-                    return ToOkResult($"{_config.Value.BaseUrl}{pathCombine}");
-                }
-                else
-                {
-                    string filePath = Path.Combine(folder, filename);
-                    using (FileStream fs = System.IO.File.Create(filePath))
-                    {
-                        await file.CopyToAsync(fs);
-                        await fs.FlushAsync();
-                        return ToOkResult($"{_config.Value.BaseUrl}{pathCombine}");
-                    }
-                }
-            }
-        }
-        [HttpPost]
-        [Route("upload_image_mutiline")]
-        public async Task<IActionResult> UploadImage([FromForm] IList<IFormFile> files)
-        {
+            var files = Request.Form.Files;
             DateTime now = DateTime.Now;
             if (files.Count == 0)
             {
@@ -199,7 +170,122 @@ namespace WebAppIdentityServer.Api.Controllers
                 return ToOkResult(listFile);
             }
         }
+
+
+        [HttpPost]
+        [Route("product/{id}/images")]
+        public async Task<IActionResult> UploadProductImage(long id)
+        {
+            var files = Request.Form.Files;
+            if (!files.Any())
+            {
+                return ToOkResult(true, "Vui lòng chọn ảnh.");
+            }
+            else
+            {
+                int index = 1;
+                foreach (var file in files)
+                {
+                    DateTime now = DateTime.Now;
+                    var getFilename = ContentDispositionHeaderValue
+                                        .Parse(file.ContentDisposition)
+                                        .FileName
+                                        .Trim('"').ToLower();
+
+                    var filename = Regex.Replace(getFilename, @"\s+", "_");
+
+                    var imageFolder = $@"uploaded\products\{id}";
+                    var rootFile = _webHostEnvironment.WebRootPath + @"\";
+                    string folder = $"{rootFile}{imageFolder}";
+                    var pathCombine = Path.Combine(imageFolder, filename).Replace(@"\", @"/");
+                    if (!Directory.Exists(folder))
+                    {
+                        Directory.CreateDirectory(folder);
+                    }
+
+                    string filePath = Path.Combine(folder, filename);
+                    FileStream fs = null;
+                    using (fs = System.IO.File.Create(filePath))
+                    {
+                        await file.CopyToAsync(fs);
+                        await fs.FlushAsync();
+                    }
+                    await ResizingImageUpload(file, folder, filename);
+                    await _productImage.Add(new ProductImageVM()
+                    {
+                        ProductId = id,
+                        FileName = filename,
+                        Path = $"{_config.Value.BaseUrl}{pathCombine}",
+                        Size = (int)file.Length,
+                        SortOrder = index,
+                    });
+                    index++;
+                }
+
+                return ToOkResult();
+            }
+        }
+
+
+        public async Task ResizingImageUpload(IFormFile file, string folder, string filename)
+        {
+
+            var imageSizes = new List<ImageSize>()
+                        {
+                            new ImageSize("compact", 200, 200),
+                            new ImageSize("small", 400, 400),
+                            new ImageSize("medium", 650, 650),
+                            new ImageSize("large", 1000, 1000)
+                        };
+
+            foreach (var imgSize in imageSizes)
+            {
+                _logger.LogTrace($"... Resizing to {imgSize.Key}");
+
+                var newFileName = Regex.Replace(filename, @"\.", $"_{imgSize.Key}.");
+                string filePath = Path.Combine(folder, newFileName);
+
+                using (var image = await Image.LoadAsync(file.OpenReadStream()))
+                {
+                    using (var outStream = new MemoryStream())
+                    {
+                        image.Mutate(x => x.Resize(new ResizeOptions
+                        {
+                            Mode = ResizeMode.Max,
+                            Position = AnchorPositionMode.Center,
+                            Size = ResizingImage(image, imgSize.Width, imgSize.Height)
+                        }));
+                        await image.SaveAsync(filePath);
+                    }
+                }
+                _logger.LogTrace($"... Resized and saved file {imgSize.Key}");
+            }
+            return;
+        }
+
+        public Size ResizingImage(Image image, int maxWidth, int maxHeight)
+        {
+            if (image.Width > maxWidth || image.Height > maxHeight)
+            {
+                double widthRadio = (double)image.Width / (double)maxWidth;
+                double heightRadio = (double)image.Height / (double)maxHeight;
+                double radio = Math.Max(widthRadio, heightRadio);
+
+                int newWidth = (int)(image.Width / radio);
+                int newHeight = (int)(image.Height / radio);
+                return new Size { Height = newHeight, Width = newWidth };
+            }
+            else
+            {
+                return new Size { Height = image.Height, Width = image.Width };
+            }
+        }
+
     }
+
+
+
+
 
     public class FileImageModel
     {

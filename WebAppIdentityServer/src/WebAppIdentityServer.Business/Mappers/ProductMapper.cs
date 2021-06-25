@@ -36,7 +36,8 @@ namespace WebAppIdentityServer.Business.Mappers
                     Tags = model.Tags,
                     ViewCount = model.ViewCount,
                     DateCreated = model.DateCreated,
-                    ProductQuantity = model.ProductQuantity?.Select(x => x.ToModel()).ToList()
+                    ProductQuantity = model.ProductQuantity?.Select(x => x.ToModel()).ToList(),
+                    ProductImages = model.ProductImages?.Select(x => x.ToModel()).ToList()
                 };
             }
         }
