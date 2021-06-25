@@ -19,6 +19,12 @@ interface IProps {
   width?: '10%' | '20%' | '30%' | '40%' | '50%' | '60%' | '70%'
 }
 
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & { children?: React.ReactElement<any, any> },
+  ref: React.Ref<unknown>,
+) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
 export default function AlertDialogSlide(props: IProps) {
   const useStyles = makeStyles(theme => ({
     dialogPaper: {
@@ -30,11 +36,12 @@ export default function AlertDialogSlide(props: IProps) {
   let { isOpen, note, handleClose, handleConfirm, outClose, title } = props;
   return (
     <Dialog
+      TransitionComponent={Transition}
       classes={{ paper: classes.dialogPaper }}
       open={isOpen}
       onClose={outClose ? handleClose() : null}
-      aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">{title ? title : 'Thông báo'}</DialogTitle>
+      aria-labelledby="simple-dialog-title">
+      <DialogTitle id="simple-dialog-title">{title ? title : 'Thông báo'}</DialogTitle>
       <DialogContent>
         <div style={{ overflowY: 'hidden', flex: 'auto' }}>
           {note}
@@ -42,13 +49,13 @@ export default function AlertDialogSlide(props: IProps) {
         </div>
 
       </DialogContent>
-      <DialogActions>
+      <DialogActions className="mt-2 mb-2">
         <button onClick={() => handleConfirm()} type="button" className="btn btn-primary">
           Xác nhận
-          </button >
+        </button >
         <button onClick={() => handleClose()} type="button" className="btn btn-danger">
           Đóng
-          </button >
+        </button >
       </DialogActions>
     </Dialog>
   );

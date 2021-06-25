@@ -120,6 +120,12 @@ namespace WebAppIdentityServer.Business.Implementation
             return true;
         }
 
+        public async Task DeleteImg(long imgId)
+        {
+            await _productImageBus.Delete(imgId);
+            await _unitOfWork.CommitAsync();
+        }
+
         public async Task<string> GenarateCode(string code)
         {
             var codeProduct = await _tableRecordRep.GenarateCodeProduct(code, (int)EnumRecord.Product);
@@ -141,7 +147,7 @@ namespace WebAppIdentityServer.Business.Implementation
             data.ProductQuantity = productQuantity;
 
             var dataModel = data.ToModel();
-            dataModel.ProductImages = productImages;
+            dataModel.ProductImages = productImages.OrderBy(x => x.SortOrder).ToList();
             return dataModel;
         }
 

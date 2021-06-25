@@ -66,7 +66,7 @@ namespace WebAppIdentityServer.Business.Implementation
             {
                 AddError("có lổi xảy ra");
             }
-            return data.Select(x => x.ToModel()).ToList();
+            return data.Select(x => x.ToModel()).OrderBy(x => x.SortOrder).ToList();
         }
 
         public async Task Update(ProductImageVM model)
@@ -78,6 +78,43 @@ namespace WebAppIdentityServer.Business.Implementation
             _context.ProductImages.Update(entity);
             await _unitOfWork.CommitAsync();
             return;
+        }
+
+        public async Task Add(List<ProductImageVM> model, long productId)
+        {
+            var dataImg = await _context.ProductImages.Where(x => x.ProductId == productId).ToListAsync();
+            var entity = model.Select(x => x.ToEntity());
+            if (dataImg.Any())
+            {
+                var lastIndex = dataImg.OrderByDescending(x => x.SortOrder).FirstOrDefault().SortOrder;
+                foreach (var item in entity)
+                {
+                    item.SortOrder = lastIndex;
+                    lastIndex++;
+                }
+            }
+            await _context.ProductImages.AddRangeAsync(entity);
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task ProductImageReorder(long productId, List<long> imgIds)
+        {
+            var data = await _context.ProductImages.Where(x => x.ProductId == productId).ToListAsync();
+            var index = 1;
+            foreach (var item in data)
+            {
+                foreach (var id in imgIds)
+                {
+                    if (item.Id == id)
+                    {
+                        item.SortOrder = index;
+                        index++;
+                    }
+                }
+            }
+
+            _context.ProductImages.UpdateRange(data);
+            await _unitOfWork.CommitAsync();
         }
     }
 }

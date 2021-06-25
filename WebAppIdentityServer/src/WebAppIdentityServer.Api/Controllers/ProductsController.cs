@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Api.Authorization;
 using WebAppIdentityServer.Api.Helpers;
@@ -13,9 +14,11 @@ namespace WebAppIdentityServer.Api.Controllers
     public class ProductsController : BaseController
     {
         private readonly IProductBusiness _productBusiness;
-        public ProductsController(IProductBusiness productBusiness)
+        private readonly IProductImageBusiness _productImage;
+        public ProductsController(IProductBusiness productBusiness, IProductImageBusiness productImage)
         {
             this._productBusiness = productBusiness;
+            this._productImage = productImage;
         }
         // GET: api/Products
 
@@ -37,6 +40,38 @@ namespace WebAppIdentityServer.Api.Controllers
             return ToOkResult();
 
         }
+
+        [HttpDelete]
+        [Route("delete/{id}/image/{imgid}")]
+        [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.DELETE)]
+        public async Task<IActionResult> DeleteImg(long imgid)
+        {
+            await _productBusiness.DeleteImg(imgid);
+            return ToOkResult();
+
+        }
+
+        [HttpGet]
+        [Route("{id}/images")]
+        [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.VIEW)]
+        public async Task<IActionResult> GetProductImages(long id)
+        {
+            var data = await _productImage.GetByProductId(id);
+            return ToOkResult(data);
+
+        }
+
+        [HttpPut]
+        [Route("{id}/images/reorder")]
+        [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.UPDATE)]
+        public async Task<IActionResult> ProductImageReorder(long id, [FromBody] List<long> imgIds)
+        {
+            await _productImage.ProductImageReorder(id, imgIds);
+            return ToOkResult();
+
+        }
+
+
         [HttpGet]
         [Route("getAll")]
         [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.VIEW)]

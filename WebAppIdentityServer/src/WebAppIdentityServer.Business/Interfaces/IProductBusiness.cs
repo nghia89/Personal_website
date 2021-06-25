@@ -12,6 +12,7 @@ namespace WebAppIdentityServer.Business.Interfaces
         Task<ProductVM> Update(ProductVM product);
         Task<ProductVM> GetById(long id);
         Task<bool> Delete(long id);
+        Task DeleteImg(long imgId);
         Task<List<ProductVM>> GetAll();
         Task<PagedResult<ProductVM>> Paging(PagingParamModel pagingParam);
         Task<List<ProductVM>> GetProductByCateId(long cateId);

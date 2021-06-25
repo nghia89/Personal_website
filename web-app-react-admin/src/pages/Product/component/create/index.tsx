@@ -1,9 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { TextField, makeStyles, createStyles, Theme, CircularProgress, FormControlLabel, Switch, Checkbox } from '@material-ui/core';
+import { TextField, makeStyles, createStyles, Theme, Switch } from '@material-ui/core';
 import { productQuantityVM, ProductVM } from '@/models/index';
 import { apiProduct, apiProductCategory, apiUploadFile } from '@/apis/index';
-import { Editor, ImageUploadCard, TreeViewCategory, useNotification, FileUpload } from '@/components/index'
-import { validateField, IsNullOrEmpty, groupBy, formatPrice } from '@/helpers/utils'
+import { Editor, TreeViewCategory, useNotification, FileUpload } from '@/components/index'
+import { validateField, groupBy, formatPrice } from '@/helpers/utils'
 import { validateProductVm } from '@/models/validateField';
 import { green } from '@material-ui/core/colors';
 import history from "@/history";

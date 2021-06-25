@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { TextField, makeStyles, createStyles, Theme, CircularProgress, FormControlLabel, Switch } from '@material-ui/core';
+import { TextField, makeStyles, createStyles, Theme, Switch } from '@material-ui/core';
 import { ProductVM } from '@/models/index';
-import { apiProduct, apiProductCategory } from '@/apis/index';
-import { Editor, ImageUploadCard, TreeViewCategory, useNotification } from '@/components/index'
-import { validateField, IsNullOrEmpty, formatPrice } from '@/helpers/utils'
+import { apiProduct, apiProductCategory, apiUploadFile } from '@/apis/index';
+import { Editor, FileUpload, TreeViewCategory, useNotification } from '@/components/index'
+import { validateField, formatPrice } from '@/helpers/utils'
 import { validateProductVm } from '@/models/validateField';
 import { green } from '@material-ui/core/colors';
-import history from "@/history";
-import { Animations, Loading } from '@/components/loaders';
-import { IBreadcrumbs } from '@/models/commonM';
+import { Loading } from '@/components/loaders';
+import { Attachments, IBreadcrumbs } from '@/models/commonM';
 import { PATH } from '@/constants/paths'
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
@@ -49,6 +48,7 @@ function ProductDetail(props: IProps) {
     const [productIdCurrent, setProductIdCurrent] = useState<number>(0)
     const [productCodeCurrent, setProductCodeCurrent] = useState<string>('')
     const [isShowSeo, setIsShowSeo] = useState<Boolean>(false)
+    const [listImage, setListImage] = useState<Array<Attachments>>([])
 
     useEffect(() => {
         props.setBreadcrumb([
@@ -57,6 +57,16 @@ function ProductDetail(props: IProps) {
         ]);
         fetchData()
     }, [])
+
+    useEffect(() => {
+        if (listImage.length > 0) {
+            let listFileNew = listImage.filter(x => x.id == null || x.id == undefined)
+            if (listFileNew.length > 0) {
+                postFile(listFileNew)
+            }
+        }
+    }, [listImage])
+
 
 
     useEffect(() => {
@@ -69,6 +79,17 @@ function ProductDetail(props: IProps) {
     }, [formState?.productCategoryId])
 
 
+    async function postFile(listFileNew) {
+        const formData = new FormData();
+        listFileNew.forEach((file) => formData.append('File', file.path))
+        let rspImg = await apiUploadFile.UploadProductImage(formState?.id, formData);
+        if (!rspImg.isError) {
+            dispatch('SUCCESS', 'Thêm ảnh thành công')
+            fetchData()
+        }
+
+    }
+
 
     async function fetchData() {
         await apiProduct.getById(props.match?.params?.id).then((rsp) => {
@@ -77,7 +98,7 @@ function ProductDetail(props: IProps) {
                 setProductCodeCurrent(rsp.data.code)
                 setFormState(rsp.data);
 
-                setPathImage(rsp.data.image)
+                setListImage(rsp.data.productImages)
                 setIsLoading(false)
             }
         })
@@ -98,15 +119,33 @@ function ProductDetail(props: IProps) {
     }
 
 
+    async function deleteProductImg(id) {
+        await apiProduct.deleteImg(formState?.id, id).then((rsp) => {
+            if (!rsp.isError) {
+                dispatch('SUCCESS', 'Xóa ảnh thành công')
+            }
+        })
+    }
+
+    async function handleChangeFiles(files: Attachments[], isDragAndDrop) {
+        if (isDragAndDrop) {
+            let lsImgId: any = [];
+            files.forEach(e => {
+                if (e.id) lsImgId.push(e.id)
+            })
+            let rsp = await apiProduct.productImageReorder(formState?.id, lsImgId);
+            if (!rsp.isError)
+                fetchData()
+        } else {
+            setListImage(files)
+        }
+    }
+
     async function saveData() {
         if (!validateFields()) {
             await apiProduct.update(formState).then((rsp) => {
                 if (!rsp.isError) {
                     dispatch('SUCCESS', 'Cập nhật sản phẩm thành công.')
-                    history.goBack()
-                    // props.handleClose()
-                    // props.handleReload()
-                    return
                 }
             })
         }
@@ -118,16 +157,6 @@ function ProductDetail(props: IProps) {
         setFormState(newFormState);
     }
 
-    function handleUpload(isLoading, path) {
-        if (path != null && !isLoading) {
-            setPathImage(path);
-            setisLoadingImg(false)
-            let newFormState: NewType = { ...formState };
-            newFormState['image'] = path;
-            setFormState(newFormState);
-        } else
-            setisLoadingImg(true)
-    }
 
     function validateFields() {
         let messError = validateField(validateProductVm, refs);
@@ -135,7 +164,7 @@ function ProductDetail(props: IProps) {
             dispatch('ERROR', messError)
         else if (!formState?.productCategoryId)
             dispatch('ERROR', 'Vui lòng chọn danh mục sản phẩm')
-        else if (IsNullOrEmpty(pathImage)) dispatch('ERROR', "Vui lòng thêm ảnh đại diện sản phẩm.")
+        // else if (IsNullOrEmpty(pathImage)) dispatch('ERROR', "Vui lòng thêm ảnh đại diện sản phẩm.")
         return messError
 
     }
@@ -243,28 +272,28 @@ function ProductDetail(props: IProps) {
                             />
                         </div>
                     </div>
-
-                    <div className="row card_select_image" >
-
-                        <div className="col-6">
-                            <h6 className="color-black">Ảnh đại diện *</h6>
-                            <ImageUploadCard
-                                handleUpload={(isLoading, listPath) => handleUpload(isLoading, listPath)}
-                            />
-                        </div>
-                        <div className="col-6">
-                            {
-                                isLoadingImg ?
-                                    <CircularProgress size={68} className={classes.fabProgress} />
-                                    :
-                                    <img width={450} src={pathImage} />
-
-                            }
-                        </div>
-                    </div>
                 </div>
             </div>
 
+        </div>
+    }
+
+    function renderProductImages() {
+        return <div className="row  pt-3 pb-3">
+            <div className="col-2">
+                <h6 className="color-black font-weight-bold ui-information-title">Hình Ảnh Sản Phẩm</h6>
+            </div>
+            <div className="col-10">
+                <div className="wrapper-content" style={{ paddingLeft: '15px', paddingRight: '15px' }}>
+                    <FileUpload
+                        files={listImage}
+                        multiple
+                        onchangeFiles={(files, isDragAndDrop) => handleChangeFiles(files, isDragAndDrop)}
+                        accept=".jpg,.png,.jpeg"
+                        handleDelete={(id) => deleteProductImg(id)}
+                    />
+                </div>
+            </div>
         </div>
     }
 
@@ -374,6 +403,7 @@ function ProductDetail(props: IProps) {
     function renderContent() {
         return <form className={classes.root} noValidate autoComplete="off">
             {renderContentGeneral()}
+            {renderProductImages()}
             {renderContentProduct()}
             {renderProductQuantity()}
             {renderContentSeo()}

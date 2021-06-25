@@ -18,7 +18,7 @@ export const UploadImageForCKEditor = `${env.baseApiUrl}/api/${baseApiUpload}upl
 
 export const apiUploadFile = {
     UploadImage: async (body: any) => { return await POST(`${baseApiUpload}upload_image`, body) },
-    UploadProductImage: async (id: number, body: any) => { return await POST(`${baseApiUpload}product/${id}/images`, body) }
+    UploadProductImage: async (id?: number, body?: any) => { return await POST(`${baseApiUpload}product/${id}/images`, body) }
 }
 
 export const apiUser = {
@@ -72,8 +72,11 @@ export const apiProduct = {
     getById: async (id: number) => { return await GET(`${baseApiProduct}get/` + id) },
     create: async (body: any) => { return await POST(`${baseApiProduct}add`, body) },
     update: async (body: any) => { return await PUT(`${baseApiProduct}update`, body) },
+    productImageReorder: async (id?: number, body?: any) => { return await PUT(`${baseApiProduct}${id}/images/reorder`, body) },
     delete: async (id: number) => { return await DELETE(`${baseApiProduct}delete/` + id) },
-    getGenarateCode: async (code: string) => { return await GET(`${baseApiProduct}generate_code/` + code) }
+    deleteImg: async (id?: number, imgId?: number) => { return await DELETE(`${baseApiProduct}delete/${id}/image/${imgId}`) },
+    getGenarateCode: async (code: string) => { return await GET(`${baseApiProduct}generate_code/` + code) },
+    getProductImages: async (id?: number) => { return await GET(`${baseApiProduct}${id}/images`) }
 }
 
 export const apiProductCategory = {

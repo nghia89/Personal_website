@@ -184,6 +184,7 @@ namespace WebAppIdentityServer.Api.Controllers
             else
             {
                 int index = 1;
+                var productImg = new List<ProductImageVM>();
                 foreach (var file in files)
                 {
                     DateTime now = DateTime.Now;
@@ -211,7 +212,8 @@ namespace WebAppIdentityServer.Api.Controllers
                         await fs.FlushAsync();
                     }
                     await ResizingImageUpload(file, folder, filename);
-                    await _productImage.Add(new ProductImageVM()
+
+                    productImg.Add(new ProductImageVM()
                     {
                         ProductId = id,
                         FileName = filename,
@@ -221,6 +223,8 @@ namespace WebAppIdentityServer.Api.Controllers
                     });
                     index++;
                 }
+
+                await _productImage.Add(productImg, id);
 
                 return ToOkResult();
             }
