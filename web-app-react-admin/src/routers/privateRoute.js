@@ -10,8 +10,8 @@ export const PrivateRoute = ({ component, ...rest }) => {
       {
         ({ isAuthenticated, signInRedirect }) => {
           let pathname = props?.location?.pathname;
-          //if (isAuthenticated() && !checkPath(pathname)) return <Error404 />
-          if (Component && isAuthenticated()) {
+          if (isAuthenticated() && !checkPath(pathname)) return <Error404 />
+          else if (Component && isAuthenticated()) {
             return <Component {...props} />;
           } else {
             signInRedirect();

@@ -134,8 +134,10 @@ function ProductDetail(props: IProps) {
                 if (e.id) lsImgId.push(e.id)
             })
             let rsp = await apiProduct.productImageReorder(formState?.id, lsImgId);
-            if (!rsp.isError)
+            if (!rsp.isError) {
+                dispatch('SUCCESS', 'Cập nhật ảnh thành công')
                 fetchData()
+            }
         } else {
             setListImage(files)
         }

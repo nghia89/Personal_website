@@ -7,9 +7,6 @@ using WebAppIdentityServer.Business.Mappers;
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
-using WebAppIdentityServer.Repository.Interfaces;
-using WebAppIdentityServer.Utilities.Helpers;
-using WebAppIdentityServer.ViewModel.Models.Common;
 using WebAppIdentityServer.ViewModel.Models.Product;
 
 namespace WebAppIdentityServer.Business.Implementation
@@ -101,15 +98,14 @@ namespace WebAppIdentityServer.Business.Implementation
         {
             var data = await _context.ProductImages.Where(x => x.ProductId == productId).ToListAsync();
             var index = 1;
-            foreach (var item in data)
+
+            foreach (var id in imgIds)
             {
-                foreach (var id in imgIds)
+                var dataImg = data.FirstOrDefault(x => x.Id == id);
+                if (dataImg != null)
                 {
-                    if (item.Id == id)
-                    {
-                        item.SortOrder = index;
-                        index++;
-                    }
+                    dataImg.SortOrder = index;
+                    index++;
                 }
             }
 

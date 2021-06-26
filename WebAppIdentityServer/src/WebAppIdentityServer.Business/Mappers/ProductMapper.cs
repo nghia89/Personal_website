@@ -20,11 +20,46 @@ namespace WebAppIdentityServer.Business.Mappers
                     Content = model.Content,
                     Description = model.Description,
                     Id = model.Id,
-                    Image = model.ProductImages.Any() ? model.ProductImages.OrderBy(x => x.SortOrder).FirstOrDefault().Path : null,
+                    Image = model.ProductImages != null ? model.ProductImages.OrderBy(x => x.SortOrder).FirstOrDefault().Path : null,
                     Name = model.Name,
                     OriginalPrice = model.OriginalPrice,
                     Price = model.Price,
                     ProductCategory = model.ProductCategory?.ToModel(),
+                    ProductCategoryId = model.ProductCategoryId,
+                    ProductCategoryName = model.ProductCategory?.Name,
+                    Code = model.Code,
+                    SeoAlias = model.SeoAlias,
+                    Title = model.Title,
+                    SeoDescription = model.SeoDescription,
+                    SeoKeywords = model.SeoKeywords,
+                    Status = model.Status,
+                    Tags = model.Tags,
+                    ViewCount = model.ViewCount,
+                    DateCreated = model.DateCreated,
+                    ProductQuantity = model.ProductQuantity?.Select(x => x.ToModel()).ToList(),
+                    ProductImages = model.ProductImages?.Select(x => x.ToModel()).ToList()
+                };
+            }
+        }
+
+        public static ProductVM ToModel(this Product model, List<ProductCategory> listCategory)
+        {
+            if (model == null)
+            {
+                return null;
+            }
+            else
+            {
+                return new ProductVM
+                {
+                    Content = model.Content,
+                    Description = model.Description,
+                    Id = model.Id,
+                    Image = (model.ProductImages != null && model.ProductImages.Any()) ? model.ProductImages.OrderBy(x => x.SortOrder).FirstOrDefault().Path : null,
+                    Name = model.Name,
+                    OriginalPrice = model.OriginalPrice,
+                    Price = model.Price,
+                    ProductCategory = listCategory.Any() ? listCategory.FirstOrDefault(x => x.Id == model.ProductCategoryId).ToModel() : null,
                     ProductCategoryId = model.ProductCategoryId,
                     ProductCategoryName = model.ProductCategory?.Name,
                     Code = model.Code,

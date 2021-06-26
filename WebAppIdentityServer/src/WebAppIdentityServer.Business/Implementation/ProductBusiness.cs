@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Business.Mappers;
 using WebAppIdentityServer.Data.EF.Entities;
@@ -159,17 +160,16 @@ namespace WebAppIdentityServer.Business.Implementation
 
         public async Task<PagedResult<ProductVM>> Paging(PagingParamModel pagingParam)
         {
-            var (data, totalCount) = await _productRepository.Paging(pagingParam.query, pagingParam.page, pagingParam.pageSize, new Expression<Func<Product, object>>[] { a => a.Name, a => a.Code }, null);
+            var (data, totalCount) = await _productRepository.Paging(pagingParam.query, pagingParam.page, pagingParam.pageSize, new Expression<Func<Product, object>>[] { a => a.Name, a => a.Code },
+                                                                        filter => filter.Include(x => x.ProductImages)
+                                                                        );
 
             var category = await _productCategoryRep.FindAllAsync(x => x.Status == Status.Active, null);
-            foreach (var item in data)
-            {
-                var categoryBy = category.FirstOrDefault(x => x.Id == item.ProductCategoryId);
-                item.ProductCategory = categoryBy;
-            }
+
+
             return new PagedResult<ProductVM>()
             {
-                Data = data.Select(a => a.ToModel()).ToList(),
+                Data = data.Select(a => a.ToModel(category.ToList())).ToList(),
                 TotalCount = totalCount
             };
         }
