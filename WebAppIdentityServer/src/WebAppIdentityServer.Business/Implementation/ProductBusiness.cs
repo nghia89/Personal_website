@@ -120,10 +120,16 @@ namespace WebAppIdentityServer.Business.Implementation
             var entity = await _productRepository.GetByIdAsync(id);
             if (entity == null)
             {
+                AddError("Dữ liệu không tồn tại");
                 return false;
             }
+            var rootFile = _webHostEnvironment.WebRootPath;
+            var imageFolder = $@"\uploaded\products\{entity.Id}";
 
             await _productRepository.RemoveAsync(entity);
+
+            DirectoryInfo di = new DirectoryInfo($"{rootFile}{imageFolder}");
+            di.Delete(true);
             return true;
         }
 
@@ -186,6 +192,11 @@ namespace WebAppIdentityServer.Business.Implementation
         public async Task<ProductVM> GetById(long id)
         {
             var data = await _productRepository.GetByIdAsync(id);
+            if (data == null)
+            {
+                AddError("Dữ liệu không tồn tại");
+                return null;
+            }
             var productQuantity = await _productQuantityRep.getByProductIds(id);
             var productImages = await _productImageBus.GetByProductId(id);
             data.ProductQuantity = productQuantity;
