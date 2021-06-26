@@ -2,9 +2,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Business.Mappers;
@@ -29,9 +32,11 @@ namespace WebAppIdentityServer.Business.Implementation
         private readonly ITableRecordRepository _tableRecordRep;
         private readonly ITagRepository _tagRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         public ProductBusiness(IProductRepository productRepository, IProductQuantityRepository productQuantityRep,
             ITagRepository tagRepository, IUnitOfWork unitOfWork, IUserResolverService userResolver,
             IProductCategoryRepository productCategoryRep, IProductImageBusiness productImageBus,
+            IWebHostEnvironment webHostEnvironment,
              ITableRecordRepository tableRecordRep) : base(userResolver)
         {
             this._productRepository = productRepository;
@@ -42,6 +47,7 @@ namespace WebAppIdentityServer.Business.Implementation
             this._tableRecordRep = tableRecordRep;
             this._productCategoryRep = productCategoryRep;
             this._productImageBus = productImageBus;
+            this._webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<long> Add(ProductVM model)
@@ -123,8 +129,45 @@ namespace WebAppIdentityServer.Business.Implementation
 
         public async Task DeleteImg(long imgId)
         {
+            var dataImg = await _productImageBus.GetById(imgId);
+            if (dataImg != null)
+            {
+                var rootFile = _webHostEnvironment.WebRootPath;
+
+                var imageFolder = $@"\uploaded\products\{dataImg.ProductId}\{dataImg.FileName}";
+                var pathFileRoot = $"{rootFile}{imageFolder}";
+                CheckFileDelete(pathFileRoot);
+
+                var imageSizes = ImageSizeInit();
+                foreach (var item in imageSizes)
+                {
+                    var imageResize = $@"\uploaded\products\{dataImg.ProductId}\{dataImg.FileName}";
+                    var newFileName = Regex.Replace(imageResize, @"\.", $"_{item.Key}.");
+                    CheckFileDelete($"{rootFile}{newFileName}");
+                }
+            }
+
             await _productImageBus.Delete(imgId);
             await _unitOfWork.CommitAsync();
+        }
+
+        public List<ImageSize> ImageSizeInit()
+        {
+            return new List<ImageSize>()
+                        {
+                            new ImageSize("compact", 200, 200),
+                            new ImageSize("small", 400, 400),
+                            new ImageSize("medium", 650, 650),
+                            new ImageSize("large", 1000, 1000)
+                        };
+        }
+
+        public void CheckFileDelete(string path)
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
         }
 
         public async Task<string> GenarateCode(string code)

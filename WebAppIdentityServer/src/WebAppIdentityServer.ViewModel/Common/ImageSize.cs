@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace WebAppIdentityServer.ViewModel.Common
 {
     public class ImageSize
