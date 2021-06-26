@@ -81,6 +81,7 @@ export default function FileUpload(props: IProps) {
 
     function handleCheckDelete(id, index) {
         if (id) {
+            setIndex(index)
             setIsShowModal(true)
             setIdSelect(id)
         } else {

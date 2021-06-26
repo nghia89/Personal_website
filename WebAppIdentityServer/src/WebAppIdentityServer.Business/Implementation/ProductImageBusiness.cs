@@ -80,14 +80,15 @@ namespace WebAppIdentityServer.Business.Implementation
         public async Task Add(List<ProductImageVM> model, long productId)
         {
             var dataImg = await _context.ProductImages.Where(x => x.ProductId == productId).ToListAsync();
-            var entity = model.Select(x => x.ToEntity());
+            var entity = model.Select(x => x.ToEntity()).ToList();
             if (dataImg.Any())
             {
                 var lastIndex = dataImg.OrderByDescending(x => x.SortOrder).FirstOrDefault().SortOrder;
                 foreach (var item in entity)
                 {
-                    item.SortOrder = lastIndex;
                     lastIndex++;
+                    item.SortOrder = lastIndex;
+
                 }
             }
             await _context.ProductImages.AddRangeAsync(entity);

@@ -13,6 +13,7 @@ import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
 import ProductQuantity from './productQuantity';
 import { env } from '@/environments/config';
+import { useHistory } from 'react-router-dom';
 export interface IProps {
     match: { params: { id: any } }
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
@@ -39,6 +40,8 @@ const useStyles = makeStyles((theme: Theme) =>
 function ProductDetail(props: IProps) {
     const classes = useStyles();
     let dispatch = useNotification();
+    const history = useHistory();
+
     type NewType = ProductVM | null;
 
     const [formState, setFormState] = useState<ProductVM | null>(null)
@@ -94,7 +97,7 @@ function ProductDetail(props: IProps) {
         if (!data.isError) {
             dispatch('SUCCESS', 'Xóa sản phẩm thành công')
             setIsAlert(false)
-            history.back()
+            history.goBack()
         }
 
     }
