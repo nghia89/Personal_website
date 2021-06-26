@@ -3,8 +3,8 @@ import { IBaseParams, ITableHead } from '@/models'
 import './index.css'
 import { formatDate, checkPermission } from '@/helpers/utils';
 import { commandId } from '@/constants/utilConstant'
-import { CircularProgress, makeStyles, Switch, TablePagination, Tooltip } from '@material-ui/core';
-import { IconEdit, IconEmppty, IconTrash } from '@/helpers/svg';
+import { Switch, TablePagination, Tooltip } from '@material-ui/core';
+import { IconEdit, IconEmpty, IConImage, IconTrash } from '@/helpers/svg';
 import { Loading } from '../loaders';
 
 export interface IProps {
@@ -77,7 +77,7 @@ export default function DivTable(props: IProps) {
             return <div key={"r_cel" + index} onClick={() => handleEdit(id)} className="divTableCell center">{formatDate(value, null)}</div>
         else if (type === "image")
             return <div key={"r_cel" + index} onClick={() => handleEdit(id)} className="divTableCell center" style={{ width: '200px' }}>
-                <img height="70px" src={value} />
+                {value ? <img height="70px" src={value} /> : IConImage(36, '#8c8c8c')}
             </div>
         else if (type === "status")
             return <div key={"r_cel" + index} onClick={() => handleEdit(id)} className="divTableCell center" style={{ width: '100px' }} >
@@ -88,7 +88,7 @@ export default function DivTable(props: IProps) {
 
     function renderContentTable() {
         return props.data.map((item, index) => (
-            <div className="divTableRow cursor" key={`r${index}`} >
+            <div className="divTableRow cursor text-center" key={`r${index}`} >
                 {
                     props.header.map((header, indexCel) => {
                         return renderCell(header["type"], item[header["fieldName"]], (index + indexCel), item["id"])
@@ -116,7 +116,7 @@ export default function DivTable(props: IProps) {
     function renderContent() {
         let widthContent = dimensions.width - 620;
         return <div className="divTable">
-            <div className="divTableBodyHead" >
+            <div className="divTableBodyHead text-center" >
                 <div className="divTableRow">
                     {props.header.map((item, index) => {
                         return <div key={`h${index}`} className=" divTableHead center item-head-sticky">{item.name}</div>
@@ -134,7 +134,7 @@ export default function DivTable(props: IProps) {
                         renderContentTable() :
                         <div className="content_table_data_empty" style={{ width: widthContent }}>
                             <span>
-                                {IconEmppty(dimensions.height - 550)}
+                                {IconEmpty(dimensions.height - 550)}
                             </span>
                             <p className="mx-5 font-weight-bold text-dark">Danh sách đang trống</p>
                         </div>

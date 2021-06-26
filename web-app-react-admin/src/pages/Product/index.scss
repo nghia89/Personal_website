@@ -173,6 +173,9 @@
 
 .product-info-variant-item.active {
     background-color: #0d6efd;
+}
+
+.product-info-variant-item.active >.active-color {
     color: #fff;
 }
 

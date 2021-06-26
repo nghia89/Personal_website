@@ -141,16 +141,18 @@ export default function FileUpload(props: IProps) {
                 {files?.map((file, index) => {
                     //let isImageFile = file?.type?.split("/")[0] === "image";
                     return (
-                        <div className="previewContainer" key={index} onDragOver={() => onDragOver(index)}>
-                            <div className="drag"
-                                draggable
+                        <div className="preview-wrapper " key={index} onDragOver={() => onDragOver(index)} >
+                            <div className="previewContainer" draggable
                                 onDragStart={e => onDragStart(e, index)}
                                 onDragEnd={onDragEnd}>
-                                {!file.id ? (
-                                    <img className="image-preview" src={URL.createObjectURL(file.path)} alt={`file preview ${index}`} />
-                                ) :
-                                    <img className="image-preview" src={file.path} alt={`file preview ${index}`} />
-                                }
+                                <div >
+                                    {!file.id ? (
+                                        <img className="image-preview" src={URL.createObjectURL(file.path)} alt={`file preview ${index}`} />
+                                    ) :
+                                        <img className="image-preview" src={file.path} alt={`file preview ${index}`} />
+                                    }
+
+                                </div>
                                 <div className="file-meta-data cursor-move">
                                     <aside>
                                         <div className="removeFileIcon cursor">
@@ -163,9 +165,8 @@ export default function FileUpload(props: IProps) {
                                     </aside>
                                 </div>
                             </div>
-
-
                         </div>
+
                     );
                 })}
             </div>

@@ -9,7 +9,7 @@ namespace WebAppIdentityServer.Business.Interfaces
 {
     public interface IProductQuantityBusiness
     {
-        Task Add(ProductQuantityVM model);
+        Task<long> Add(ProductQuantityVM model);
         Task Delete(long id);
         Task Update(ProductQuantityVM model);
         Task<ProductQuantityVM> GetById(long id);

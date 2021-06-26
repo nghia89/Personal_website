@@ -22,12 +22,12 @@ namespace WebAppIdentityServer.Business.Implementation
             this._unitOfWork = unitOfWork;
         }
 
-        public async Task Add(ProductQuantityVM model)
+        public async Task<long> Add(ProductQuantityVM model)
         {
             var entity = model.ToEntity();
             await _quantityRep.AddAsync(entity);
             await _unitOfWork.CommitAsync();
-            return;
+            return entity.Id;
         }
 
         public async Task Delete(long id)

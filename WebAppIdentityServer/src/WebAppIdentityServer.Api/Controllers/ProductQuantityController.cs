@@ -23,8 +23,8 @@ namespace WebAppIdentityServer.Api.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> Post(ProductQuantityVM request)
         {
-            await _productQuantityBus.Add(request);
-            return ToOkResult();
+            var id = await _productQuantityBus.Add(request);
+            return ToOkResult(id);
         }
 
         [HttpDelete("delete/{id}")]

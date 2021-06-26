@@ -6,7 +6,7 @@ import {
 import { formatDate, checkPermission, IsNullOrEmpty } from '@/helpers/utils';
 import { IBaseParams, ITableHead } from '@/models/index'
 import { commandId } from '@/constants/utilConstant'
-import { IconEdit, IconEmppty, IconPlushSquare, IconTrash } from '@/helpers/svg';
+import { IconEdit, IconEmpty, IconPlushSquare, IconTrash } from '@/helpers/svg';
 import { Loading } from '../loaders';
 
 
@@ -157,7 +157,7 @@ export default function TableCenter(props: IProps) {
                                 </TableBody>
                                 : <div className="content_table_data_empty" style={{ width: widthContent }}>
                                     <span>
-                                        {IconEmppty(dimensions.height - 550)}
+                                        {IconEmpty(dimensions.height - 550)}
                                     </span>
                                     <p className="mx-5 font-weight-bold text-dark">Danh sách đang trống</p>
                                 </div>

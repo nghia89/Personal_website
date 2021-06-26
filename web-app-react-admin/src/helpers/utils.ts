@@ -44,6 +44,7 @@ export function checkPath(pathname) {
     for (var i = 0; i < objKeys.length - 1; i++) {
         if (PATH[objKeys[i]] === pathname) return true
         else {
+            if (pathname.includes(PATH.PRODUCT_VARIANT)) return true;
             let split = pathname.split("/");
             if (split.length > 3) {
                 split.splice(3, 1);
@@ -90,7 +91,11 @@ export function validateField(arrayField: Array<ValidateVm>, refs) {
         let arrayLength = arrayField.length;
         for (let index = 0; index < arrayLength; index++) {
             if (refs[arrayField[index].name] == null) continue;
-            const value = refs[arrayField[index].name]?.value
+            let value: any = null;
+            if (refs[arrayField[index].name].props) {
+                value = refs[arrayField[index].name]?.select?.getValue()[0]?.value
+            }
+            else value = refs[arrayField[index].name]?.value
             const item = arrayField[index];
             switch (item.name) {
                 case 'email':

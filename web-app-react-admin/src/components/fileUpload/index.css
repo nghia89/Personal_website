@@ -61,19 +61,23 @@
     display: flex;
 }
 .previewContainer{
-  width: 16%;
-  height: 16%;
   padding: 5px;
   border-radius: 6px;
   box-sizing: border-box;
-  border: 1px solid #d8dbe0;
-  position: relative;
-  margin-left: 10px;
+  margin: 10px;
 }
 
+.preview-wrapper{
+  width: 20%;
+    border-radius: 6px;
+    box-sizing: border-box;
+    border: 1px solid rgb(216, 219, 224);
+    position: relative;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
 
-
-.previewContainer:hover .file-meta-data{
+.preview-wrapper:hover .previewContainer .file-meta-data{
   display: block !important;
 }
 .image-preview{
@@ -82,14 +86,9 @@
   height: 100%;
 }
 
-.drag {
-  margin-right: 15px;
-  cursor: move;
-}
-
 .cursor-move{
-  cursor:"move";
-  cursor:"-webkit-grab"; 
-  cursor:"-moz-grab"; 
-  cursor:"grab"
+  cursor: move;
+  cursor:-webkit-grab; 
+  cursor:-moz-grab; 
+  cursor: grab
 }

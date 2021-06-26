@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const IconEmppty = (size?: number) => {
+export const IconEmpty = (size?: number) => {
     return <svg id="file" enableBackground="new 0 0 300 300" height={size ? size : 250} viewBox="0 0 300 300" width={size ? size : 250} xmlns="http://www.w3.org/2000/svg"><g><circle cx="128.828" cy="150.001" fill="#e5efef" r="86" /><g><path d="m222.828 44.001h-120c-4.418 0-8 3.582-8 8v196c0 4.418 3.582 8 8 8h144c4.418 0 8-3.582 8-8v-172z" fill="#fff" /><path d="m246.828 260.001h-144c-6.617 0-12-5.383-12-12v-196c0-6.617 5.383-12 12-12h120c1.061 0 2.078.422 2.828 1.172l32 32c.75.75 1.172 1.766 1.172 2.828v172c0 6.617-5.383 12-12 12zm-144-212c-2.205 0-4 1.793-4 4v196c0 2.207 1.795 4 4 4h144c2.205 0 4-1.793 4-4v-170.343l-29.656-29.656h-118.344z" fill="#4c241d" /></g><g><path d="m222.828 76.001h32l-32-32z" fill="#efefd2" /><path d="m254.828 80.001h-32c-2.209 0-4-1.789-4-4v-32c0-1.617.975-3.078 2.469-3.695 1.496-.625 3.211-.277 4.359.867l32 32c1.145 1.145 1.486 2.863.867 4.359s-2.078 2.469-3.695 2.469zm-28-8h18.344l-18.344-18.344z" fill="#4c241d" /></g><g fill="#4c241d"><path d="m56.484 185.658c-1.023 0-2.047-.391-2.828-1.172l-11.312-11.312c-1.562-1.562-1.562-4.094 0-5.656s4.094-1.562 5.656 0l11.312 11.312c1.562 1.562 1.562 4.094 0 5.656-.781.781-1.804 1.172-2.828 1.172z" /><path d="m45.172 185.658c-1.023 0-2.047-.391-2.828-1.172-1.562-1.562-1.562-4.094 0-5.656l11.312-11.312c1.562-1.562 4.094-1.562 5.656 0s1.562 4.094 0 5.656l-11.312 11.312c-.781.781-1.805 1.172-2.828 1.172z" /><circle cx="78.828" cy="164.001" r="4" /><circle cx="66.828" cy="120.001" r="4" /></g></g></svg>
 }
 
@@ -113,4 +113,9 @@ export const IConCheckError = (size?: number) => {
     return <svg width={newSize} height={newSize} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M10.5 1.75C5.67525 1.75 1.75 5.67525 1.75 10.5C1.75 15.3247 5.67525 19.25 10.5 19.25C15.3247 19.25 19.25 15.3247 19.25 10.5C19.25 5.67525 15.3247 1.75 10.5 1.75ZM14.1811 12.9439L12.9439 14.1811L10.5 11.7372L8.05612 14.1811L6.81888 12.9439L9.26275 10.5L6.81888 8.05612L8.05612 6.81888L10.5 9.26275L12.9439 6.81888L14.1811 8.05612L11.7372 10.5L14.1811 12.9439Z" fill="#FC625D" />
     </svg>
+}
+
+export const IConImage = (size?: number, color?: string) => {
+    let newSize = size ? size : 24;
+    return <svg xmlns="http://www.w3.org/2000/svg" width={newSize} height={newSize} viewBox="0 0 24 24" fill="none" stroke={color ? color : "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-image"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
 }

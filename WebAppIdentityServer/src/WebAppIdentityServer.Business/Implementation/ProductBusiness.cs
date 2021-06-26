@@ -129,7 +129,8 @@ namespace WebAppIdentityServer.Business.Implementation
             await _productRepository.RemoveAsync(entity);
 
             DirectoryInfo di = new DirectoryInfo($"{rootFile}{imageFolder}");
-            di.Delete(true);
+            if (di.Exists)
+                di.Delete(true);
             return true;
         }
 

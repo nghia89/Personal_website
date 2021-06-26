@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { TextField, makeStyles, createStyles, Theme, Switch } from '@material-ui/core';
 import { ProductVM } from '@/models/index';
 import { apiProduct, apiProductCategory, apiUploadFile } from '@/apis/index';
-import { Editor, FileUpload, TreeViewCategory, useNotification } from '@/components/index'
+import { AlertDialogSlide, Editor, FileUpload, TreeViewCategory, useNotification } from '@/components/index'
 import { validateField, formatPrice } from '@/helpers/utils'
 import { validateProductVm } from '@/models/validateField';
 import { green } from '@material-ui/core/colors';
@@ -42,12 +42,11 @@ function ProductDetail(props: IProps) {
     type NewType = ProductVM | null;
 
     const [formState, setFormState] = useState<ProductVM | null>(null)
-    const [pathImage, setPathImage] = useState<string>("")
-    const [isLoadingImg, setisLoadingImg] = useState<Boolean>(false)
     const [isLoading, setIsLoading] = useState<Boolean>(true)
     const [productIdCurrent, setProductIdCurrent] = useState<number>(0)
     const [productCodeCurrent, setProductCodeCurrent] = useState<string>('')
     const [isShowSeo, setIsShowSeo] = useState<Boolean>(false)
+    const [isAlert, setIsAlert] = useState<boolean>(false)
     const [listImage, setListImage] = useState<Array<Attachments>>([])
 
     useEffect(() => {
@@ -90,6 +89,15 @@ function ProductDetail(props: IProps) {
 
     }
 
+    async function handleDelete() {
+        var data = await apiProduct.delete(props.match?.params?.id);
+        if (!data.isError) {
+            dispatch('SUCCESS', 'Xóa sản phẩm thành công')
+            setIsAlert(false)
+            history.back()
+        }
+
+    }
 
     async function fetchData() {
         await apiProduct.getById(props.match?.params?.id).then((rsp) => {
@@ -420,7 +428,23 @@ function ProductDetail(props: IProps) {
                 {isLoading ? <div className="justify-content-center d-flex mt-5"><Loading /></div>
                     : renderContent()}
                 <div className="mt-3 mb-3">
-                    {!isLoading && renderHeader()}
+
+                    {!isLoading && <div className="pb-3 d-flex justify-content-between align-items-center">
+
+                        <div>
+                            <button onClick={async () => setIsAlert(true)} type="button" className="mx-3 hms-btn-button btn btn-danger">Xóa biến thể</button>
+                        </div>
+
+                        <div>
+                            <button onClick={async () => await saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>
+                        </div>
+                    </div>}
+                    <AlertDialogSlide
+                        isOpen={isAlert}
+                        handleClose={() => setIsAlert(false)}
+                        handleConfirm={() => handleDelete()}
+                        note={"Bạn có chắc chắn muốn xoá sản phẩm này?"}
+                    />
                 </div>
             </div>
         </div>

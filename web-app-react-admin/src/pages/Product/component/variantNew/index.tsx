@@ -12,8 +12,7 @@ import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
 import { OptionVariant } from '@/constants/utilConstant';
 import Select from 'react-select'
-import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
-import { IconTrash } from '@/helpers/svg';
+import { IConImage, IconTrash } from '@/helpers/svg';
 import { Loading } from '@/components/loaders';
 import { validateProductQuantityVm } from '@/models/validateField';
 export interface IProps {
@@ -122,7 +121,7 @@ function VariantNew(props: IProps) {
                 await apiProductQuantity.create(dataProQuantity).then((rsp) => {
                     if (!rsp.isError) {
                         dispatch('SUCCESS', 'Tạo mới biến thể thành công.')
-                        fetchDetail()
+                        history.push(`${PATH.PRODUCT_VARIANT}${props.match.params.id}/variant/${rsp.data}`)
                     }
                 })
             }
@@ -198,7 +197,12 @@ function VariantNew(props: IProps) {
                         <div className="d-flex py-2">
                             <div className="product-info-preview-container image-wrapper-border-solid  align-items-center  mx-2">
                                 <a aria-current="page" className="w-100 h-100 active" href="/admin/products/1032405371">
-                                    <img className="product-info-preview-img" src="https://product.hstatic.net/200000327889/product/2514224045_2_1_2_ff311d07354e413da955df3b97d2706e_aeb6226bede047258d997b80214ddc10.jpg" />
+                                    {
+                                        dataProduct?.image ?
+                                            <img className="product-info-preview-img" src={dataProduct.image} />
+                                            :
+                                            IConImage()
+                                    }
                                 </a>
                             </div>
                             <div className="flex-grow-1 pl-3 d-flex flex-column justify-content-around break-text">
@@ -229,11 +233,11 @@ function VariantNew(props: IProps) {
                                             {
                                                 item.imageUrl ? <img className="product-info-preview-img" src={item.imageUrl} />
                                                     : item.color?.colorCode ? <span className='h-70-percent w-70-percent' style={{ backgroundColor: item.color?.colorCode }}></span>
-                                                        : <span className="product-info-preview-img" style={{ position: 'inherit' }} ><AddPhotoAlternateIcon /></span>
+                                                        : <span className="product-info-preview-img" style={{ position: 'inherit' }} >{IConImage(24, '#8c8c8c')}</span>
                                             }
                                         </div>
                                         <div
-                                            className="pl-3 ms-2 d-flex flex-column justify-content-around ">
+                                            className="pl-3 ms-2 d-flex flex-column justify-content-around active-color">
                                             <label className="mb-0">{renderNameVariant(item.color?.name, item.size?.name, item.name)}</label>
                                             {item.sku && <p className="small mb-0">SKU: {item.sku}</p>}
                                         </div>
