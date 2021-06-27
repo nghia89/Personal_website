@@ -127,56 +127,49 @@ export default function FileUpload(props: IProps) {
     };
 
     return (
-        <>
-            <section className="file-upload-container">
+        <div className={`preview-wrapper ${files[0] ? ' min-height-300 ' : ''}`} >
+            {files?.map((file, index) => {
+                //let isImageFile = file?.type?.split("/")[0] === "image";
+                return (
+                    <div className={`previewContainer ${index == 0 ? 'first' : ''}`}
+                        draggable
+                        onDragStart={e => onDragStart(e, index)}
+                        onDragEnd={onDragEnd}>
+                        {!file.id ? (
+                            <img className="image-preview" src={URL.createObjectURL(file.path)} alt={`file preview ${index}`} />
+                        ) :
+                            <img className="image-preview" src={file.path} alt={`file preview ${index}`} />
+                        }
+                        <div className="file-meta-data cursor-move">
+                            <aside>
+                                <div className="removeFileIcon cursor">
+                                    <div
+                                        onClick={() => handleCheckDelete(file.id, index)}>
+                                        {IconTrash()}
+                                    </div>
+                                </div>
+
+                            </aside>
+                        </div>
+                    </div>
+                );
+            })}
+            <div className="file-upload-container">
                 <AddPhotoAlternateIcon fontSize={'large'} />
                 <span onClick={handleUploadBtnClick}>{title ? title : 'Thêm ảnh'}</span>
                 <input type="file" ref={fileInputField}
                     onChange={handleNewFileUpload}
-                    multiple className="formField"
+                    multiple className="formField cursor"
                     accept={accept ? accept : "all"}
                 />
-            </section>
-
-            <div className="previewList">
-                {files?.map((file, index) => {
-                    //let isImageFile = file?.type?.split("/")[0] === "image";
-                    return (
-                        <div className="preview-wrapper " key={index} onDragOver={() => onDragOver(index)} >
-                            <div className="previewContainer" draggable
-                                onDragStart={e => onDragStart(e, index)}
-                                onDragEnd={onDragEnd}>
-                                <div >
-                                    {!file.id ? (
-                                        <img className="image-preview" src={URL.createObjectURL(file.path)} alt={`file preview ${index}`} />
-                                    ) :
-                                        <img className="image-preview" src={file.path} alt={`file preview ${index}`} />
-                                    }
-
-                                </div>
-                                <div className="file-meta-data cursor-move">
-                                    <aside>
-                                        <div className="removeFileIcon cursor">
-                                            <div
-                                                onClick={() => handleCheckDelete(file.id, index)}>
-                                                {IconTrash()}
-                                            </div>
-                                        </div>
-
-                                    </aside>
-                                </div>
-                            </div>
-                        </div>
-
-                    );
-                })}
             </div>
+
             <AlertDialogSlide
                 isOpen={isShowModal}
                 handleClose={() => { setIdSelect(0); setIsShowModal(false) }}
                 handleConfirm={() => { setIsShowModal(false); removeFile(index); props.handleDelete && props.handleDelete(idSelect); setIdSelect(0); }}
                 note={"Bạn có chắc chắn muốn xóa hình ảnh này? Hành động sẽ không được phục hồi"}
             />
-        </>
+        </div >
     );
 };

@@ -12,6 +12,7 @@ namespace WebAppIdentityServer.Business.Interfaces
         Task<long> Add(ProductQuantityVM model);
         Task Delete(long id);
         Task Update(ProductQuantityVM model);
+        Task Update(List<ProductQuantityVM> model);
         Task<ProductQuantityVM> GetById(long id);
         Task<List<ProductQuantityVM>> GetByProductId(long productId);
     }

@@ -105,6 +105,20 @@ function SystemConfig(props: IProps) {
                     <textarea onChange={(e) => handleChange(e)} name="description" value={data?.description} className="form-control" id="description" />
                 </div>
             </div>
+
+
+            <div className="mb-3">
+                <label htmlFor="googleAnalytics" className="form-label">GoogleAnalytics</label>
+                <textarea onChange={(e) => handleChange(e)} name="googleAnalytics" value={data?.googleAnalytics} className="form-control" id="googleAnalytics" />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="googleTag" className="form-label">GoogleTag</label>
+                <textarea onChange={(e) => handleChange(e)} name="googleTag" value={data?.googletag} className="form-control" id="googleTag" />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="facebookMessager" className="form-label">FacebookMessager</label>
+                <textarea onChange={(e) => handleChange(e)} name="facebookMessager" value={data?.facebookMessager} className="form-control" id="facebookMessager" />
+            </div>
             <div className="row">
                 <div className="col-6" >
                     <label htmlFor="exampleInputPassword1" className="form-label">Logo</label>
@@ -132,19 +146,6 @@ function SystemConfig(props: IProps) {
                     <label htmlFor="phoneNumber" className="form-label">Số điện thoại</label>
                     <input onChange={(e) => handleChange(e)} name="phoneNumber" value={data?.phoneNumber} className="form-control" type="number" id="phoneNumber" />
                 </div>
-            </div>
-
-            <div className="mb-3">
-                <label htmlFor="googleAnalytics" className="form-label">GoogleAnalytics</label>
-                <textarea onChange={(e) => handleChange(e)} name="googleAnalytics" value={data?.googleAnalytics} className="form-control" id="googleAnalytics" />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="googleTag" className="form-label">GoogleTag</label>
-                <textarea onChange={(e) => handleChange(e)} name="googleTag" value={data?.googletag} className="form-control" id="googleTag" />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="facebookMessager" className="form-label">FacebookMessager</label>
-                <textarea onChange={(e) => handleChange(e)} name="facebookMessager" value={data?.facebookMessager} className="form-control" id="facebookMessager" />
             </div>
         </form>
     }

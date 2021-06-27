@@ -62,5 +62,12 @@ namespace WebAppIdentityServer.Api.Controllers
             await _productQuantityBus.Update(request);
             return ToOkResult();
         }
+        [HttpPut("updates")]
+        [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.UPDATE)]
+        public async Task<IActionResult> Puts([FromBody] List<ProductQuantityVM> request)
+        {
+            await _productQuantityBus.Update(request);
+            return ToOkResult();
+        }
     }
 }

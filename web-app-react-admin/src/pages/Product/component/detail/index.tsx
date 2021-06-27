@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import ProductQuantity from './productQuantity';
 import { env } from '@/environments/config';
 import { useHistory } from 'react-router-dom';
+
 export interface IProps {
     match: { params: { id: any } }
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}

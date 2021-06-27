@@ -71,5 +71,17 @@ namespace WebAppIdentityServer.Business.Implementation
             await _unitOfWork.CommitAsync();
             return;
         }
+
+        public async Task Update(List<ProductQuantityVM> model)
+        {
+            var entity = model.Select(x => x.ToEntity());
+            foreach (var item in entity)
+            {
+                await _quantityRep.UpdateAsync(item, item.Id);
+            }
+
+            await _unitOfWork.CommitAsync();
+            return;
+        }
     }
 }

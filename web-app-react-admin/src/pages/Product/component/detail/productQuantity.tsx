@@ -1,16 +1,11 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { TextField, makeStyles, createStyles, Theme } from '@material-ui/core';
-import { ColorVM, productQuantityVM, ProductVM, SizeVM } from '@/models/index';
-import { useNotification } from '@/components/index'
-import { IconPlushSquare, IconEdit } from '@/helpers/svg'
-import { green } from '@material-ui/core/colors';
-import Select from 'react-select'
-import { OptionVariant, IObjectSelect } from '@/constants/utilConstant';
-import { apiColor, apiSize } from '@/apis';
+import { productQuantityVM } from '@/models/index';
+import { IconEdit } from '@/helpers/svg'
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import { IsNullOrEmpty } from '@/helpers/utils';
 import { useHistory } from 'react-router-dom';
 import { PATH } from '@/constants/paths';
+import EditVariant from './editVariant';
 
 
 export interface IProps {
@@ -23,7 +18,7 @@ export interface IProps {
 function ProductQuantity(props: IProps) {
     let history = useHistory();
     const [dataProQuantity, setDataProQuantity] = useState<productQuantityVM[]>([])
-
+    const [typeVariant, setTypeVariant] = useState(0);
     useEffect(() => {
         setDataProQuantity(props.data ? props.data : [])
     }, [])
@@ -81,9 +76,8 @@ function ProductQuantity(props: IProps) {
                             Chỉnh sửa biến thể
                         </button>
                         <ul style={{ width: '11rem !important' }} className="dropdown-menu dropdown-menu" aria-labelledby="dropdownMenu2" >
-                            <li><button className="dropdown-item" type="button">Chỉnh giá</button></li>
-                            <li><button className="dropdown-item" type="button">Chỉnh SKU</button></li>
-                            <li><button className="dropdown-item" type="button">Chỉnh thuộc tính</button></li>
+                            <li onClick={() => setTypeVariant(1)}><button className="dropdown-item" type="button">Chỉnh giá</button></li>
+                            <li onClick={() => setTypeVariant(2)}><button className="dropdown-item" type="button">Chỉnh SKU</button></li>
                         </ul>
                     </div>
                 </div>
@@ -96,6 +90,13 @@ function ProductQuantity(props: IProps) {
 
                 }
             </div>
+            <EditVariant
+                productId={props.productId}
+                data={props.data}
+                isOpen={typeVariant > 0 ? true : false}
+                type={typeVariant}
+                handleClose={() => setTypeVariant(0)}
+            />
         </Fragment >
     }
 

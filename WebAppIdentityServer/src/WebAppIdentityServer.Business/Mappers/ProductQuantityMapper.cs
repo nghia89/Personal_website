@@ -58,7 +58,7 @@ namespace WebAppIdentityServer.Business.Mappers
                     Price = model.Price,
                     OptionVariantColor = model.OptionVariantColor,
                     OptionVariantName = model.OptionVariantName,
-                    OptionVariantSize = model.OptionVariantSize
+                    OptionVariantSize = model.OptionVariantSize,
                 };
             }
         }

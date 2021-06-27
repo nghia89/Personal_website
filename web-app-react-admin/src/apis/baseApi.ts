@@ -98,5 +98,6 @@ export const apiSystemConfig = {
 export const apiProductQuantity = {
     create: async (body: any) => { return await POST(`${baseApiProductQuantity}add`, body) },
     update: async (body: any) => { return await PUT(`${baseApiProductQuantity}update`, body) },
+    updates: async (body: any) => { return await PUT(`${baseApiProductQuantity}updates`, body) },
     delete: async (id: number) => { return await DELETE(`${baseApiProductQuantity}delete/` + id) },
 }

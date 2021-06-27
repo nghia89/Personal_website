@@ -50,11 +50,11 @@ export default function AlertDialogSlide(props: IProps) {
 
       </DialogContent>
       <DialogActions className="mt-2 mb-2">
-        <button onClick={() => handleConfirm()} type="button" className="btn btn-primary">
-          Xác nhận
-        </button >
         <button onClick={() => handleClose()} type="button" className="btn btn-danger">
           Đóng
+        </button >
+        <button onClick={() => handleConfirm()} type="button" className="btn btn-primary">
+          Xác nhận
         </button >
       </DialogActions>
     </Dialog>

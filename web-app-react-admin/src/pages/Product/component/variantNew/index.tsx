@@ -196,7 +196,7 @@ function VariantNew(props: IProps) {
                     <div className="ui-information-body">
                         <div className="d-flex py-2">
                             <div className="product-info-preview-container image-wrapper-border-solid  align-items-center  mx-2">
-                                <a aria-current="page" className="w-100 h-100 active" href="/admin/products/1032405371">
+                                <a aria-current="page" className="w-100 h-100 active" onClick={() => history.push(`${PATH.PRODUCT_DETAIL}${props.match.params.id}`)}>
                                     {
                                         dataProduct?.image ?
                                             <img className="product-info-preview-img" src={dataProduct.image} />

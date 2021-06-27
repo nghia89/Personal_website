@@ -4,7 +4,7 @@ import { IconSearch } from '@/helpers/svg';
 import { formatPrice } from '@/helpers/utils';
 
 interface IProps {
-    label: string
+    label?: string
     placeholder?: string
     onChange?: Function
     required?: boolean
@@ -20,7 +20,7 @@ export default function InputComponent(props: IProps) {
     let { label, placeholder, required, type, name, value, isFormatPrice } = props;
 
     return <React.Fragment>
-        <label>{label} {required && <span className="required">*</span>} </label>
+        {label && <label>{label} {required && <span className="required">*</span>} </label>}
         <div className="next-input--has-border-left">
             {
                 <input ref={(r) => props.ref && props.ref(r)} type={type ? type : 'text'}
