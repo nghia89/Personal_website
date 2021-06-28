@@ -36,7 +36,7 @@ function ProductQuantity(props: IProps) {
     }
 
     function renderItem(item: productQuantityVM, index) {
-        return <div className="col-11 mb-3" style={{ margin: '0 auto' }}>
+        return <div className="col-11" style={{ margin: '0 auto' }}>
             <div className="d-flex border-line-bottom justify-content-center align-items-center p-3">
                 <div className="col-10 d-flex align-items-center">
                     <span className="hmt-image-thumbnail">

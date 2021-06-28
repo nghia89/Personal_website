@@ -56,18 +56,7 @@ export default function ImgUrlVariant(props: IProps) {
 
 
     async function handleChangeFiles(files: Attachments[], isDragAndDrop) {
-        if (isDragAndDrop) {
-            let lsImgId: any = [];
-            files.forEach(e => {
-                if (e.id) lsImgId.push(e.id)
-            })
-            let rsp = await apiProduct.productImageReorder(productId, lsImgId);
-            if (!rsp.isError) {
-                dispatch('SUCCESS', 'Cập nhật ảnh thành công')
-            }
-        } else {
-            setListImage(files)
-        }
+
     }
 
 
@@ -76,7 +65,11 @@ export default function ImgUrlVariant(props: IProps) {
             <FileUpload
                 files={listImage}
                 onchangeFiles={(files, isDragAndDrop) => handleChangeFiles(files, isDragAndDrop)}
+                handleFileSelected={(file) => console.log(file)}
                 accept=".jpg,.png,.jpeg"
+                isHiddenDragAndDrop
+                isHiddenDelete
+                isHiddenUploadFile
             />
         </div>
     }

@@ -3,7 +3,7 @@
   position: relative;
   /* margin: 10px 0 0px; */
   border: 2px dotted lightgray;
-  /* padding: 27px 18px; */
+  width: 15%;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
@@ -91,9 +91,9 @@
 
 .cursor-move{
   cursor: move;
-  cursor:-webkit-grab; 
+  /* cursor:-webkit-grab; 
   cursor:-moz-grab; 
-  cursor: grab
+  cursor: grab */
 }
 
 .item-content{
@@ -108,4 +108,9 @@
 .preview-wrapper .first{
   height: 286px !important;
   width: 30% !important;
+}
+
+
+.preview-wrapper .item-content .selecting{
+  border: 2px solid #007ace!important;
 }

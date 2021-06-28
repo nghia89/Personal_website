@@ -17,7 +17,11 @@ interface IProps {
     accept?: string
     maxFileSizeInBytes?: number
     files: Array<Attachments>
+    handleFileSelected?: Function
     title?: string
+    isHiddenDelete?: boolean
+    isHiddenDragAndDrop?: boolean
+    isHiddenUploadFile?: boolean
 }
 
 
@@ -35,6 +39,7 @@ export default function FileUpload(props: IProps) {
 
     const fileInputField = useRef<any>(null);
     const [files, setFiles] = useState<Attachments[]>([]);
+    const [fileSelected, setFileSelected] = useState<Attachments>();
     const [isShowModal, setIsShowModal] = useState(false);
     const [idSelect, setIdSelect] = useState(0);
     const [index, setIndex] = useState(null);
@@ -43,6 +48,11 @@ export default function FileUpload(props: IProps) {
         draggedItem = null
         setFiles(props.files)
     }, [props.files])
+
+    useEffect(() => {
+        if (fileSelected)
+            props.handleFileSelected && props.handleFileSelected(fileSelected)
+    }, [fileSelected])
 
 
     const handleUploadBtnClick = () => {
@@ -132,27 +142,29 @@ export default function FileUpload(props: IProps) {
     return (
         <div className={`preview-wrapper ${files[0] ? ' min-height-300 ' : ''}`} >
             {files?.map((file, index) => {
-                //let isImageFile = file?.type?.split("/")[0] === "image";
+                let checkFile = file?.id == fileSelected?.id ? true : false;
                 return (
                     <div className={`item-content ms-2 mx-2 mt-2 ${index == 0 ? 'first' : ''}`} key={index} onDragOver={() => onDragOver(index)}>
-                        <div className="previewContainer"
-                            draggable
+                        <div className={`previewContainer ${checkFile ? 'selecting' : ''}`}
+                            draggable={!props.isHiddenDragAndDrop}
                             onDragStart={e => onDragStart(e, index)}
-                            onDragEnd={onDragEnd}>
+                            onDragEnd={onDragEnd}
+                            onClick={() => props.handleFileSelected && setFileSelected(file)}
+                        >
                             {!file.id ? (
                                 <img className="image-preview" src={URL.createObjectURL(file.path)} alt={`file preview ${index}`} />
                             ) :
                                 <img className="image-preview" src={replaceImgUrl(file.path, ImageSize.small)} alt={`file preview ${index}`} />
                             }
-                            <div className="file-meta-data cursor-move">
+                            <div className={`file-meta-data ${!props.isHiddenDelete ? 'cursor-move' : 'cursor'}`}>
                                 <aside>
-                                    <div className="removeFileIcon cursor">
+                                    {!props.isHiddenDelete && <div className="removeFileIcon cursor">
                                         <div
                                             onClick={() => handleCheckDelete(file.id, index)}>
                                             {IconTrash()}
                                         </div>
                                     </div>
-
+                                    }
                                 </aside>
                             </div>
                         </div>
@@ -160,15 +172,16 @@ export default function FileUpload(props: IProps) {
 
                 );
             })}
-            <div className={`file-upload-container ms-2 mx-2 ${files[0] ? 'float-sm-start' : ''}`}>
-                <AddPhotoAlternateIcon fontSize={'large'} />
-                <p onClick={handleUploadBtnClick}>{title ? title : 'Thêm ảnh sản phẩm'}</p>
+            {!props.isHiddenUploadFile && <div className={`file-upload-container ms-2 mx-2 ${files[0] ? 'float-sm-start' : ''}`}>
+                <AddPhotoAlternateIcon color="disabled" fontSize={'large'} />
+                {title ? <p onClick={handleUploadBtnClick} style={{ color: '#8c8c8c', textAlign: 'center' }}>{title}</p> :
+                    <p onClick={handleUploadBtnClick} style={{ color: '#8c8c8c', textAlign: 'center' }}>Thêm ảnh sản <br /> phẩm</p>}
                 <input type="file" ref={fileInputField}
                     onChange={handleNewFileUpload}
                     multiple className="formField cursor"
                     accept={accept ? accept : "all"}
                 />
-            </div>
+            </div>}
             <AlertDialogSlide
                 isOpen={isShowModal}
                 handleClose={() => { setIdSelect(0); setIsShowModal(false) }}
