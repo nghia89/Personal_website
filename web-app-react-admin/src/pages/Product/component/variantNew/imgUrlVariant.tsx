@@ -36,7 +36,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ImgUrlVariant(props: IProps) {
-    debugger
     const dispatch = useNotification();
     const classes = useStyles();
     let { isOpen, data, productId } = props;

@@ -56,3 +56,10 @@ export const OptionVariant: Array<IObjectSelect> = [
     { value: "size", label: 'kích thước' },
     { value: "name", label: 'Tiêu đề' }
 ]
+
+export const ImageSize = {
+    compact: 'compact',
+    small: 'small',
+    medium: 'medium',
+    large: 'large'
+}

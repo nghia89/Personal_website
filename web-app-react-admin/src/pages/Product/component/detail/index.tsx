@@ -109,7 +109,6 @@ function ProductDetail(props: IProps) {
                 setProductIdCurrent(rsp.data.productCategoryId)
                 setProductCodeCurrent(rsp.data.code)
                 setFormState(rsp.data);
-
                 setListImage(rsp.data.productImages)
                 setIsLoading(false)
             }

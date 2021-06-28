@@ -4,6 +4,7 @@ import moment from 'moment'
 import { ValidateVm } from '@/models/index';
 import { getProfile } from './httpCommon'
 import { IconSetting, IconShoppingCart, IconUser } from './svg';
+import { ImageSize } from '@/constants/utilConstant';
 
 
 export function renderIconSlideBar(icon) {
@@ -176,4 +177,10 @@ export function formatPrice(value) {
             newValue = newValue.replace(/\D+/g, '');
         return newValue.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     }
+}
+
+export function replaceImgUrl(url, key) {
+    if (IsNullOrEmpty(url)) return ''
+    if (IsNullOrEmpty(key)) key = ImageSize.medium
+    return url.replace(/.([^.]*)$/, `_${key}.$1`)
 }

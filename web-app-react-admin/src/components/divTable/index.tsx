@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { IBaseParams, ITableHead } from '@/models'
 import './index.css'
-import { formatDate, checkPermission } from '@/helpers/utils';
-import { commandId } from '@/constants/utilConstant'
+import { formatDate, checkPermission, replaceImgUrl } from '@/helpers/utils';
+import { commandId, ImageSize } from '@/constants/utilConstant'
 import { Switch, TablePagination, Tooltip } from '@material-ui/core';
 import { IconEdit, IconEmpty, IConImage, IconTrash } from '@/helpers/svg';
 import { Loading } from '../loaders';
@@ -77,7 +77,7 @@ export default function DivTable(props: IProps) {
             return <div key={"r_cel" + index} onClick={() => handleEdit(id)} className="divTableCell center">{formatDate(value, null)}</div>
         else if (type === "image")
             return <div key={"r_cel" + index} onClick={() => handleEdit(id)} className="divTableCell center" style={{ width: '200px' }}>
-                {value ? <img height="70px" src={value} /> : IConImage(36, '#8c8c8c')}
+                {value ? <img height="70px" src={replaceImgUrl(value, ImageSize.small)} /> : IConImage(36, '#8c8c8c')}
             </div>
         else if (type === "status")
             return <div key={"r_cel" + index} onClick={() => handleEdit(id)} className="divTableCell center" style={{ width: '100px' }} >

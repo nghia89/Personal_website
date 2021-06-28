@@ -4,6 +4,8 @@ import { IconTrash } from '@/helpers/svg'
 import './index.css'
 import { Attachments } from "@/models/commonM";
 import AlertDialogSlide from "../dialog/AlertDialogSlide";
+import { ImageSize } from "@/constants/utilConstant";
+import { replaceImgUrl } from "@/helpers/utils";
 
 
 const KILO_BYTES_PER_BYTE = 1024;
@@ -32,15 +34,16 @@ export default function FileUpload(props: IProps) {
 
 
     const fileInputField = useRef<any>(null);
-    const [files, setFiles] = useState(props.files);
+    const [files, setFiles] = useState<Attachments[]>([]);
     const [isShowModal, setIsShowModal] = useState(false);
     const [idSelect, setIdSelect] = useState(0);
     const [index, setIndex] = useState(null);
 
-
     useEffect(() => {
         draggedItem = null
-    }, [])
+        setFiles(props.files)
+    }, [props.files])
+
 
     const handleUploadBtnClick = () => {
         fileInputField.current.click();
@@ -131,7 +134,7 @@ export default function FileUpload(props: IProps) {
             {files?.map((file, index) => {
                 //let isImageFile = file?.type?.split("/")[0] === "image";
                 return (
-                    <div className={`item-content  ${index == 0 ? 'first' : ''}`} key={index} onDragOver={() => onDragOver(index)}>
+                    <div className={`item-content ms-2 mx-2 mt-2 ${index == 0 ? 'first' : ''}`} key={index} onDragOver={() => onDragOver(index)}>
                         <div className="previewContainer"
                             draggable
                             onDragStart={e => onDragStart(e, index)}
@@ -139,7 +142,7 @@ export default function FileUpload(props: IProps) {
                             {!file.id ? (
                                 <img className="image-preview" src={URL.createObjectURL(file.path)} alt={`file preview ${index}`} />
                             ) :
-                                <img className="image-preview" src={file.path} alt={`file preview ${index}`} />
+                                <img className="image-preview" src={replaceImgUrl(file.path, ImageSize.small)} alt={`file preview ${index}`} />
                             }
                             <div className="file-meta-data cursor-move">
                                 <aside>
@@ -157,9 +160,9 @@ export default function FileUpload(props: IProps) {
 
                 );
             })}
-            <div className="file-upload-container item-content">
+            <div className={`file-upload-container ms-2 mx-2 ${files[0] ? 'float-sm-start' : ''}`}>
                 <AddPhotoAlternateIcon fontSize={'large'} />
-                <span onClick={handleUploadBtnClick}>{title ? title : 'Thêm ảnh sản phẩm'}</span>
+                <p onClick={handleUploadBtnClick}>{title ? title : 'Thêm ảnh sản phẩm'}</p>
                 <input type="file" ref={fileInputField}
                     onChange={handleNewFileUpload}
                     multiple className="formField cursor"

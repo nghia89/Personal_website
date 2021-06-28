@@ -3,9 +3,9 @@ import {
     Table, TableBody, TablePagination, TableCell, makeStyles, TableContainer,
     TableHead, TableRow, Paper, Tooltip, CircularProgress, Switch
 } from '@material-ui/core';
-import { formatDate, checkPermission, IsNullOrEmpty } from '@/helpers/utils';
+import { formatDate, checkPermission, IsNullOrEmpty, replaceImgUrl } from '@/helpers/utils';
 import { IBaseParams, ITableHead } from '@/models/index'
-import { commandId } from '@/constants/utilConstant'
+import { commandId, ImageSize } from '@/constants/utilConstant'
 import { IconEdit, IconEmpty, IconPlushSquare, IconTrash } from '@/helpers/svg';
 import { Loading } from '../loaders';
 
@@ -95,7 +95,7 @@ export default function TableCenter(props: IProps) {
             return <TableCell key={"r_cel" + index} align="center">{formatDate(value, 'DD/MM/YYYY HH:MM')}</TableCell>
         else if (type === "image")
             return <TableCell key={"r_cel" + index} className="divTableCell center" style={{ width: '200px' }}>
-                <img height="70px" src={value} />
+                <img height="70px" src={replaceImgUrl(value, ImageSize.small)} />
             </TableCell>
         else if (type === "status")
             return <TableCell key={"r_cel" + index} className="divTableCell center" style={{ width: '100px' }} >
