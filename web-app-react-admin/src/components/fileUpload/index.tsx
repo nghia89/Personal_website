@@ -131,30 +131,33 @@ export default function FileUpload(props: IProps) {
             {files?.map((file, index) => {
                 //let isImageFile = file?.type?.split("/")[0] === "image";
                 return (
-                    <div className={`previewContainer ${index == 0 ? 'first' : ''}`}
-                        draggable
-                        onDragStart={e => onDragStart(e, index)}
-                        onDragEnd={onDragEnd}>
-                        {!file.id ? (
-                            <img className="image-preview" src={URL.createObjectURL(file.path)} alt={`file preview ${index}`} />
-                        ) :
-                            <img className="image-preview" src={file.path} alt={`file preview ${index}`} />
-                        }
-                        <div className="file-meta-data cursor-move">
-                            <aside>
-                                <div className="removeFileIcon cursor">
-                                    <div
-                                        onClick={() => handleCheckDelete(file.id, index)}>
-                                        {IconTrash()}
+                    <div className={`item-content  ${index == 0 ? 'first' : ''}`} key={index} onDragOver={() => onDragOver(index)}>
+                        <div className="previewContainer"
+                            draggable
+                            onDragStart={e => onDragStart(e, index)}
+                            onDragEnd={onDragEnd}>
+                            {!file.id ? (
+                                <img className="image-preview" src={URL.createObjectURL(file.path)} alt={`file preview ${index}`} />
+                            ) :
+                                <img className="image-preview" src={file.path} alt={`file preview ${index}`} />
+                            }
+                            <div className="file-meta-data cursor-move">
+                                <aside>
+                                    <div className="removeFileIcon cursor">
+                                        <div
+                                            onClick={() => handleCheckDelete(file.id, index)}>
+                                            {IconTrash()}
+                                        </div>
                                     </div>
-                                </div>
 
-                            </aside>
+                                </aside>
+                            </div>
                         </div>
                     </div>
+
                 );
             })}
-            <div className="file-upload-container">
+            <div className="file-upload-container item-content">
                 <AddPhotoAlternateIcon fontSize={'large'} />
                 <span onClick={handleUploadBtnClick}>{title ? title : 'Thêm ảnh sản phẩm'}</span>
                 <input type="file" ref={fileInputField}
@@ -163,7 +166,6 @@ export default function FileUpload(props: IProps) {
                     accept={accept ? accept : "all"}
                 />
             </div>
-
             <AlertDialogSlide
                 isOpen={isShowModal}
                 handleClose={() => { setIdSelect(0); setIsShowModal(false) }}
