@@ -9,7 +9,7 @@ import AlertDialogSlide from "../dialog/AlertDialogSlide";
 const KILO_BYTES_PER_BYTE = 1024;
 const DEFAULT_MAX_FILE_SIZE_IN_BYTES = (1024 * 1024 * 5);
 interface IProps {
-    multiple: boolean
+    multiple?: boolean
     onchangeFiles: Function
     handleDelete?: Function
     accept?: string
@@ -156,7 +156,7 @@ export default function FileUpload(props: IProps) {
             })}
             <div className="file-upload-container">
                 <AddPhotoAlternateIcon fontSize={'large'} />
-                <span onClick={handleUploadBtnClick}>{title ? title : 'Thêm ảnh'}</span>
+                <span onClick={handleUploadBtnClick}>{title ? title : 'Thêm ảnh sản phẩm'}</span>
                 <input type="file" ref={fileInputField}
                     onChange={handleNewFileUpload}
                     multiple className="formField cursor"

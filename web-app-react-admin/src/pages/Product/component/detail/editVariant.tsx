@@ -156,7 +156,7 @@ export default function EditVariant(props: IProps) {
             classes={{ paper: classes.dialogPaper }}
             open={isOpen}
             aria-labelledby="simple-dialog-title ">
-            <DialogTitle className="border-line-bottom" id="simple-dialog-title"><h2>Chỉnh sửa {renderTitle()}</h2></DialogTitle>
+            <DialogTitle className="border-line-bottom" id="simple-dialog-title"><h5>Chỉnh sửa {renderTitle()}</h5></DialogTitle>
             <DialogContent>
                 <div className="row" style={{ overflowY: 'hidden', flex: 'auto' }}>
                     {productQuantityState ? renderContent() :

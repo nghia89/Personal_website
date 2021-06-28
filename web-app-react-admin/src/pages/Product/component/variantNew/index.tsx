@@ -6,7 +6,7 @@ import { AlertDialogSlide, InputComponent, useNotification } from '@/components/
 import { IsNullOrEmpty, validateField } from '@/helpers/utils'
 import { green } from '@material-ui/core/colors';
 import history from "@/history";
-import { IBreadcrumbs } from '@/models/commonM';
+import { Attachments, IBreadcrumbs } from '@/models/commonM';
 import { PATH } from '@/constants/paths'
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
@@ -15,6 +15,7 @@ import Select from 'react-select'
 import { IConImage, IconTrash } from '@/helpers/svg';
 import { Loading } from '@/components/loaders';
 import { validateProductQuantityVm } from '@/models/validateField';
+import ImgUrlVariant from './imgUrlVariant';
 export interface IProps {
     match: { params: { id: any, quantityid: any } }
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
@@ -51,6 +52,9 @@ function VariantNew(props: IProps) {
     const [isHiddenSize, setHiddenSize] = useState<boolean>(false)
     const [isHiddenName, setHiddenName] = useState<boolean>(false)
     const [isShowModal, setIsShowModal] = useState<boolean>(false)
+    const [isShowImgModal, setIsShowImgModal] = useState<boolean>(false)
+    const [imgUrl, setImgUrl] = useState<string>('')
+    const [listImage, setListImage] = useState<Array<Attachments>>([])
 
     let { quantityid } = props.match.params
     useEffect(() => {
@@ -83,6 +87,9 @@ function VariantNew(props: IProps) {
                 if (quantity) setDataProQuantity(quantity)
             }
             setDataProduct(rsp.data)
+            if (rsp.data?.productImages) {
+                setListImage(rsp.data?.productImages)
+            }
             setIsLoading(false)
         }
     }
@@ -133,6 +140,11 @@ function VariantNew(props: IProps) {
         if (messError)
             dispatch('ERROR', messError)
         return messError
+    }
+
+    function handleCloseImgUrl() {
+        setIsShowImgModal(false)
+        setImgUrl('')
     }
 
 
@@ -386,9 +398,13 @@ function VariantNew(props: IProps) {
                                 </div>
                             </div>
                             <div className="col-2">
-                                <div className="pt-5 pr-3">
+                                <div className="pt-5 pr-3" onClick={() => setIsShowImgModal(true)}>
                                     <div className="variant-image-container">
-                                        <img className="product-info-preview-img" src={dataProQuantity.imageUrl} />
+                                        {
+                                            dataProQuantity.imageUrl ? <img className="product-info-preview-img" src={dataProQuantity.imageUrl} />
+                                                : IConImage(64, '#8c8c8c')
+                                        }
+
                                     </div>
                                     <div className="d-block btn btn-link font-weight-bold">Thay đổi ảnh</div>
                                 </div>
@@ -433,6 +449,13 @@ function VariantNew(props: IProps) {
                 handleConfirm={() => handleDelete()}
                 note={"Bạn có chắc chắn muốn xoá sản phẩm này?"}
             />
+            {isShowImgModal && <ImgUrlVariant
+                productId={props.match.params.id}
+                isOpen={isShowImgModal}
+                data={listImage}
+                handleClose={() => handleCloseImgUrl()}
+                handleOnchange={(imgUrl) => setImgUrl(imgUrl)}
+            />}
         </div>
     </div >
 }

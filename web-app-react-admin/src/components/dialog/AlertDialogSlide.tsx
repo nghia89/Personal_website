@@ -41,9 +41,9 @@ export default function AlertDialogSlide(props: IProps) {
       open={isOpen}
       onClose={outClose ? handleClose() : null}
       aria-labelledby="simple-dialog-title">
-      <DialogTitle id="simple-dialog-title">{title ? title : 'Thông báo'}</DialogTitle>
+      <DialogTitle id="simple-dialog-title" className="border-line-bottom"><h5>{title ? title : 'Thông báo'}</h5></DialogTitle>
       <DialogContent>
-        <div style={{ overflowY: 'hidden', flex: 'auto' }}>
+        <div>
           {note}
           {props.children}
         </div>
