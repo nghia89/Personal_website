@@ -64,7 +64,7 @@ function VariantNew(props: IProps) {
         let rsp = await apiProduct.getById(props.match.params.id);
         if (!rsp.isError) {
             if (quantityid) {
-                let quantity = rsp.data.productQuantity.find(x => x.id === quantityid)
+                let quantity = rsp.data.productQuantity.find(x => x.id == quantityid)
                 if (quantity) setDataProQuantity(quantity)
             }
             setDataProduct(rsp.data)
@@ -235,7 +235,7 @@ function VariantNew(props: IProps) {
                                 dataProduct?.productQuantity?.map((item, index) => {
                                     return <li
                                         onClick={() => history.push(`${PATH.PRODUCT_VARIANT}${props.match.params.id}/variant/${item.id}`)}
-                                        key={`item-variant${index}`} className={`product-info-variant-item py-3 d-flex align-items-center cursor ${item.id === quantityid ? 'active' : ''}`}>
+                                        key={`item-variant${index}`} className={`product-info-variant-item py-3 d-flex align-items-center cursor ${item.id == quantityid ? 'active' : ''}`}>
                                         <div className="product-info-list-item-img-wrapper image-wrapper-border-solid">
                                             {
                                                 item.imageUrl ? <img alt="" className="product-info-preview-img" src={replaceImgUrl(item.imageUrl, ImageSize.small)} />
