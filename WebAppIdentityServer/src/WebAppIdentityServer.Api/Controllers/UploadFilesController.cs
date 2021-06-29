@@ -240,7 +240,7 @@ namespace WebAppIdentityServer.Api.Controllers
             {
                 _logger.LogTrace($"... Resizing to {imgSize.Key}");
 
-                var newFileName = Regex.Replace(filename, @"\.", $"_{imgSize.Key}.");
+                var newFileName = Regex.Replace(filename, @"\.([^.]*)$", $"_{imgSize.Key}.$1");
                 string filePath = Path.Combine(folder, newFileName);
 
                 using (var image = await Image.LoadAsync(file.OpenReadStream()))

@@ -3,14 +3,14 @@ import { makeStyles, createStyles, Theme, Checkbox, FormControlLabel } from '@ma
 import { ColorVM, productQuantityVM, ProductVM, SizeVM } from '@/models/index';
 import { apiColor, apiProduct, apiProductQuantity, apiSize } from '@/apis/index';
 import { AlertDialogSlide, InputComponent, useNotification } from '@/components/index'
-import { IsNullOrEmpty, validateField } from '@/helpers/utils'
+import { IsNullOrEmpty, validateField, replaceImgUrl } from '@/helpers/utils'
 import { green } from '@material-ui/core/colors';
 import history from "@/history";
 import { Attachments, IBreadcrumbs } from '@/models/commonM';
 import { PATH } from '@/constants/paths'
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
-import { OptionVariant } from '@/constants/utilConstant';
+import { ImageSize, OptionVariant } from '@/constants/utilConstant';
 import Select from 'react-select'
 import { IConImage, IconTrash } from '@/helpers/svg';
 import { Loading } from '@/components/loaders';
@@ -117,20 +117,34 @@ function VariantNew(props: IProps) {
     async function saveData() {
         if (!validateFields()) {
             if (quantityid) {
-                await apiProductQuantity.update(dataProQuantity).then((rsp) => {
-                    if (!rsp.isError) {
-                        dispatch('SUCCESS', 'Cập nhật biến thể thành công.')
-                        fetchDetail()
-                    }
-                })
+                let rsp = await apiProductQuantity.update(dataProQuantity);
+                if (!rsp.isError) {
+                    dispatch('SUCCESS', 'Cập nhật biến thể thành công.')
+                    fetchDetail()
+                }
             } else {
                 dataProQuantity.productId = props.match.params.id;
-                await apiProductQuantity.create(dataProQuantity).then((rsp) => {
-                    if (!rsp.isError) {
-                        dispatch('SUCCESS', 'Tạo mới biến thể thành công.')
-                        history.push(`${PATH.PRODUCT_VARIANT}${props.match.params.id}/variant/${rsp.data}`)
-                    }
-                })
+                let rsp = await apiProductQuantity.create(dataProQuantity);
+                if (!rsp.isError) {
+                    dispatch('SUCCESS', 'Tạo mới biến thể thành công.')
+                    history.push(`${PATH.PRODUCT_VARIANT}${props.match.params.id}/variant/${rsp.data}`)
+                }
+            }
+        }
+    }
+
+    async function handleChangeImgUrl(file) {
+        if (file) {
+            if (quantityid) {
+                dataProQuantity.imageUrl = file.path;
+                let rsp = await apiProductQuantity.update(dataProQuantity);
+                if (!rsp.isError)
+                    fetchDetail()
+
+            } else {
+                let newFormState = { ...dataProQuantity };
+                newFormState.imageUrl = file.path;
+                setDataProQuantity(newFormState);
             }
         }
     }
@@ -207,11 +221,11 @@ function VariantNew(props: IProps) {
                 <div className="ui-information">
                     <div className="ui-information-body">
                         <div className="d-flex py-2">
-                            <div className="product-info-preview-container image-wrapper-border-solid  align-items-center  mx-2">
+                            <div className="product-info-preview-container image-wrapper-border-solid  align-items-center cursor mx-2">
                                 <a aria-current="page" className="w-100 h-100 active" onClick={() => history.push(`${PATH.PRODUCT_DETAIL}${props.match.params.id}`)}>
                                     {
                                         dataProduct?.image ?
-                                            <img className="product-info-preview-img" src={dataProduct.image} />
+                                            <img className="product-info-preview-img" src={replaceImgUrl(dataProduct.image, ImageSize.small)} />
                                             :
                                             IConImage()
                                     }
@@ -221,7 +235,7 @@ function VariantNew(props: IProps) {
                                 <div className="h6 mb-0">{dataProduct?.name}</div>
                                 <div className="small text-muted py-1 cursor">{dataProduct?.productQuantity?.length} Chi tiết biến thể</div>
                                 <a aria-current="page" className="w-100 h-100 active" onClick={() => history.push(`${PATH.PRODUCT_DETAIL}${props.match.params.id}`)}>
-                                    <span className="small pl-1">Quay về chi tiết sản phẩm</span>
+                                    <span className="small pl-1 cursor">Quay về chi tiết sản phẩm</span>
                                 </a>
                             </div>
                         </div>
@@ -243,14 +257,14 @@ function VariantNew(props: IProps) {
                                         key={`item-variant${index}`} className={`product-info-variant-item py-3 d-flex align-items-center cursor ${item.id == quantityid ? 'active' : ''}`}>
                                         <div className="product-info-list-item-img-wrapper image-wrapper-border-solid">
                                             {
-                                                item.imageUrl ? <img className="product-info-preview-img" src={item.imageUrl} />
+                                                item.imageUrl ? <img className="product-info-preview-img" src={replaceImgUrl(item.imageUrl, ImageSize.small)} />
                                                     : item.color?.colorCode ? <span className='h-70-percent w-70-percent' style={{ backgroundColor: item.color?.colorCode }}></span>
                                                         : <span className="product-info-preview-img" style={{ position: 'inherit' }} >{IConImage(24, '#8c8c8c')}</span>
                                             }
                                         </div>
                                         <div
                                             className="pl-3 ms-2 d-flex flex-column justify-content-around active-color">
-                                            <label className="mb-0">{renderNameVariant(item.color?.name, item.size?.name, item.name)}</label>
+                                            <label className="mb-0 cursor">{renderNameVariant(item.color?.name, item.size?.name, item.name)}</label>
                                             {item.sku && <p className="small mb-0">SKU: {item.sku}</p>}
                                         </div>
                                     </li>
@@ -401,7 +415,7 @@ function VariantNew(props: IProps) {
                                 <div className="pt-5 pr-3" onClick={() => setIsShowImgModal(true)}>
                                     <div className="variant-image-container">
                                         {
-                                            dataProQuantity.imageUrl ? <img className="product-info-preview-img" src={dataProQuantity.imageUrl} />
+                                            dataProQuantity.imageUrl ? <img className="product-info-preview-img" src={replaceImgUrl(dataProQuantity.imageUrl, ImageSize.small)} />
                                                 : IConImage(64, '#8c8c8c')
                                         }
 
@@ -454,7 +468,7 @@ function VariantNew(props: IProps) {
                 isOpen={isShowImgModal}
                 data={listImage}
                 handleClose={() => handleCloseImgUrl()}
-                handleOnchange={(imgUrl) => setImgUrl(imgUrl)}
+                handleOnchange={(imgUrl) => handleChangeImgUrl(imgUrl)}
             />}
         </div>
     </div >

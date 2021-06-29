@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles, Slide } from '@material-ui/core';
-import { AlertDialogSlide, FileUpload, InputComponent, useNotification } from '@/components';
-import { productQuantityVM } from '@/models';
-import { IsNullOrEmpty, formatPrice } from '@/helpers/utils';
-import { apiProduct, apiProductQuantity } from '@/apis'
+import { AlertDialogSlide, FileUpload } from '@/components';
 import { TransitionProps } from '@material-ui/core/transitions';
-import { ProductImageVM } from '@/models/product';
 import { Attachments } from '@/models/commonM';
 
 
@@ -29,28 +21,20 @@ const Transition = React.forwardRef(function Transition(
     return <Slide direction="down" ref={ref} {...props} />;
 });
 
-const useStyles = makeStyles(theme => ({
-    dialogPaper: {
-        width: '30%'
-    }
-}));
-
 export default function ImgUrlVariant(props: IProps) {
-    const dispatch = useNotification();
-    const classes = useStyles();
-    let { isOpen, data, productId } = props;
+    let { isOpen, data } = props;
 
     const [listImage, setListImage] = useState(data)
+    const [fileSelected, setFileSelected] = useState<any>(data)
 
     async function handleConfirm() {
-        // props.handleClose()
-        // let rsp = await apiProductQuantity.updates();
-        // if (!rsp.isError)
-        //     dispatch('SUCCESS', 'Cập nhật thành công')
+        handleClose()
+        props.handleOnchange(fileSelected)
     }
 
 
     function handleClose() {
+        setFileSelected(null)
         props.handleClose();
     }
 
@@ -65,7 +49,7 @@ export default function ImgUrlVariant(props: IProps) {
             <FileUpload
                 files={listImage}
                 onchangeFiles={(files, isDragAndDrop) => handleChangeFiles(files, isDragAndDrop)}
-                handleFileSelected={(file) => console.log(file)}
+                handleFileSelected={(file) => setFileSelected(file)}
                 accept=".jpg,.png,.jpeg"
                 isHiddenDragAndDrop
                 isHiddenDelete

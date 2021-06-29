@@ -2,10 +2,11 @@ import React, { useState, useEffect, Fragment } from 'react'
 import { productQuantityVM } from '@/models/index';
 import { IconEdit } from '@/helpers/svg'
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
-import { IsNullOrEmpty } from '@/helpers/utils';
+import { IsNullOrEmpty, replaceImgUrl } from '@/helpers/utils';
 import { useHistory } from 'react-router-dom';
 import { PATH } from '@/constants/paths';
 import EditVariant from './editVariant';
+import { ImageSize } from '@/constants/utilConstant';
 
 
 export interface IProps {
@@ -40,7 +41,11 @@ function ProductQuantity(props: IProps) {
             <div className="d-flex border-line-bottom justify-content-center align-items-center p-3">
                 <div className="col-10 d-flex align-items-center">
                     <span className="hmt-image-thumbnail">
-                        <AddPhotoAlternateIcon />
+                        {
+                            item.imageUrl ? <img src={replaceImgUrl(item.imageUrl, ImageSize.compact)} /> :
+                                <AddPhotoAlternateIcon />
+                        }
+
                     </span>
                     <div className="cursor">
                         <p onClick={() => history.push(`${PATH.PRODUCT_VARIANT}${props.productId}/variant/${item.id}`)} style={{ margin: 0, fontSize: '14px', color: '#2962ff', fontWeight: 500 }}>
