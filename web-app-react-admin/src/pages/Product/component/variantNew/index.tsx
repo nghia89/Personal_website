@@ -12,7 +12,7 @@ import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
 import { ImageSize, OptionVariant } from '@/constants/utilConstant';
 import Select from 'react-select'
-import { IConImage, IconTrash } from '@/helpers/svg';
+import { cornerDownLeft, IConImage, IconTrash } from '@/helpers/svg';
 import { Loading } from '@/components/loaders';
 import { validateProductQuantityVm } from '@/models/validateField';
 import ImgUrlVariant from './imgUrlVariant';
@@ -235,7 +235,7 @@ function VariantNew(props: IProps) {
                                 <div className="h6 mb-0">{dataProduct?.name}</div>
                                 <div className="small text-muted py-1 cursor">{dataProduct?.productQuantity?.length} Chi tiết biến thể</div>
                                 <a aria-current="page" className="w-100 h-100 active" onClick={() => history.push(`${PATH.PRODUCT_DETAIL}${props.match.params.id}`)}>
-                                    <span className="small pl-1 cursor">Quay về chi tiết sản phẩm</span>
+                                    <span className="small pl-1 cursor">{cornerDownLeft(16)} Quay về chi tiết sản phẩm</span>
                                 </a>
                             </div>
                         </div>
@@ -346,7 +346,7 @@ function VariantNew(props: IProps) {
                     </div>
                     <div className="ui-information-body">
                         <div className="row justify-content-center">
-                            <div className="col-10">
+                            <div className="col-10 col-md-9">
                                 <div className="flex-grow-1 ms-2">
                                     {
                                         ((dataProQuantity.colorId || !quantityid) && !isHiddenColor) && <div className="row">
@@ -411,7 +411,7 @@ function VariantNew(props: IProps) {
                                     }
                                 </div>
                             </div>
-                            <div className="col-2">
+                            <div className="col-2 col-md-3">
                                 <div className="pt-5 pr-3" onClick={() => setIsShowImgModal(true)}>
                                     <div className="variant-image-container">
                                         {
