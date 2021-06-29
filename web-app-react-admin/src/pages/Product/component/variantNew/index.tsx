@@ -1,10 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { makeStyles, createStyles, Theme, Checkbox, FormControlLabel } from '@material-ui/core';
+import { Checkbox, FormControlLabel } from '@material-ui/core';
 import { ColorVM, productQuantityVM, ProductVM, SizeVM } from '@/models/index';
 import { apiColor, apiProduct, apiProductQuantity, apiSize } from '@/apis/index';
 import { AlertDialogSlide, InputComponent, useNotification } from '@/components/index'
 import { IsNullOrEmpty, validateField, replaceImgUrl } from '@/helpers/utils'
-import { green } from '@material-ui/core/colors';
 import history from "@/history";
 import { Attachments, IBreadcrumbs } from '@/models/commonM';
 import { PATH } from '@/constants/paths'
@@ -22,26 +21,9 @@ export interface IProps {
 }
 
 let refs = {};
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            '& .MuiTextField-root': {
-                margin: theme.spacing(1)
-            },
-        },
-        fabProgress: {
-            color: green[500],
-            position: 'absolute',
-            top: -6,
-            left: -6,
-            zIndex: 1,
-        },
-    }),
-);
+
 function VariantNew(props: IProps) {
-    const classes = useStyles();
     let dispatch = useNotification();
-    type NewType = ProductVM | null;
 
     const [colors, setColors] = useState<ColorVM[]>()
     const [sizes, setSizes] = useState<SizeVM[]>()
@@ -53,7 +35,6 @@ function VariantNew(props: IProps) {
     const [isHiddenName, setHiddenName] = useState<boolean>(false)
     const [isShowModal, setIsShowModal] = useState<boolean>(false)
     const [isShowImgModal, setIsShowImgModal] = useState<boolean>(false)
-    const [imgUrl, setImgUrl] = useState<string>('')
     const [listImage, setListImage] = useState<Array<Attachments>>([])
 
     let { quantityid } = props.match.params
@@ -83,7 +64,7 @@ function VariantNew(props: IProps) {
         let rsp = await apiProduct.getById(props.match.params.id);
         if (!rsp.isError) {
             if (quantityid) {
-                let quantity = rsp.data.productQuantity.find(x => x.id == quantityid)
+                let quantity = rsp.data.productQuantity.find(x => x.id === quantityid)
                 if (quantity) setDataProQuantity(quantity)
             }
             setDataProduct(rsp.data)
@@ -103,6 +84,7 @@ function VariantNew(props: IProps) {
             })
             setSizes(lsSize)
         }
+        return
     }
     async function handleDelete() {
         await apiProductQuantity.delete(quantityid).then((rsp) => {
@@ -158,7 +140,6 @@ function VariantNew(props: IProps) {
 
     function handleCloseImgUrl() {
         setIsShowImgModal(false)
-        setImgUrl('')
     }
 
 
@@ -225,7 +206,7 @@ function VariantNew(props: IProps) {
                                 <a aria-current="page" className="w-100 h-100 active" onClick={() => history.push(`${PATH.PRODUCT_DETAIL}${props.match.params.id}`)}>
                                     {
                                         dataProduct?.image ?
-                                            <img className="product-info-preview-img" src={replaceImgUrl(dataProduct.image, ImageSize.small)} />
+                                            <img className="product-info-preview-img" alt="" src={replaceImgUrl(dataProduct.image, ImageSize.small)} />
                                             :
                                             IConImage()
                                     }
@@ -254,10 +235,10 @@ function VariantNew(props: IProps) {
                                 dataProduct?.productQuantity?.map((item, index) => {
                                     return <li
                                         onClick={() => history.push(`${PATH.PRODUCT_VARIANT}${props.match.params.id}/variant/${item.id}`)}
-                                        key={`item-variant${index}`} className={`product-info-variant-item py-3 d-flex align-items-center cursor ${item.id == quantityid ? 'active' : ''}`}>
+                                        key={`item-variant${index}`} className={`product-info-variant-item py-3 d-flex align-items-center cursor ${item.id === quantityid ? 'active' : ''}`}>
                                         <div className="product-info-list-item-img-wrapper image-wrapper-border-solid">
                                             {
-                                                item.imageUrl ? <img className="product-info-preview-img" src={replaceImgUrl(item.imageUrl, ImageSize.small)} />
+                                                item.imageUrl ? <img alt="" className="product-info-preview-img" src={replaceImgUrl(item.imageUrl, ImageSize.small)} />
                                                     : item.color?.colorCode ? <span className='h-70-percent w-70-percent' style={{ backgroundColor: item.color?.colorCode }}></span>
                                                         : <span className="product-info-preview-img" style={{ position: 'inherit' }} >{IConImage(24, '#8c8c8c')}</span>
                                             }

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { CircularProgress } from '@material-ui/core';
-import { SizeVM, IBaseTable, IBaseParams } from '@/models/index';
+import { SizeVM } from '@/models/index';
 import { apiSize } from '@/apis/index';
-import { checkPermission, SerializeParam } from '@/helpers/utils';
+import { checkPermission } from '@/helpers/utils';
 import { tableHeadSize } from '@/models/tableHead'
 import { DivTable } from '@/components/index'
 import { commandId, functionId } from '@/constants/utilConstant'

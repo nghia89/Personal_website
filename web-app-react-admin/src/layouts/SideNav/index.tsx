@@ -4,7 +4,7 @@ import { apiUser } from '@/apis/index';
 import { TreeItem } from '@/models/index';
 import { BulletList } from '@/components/loaders/index'
 import { Profile } from 'oidc-client';
-import { IconChevronDown, IconChevronRight, IconGrid, IconHome, IconList } from '@/helpers/svg'
+import { IconChevronDown, IconChevronRight, IconGrid, IconHome } from '@/helpers/svg'
 import history from '@/history';
 import { PATH } from '@/constants/paths';
 import { Collapse } from '@material-ui/core';
@@ -28,7 +28,7 @@ function SideNav(props: props) {
     async function getMenu() {
       await apiUser.getMenu().then((rsp) => {
         SetMenu(rsp.data)
-        let index = rsp.data.findIndex(a => a.children.findIndex(x => x.item?.url == currentPath) > -1);
+        let index = rsp.data.findIndex(a => a.children.findIndex(x => x.item?.url === currentPath) > -1);
         if (index > -1) {
           SetPathUrl(currentPath)
           handleChangeExpan(rsp.data[index].item.url)
@@ -60,7 +60,7 @@ function SideNav(props: props) {
     if (children) {
       return <div className="bg-white collapse-inner rounded">
         {children.map((item, index) => {
-          let classChild = `collapse-item ${item.item.url == pathUrl ? 'collapse-active-item' : ''}`
+          let classChild = `collapse-item ${item.item.url === pathUrl ? 'collapse-active-item' : ''}`
           return <a onClick={() => handleChangeExpanActive(item.item.url, '', pathName)} key={`children_${index}`} className={classChild}>{item.item.name}</a>
         })}
       </div>
@@ -96,7 +96,7 @@ function SideNav(props: props) {
 
 
   function renderContent() {
-    let calssActive = `nav_link cursor ${(pathName == PATH.Dashboard ? 'active font-weight-bold' : '')}`
+    let calssActive = `nav_link cursor ${(pathName === PATH.Dashboard ? 'active font-weight-bold' : '')}`
     if (isLoading) return <BulletList W={180} H={200} />
     else return <div className="nav_list">
       <a className={calssActive} onClick={() => handleChangeExpanActive(PATH.Dashboard, PATH.Dashboard, '')}>

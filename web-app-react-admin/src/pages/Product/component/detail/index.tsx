@@ -63,7 +63,7 @@ function ProductDetail(props: IProps) {
 
     useEffect(() => {
         if (listImage.length > 0) {
-            let listFileNew = listImage.filter(x => x.id == null || x.id == undefined)
+            let listFileNew = listImage.filter(x => x.id === null || x.id === undefined)
             if (listFileNew.length > 0) {
                 postFile(listFileNew)
             }
@@ -73,7 +73,7 @@ function ProductDetail(props: IProps) {
 
 
     useEffect(() => {
-        if (formState?.productCategoryId && formState?.id && productIdCurrent != formState?.productCategoryId) {
+        if (formState?.productCategoryId && formState?.id && productIdCurrent !== formState?.productCategoryId) {
             generateCode()
         } else {
             handleOnchangeValue(productIdCurrent, 'productCategoryId')

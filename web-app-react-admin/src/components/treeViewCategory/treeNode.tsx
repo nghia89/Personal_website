@@ -50,7 +50,7 @@ export default function TreeNode(props: IProps) {
     }
     function renderContent(node: TreeCategoryVM, children: Array<TreeCateItem>, keyNote: string) {
         let isExpand = expanded.includes(node.id) ? true : false;
-        let isChild = (children[0] != undefined) ? true : false;
+        let isChild = (children[0] !== undefined) ? true : false;
         let itemRootClass = `cate-treeItem-root${props.selected === node.id ? ' cate-tree-selected' : ''}`
         return <React.Fragment key={keyNote} >
             {

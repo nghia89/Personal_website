@@ -1,10 +1,7 @@
-import { AlertDialogSlide, ImageUploadCard, SearchComponent, TableCenter, useNotification } from '@/components';
-import { commandId, functionId } from '@/constants/utilConstant';
-import { CircularProgress, TextField } from '@material-ui/core';
-import { tableHeadCategory } from '@/models/tableHead';
+import { ImageUploadCard, useNotification } from '@/components';
+import { CircularProgress } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { checkPermission, SerializeParam } from '@/helpers/utils';
-import { IBaseParams, SystemConfigVM } from '@/models';
+import { SystemConfigVM } from '@/models';
 import { apiSystemConfig } from '@/apis';
 import { IBreadcrumbs } from '@/models/commonM';
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';

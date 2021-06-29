@@ -1,6 +1,4 @@
-import React, { useState } from 'react'
-import { Button } from '@material-ui/core';
-import { IconSearch } from '@/helpers/svg';
+import React from 'react'
 import { formatPrice } from '@/helpers/utils';
 
 interface IProps {

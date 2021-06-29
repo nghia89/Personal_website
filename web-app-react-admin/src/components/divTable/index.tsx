@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { IBaseParams, ITableHead } from '@/models'
 import './index.css'
 import { formatDate, checkPermission, replaceImgUrl } from '@/helpers/utils';
@@ -134,7 +134,7 @@ export default function DivTable(props: IProps) {
                         renderContentTable() :
                         <div className="content_table_data_empty" style={{ width: widthContent }}>
                             <span>
-                                {IconEmpty(dimensions.height - 550)}
+                                {IconEmpty((dimensions.height - 550) < 0 ? 10 : (dimensions.height - 550))}
                             </span>
                             <p className="mx-5 font-weight-bold text-dark">Danh sách đang trống</p>
                         </div>

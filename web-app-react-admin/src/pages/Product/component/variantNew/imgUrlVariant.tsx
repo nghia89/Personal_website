@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, Slide } from '@material-ui/core';
 import { AlertDialogSlide, FileUpload } from '@/components';
-import { TransitionProps } from '@material-ui/core/transitions';
 import { Attachments } from '@/models/commonM';
 
 
@@ -12,14 +10,6 @@ interface IProps {
     data: Attachments[],
     handleOnchange: Function
 }
-
-
-const Transition = React.forwardRef(function Transition(
-    props: TransitionProps & { children?: React.ReactElement<any, any> },
-    ref: React.Ref<unknown>,
-) {
-    return <Slide direction="down" ref={ref} {...props} />;
-});
 
 export default function ImgUrlVariant(props: IProps) {
     let { isOpen, data } = props;

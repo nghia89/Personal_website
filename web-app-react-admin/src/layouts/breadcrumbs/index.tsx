@@ -1,17 +1,10 @@
-import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { IBreadcrumbs } from '@/models/commonM';
 import { IsNullOrEmpty } from '@/helpers/utils'
-
-const useStyles = makeStyles({
-    root: {
-
-    }
-});
 
 interface IProps {
     breadcrumbs: IBreadcrumbs[]
@@ -19,9 +12,6 @@ interface IProps {
 
 
 function Breadcrumb(props: IProps) {
-    const classes = useStyles();
-    let history = useHistory();
-
     let { breadcrumbs } = props;
 
     return (

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import {
     Table, TableBody, TablePagination, TableCell, makeStyles, TableContainer,
-    TableHead, TableRow, Paper, Tooltip, CircularProgress, Switch
+    TableHead, TableRow, Paper, Tooltip, Switch
 } from '@material-ui/core';
-import { formatDate, checkPermission, IsNullOrEmpty, replaceImgUrl } from '@/helpers/utils';
+import { formatDate, checkPermission, replaceImgUrl } from '@/helpers/utils';
 import { IBaseParams, ITableHead } from '@/models/index'
 import { commandId, ImageSize } from '@/constants/utilConstant'
 import { IconEdit, IconEmpty, IconPlushSquare, IconTrash } from '@/helpers/svg';
@@ -157,7 +157,7 @@ export default function TableCenter(props: IProps) {
                                 </TableBody>
                                 : <div className="content_table_data_empty" style={{ width: widthContent }}>
                                     <span>
-                                        {IconEmpty(dimensions.height - 550)}
+                                        {IconEmpty((dimensions.height - 550) < 0 ? 10 : (dimensions.height - 550))}
                                     </span>
                                     <p className="mx-5 font-weight-bold text-dark">Danh sách đang trống</p>
                                 </div>

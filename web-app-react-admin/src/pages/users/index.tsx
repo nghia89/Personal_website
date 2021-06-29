@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { tableHeadUser } from '@/models/tableHead'
-import { CircularProgress, TextField, Select, MenuItem } from '@material-ui/core';
+import { TextField, Select, MenuItem } from '@material-ui/core';
 import { IBaseParams, RoleVM, UserVM } from '@/models/index';
 import { apiRoles, apiUser } from '@/apis/index';
 import { SerializeParam, checkPermission } from '@/helpers/utils';

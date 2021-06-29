@@ -142,9 +142,9 @@ export default function FileUpload(props: IProps) {
     return (
         <div className={`preview-wrapper ${files[0] ? ' min-height-300 ' : ''}`} >
             {files?.map((file, index) => {
-                let checkFile = file?.id == fileSelected?.id ? true : false;
+                let checkFile = file?.id === fileSelected?.id ? true : false;
                 return (
-                    <div className={`item-content ms-2 mx-2 mt-2 ${index == 0 ? 'first' : ''}`} key={index} onDragOver={() => onDragOver(index)}>
+                    <div className={`item-content ms-2 mx-2 mt-2 ${index === 0 ? 'first' : ''}`} key={index} onDragOver={() => onDragOver(index)}>
                         <div className={`previewContainer ${checkFile ? 'selecting' : ''}`}
                             draggable={!props.isHiddenDragAndDrop}
                             onDragStart={e => onDragStart(e, index)}

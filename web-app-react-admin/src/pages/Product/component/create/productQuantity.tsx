@@ -67,14 +67,14 @@ function ProductQuantity(props: IProps) {
 
     function handleRemoveItem(name, groupId) {
         let newList = [...dataProQuantity]
-        let index = newList.findIndex(x => x.groupId == groupId && x.optionVariant == name)
+        let index = newList.findIndex(x => x.groupId === groupId && x.optionVariant === name)
         if (index > -1 && newList.length > 1) {
             newList.splice(index, 1)
             setDataProQuantity(newList)
         }
-        let checkLenght = newList.filter(a => a.groupId == groupId).length == 0;
+        let checkLenght = newList.filter(a => a.groupId === groupId).length === 0;
         if (checkLenght) {
-            let indexGroup = listGroup.findIndex(a => a == groupId)
+            let indexGroup = listGroup.findIndex(a => a === groupId)
             if (indexGroup > -1) {
                 listGroup.splice(indexGroup, 1)
                 setListGroup(listGroup)
@@ -90,14 +90,14 @@ function ProductQuantity(props: IProps) {
 
     function handleChangeOption(selectedOption, index, groupId) {
         let newOptionSelect = [...dataProQuantity]
-        let optionGroup = newOptionSelect.filter(x => x.groupId == groupId)
+        let optionGroup = newOptionSelect.filter(x => x.groupId === groupId)
         optionGroup[index].optionVariant = selectedOption.value
         setDataProQuantity(newOptionSelect)
     }
 
     function handleOnchangeValue(selectedOption, index, isColor, isSize, target, groupId) {
         let newOptionSelect = [...dataProQuantity]
-        let optionGroup = newOptionSelect.filter(x => x.groupId == groupId)
+        let optionGroup = newOptionSelect.filter(x => x.groupId === groupId)
         if (isColor) {
             optionGroup[index].colorId = selectedOption.value
             optionGroup[index].color = { id: selectedOption.value, name: selectedOption.label }
@@ -115,13 +115,13 @@ function ProductQuantity(props: IProps) {
     }
 
     function renderItem(item: productQuantityVM, index, groupId) {
-        let optionVariant = OptionVariant.find(x => x.value == item.optionVariant);
-        let isColor = optionVariant?.value == OptionVariant[0].value ? true : false
-        let isSize = optionVariant?.value == OptionVariant[1].value ? true : false
+        let optionVariant = OptionVariant.find(x => x.value === item.optionVariant);
+        let isColor = optionVariant?.value === OptionVariant[0].value ? true : false
+        let isSize = optionVariant?.value === OptionVariant[1].value ? true : false
         let valueOption = isColor ? { value: item.colorId, label: item.color?.name } : isSize ? { value: item.sizeId, label: item.size?.name } : null;
-        let lsOptionGroup = dataProQuantity.filter(a => a.groupId == groupId);
+        let lsOptionGroup = dataProQuantity.filter(a => a.groupId === groupId);
 
-        let lsOptionVariant = OptionVariant.filter(a => lsOptionGroup.findIndex(x => x.optionVariant == a.value) <= -1)
+        let lsOptionVariant = OptionVariant.filter(a => lsOptionGroup.findIndex(x => x.optionVariant === a.value) <= -1)
         return <div className="row mb-3 align-items-center">
             <div className="col-3">
                 <Select
@@ -141,7 +141,7 @@ function ProductQuantity(props: IProps) {
                         placeholder="Chọn giá trị..."
                         classNamePrefix="select"
                         value={valueOption}
-                        options={optionVariant?.value == OptionVariant[0].value ? colors : sizes}
+                        options={optionVariant?.value === OptionVariant[0].value ? colors : sizes}
                         onChange={(selectedOption) => handleOnchangeValue(selectedOption, index, isColor, isSize, null, groupId)}
                     /> :
                         <input name="name" onChange={(e) => handleOnchangeValue(null, index, null, null, e.target, groupId)} className="form-control" type="text" />
@@ -163,7 +163,7 @@ function ProductQuantity(props: IProps) {
             <div style={{ marginLeft: '5px' }}>
                 {listGroup.map((item, i) => {
                     let groupId = item
-                    let quantityGroup = dataProQuantity.filter(x => x.groupId == item)
+                    let quantityGroup = dataProQuantity.filter(x => x.groupId === item)
                     return <div key={`group${i}`}>
                         <label style={{ fontWeight: 700, marginBottom: '10px' }}>Nhóm thuộc tính {++i}</label>
                         {

@@ -28,8 +28,6 @@ export default function ColorCreateAndEdit(props: IProps) {
     let { id, isOpen } = props;
     const [isLoading, setLoading] = useState(false);
     const [data, setData] = useState<SizeVM>();
-    const [displayColorPicker, setDisplayColorPicker] = useState(false);
-
     useEffect(() => {
         getData()
     }, [])
