@@ -21,7 +21,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
         public IActionResult ToOkResult(bool? isError = false, string messageOut = null)
         {
-            return Ok(new
+            return new OkObjectResult(new
             {
                 IsError = isError,
                 Message = messageOut
