@@ -84,6 +84,7 @@ export default function FileUpload(props: IProps) {
     };
 
     const handleNewFileUpload = (e) => {
+        debugger
         const { files: newFiles } = e.target;
         if (newFiles.length) {
             let updatedFiles = addNewFiles(newFiles);

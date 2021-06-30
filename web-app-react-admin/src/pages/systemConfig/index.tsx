@@ -60,6 +60,7 @@ function SystemConfig(props: IProps) {
     }
 
     function handleUpload(isLoading, path) {
+        debugger
         if (path != null && !isLoading) {
             setisLoadingImg(false)
             let newFormState: NewType = { ...data };

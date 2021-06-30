@@ -89,7 +89,7 @@ namespace WebAppIdentityServer.Api.Controllers
                 {
                     var fileName = Path.Combine(imageFolder, filename).Replace(@"\", @"/");
                     //return ToOkResult($"{_config.Value.BaseUrl}{pathCombine}");
-                    return ToOkResult(new
+                    return Ok(new
                     {
                         uploaded = true,
                         url = $"{_config.Value.BaseUrl}{pathCombine}"
@@ -104,7 +104,7 @@ namespace WebAppIdentityServer.Api.Controllers
                         await upload.CopyToAsync(fs);
                         await fs.FlushAsync();
                         // return ToOkResult($"{_config.Value.BaseUrl}{pathCombine}");
-                        return ToOkResult(new
+                        return Ok(new
                         {
                             uploaded = true,
                             url = $"{_config.Value.BaseUrl}{pathCombine}"
@@ -150,8 +150,7 @@ namespace WebAppIdentityServer.Api.Controllers
                     var linkFullFile = folder + @"\" + filename;
                     if (System.IO.File.Exists(linkFullFile))
                     {
-                        var status = true;
-                        listFile.Add(new FileImageModel { Status = status, FileName = $"{_config.Value.BaseUrl}{pathCombine}" });
+                        listFile.Add(new FileImageModel { Path = $"{_config.Value.BaseUrl}{pathCombine}" });
                     }
                     else
                     {
@@ -162,7 +161,7 @@ namespace WebAppIdentityServer.Api.Controllers
                         {
                             await file.CopyToAsync(fs);
                             await fs.FlushAsync();
-                            var path = new FileImageModel { Status = true, FileName = $"{_config.Value.BaseUrl}{pathCombine}" };
+                            var path = new FileImageModel { Path = $"{_config.Value.BaseUrl}{pathCombine}" };
                             listFile.Add(path);
                         }
                     }
@@ -296,8 +295,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
     public class FileImageModel
     {
-        public bool Status { get; set; }
-        public string FileName { get; set; }
+        public string Path { get; set; }
     }
 
 }

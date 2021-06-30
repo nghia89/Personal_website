@@ -114,15 +114,21 @@ function ImageUploadCard(props: IProps) {
 
     async function handleUploadClick(event) {
         setIsLoadingUploaded(true)
-        var files = props.isMultiple ? event.target.files : event.target.files[0];
         const formData = new FormData();
-
-        formData.append('File', files);
+        const { files: newFiles } = event.target;
+        if (props.isMultiple)
+            newFiles.forEach(element => {
+                formData.append('File', element);
+            });
+        else formData.append('File', newFiles[0]);
 
         await apiUploadFile.UploadImage(formData).then((rsp) => {
             if (!rsp.isError) {
                 dispatch('SUCCESS', 'Thêm ảnh thành công.')
-                setSelectedFile(rsp.data)
+                if (props.isMultiple)
+                    setSelectedFile(rsp.data)
+                else
+                    setSelectedFile(rsp.data[0]?.path)
                 setIsLoadingUploaded(false)
             }
         })
@@ -139,7 +145,7 @@ function ImageUploadCard(props: IProps) {
                 <CardContent>
                     <Grid style={props.style} container justify="center" alignItems="center">
                         <input
-                            accept="image/*"
+                            accept="all"
                             className={classes.input}
                             id="contained-button-file"
                             multiple={props.isMultiple}
