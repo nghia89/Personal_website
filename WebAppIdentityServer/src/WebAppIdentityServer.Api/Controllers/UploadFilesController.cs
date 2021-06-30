@@ -229,7 +229,7 @@ namespace WebAppIdentityServer.Api.Controllers
             }
         }
 
-
+        [NonAction]
         public async Task ResizingImageUpload(IFormFile file, string folder, string filename)
         {
 
@@ -260,6 +260,7 @@ namespace WebAppIdentityServer.Api.Controllers
             return;
         }
 
+        [NonAction]
         public Size ResizingImage(Image image, int maxWidth, int maxHeight)
         {
             if (image.Width > maxWidth || image.Height > maxHeight)
@@ -277,6 +278,7 @@ namespace WebAppIdentityServer.Api.Controllers
                 return new Size { Height = image.Height, Width = image.Width };
             }
         }
+        [NonAction]
         public List<ImageSize> ImageSizeInit()
         {
             return new List<ImageSize>()

@@ -8,7 +8,7 @@ namespace WebAppIdentityServer.Api.Controllers
     [Authorize("Bearer")]
     public class BaseController : ControllerBase
     {
-
+        [NonAction]
         public IActionResult ToOkResult<T>(T a, bool? isError = false, string messageOut = null)
         {
             return new OkObjectResult(new
@@ -18,7 +18,7 @@ namespace WebAppIdentityServer.Api.Controllers
                 Message = messageOut
             });
         }
-
+        [NonAction]
         public IActionResult ToOkResult(bool? isError = false, string messageOut = null)
         {
             return new OkObjectResult(new
