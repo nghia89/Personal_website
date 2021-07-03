@@ -56,7 +56,7 @@ namespace WebAppIdentityServer.Data.EF
         public DbSet<ProductImages> ProductImages { set; get; }
         public DbSet<ProductTag> ProductTags { set; get; }
         public DbSet<Size> Sizes { set; get; }
-        public DbSet<Slide> Slides { set; get; }
+        public DbSet<Slides> Slides { set; get; }
         public DbSet<SystemConfig> SystemConfigs { set; get; }
         public DbSet<Tag> Tags { set; get; }
         public DbSet<Permission> Permissions { set; get; }

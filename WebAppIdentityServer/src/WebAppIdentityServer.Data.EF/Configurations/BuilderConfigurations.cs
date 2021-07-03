@@ -93,7 +93,7 @@ namespace WebAppIdentityServer.Data.EF.Configurations
                 entity.HasKey(x => x.Id);
                 entity.HasIndex(x => new { x.Id });
             });
-            builder.Entity<Slide>(entity =>
+            builder.Entity<Slides>(entity =>
             {
                 entity.ToTable("Slides");
                 entity.HasKey(x => x.Id);

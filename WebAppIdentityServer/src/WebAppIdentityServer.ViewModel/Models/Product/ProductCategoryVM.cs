@@ -14,6 +14,7 @@ namespace WebAppIdentityServer.ViewModel.Models.Product
         public int SortOrder { get; set; }
         public string Image { get; set; }
         public Status Status { set; get; }
+        public string Urls { set; get; }
         public string SeoAlias { set; get; }
         public string SeoKeywords { set; get; }
         public string SeoDescription { set; get; }

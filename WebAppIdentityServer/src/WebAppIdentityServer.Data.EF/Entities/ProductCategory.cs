@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Utilities.Enum;
@@ -19,7 +20,7 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public string SeoAlias { set; get; }
         public string SeoKeywords { set; get; }
         public string SeoDescription { set; get; }
-        //public ICollection<Product> Products { set; get; }
+        public string Urls { set; get; }
 
         public DateTime DateCreated { get; set; }
         public DateTime? DateModified { get; set; }

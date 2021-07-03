@@ -3,7 +3,7 @@ using WebAppIdentityServer.Data.EF.Interfaces;
 
 namespace WebAppIdentityServer.Repository.Interfaces
 {
-    public interface ISlideRepository : IRepository<Slide>
+    public interface ISlideRepository : IRepository<Slides>
     {
     }
 }

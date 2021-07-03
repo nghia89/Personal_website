@@ -6,7 +6,7 @@ using WebAppIdentityServer.Repository.Interfaces;
 
 namespace WebAppIdentityServer.Repository.Implementation
 {
-    public class SlideRepository : EFRepository<Slide>, ISlideRepository
+    public class SlideRepository : EFRepository<Slides>, ISlideRepository
     {
         private IUnitOfWork _unitOfWork;
         private readonly ApplicationDbContext _context;

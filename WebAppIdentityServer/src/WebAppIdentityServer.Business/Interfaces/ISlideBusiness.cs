@@ -7,8 +7,8 @@ namespace WebAppIdentityServer.Business.Interfaces
 {
     public interface ISlideBusiness
     {
-        Task<Slide> Add(SlideShowVM model);
-        Task<Slide> Update(SlideShowVM model);
+        Task<Slides> Add(SlideShowVM model);
+        Task<Slides> Update(SlideShowVM model);
         Task<bool> Delete(long id);
         Task<List<SlideShowVM>> GetAll();
         Task<SlideShowVM> GetById(long id);

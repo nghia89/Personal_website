@@ -21,9 +21,9 @@ namespace WebAppIdentityServer.Business.Implementation
             this._unitOfWork = unitOfWork;
         }
 
-        public async Task<Slide> Add(SlideShowVM model)
+        public async Task<Slides> Add(SlideShowVM model)
         {
-            var entity = new Slide()
+            var entity = new Slides()
             {
                 Name = model.Name,
                 Content = model.Content,
@@ -86,7 +86,7 @@ namespace WebAppIdentityServer.Business.Implementation
             };
         }
 
-        public async Task<Slide> Update(SlideShowVM model)
+        public async Task<Slides> Update(SlideShowVM model)
         {
             var entity = await _slideRep.GetByIdAsync(model.Id);
 
