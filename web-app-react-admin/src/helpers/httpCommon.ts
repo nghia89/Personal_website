@@ -2,9 +2,7 @@
 import axios from "axios";
 import { env } from '@/environments/config';
 import { PATH } from '@/constants/paths'
-
 import history from '@/history';
-
 
 
 export type Method = "GET" | "POST" | "PUT" | "GET" | "DELETE";
@@ -32,20 +30,22 @@ async function callApi(method: Method, path: string, body?: any, baseApi?: strin
         history.push(PATH.error401)
         console.log("Un Unauthorized");
       } else if (error.response.status === 503)
-        history.push(PATH.error401)
+        history.push(PATH.error503)
       throw error;
     }).catch((error) => response(error.response));
   }
-  // else if (user) {
-  //   return authService.signInSilent().then(renewedUser => {
-  //     return _callApi(renewedUser.access_token, method, path, body, baseApi).then((rsp) => response(rsp)).catch(error => {
-  //       if (error.response.status === 401) {
-  //         console.log("Un Unauthorized");
-  //       }
-  //       throw error;
-  //     });
-  //   });
-  // } 
+  // else if (userStorage && userStorage.access_token) {
+  //   let authService = new AuthService();
+  //   authService.signInRedirect()
+  //   // return authService.signInRedirect().then(renewedUser => {
+  //   //   return _callApi(renewedUser.access_token, method, path, body, baseApi).then((rsp) => response(rsp)).catch(error => {
+  //   //     if (error.response.status === 401) {
+  //   //       console.log("Un Unauthorized");
+  //   //     }
+  //   //     throw error;
+  //   //   });
+  //   // });
+  // }
   else {
     throw new Error('user is not logged in');
   }

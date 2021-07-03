@@ -173,7 +173,7 @@ display: none
 .sidebar .nav_list .collapse-box .collapse-inner .collapse-item{
     height: 40px;
     display: flex;
-    color: #3a3b45;
+    color: rgb(39, 43, 65);
     text-decoration: none;
     border-radius: .35rem;
     white-space: nowrap;

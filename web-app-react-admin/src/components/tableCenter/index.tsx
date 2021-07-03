@@ -6,7 +6,7 @@ import {
 import { formatDate, checkPermission, replaceImgUrl } from '@/helpers/utils';
 import { IBaseParams, ITableHead } from '@/models/index'
 import { commandId, ImageSize } from '@/constants/utilConstant'
-import { IconEdit, IconEmpty, IconPlushSquare, IconTrash } from '@/helpers/svg';
+import { IconEdit_01, IconEmpty, IconPlushSquare, IconTrash } from '@/helpers/svg';
 import { Loading } from '../loaders';
 
 
@@ -38,10 +38,12 @@ export default function TableCenter(props: IProps) {
     const useStyles = makeStyles({
         root: {
             width: '100%',
-
+            WebkitBoxShadow: 'none',
+            borderRadius: '10px'
         },
         container: {
             height: dimensions.height - 300,
+            borderRadius: '10px'
         },
     });
 
@@ -106,7 +108,7 @@ export default function TableCenter(props: IProps) {
 
     function renderContentTable() {
         return props.data.map((item, index) => (
-            <TableRow key={`r${index}`}>
+            <TableRow key={`r${index}`} className="row-root-hover">
                 {
                     props.header.map((header, indexCel) => {
                         return renderCell(header["type"], item[header["fieldName"]], (index + indexCel))
@@ -115,18 +117,18 @@ export default function TableCenter(props: IProps) {
                 <TableCell key={`r_action`} align="center" >
                     {
                         (checkPermission(funcId, commandId.update) && !props.isHiddenEdit) && <Tooltip title="Sửa" aria-label="Sửa">
-                            <span onClick={() => props.handleEdit(item["id"])} className="px-2" >{IconEdit(20)}</span>
+                            <span onClick={() => props.handleEdit(item["id"])} className="px-2 cursor" >{IconEdit_01(20)}</span>
                         </Tooltip>
                     }
 
                     {(checkPermission(funcId, commandId.delete) && !props.isHiddenDelete) &&
                         <Tooltip title="Xoá" aria-label="Xoá">
-                            <span onClick={() => props.handleDelete(item["id"])} className="px-2" >{IconTrash(20)}</span>
+                            <span onClick={() => props.handleDelete(item["id"])} className="px-2 cursor" >{IconTrash(20)}</span>
                         </Tooltip>
                     }
                     {(checkPermission(funcId, commandId.update) && props.handleSetRole) &&
                         <Tooltip title="Gán quyền" aria-label="Gán quyền">
-                            <span onClick={() => props.handleSetRole && props.handleSetRole(item)} className="px-2"  >{IconPlushSquare(20)}</span>
+                            <span onClick={() => props.handleSetRole && props.handleSetRole(item)} className="px-2 cursor"  >{IconPlushSquare(20)}</span>
                         </Tooltip>
                     }
                 </TableCell>
@@ -166,6 +168,7 @@ export default function TableCenter(props: IProps) {
                 </Table>
             </TableContainer >
             <TablePagination
+                style={{ borderTop: '1px solid rgb(241, 242, 246)' }}
                 rowsPerPageOptions={[10, 20, 50, 100]}
                 component="div"
                 labelRowsPerPage={<span>Hiển thị:</span>}

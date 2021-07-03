@@ -39,9 +39,9 @@ function DropdownAccountUser(props: IProps) {
                     <li className="nav-item">
                         <a className="nav-link" id="dropdownAccountUser" data-bs-toggle="dropdown" aria-expanded="false"
                         >
-                            <span className="mr-2 d-none d-lg-inline text-gray-600 small">
+                            {/* <span className="mr-2 d-none d-lg-inline text-gray-600 small">
                                 {props.claimUser?.name}
-                            </span>
+                            </span> */}
                             {IconUser()}
                         </a>
                         {/* Dropdown - User Information */}

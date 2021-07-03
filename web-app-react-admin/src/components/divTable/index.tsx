@@ -4,7 +4,7 @@ import './index.css'
 import { formatDate, checkPermission, replaceImgUrl } from '@/helpers/utils';
 import { commandId, ImageSize } from '@/constants/utilConstant'
 import { Switch, TablePagination, Tooltip } from '@material-ui/core';
-import { IconEdit, IconEmpty, IConImage, IconTrash } from '@/helpers/svg';
+import { IconEdit_01, IconEmpty, IConImage, IconTrash } from '@/helpers/svg';
 import { Loading } from '../loaders';
 
 export interface IProps {
@@ -97,7 +97,7 @@ export default function DivTable(props: IProps) {
                 <div className="divTableCell center">
                     {
                         (checkPermission(funcId, commandId.update) && (props.handleEdit) && <Tooltip title="Sửa" aria-label="Sửa">
-                            <span onClick={() => props.handleEdit && props.handleEdit(item["id"])} className="px-2" >{IconEdit(20)}</span>
+                            <span onClick={() => props.handleEdit && props.handleEdit(item["id"])} className="px-2" >{IconEdit_01(20)}</span>
                         </Tooltip>)
                     }
 
@@ -153,7 +153,7 @@ export default function DivTable(props: IProps) {
     return (
         <div>
             <div className="divTable-wraper" >
-                <div style={{ overflow: 'auto', height: (dimensions.height - 270) }}>
+                <div style={{ overflow: 'auto', height: (dimensions.height - 270), borderBottom: '1px solid rgb(241, 242, 246)', borderRadius: '10px' }}>
                     {renderContent()}
                 </div>
 
