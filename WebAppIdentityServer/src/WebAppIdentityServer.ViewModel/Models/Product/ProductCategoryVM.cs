@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using WebAppIdentityServer.Utilities.Enum;
+using WebAppIdentityServer.ViewModel.Models.Common;
 
 namespace WebAppIdentityServer.ViewModel.Models.Product
 {
@@ -12,12 +13,12 @@ namespace WebAppIdentityServer.ViewModel.Models.Product
         public string Code { get; set; }
         public long? ParentId { get; set; }
         public int SortOrder { get; set; }
-        public string Image { get; set; }
+        public string Images { get; set; }
         public Status Status { set; get; }
-        public string Urls { set; get; }
         public string SeoAlias { set; get; }
         public string SeoKeywords { set; get; }
         public string SeoDescription { set; get; }
+        public List<AttachmentVM> Attachments { get; set; }
         public IEnumerable<ProductVM> Products { set; get; }
     }
 }

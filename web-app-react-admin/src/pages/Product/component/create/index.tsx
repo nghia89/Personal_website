@@ -137,17 +137,6 @@ function ProductCreate(props: IProps) {
         setFormState(newFormState);
     }
 
-    function handleUpload(isLoading, path) {
-        if (path != null && !isLoading) {
-            setPathImage(path);
-            setisLoadingImg(false)
-            let newFormState: NewType = { ...formState };
-            newFormState['image'] = path;
-            setFormState(newFormState);
-        } else
-            setisLoadingImg(true)
-    }
-
     function validateFields() {
         let messError = validateField(validateProductVm, refs);
         if (messError)
@@ -265,25 +254,6 @@ function ProductCreate(props: IProps) {
                                 />
                             </div>
                         </div>
-
-                        {/* <div className="row card_select_image" >
-
-                            <div className="col-6">
-                                <h6 className="color-black">Ảnh đại diện *</h6>
-                                <ImageUploadCard
-                                    handleUpload={(isLoading, listPath) => handleUpload(isLoading, listPath)}
-                                />
-                            </div>
-                            <div className="col-6">
-                                {
-                                    isLoadingImg ?
-                                        <CircularProgress size={68} className={classes.fabProgress} />
-                                        :
-                                        <img width={450} src={pathImage} />
-
-                                }
-                            </div>
-                        </div> */}
                     </div>
                 </div>
 
@@ -303,7 +273,7 @@ function ProductCreate(props: IProps) {
                     <FileUpload
                         files={listImage}
                         multiple
-                        onchangeFiles={(files) => console.log(files)}
+                        onchangeFiles={(files) => setListImage(files)}
                         accept=".jpg,.png,.jpeg"
                     />
                 </div>

@@ -15,12 +15,11 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public string Description { get; set; }
         public long? ParentId { get; set; }
         public int SortOrder { get; set; }
-        public string Image { get; set; }
+        public string Images { get; set; }
         public Status Status { set; get; }
         public string SeoAlias { set; get; }
         public string SeoKeywords { set; get; }
         public string SeoDescription { set; get; }
-        public string Urls { set; get; }
 
         public DateTime DateCreated { get; set; }
         public DateTime? DateModified { get; set; }

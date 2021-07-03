@@ -178,7 +178,7 @@ export default function UserDetail(props: IProps) {
     return <DrawerLayout
         isOpen={isOpen}
     >
-        <div className="container">
+        <div className="drawer-container">
             <div className="row">
                 <div className="col-12 mt-3">
                     {renderHeader()}

@@ -12,6 +12,7 @@ using WebAppIdentityServer.Utilities;
 using WebAppIdentityServer.Utilities.Enum;
 using WebAppIdentityServer.Utilities.Helpers;
 using WebAppIdentityServer.ViewModel.Common;
+using WebAppIdentityServer.ViewModel.Models.Common;
 using WebAppIdentityServer.ViewModel.Models.Product;
 
 namespace WebAppIdentityServer.Business.Implementation
@@ -76,7 +77,24 @@ namespace WebAppIdentityServer.Business.Implementation
         public async Task<ProductCategoryVM> GetById(long id)
         {
             var data = await _productCategoryRep.GetByIdAsync(id);
-            return data.ToModel();
+            var dataModel = data.ToModel();
+            var Attachment = new List<AttachmentVM>();
+            if (!String.IsNullOrEmpty(data.Images))
+            {
+                var listImg = data.Images.Split(",");
+                var i = 1;
+                foreach (var item in listImg)
+                {
+                    Attachment.Add(new AttachmentVM()
+                    {
+                        Id = data.Id + i,
+                        Path = item
+                    });
+                    i++;
+                }
+                dataModel.Attachments = Attachment;
+            }
+            return dataModel;
         }
 
         public async Task Update(ProductCategoryVM productCategoryVm)

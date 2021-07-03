@@ -84,7 +84,6 @@ export default function FileUpload(props: IProps) {
     };
 
     const handleNewFileUpload = (e) => {
-        debugger
         const { files: newFiles } = e.target;
         if (newFiles.length) {
             let updatedFiles = addNewFiles(newFiles);
@@ -157,7 +156,7 @@ export default function FileUpload(props: IProps) {
                             ) :
                                 <img className="image-preview" src={replaceImgUrl(file.path, ImageSize.small)} alt={`file preview ${index}`} />
                             }
-                            <div className={`file-meta-data ${!props.isHiddenDelete ? 'cursor-move' : 'cursor'}`}>
+                            <div className={`file-meta-data ${(!props.isHiddenDelete && !props.isHiddenDragAndDrop) ? 'cursor-move' : 'cursor'}`}>
                                 <aside>
                                     {!props.isHiddenDelete && <div className="removeFileIcon cursor">
                                         <div
@@ -173,7 +172,7 @@ export default function FileUpload(props: IProps) {
 
                 );
             })}
-            {!props.isHiddenUploadFile && <div className={`file-upload-container ms-2 mx-2 ${files[0] ? 'float-sm-start' : ''}`}>
+            {!props.isHiddenUploadFile && <div className={`file-upload-container ms-2 mx-2 ${files[0] ? 'float-sm-start width-15' : ''}`}>
                 <AddPhotoAlternateIcon color="disabled" fontSize={'large'} />
                 {title ? <p onClick={handleUploadBtnClick} style={{ color: '#8c8c8c', textAlign: 'center' }}>{title}</p> :
                     <p onClick={handleUploadBtnClick} style={{ color: '#8c8c8c', textAlign: 'center' }}>Thêm ảnh sản <br /> phẩm</p>}

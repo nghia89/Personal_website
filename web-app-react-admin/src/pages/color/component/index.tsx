@@ -153,7 +153,7 @@ export default function ColorCreateAndEdit(props: IProps) {
         isOpen={isOpen}
         width={window.innerWidth / 3 + 'px'}
     >
-        <div className="container">
+        <div className="drawer-container">
             <div className="row">
                 <div className="col-12 mt-3">
                     {renderHeader()}

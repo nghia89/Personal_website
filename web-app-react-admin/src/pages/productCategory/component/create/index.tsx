@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { TextField, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { CategoryVM } from '@/models/index';
-import { apiProductCategory } from '@/apis/index';
-import { DrawerLayout, TreeViewCategory, useNotification } from '@/components/index'
+import { apiProductCategory, apiUploadFile } from '@/apis/index';
+import { DrawerLayout, TreeViewCategory, useNotification, FileUpload } from '@/components/index'
 import { validateField } from '@/helpers/utils'
 import { validateProductCateVm } from '@/models/validateField';
+import { Attachments } from '@/models/commonM';
 
 export interface IProps {
     isOpen: boolean
@@ -29,10 +30,20 @@ export default function ProductCateCreate(props: IProps) {
     let { isOpen } = props;
 
     const [formState, setFormState] = useState<CategoryVM | null>(null)
+    const [listImage, setListImage] = useState<Array<Attachments>>([])
     // const [isEdit, setEdit] = useState<boolean>(true)
 
     useEffect(() => {
     }, [])
+
+    useEffect(() => {
+        if (listImage.length > 0) {
+            let listFileNew = listImage.filter(x => x.id === null || x.id === undefined)
+            if (listFileNew.length > 0) {
+                postFile(listFileNew)
+            }
+        }
+    }, [listImage])
 
     async function saveData() {
         if (!validateFields()) {
@@ -43,6 +54,21 @@ export default function ProductCateCreate(props: IProps) {
                     props.handleReload()
                 } else dispatch('ERROR', rsp.message)
             })
+        }
+    }
+
+    async function postFile(listFileNew) {
+        const formData = new FormData();
+        listFileNew.forEach((file) => formData.append('File', file.path))
+        let rspImg = await apiUploadFile.UploadImage(formData);
+        if (!rspImg.isError) {
+            let imgs: any = []
+            rspImg.data.map((item) => imgs.push(item.path));
+
+            let newFormState: NewType = { ...formState };
+            newFormState.Images = imgs.toString()
+            setFormState(newFormState);
+            dispatch('SUCCESS', 'Thêm ảnh thành công')
         }
     }
 
@@ -161,6 +187,16 @@ export default function ProductCateCreate(props: IProps) {
                     />
                 </div>
             </div>
+            <div className="col mt-2">
+                <label className="ms-2">Banner</label>
+                <FileUpload
+                    files={listImage}
+                    multiple
+                    onchangeFiles={(files) => setListImage(files)}
+                    isHiddenDragAndDrop
+                    accept=".jpg,.png,.jpeg"
+                />
+            </div>
         </form>
     }
 
@@ -168,7 +204,7 @@ export default function ProductCateCreate(props: IProps) {
         width={'40%'}
         isOpen={isOpen}
     >
-        <div className="container">
+        <div className="drawer-container">
             <div className="row">
                 <div className="col-12 mt-3">
                     {renderHeader()}

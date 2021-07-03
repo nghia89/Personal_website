@@ -164,6 +164,7 @@ namespace WebAppIdentityServer.Api.Controllers
                             var path = new FileImageModel { Path = $"{_config.Value.BaseUrl}{pathCombine}" };
                             listFile.Add(path);
                         }
+                        await ResizingImageUpload(file, folder, filename);
                     }
                 }
                 return ToOkResult(listFile);

@@ -849,7 +849,7 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("Images")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name")
@@ -874,9 +874,6 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Urls")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");

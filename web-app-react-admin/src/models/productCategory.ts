@@ -9,7 +9,7 @@ export interface CategoryVM {
     description?: string
     sortOrder?: number
     parentId?: number
-    image?: string
+    Images?: string
     status?: number
     seoAlias?: string
     seoKeywords?: string
@@ -23,7 +23,7 @@ export interface TreeCategoryVM {
     description: string
     sortOrder: number
     parentId: number
-    image: string
+    Images: string
     status: number
     seoAlias: string
     seoKeywords: string

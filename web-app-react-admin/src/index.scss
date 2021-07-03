@@ -467,3 +467,14 @@ label {
 .row-root-hover:hover{
   background-color: #e8ecf9;
 }
+.drawer-container{
+    width: 100%;
+    padding-right: var(--bs-gutter-x,.75rem);
+    padding-left: var(--bs-gutter-x,.75rem);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.drawer-container>div{
+  width: 100%;
+}
