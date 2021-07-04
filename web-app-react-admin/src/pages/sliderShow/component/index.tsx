@@ -14,8 +14,9 @@ export interface IProps {
     id: number,
     isOpen: boolean
     handleClose: Function
+    handleReload: Function
 }
-
+const options = [{ label: "Top", value: "Top" }, { label: "Between", value: "Between" }]
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -37,6 +38,7 @@ export default function SlidesCreateAndEdit(props: IProps) {
     const [isLoading, setLoading] = useState(false);
     const [data, setData] = useState<SlideShowVM>();
     const [listImage, setListImage] = useState<Array<Attachments>>([])
+    const [valueOption, setValueOption] = useState<any>()
     useEffect(() => {
         getData()
     }, [])
@@ -69,6 +71,10 @@ export default function SlidesCreateAndEdit(props: IProps) {
             await apiSlideShow.getById(id).then((rsp) => {
                 if (!rsp.isError) {
                     setData(rsp.data);
+                    let value = options.find(x => x.value == rsp.data.displayPosition)
+                    setValueOption(value)
+                    if (rsp.data.image)
+                        setListImage([{ id: id, path: rsp.data.image }])
                     setLoading(false)
                 } else setLoading(false)
             })
@@ -84,16 +90,22 @@ export default function SlidesCreateAndEdit(props: IProps) {
     }
 
     async function saveData() {
-
+        debugger
         if (IsNullOrEmpty(data?.name)) {
-            dispatch('ERROR', 'Vui lòng nhập tên màu.')
+            dispatch('ERROR', 'Vui lòng nhập tên.')
             refs["name"].focus()
+        } else if (IsNullOrEmpty(data?.displayPosition)) {
+            dispatch('ERROR', 'Vui lòng chọn vị trí hiển thị.')
+            refs["displayPosition"].select.focus()
+        } else if (IsNullOrEmpty(data?.image)) {
+            dispatch('ERROR', 'Vui lòng chọn vị ảnh.')
         }
         else if (data?.id) {
             await apiSlideShow.update(data).then((rsp) => {
                 if (rsp) {
                     dispatch('SUCCESS', 'Cập nhật thành công.');
                     setLoading(false)
+                    props.handleReload()
                 } else setLoading(false)
             })
         } else {
@@ -101,14 +113,16 @@ export default function SlidesCreateAndEdit(props: IProps) {
                 if (rsp) {
                     dispatch('SUCCESS', 'Tạo mới thành công.');
                     setLoading(false)
+                    props.handleReload()
                 } else setLoading(false)
             })
         }
     }
-    function handleOnchangeValue(value, name) {
+    function handleOnchangeValue(valueOption, name) {
         let newFormState: SlideShowVM = { ...data };
-        newFormState[name] = value;
+        newFormState[name] = valueOption.value;
         setData(newFormState);
+        setValueOption(valueOption)
     }
     function handleChange(e) {
         let target = e.target;
@@ -123,8 +137,8 @@ export default function SlidesCreateAndEdit(props: IProps) {
         return <div className="pb-5 d-flex justify-content-between align-items-center">
             <h1 className="h3 mb-1 text-gray-800">{!IsNullOrEmpty(props.id) ? 'Chỉnh sửa slides' : 'Thêm mới slides'}</h1>
             <div>
-                {checkPermission(functionId.color, commandId.update) && <button onClick={() => saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>}
                 <button onClick={() => handleClose()} type="button" className="mx-3 hms-btn-button btn btn-light">Đóng</button>
+                {checkPermission(functionId.sliderShow, commandId.update) && <button onClick={() => saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>}
             </div>
         </div>
     }
@@ -145,16 +159,16 @@ export default function SlidesCreateAndEdit(props: IProps) {
                         className="form-control"
                         onChange={(e) => handleChange(e)}
                     />
+                    <Select
+                        ref={(r) => refs["displayPosition"] = r}
+                        className="basic-single select-custom ms-2 mt-2"
+                        placeholder="Vị trí hiển thị..."
+                        classNamePrefix="select"
+                        value={valueOption}
+                        options={options}
+                        onChange={(value) => handleOnchangeValue(value, "displayPosition")}
+                    />
 
-                    <div className="MuiFormControl-root MuiTextField-root form-control">
-                        <label>Trạng thái </label>
-                        <Switch
-                            required
-                            checked={data?.status === 1 ? true : false}
-                            onChange={() => handleOnchangeValue(data?.status === 1 ? 0 : 1, 'status')}
-                            color="primary"
-                        />
-                    </div>
                 </div>
                 <div className="col">
                     <TextField
@@ -176,7 +190,6 @@ export default function SlidesCreateAndEdit(props: IProps) {
                         className="form-control"
                         onChange={(e) => handleChange(e)}
                     />
-
                 </div>
             </div>
             <div className="row">
@@ -194,15 +207,15 @@ export default function SlidesCreateAndEdit(props: IProps) {
                     />
                 </div>
                 <div className="col">
-                    <Select
-                        ref={(r) => refs['color'] = r}
-                        className="basic-single "
-                        placeholder="Chọn giá trị..."
-                        classNamePrefix="select"
-                        //value={}
-                        options={[{ label: "Top", value: "Top" }, { label: "Between", value: "Between" }]}
-                        onChange={(value) => handleOnchangeValue(value.value, "displayPosition")}
-                    />
+                    <div className="MuiFormControl-root MuiTextField-root form-control">
+                        <label>Trạng thái </label>
+                        <Switch
+                            required
+                            checked={data?.status === 1 ? true : false}
+                            onChange={() => handleOnchangeValue(data?.status === 1 ? 0 : 1, 'status')}
+                            color="primary"
+                        />
+                    </div>
                 </div>
             </div>
 
@@ -224,7 +237,7 @@ export default function SlidesCreateAndEdit(props: IProps) {
 
     return <DrawerLayout
         isOpen={isOpen}
-        width={window.innerWidth / 3 + 'px'}
+        width={window.innerWidth / 2.5 + 'px'}
     >
         <div className="drawer-container">
             <div className="row">

@@ -50,7 +50,6 @@ export default function FileUpload(props: IProps) {
     }, [props.files])
 
     useEffect(() => {
-        debugger
         if (fileSelected)
             props.handleFileSelected && props.handleFileSelected(fileSelected)
     }, [fileSelected])

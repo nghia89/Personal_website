@@ -6,6 +6,8 @@ import { apiSystemConfig } from '@/apis';
 import { IBreadcrumbs } from '@/models/commonM';
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
+import { commandId, functionId } from '@/constants/utilConstant';
+import { checkPermission } from '@/helpers/utils';
 interface IProps {
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
 }
@@ -60,7 +62,6 @@ function SystemConfig(props: IProps) {
     }
 
     function handleUpload(isLoading, path) {
-        debugger
         if (path != null && !isLoading) {
             setisLoadingImg(false)
             let newFormState: NewType = { ...data };
@@ -82,7 +83,7 @@ function SystemConfig(props: IProps) {
     function renderHeader() {
         return <div className="pb-3 d-flex justify-content-end align-items-center">
             <div>
-                <button onClick={async () => await saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>
+                {checkPermission(functionId.systemConfig, commandId.update) && <button onClick={async () => await saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>}
             </div>
         </div>
     }

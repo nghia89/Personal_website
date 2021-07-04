@@ -76,7 +76,7 @@ function SlideShow(props: IProps) {
                 id={idSelect}
                 isOpen={isOpenDrawer}
                 handleClose={() => { setOpenDrawer(false); setIdSelect(0) }}
-
+                handleReload={() => getData()}
             />}
         </div>
     )
