@@ -72,7 +72,7 @@ export default function ProductCateDetail(props: IProps) {
             rspImg.data.map((item) => imgs.push(item.path));
 
             let newFormState: NewType = { ...formState };
-            newFormState.Images = imgs.toString()
+            newFormState.images = imgs.toString()
             setFormState(newFormState);
             dispatch('SUCCESS', 'Thêm ảnh thành công')
         }
@@ -83,7 +83,7 @@ export default function ProductCateDetail(props: IProps) {
         let imgs: any = []
         newImgs.map((item) => imgs.push(item.path));
         let newFormState: NewType = { ...formState };
-        newFormState.Images = imgs.toString()
+        newFormState.images = imgs.toString()
         setFormState(newFormState);
     }
 

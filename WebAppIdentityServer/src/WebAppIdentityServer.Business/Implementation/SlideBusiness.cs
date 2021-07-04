@@ -30,7 +30,9 @@ namespace WebAppIdentityServer.Business.Implementation
                 Description = model.Description,
                 Image = model.Image,
                 Status = Status.Active,
-                Url = model.Url
+                Url = model.Url,
+                SortOrder = model.SortOrder,
+                DisplayPosition = model.DisplayPosition
             };
             await _slideRep.AddAsync(entity);
             await _unitOfWork.CommitAsync();
@@ -61,7 +63,9 @@ namespace WebAppIdentityServer.Business.Implementation
                 Description = a.Description,
                 Image = a.Image,
                 Status = a.Status,
-                Url = a.Url
+                Url = a.Url,
+                SortOrder = a.SortOrder,
+                DisplayPosition = a.DisplayPosition
             }).ToList();
 
         }
@@ -82,7 +86,9 @@ namespace WebAppIdentityServer.Business.Implementation
                 Description = data.Description,
                 Image = data.Image,
                 Status = data.Status,
-                Url = data.Url
+                Url = data.Url,
+                SortOrder = data.SortOrder,
+                DisplayPosition = data.DisplayPosition
             };
         }
 
@@ -98,6 +104,8 @@ namespace WebAppIdentityServer.Business.Implementation
             entity.Image = model.Image;
             entity.Status = model.Status;
             entity.Url = model.Url;
+            entity.DisplayPosition = model.DisplayPosition;
+            entity.SortOrder = model.SortOrder;
             await _slideRep.UpdateAsync(entity, entity.Id);
             await _unitOfWork.CommitAsync();
             return entity;

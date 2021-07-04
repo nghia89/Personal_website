@@ -13,7 +13,7 @@ import { productQuantityVM } from './productQuantity'
 import { FunctionVM } from './functions'
 import { ColorVM } from './color'
 import { SizeVM } from './size'
-
+import { SlideShowVM } from './SlideShow'
 
 export {
     MenuVM, TreeItem,
@@ -23,5 +23,5 @@ export {
     PermissionRequest, ProductVM,
     IBaseParams, TreeCateItem, CategoryVM,
     SystemConfigVM, productQuantityVM, FunctionVM,
-    ColorVM, SizeVM
+    ColorVM, SizeVM, SlideShowVM
 };

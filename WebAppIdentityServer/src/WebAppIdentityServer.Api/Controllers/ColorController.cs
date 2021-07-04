@@ -21,6 +21,7 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpPost("add")]
+        [ClaimRequirement(FunctionCode.SETTING_COLOR, CommandCode.CREATE)]
         public async Task<IActionResult> Post(ColorVM request)
         {
             await _ColorBus.Add(request);
@@ -28,7 +29,7 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.VIEW)]
+        [ClaimRequirement(FunctionCode.SETTING_COLOR, CommandCode.VIEW)]
         public async Task<IActionResult> GetById(int id)
         {
             var user = await _ColorBus.GetById(id);
@@ -41,7 +42,7 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpGet("getall")]
-        [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.VIEW)]
+        [ClaimRequirement(FunctionCode.SETTING_COLOR, CommandCode.VIEW)]
         public async Task<IActionResult> GetAll()
         {
             var user = await _ColorBus.GetAll();
@@ -49,7 +50,7 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpPut("update")]
-        [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.UPDATE)]
+        [ClaimRequirement(FunctionCode.SETTING_COLOR, CommandCode.UPDATE)]
         public async Task<IActionResult> Put([FromBody] ColorVM request)
         {
             await _ColorBus.Update(request);

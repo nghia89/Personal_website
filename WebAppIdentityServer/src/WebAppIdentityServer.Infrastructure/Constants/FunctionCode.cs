@@ -16,12 +16,18 @@
         SYSTEM,
         SYSTEM_USER,
         SYSTEM_ROLE,
-        SYSTEM_ORG,
         SYSTEM_FUNCTION,
         SYSTEM_PERMISSION,
 
 
         SETTING,
-        SETTING_CONFIG_GENERAL
+        SETTING_COLOR,
+        SETTING_SIZE,
+
+
+        SETTING_PAGES,
+        ST_CONFIG_GENERAL,
+        ST_SLIDES,
+        ST_PAGES
     }
 }

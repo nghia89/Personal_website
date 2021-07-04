@@ -17,7 +17,8 @@ interface IFunction {
     category: string,
     color: string,
     size: string,
-    systemConfig: string
+    systemConfig: string,
+    sliderShow: string
 }
 
 interface ICommand {
@@ -45,9 +46,10 @@ export const functionId: IFunction =
     user: 'SYSTEM_USER',
     product: 'CONTENT_PRODUCT',
     category: 'CONTENT_CATEGORY',
-    systemConfig: 'SETTING_CONFIG_GENERAL',
+    systemConfig: 'ST_CONFIG_GENERAL',
     color: 'SETTING_COLOR',
-    size: 'SETTING_SIZE'
+    size: 'SETTING_SIZE',
+    sliderShow: 'ST_SLIDES'
 }
 
 

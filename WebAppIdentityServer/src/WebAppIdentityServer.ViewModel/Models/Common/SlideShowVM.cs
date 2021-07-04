@@ -10,9 +10,8 @@ namespace WebAppIdentityServer.ViewModel.Models.Common
         public string Image { set; get; }
         public string Url { set; get; }
         public string DisplayPosition { set; get; }
-        public int? DisplayOrder { set; get; }
+        public int? SortOrder { set; get; }
         public Status Status { set; get; }
         public string Content { set; get; }
-        public string GroupAlias { get; set; }
     }
 }

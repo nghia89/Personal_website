@@ -50,6 +50,7 @@ export default function FileUpload(props: IProps) {
     }, [props.files])
 
     useEffect(() => {
+        debugger
         if (fileSelected)
             props.handleFileSelected && props.handleFileSelected(fileSelected)
     }, [fileSelected])
@@ -62,9 +63,6 @@ export default function FileUpload(props: IProps) {
     const addNewFiles = (newFiles) => {
         for (let file of newFiles) {
             if (file.size <= DEFAULT_MAX_FILE) {
-                if (!multiple) {
-                    return [file];
-                }
                 let newFile: Attachments = {
                     path: file,
                     fileName: file.name,
@@ -72,6 +70,10 @@ export default function FileUpload(props: IProps) {
                     extension: file.extension,
                     type: file.type
                 }
+                if (!multiple) {
+                    return [newFile];
+                }
+
                 files.push(newFile);
             }
         }
@@ -178,7 +180,8 @@ export default function FileUpload(props: IProps) {
                     <p onClick={handleUploadBtnClick} style={{ color: '#8c8c8c', textAlign: 'center' }}>Thêm ảnh sản <br /> phẩm</p>}
                 <input type="file" ref={fileInputField}
                     onChange={handleNewFileUpload}
-                    multiple className="formField cursor"
+                    multiple={multiple}
+                    className="formField cursor"
                     accept={accept ? accept : "all"}
                 />
             </div>}

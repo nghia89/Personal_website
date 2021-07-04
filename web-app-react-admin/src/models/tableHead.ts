@@ -51,3 +51,9 @@ export const tableHeadSize = [
     { name: 'stt', fieldName: 'stt', type: 'stt' },
     { name: 'Tên', fieldName: 'name' }
 ] as Array<ITableHead>;
+
+export const tableHeadSlideShow = [
+    { name: 'stt', fieldName: 'stt', type: 'stt' },
+    { name: 'Tên', fieldName: 'name' },
+    { name: 'Trạng thái', fieldName: 'status', type: 'status' }
+] as Array<ITableHead>;

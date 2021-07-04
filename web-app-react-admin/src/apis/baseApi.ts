@@ -12,7 +12,8 @@ const baseApiProductCategory = 'productCategory/';
 const baseApiSystemConfig = 'systemConfig/';
 const baseApiColor = 'color/';
 const baseApiSize = 'size/';
-const baseApiProductQuantity = 'productQuantity/'
+const baseApiProductQuantity = 'productQuantity/';
+const baseApiSlideShow = 'slideShow/'
 
 export const UploadImageForCKEditor = `${env.baseApiUrl}/api/${baseApiUpload}upload_image_ckeditor`;
 
@@ -100,4 +101,13 @@ export const apiProductQuantity = {
     update: async (body: any) => { return await PUT(`${baseApiProductQuantity}update`, body) },
     updates: async (body: any) => { return await PUT(`${baseApiProductQuantity}updates`, body) },
     delete: async (id: number) => { return await DELETE(`${baseApiProductQuantity}delete/` + id) },
+}
+
+export const apiSlideShow = {
+    getAll: async () => { return await GET(`${baseApiSlideShow}getall`) },
+    create: async (body: any) => { return await POST(`${baseApiSlideShow}add`, body) },
+    update: async (body: any) => { return await PUT(`${baseApiSlideShow}update`, body) },
+    updates: async (body: any) => { return await PUT(`${baseApiSlideShow}updates`, body) },
+    delete: async (id: number) => { return await DELETE(`${baseApiSlideShow}delete/` + id) },
+    getById: async (id?: number) => { return await GET(`${baseApiSlideShow}` + id) },
 }

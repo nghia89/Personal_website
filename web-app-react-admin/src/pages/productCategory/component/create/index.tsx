@@ -66,7 +66,7 @@ export default function ProductCateCreate(props: IProps) {
             rspImg.data.map((item) => imgs.push(item.path));
 
             let newFormState: NewType = { ...formState };
-            newFormState.Images = imgs.toString()
+            newFormState.images = imgs.toString()
             setFormState(newFormState);
             dispatch('SUCCESS', 'Thêm ảnh thành công')
         }

@@ -16,7 +16,7 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public string Image { set; get; }
         [StringLength(250)]
         public string Url { set; get; }
-        public int? DisplayOrder { set; get; }
+        public int? SortOrder { set; get; }
         public Status Status { set; get; }
         public string Content { set; get; }
         [StringLength(25)]

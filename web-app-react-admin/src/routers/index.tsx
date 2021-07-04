@@ -31,9 +31,14 @@ const ProductCategory = React.lazy(() => import('@/pages/productCategory/index')
 //#endregion
 
 //#region  Setting 
-const SystemConfig = React.lazy(() => import('@/pages/systemConfig/index'));
 const Colors = React.lazy(() => import('@/pages/color/index'));
 const Sizes = React.lazy(() => import('@/pages/sizes/index'));
+//#endregion
+
+//#region  Setting Page
+const SystemConfig = React.lazy(() => import('@/pages/systemConfig/index'));
+const SlideShow = React.lazy(() => import('@/pages/sliderShow/index'));
+
 //#endregion
 
 
@@ -64,9 +69,12 @@ export const Routes = (
             <PrivateRoute path={`${PATH.PRODUCT_VARIANT}:id`} component={VariantNew} />
             <PrivateRoute path={PATH.CATEGORIES} component={ProductCategory} />
 
-            <PrivateRoute path={PATH.SETTINGCONFIG} component={SystemConfig} />
             <PrivateRoute path={PATH.SETTING_COLOR} component={Colors} />
             <PrivateRoute path={PATH.SETTING_SIZE} component={Sizes} />
+
+            <PrivateRoute path={PATH.SETTINGCONFIG} component={SystemConfig} />
+            <PrivateRoute path={PATH.SETTING_SLIDES} component={SlideShow} />
+
 
             <PrivateRoute path={PATH.HOME} component={Home} />
 
