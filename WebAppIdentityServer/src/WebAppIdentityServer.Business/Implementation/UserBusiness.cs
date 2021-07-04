@@ -20,12 +20,15 @@ namespace WebAppIdentityServer.Business.Implementation
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppRole> _roleManager;
         private readonly ApplicationDbContext _context;
+        private readonly IFunctionBusiness _functionBus;
+
         public UserBusiness(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager,
-            ApplicationDbContext context, IUserResolverService userResolver) : base(userResolver)
+         IFunctionBusiness functionBus, ApplicationDbContext context, IUserResolverService userResolver) : base(userResolver)
         {
             this._userManager = userManager;
             this._roleManager = roleManager;
             this._context = context;
+            this._functionBus = functionBus;
         }
 
         public async Task<IdentityResult> Add(UserVm model)
@@ -107,7 +110,7 @@ namespace WebAppIdentityServer.Business.Implementation
                             on p.CommandId equals a.Id
                         join r in _roleManager.Roles on p.AppRoleId equals r.Id
 
-                        where roles.Contains(r.Name) && a.Id == "VIEW" || f.ParentId == "ROOTID"
+                        where roles.Contains(r.Name) && a.Id == "VIEW"
                         select new FunctionVm
                         {
                             Id = f.Id,
@@ -121,6 +124,9 @@ namespace WebAppIdentityServer.Business.Implementation
                 .OrderBy(x => x.SortOrder)
                 .ThenBy(x => x.SortOrder)
                 .ToListAsync();
+            var rootFunc = await _functionBus.GetFuncRoot();
+            data.AddRange(rootFunc.OrderBy(x => x.SortOrder));
+
             IEnumerable<FunctionVm> enumList = data;
             var root = enumList.GenerateTree(c => c.Id, c => c.ParentId, "ROOTID");
             return root.Where(a => a.Children.Any()).ToList();

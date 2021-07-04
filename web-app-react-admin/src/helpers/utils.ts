@@ -3,7 +3,7 @@ import { PATH } from '@/constants/paths'
 import moment from 'moment'
 import { ValidateVm } from '@/models/index';
 import { getProfile } from './httpCommon'
-import { IconSetting, IconShoppingCart, IconUser } from './svg';
+import { IconSetting, IconShoppingCart, IconUser, IconMonitor } from './svg';
 import { ImageSize } from '@/constants/utilConstant';
 
 
@@ -15,6 +15,8 @@ export function renderIconSlideBar(icon) {
             return IconSetting()
         case "IconUsers":
             return IconUser()
+        case "IconMonitor":
+            return IconMonitor()
         default:
             return null;
     }

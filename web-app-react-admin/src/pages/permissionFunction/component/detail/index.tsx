@@ -99,7 +99,7 @@ export default function PermissionDetail(props: IProps) {
         })
     }
 
-    function handleChangeNodeRoot(rootId: string, command: string, statusActive: boolean) {
+    function handleChangeNodeRoot(rootId: string, command: string, statusActive: boolean, index: number) {
         if (isEdit)
             setEdit(false)
 
@@ -108,15 +108,19 @@ export default function PermissionDetail(props: IProps) {
         if (child) {
             switch (command) {
                 case commandId.view:
+                    dataNew[index].hasView = !statusActive
                     child.map((a) => a.hasView = !statusActive)
                     break;
                 case commandId.update:
+                    dataNew[index].hasUpdate = !statusActive
                     child.map((a) => a.hasUpdate = !statusActive)
                     break;
                 case commandId.create:
+                    dataNew[index].hasCreate = !statusActive
                     child.map((a) => a.hasCreate = !statusActive)
                     break;
                 case commandId.delete:
+                    dataNew[index].hasDelete = !statusActive
                     child.map((a) => a.hasDelete = !statusActive)
                     break;
             }
@@ -151,23 +155,26 @@ export default function PermissionDetail(props: IProps) {
 
     function checkPerFuncToAction(child: PermissionVM[] | undefined, command) {
         if (!child || !commandId) return false;
+        let isCheck = false;
         switch (command) {
             case commandId.view:
-                var checkView = child.findIndex(a => a.hasView === false);
-                return checkView < 0 ? true : false
+                let checkView = child.findIndex(a => a.hasView === false);
+                isCheck = checkView < 0 ? true : false;
+                break;
             case commandId.update:
-                var checkUpdate = child.findIndex(a => a.hasUpdate === false);
-                return checkUpdate < 0 ? true : false
+                let checkUpdate = child.findIndex(a => a.hasUpdate === false);
+                isCheck = checkUpdate < 0 ? true : false
+                break;
             case commandId.create:
-                var checkCreate = child.findIndex(a => a.hasCreate === false);
-                return checkCreate < 0 ? true : false
+                let checkCreate = child.findIndex(a => a.hasCreate === false);
+                isCheck = checkCreate < 0 ? true : false
+                break
             case commandId.delete:
-                var checkDelete = child.findIndex(a => a.hasDelete === false);
-                return checkDelete < 0 ? true : false
-            default:
-                return false;
+                let checkDelete = child.findIndex(a => a.hasDelete === false);
+                isCheck = checkDelete < 0 ? true : false
+                break
         }
-
+        return isCheck;
     }
 
     function renderHeader() {
@@ -199,8 +206,8 @@ export default function PermissionDetail(props: IProps) {
                                 {
                                     commandCode.map((cm) => {
                                         let statusActive = checkPerFuncToAction(child, cm.id);
-                                        return <div className="col ">
-                                            <Checkbox checked={statusActive} onChange={() => handleChangeNodeRoot(root.id, cm.id, statusActive)} name="checkedB" color="primary" />
+                                        return <div key={`cm${cm.id}_${index}`} className="col ">
+                                            <Checkbox checked={statusActive} onChange={() => handleChangeNodeRoot(root.id, cm.id, statusActive, index)} name="checkedB" color="primary" />
                                             <label>{cm.name}</label>
                                         </div>
                                     })
@@ -210,7 +217,7 @@ export default function PermissionDetail(props: IProps) {
 
                         {
                             child?.map((child, indexC) => {
-                                let keyC = `child${index + indexC}`;
+                                let keyC = `child${index + indexC}_${child.id}`;
                                 return <div key={keyC} className="row align-items-center important_card card mb-2 h-10 ">
                                     <div className="col-4">
                                         <span>{child.name}</span>

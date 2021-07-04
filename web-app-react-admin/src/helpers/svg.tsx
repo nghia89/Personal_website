@@ -126,7 +126,12 @@ export const IConImage = (size?: number, color?: string) => {
 }
 
 
-export const cornerDownLeft = (size?: number, color?: string) => {
+export const IconCornerDownLeft = (size?: number) => {
     let newSize = size ? size : 24;
     return <svg xmlns="http://www.w3.org/2000/svg" width={newSize} height={newSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-corner-down-left"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
+}
+
+export const IconMonitor = (size?: number) => {
+    let newSize = size ? size : 24;
+    return <svg xmlns="http://www.w3.org/2000/svg" width={newSize} height={newSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-monitor"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
 }

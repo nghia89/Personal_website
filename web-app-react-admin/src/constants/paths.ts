@@ -1,6 +1,7 @@
 const system = '/systems/';
 const content = '/contents/';
 const systemConfig = '/setting/'
+const settingPages = '/setting_page/'
 
 export const PATH = {
   error401: '/error401',
@@ -25,9 +26,14 @@ export const PATH = {
 
 
   //#region Setting
-  SETTINGCONFIG: `${systemConfig}config/general`,
   SETTING_COLOR: `${systemConfig}colors`,
   SETTING_SIZE: `${systemConfig}sizes`,
+  //#endregion
+
+  //#region Setting PAGES 
+  SETTINGCONFIG: `${settingPages}config/general`,
+  SETTING_SLIDES: `${settingPages}slides`,
+  SETTING_PAGES: `${settingPages}pages`,
   //#endregion
 
   LOGIN: '/login',

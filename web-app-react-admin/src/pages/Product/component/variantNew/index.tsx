@@ -11,7 +11,7 @@ import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
 import { ImageSize, OptionVariant } from '@/constants/utilConstant';
 import Select from 'react-select'
-import { cornerDownLeft, IConImage, IconTrash } from '@/helpers/svg';
+import { IconCornerDownLeft, IConImage, IconTrash } from '@/helpers/svg';
 import { Loading } from '@/components/loaders';
 import { validateProductQuantityVm } from '@/models/validateField';
 import ImgUrlVariant from './imgUrlVariant';
@@ -216,7 +216,7 @@ function VariantNew(props: IProps) {
                                 <div className="h6 mb-0">{dataProduct?.name}</div>
                                 <div className="small text-muted py-1 cursor">{dataProduct?.productQuantity?.length} Chi tiết biến thể</div>
                                 <a aria-current="page" className="w-100 h-100 active" onClick={() => history.push(`${PATH.PRODUCT_DETAIL}${props.match.params.id}`)}>
-                                    <span className="small pl-1 cursor">{cornerDownLeft(16)} Quay về chi tiết sản phẩm</span>
+                                    <span className="small pl-1 cursor">{IconCornerDownLeft(16)} Quay về chi tiết sản phẩm</span>
                                 </a>
                             </div>
                         </div>

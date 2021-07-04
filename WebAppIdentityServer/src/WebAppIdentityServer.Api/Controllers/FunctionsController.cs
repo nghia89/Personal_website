@@ -44,7 +44,7 @@ namespace WebAppIdentityServer.Api.Controllers
         //[ClaimRequirement(FunctionCode.SYSTEM_FUNCTION, CommandCode.VIEW)]
         public async Task<IActionResult> GetRoot()
         {
-            var data = await _functionBu.GetAll();
+            var data = await _functionBu.GetFuncRoot();
             return ToOkResult(data);
         }
 

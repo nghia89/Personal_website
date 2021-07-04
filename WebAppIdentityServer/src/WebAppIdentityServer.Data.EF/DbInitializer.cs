@@ -96,9 +96,13 @@ namespace WebAppIdentityServer.Data.EF
                     new Function {Id = "SYSTEM_PERMISSION", Name = "Quyền hạn",ParentId = "SYSTEM",Url = "/systems/permissions",Icon="fa-desktop", DateCreated=new DateTime(),DateModified=new DateTime()},
 
                     new Function {Id = "SETTING", Name = "Cấu hình", ParentId = "ROOTID", SortOrder = 4, Url = "/systemconfigs",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
-                    new Function {Id = "SETTING_CONFIG_GENERAL", Name = "Cấu hình website", ParentId = "SETTING", SortOrder =1, Url = "/setting/config/general",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
-                    new Function {Id = "SETTING_COLOR", Name = "Cấu hình màu sắc", ParentId = "SETTING", SortOrder = 2, Url = "/setting/colors",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
-                    new Function {Id = "SETTING_SIZE", Name = "Cấu hình kích thước", ParentId = "SETTING", SortOrder = 3, Url = "/setting/sizes",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
+                    new Function {Id = "SETTING_COLOR", Name = "Cấu hình màu sắc", ParentId = "SETTING", SortOrder = 1, Url = "/setting/colors",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
+                    new Function {Id = "SETTING_SIZE", Name = "Cấu hình kích thước", ParentId = "SETTING", SortOrder = 2, Url = "/setting/sizes",Icon="IconSetting" , DateCreated=new DateTime(),DateModified=new DateTime()},
+
+                    new Function {Id = "SETTING_PAGES", Name = "Cấu hình trang", ParentId = "ROOTID", SortOrder = 5, Url = "",Icon="IconMonitor" , DateCreated=new DateTime(),DateModified=new DateTime()},
+                    new Function {Id = "ST_CONFIG_GENERAL", Name = "Cấu hình website", ParentId = "SETTING_PAGES", SortOrder =1, Url = "/setting_page/config/general" , DateCreated=new DateTime(),DateModified=new DateTime()},
+                    new Function {Id = "ST_SLIDES", Name = "SlideShow", ParentId = "SETTING_PAGES", SortOrder = 2, Url = "/setting_page/slides" , DateCreated=new DateTime(),DateModified=new DateTime()},
+                    new Function {Id = "ST_PAGES", Name = "Các trang khác", ParentId = "SETTING_PAGES", SortOrder = 3, Url = "/setting_page/pages" , DateCreated=new DateTime(),DateModified=new DateTime()},
 
                 });
                 await _context.SaveChangesAsync();
@@ -118,7 +122,7 @@ namespace WebAppIdentityServer.Data.EF
 
             #endregion Chức năng
 
-            var functions = _context.Functions;
+            var functions = _context.Functions.Where(x => x.ParentId != "ROOTID");
 
             if (!_context.Permissions.Any())
             {
