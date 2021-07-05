@@ -83,11 +83,11 @@ namespace WebAppIdentityServer.Data.EF
                     new Function {Id = "DASHBOARD", Name = "Dashboard", ParentId = "ROOTID", SortOrder = 1,Url = "/dashboard",Icon="fa-dashboard", DateCreated=new DateTime(),DateModified=new DateTime() },
 
 
-                    new Function {Id = "CONTENT",Name = "Sản phẩm",ParentId = "ROOTID", SortOrder = 2,Url = "/contents",Icon="IconShoppingCart", DateCreated=new DateTime(),DateModified=new DateTime() },
-                    new Function {Id = "CONTENT_CATEGORY",Name = "Danh mục",ParentId ="CONTENT",Url = "/contents/categories" , DateCreated=new DateTime(),DateModified=new DateTime() },
-                    new Function {Id = "CONTENT_PRODUCT",Name = "Sản phẫm",ParentId = "CONTENT",SortOrder = 2,Url = "/contents/product",Icon="fa-edit" , DateCreated=new DateTime(),DateModified=new DateTime()},
-                    new Function {Id = "CONTENT_COMMENT",Name = "Bình luận",ParentId = "CONTENT",SortOrder = 3,Url = "/contents/product/comments",Icon="fa-edit", DateCreated=new DateTime(),DateModified=new DateTime() },
-                    new Function {Id = "CONTENT_REPORT",Name = "Báo xấu",ParentId = "CONTENT",SortOrder = 3,Url = "/contents/product/reports",Icon="fa-edit", DateCreated=new DateTime(),DateModified=new DateTime() },
+                    new Function {Id = "PRODUCTS",Name = "Sản phẩm",ParentId = "ROOTID", SortOrder = 2,Url = "/products",Icon="IconShoppingCart", DateCreated=new DateTime(),DateModified=new DateTime() },
+                    new Function {Id = "PRODUCTS_CATEGORY",Name = "Danh mục",ParentId ="PRODUCTS",Url = "/product/categories" , DateCreated=new DateTime(),DateModified=new DateTime() },
+                    new Function {Id = "PRODUCTS_PRODUCT",Name = "Sản phẫm",ParentId = "PRODUCTS",SortOrder = 2,Url = "/products",Icon="fa-edit" , DateCreated=new DateTime(),DateModified=new DateTime()},
+                    new Function {Id = "PRODUCTS_GROUP",Name = "Nhóm sản phẩm",ParentId = "PRODUCTS",SortOrder = 3,Url = "/product/groups",Icon="fa-edit", DateCreated=new DateTime(),DateModified=new DateTime() },
+                    new Function {Id = "PRODUCTS_REPORT",Name = "Báo xấu",ParentId = "PRODUCTS",SortOrder = 3,Url = "/product/product/reports",Icon="fa-edit", DateCreated=new DateTime(),DateModified=new DateTime() },
 
 
                     new Function {Id = "SYSTEM", Name = "Hệ thống", ParentId = "ROOTID", SortOrder = 3, Url = "/systems",Icon="IconUsers" , DateCreated=new DateTime(),DateModified=new DateTime()},

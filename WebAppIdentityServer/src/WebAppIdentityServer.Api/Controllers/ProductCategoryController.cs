@@ -18,7 +18,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.VIEW)]
+        [ClaimRequirement(FunctionCode.PRODUCTS_CATEGORY, CommandCode.VIEW)]
         public async Task<IActionResult> Get(int id)
         {
             var data = await _productCategoryBus.GetById(id);
@@ -27,7 +27,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.DELETE)]
+        [ClaimRequirement(FunctionCode.PRODUCTS_CATEGORY, CommandCode.DELETE)]
         public async Task<IActionResult> Delete(int id)
         {
             await _productCategoryBus.Delete(id);
@@ -36,7 +36,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
         [HttpGet]
         [Route("getall")]
-        [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.VIEW)]
+        [ClaimRequirement(FunctionCode.PRODUCTS_CATEGORY, CommandCode.VIEW)]
         public async Task<IActionResult> GetProductCategory()
         {
             var data = await _productCategoryBus.GetAll(null);
@@ -45,7 +45,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
         [HttpPost]
         [Route("add")]
-        [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.CREATE)]
+        [ClaimRequirement(FunctionCode.PRODUCTS_CATEGORY, CommandCode.CREATE)]
         public async Task<IActionResult> Add([FromBody] ProductCategoryVM category)
         {
             var data = await _productCategoryBus.Add(category);
@@ -54,7 +54,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
         [HttpPut]
         [Route("update")]
-        [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.UPDATE)]
+        [ClaimRequirement(FunctionCode.PRODUCTS_CATEGORY, CommandCode.UPDATE)]
         public async Task Update([FromBody] ProductCategoryVM category)
         {
             await _productCategoryBus.Update(category);
@@ -63,7 +63,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
         [HttpGet]
         [Route("treeview")]
-        [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.VIEW)]
+        [ClaimRequirement(FunctionCode.PRODUCTS_CATEGORY, CommandCode.VIEW)]
         public async Task<IActionResult> TreeView()
         {
             var data = await _productCategoryBus.TreeView();
@@ -72,7 +72,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
         [HttpGet]
         [Route("paging")]
-        [ClaimRequirement(FunctionCode.CONTENT_CATEGORY, CommandCode.VIEW)]
+        [ClaimRequirement(FunctionCode.PRODUCTS_CATEGORY, CommandCode.VIEW)]
         public async Task<IActionResult> Paging([FromQuery] PagingParamModel pagingParam)
         {
             var data = await _productCategoryBus.Paging(pagingParam);

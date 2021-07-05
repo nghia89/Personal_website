@@ -43,7 +43,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
 
         [HttpGet("{id}")]
-        [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.VIEW)]
+        [ClaimRequirement(FunctionCode.PRODUCTS_PRODUCT, CommandCode.VIEW)]
         public async Task<IActionResult> GetById(long id)
         {
             var user = await _productQuantityBus.GetById(id);
@@ -56,14 +56,14 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpPut("update")]
-        [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.UPDATE)]
+        [ClaimRequirement(FunctionCode.PRODUCTS_PRODUCT, CommandCode.UPDATE)]
         public async Task<IActionResult> Put([FromBody] ProductQuantityVM request)
         {
             await _productQuantityBus.Update(request);
             return ToOkResult();
         }
         [HttpPut("updates")]
-        [ClaimRequirement(FunctionCode.CONTENT_PRODUCT, CommandCode.UPDATE)]
+        [ClaimRequirement(FunctionCode.PRODUCTS_PRODUCT, CommandCode.UPDATE)]
         public async Task<IActionResult> Puts([FromBody] List<ProductQuantityVM> request)
         {
             await _productQuantityBus.Update(request);

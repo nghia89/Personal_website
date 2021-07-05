@@ -26,10 +26,12 @@ async function callApi(method: Method, path: string, body?: any, baseApi?: strin
 
   if (userStorage && userStorage.access_token) {
     return _callApi(userStorage.access_token, method, apiPath, body, baseApi).then((rsp) => response(rsp)).catch(error => {
-      if (error.response.status === 401 || error.response.status === 403) {
+      if (error.response.status === 401) {
         history.push(PATH.error401)
         console.log("Un Unauthorized");
-      } else if (error.response.status === 503)
+      } else if (error.response.status === 403)
+        history.push(PATH.error403)
+      else if (error.response.status === 503)
         history.push(PATH.error503)
       throw error;
     }).catch((error) => response(error.response));

@@ -1,10 +1,11 @@
 const system = '/systems/';
-const content = '/contents/';
+const product = '/products';
 const systemConfig = '/setting/'
 const settingPages = '/setting_page/'
 
 export const PATH = {
   error401: '/error401',
+  error403: '/error403',
   error503: '/error503',
   HOME: '/',
   Dashboard: '/dashboard',
@@ -16,12 +17,13 @@ export const PATH = {
 
   //#endregion
 
-  //#region Content
-  PRODUCT: `${content}product`,
-  PRODUCT_CREATE: `${content}product_create`,
-  PRODUCT_DETAIL: `${content}product_detail/`,
-  PRODUCT_VARIANT: `${content}variant_new/`,
-  CATEGORIES: `${content}categories`,
+  //#region product
+  PRODUCT: `${product}`,
+  PRODUCT_CREATE: `${product}/product_create`,
+  PRODUCT_DETAIL: `${product}/product_detail/`,
+  PRODUCT_VARIANT: `${product}/variant_new/`,
+  CATEGORIES: `${product}/categories`,
+  PRODUCT_GROUP: `${product}/groups`,
   //#endregion
 
 

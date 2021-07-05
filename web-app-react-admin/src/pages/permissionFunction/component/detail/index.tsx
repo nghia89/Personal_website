@@ -100,6 +100,7 @@ export default function PermissionDetail(props: IProps) {
     }
 
     function handleChangeNodeRoot(rootId: string, command: string, statusActive: boolean, index: number) {
+        debugger
         if (isEdit)
             setEdit(false)
 
@@ -108,19 +109,19 @@ export default function PermissionDetail(props: IProps) {
         if (child) {
             switch (command) {
                 case commandId.view:
-                    dataNew[index].hasView = !statusActive
+                    //functionRoot[index].hasView = !statusActive
                     child.map((a) => a.hasView = !statusActive)
                     break;
                 case commandId.update:
-                    dataNew[index].hasUpdate = !statusActive
+                    //functionRoot[index].hasUpdate = !statusActive
                     child.map((a) => a.hasUpdate = !statusActive)
                     break;
                 case commandId.create:
-                    dataNew[index].hasCreate = !statusActive
+                    //functionRoot[index].hasCreate = !statusActive
                     child.map((a) => a.hasCreate = !statusActive)
                     break;
                 case commandId.delete:
-                    dataNew[index].hasDelete = !statusActive
+                    //functionRoot[index].hasDelete = !statusActive
                     child.map((a) => a.hasDelete = !statusActive)
                     break;
             }

@@ -4,11 +4,11 @@
     {
         DASHBOARD,
 
-        CONTENT,
-        CONTENT_CATEGORY,
-        CONTENT_PRODUCT,
-        CONTENT_COMMENT,
-        CONTENT_REPORT,
+        PRODUCTS,
+        PRODUCTS_CATEGORY,
+        PRODUCTS_PRODUCT,
+        PRODUCTS_GROUP,
+        PRODUCTS_REPORT,
 
         STATISTIC,
         STATISTIC_COMMENT,
