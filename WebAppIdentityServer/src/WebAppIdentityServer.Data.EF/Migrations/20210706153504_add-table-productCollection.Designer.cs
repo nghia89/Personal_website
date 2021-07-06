@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAppIdentityServer.Data.EF;
 
 namespace WebAppIdentityServer.Data.EF.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210706153504_add-table-productCollection")]
+    partial class addtableproductCollection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -835,14 +837,9 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                     b.Property<long>("ProductCollectionId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("ProductCollectionsId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("ProductId", "ProductCollectionId");
 
                     b.HasIndex("ProductCollectionId");
-
-                    b.HasIndex("ProductCollectionsId");
 
                     b.HasIndex("ProductId", "ProductCollectionId");
 
@@ -1459,10 +1456,6 @@ namespace WebAppIdentityServer.Data.EF.Migrations
 
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.ProductAndCollection", b =>
                 {
-                    b.HasOne("WebAppIdentityServer.Data.EF.Entities.ProductCollections", "ProductCollections")
-                        .WithMany()
-                        .HasForeignKey("ProductCollectionsId");
-
                     b.HasOne("WebAppIdentityServer.Data.EF.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
@@ -1470,8 +1463,6 @@ namespace WebAppIdentityServer.Data.EF.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
-
-                    b.Navigation("ProductCollections");
                 });
 
             modelBuilder.Entity("WebAppIdentityServer.Data.EF.Entities.ProductImages", b =>

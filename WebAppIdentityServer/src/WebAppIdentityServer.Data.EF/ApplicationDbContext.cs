@@ -54,6 +54,8 @@ namespace WebAppIdentityServer.Data.EF
         public DbSet<ProductCategory> ProductCategory { set; get; }
         public DbSet<ProductQuantity> ProductQuantity { set; get; }
         public DbSet<ProductImages> ProductImages { set; get; }
+        public DbSet<ProductCollections> ProductCollections { set; get; }
+        public DbSet<ProductAndCollection> ProductAndCollections { set; get; }
         public DbSet<ProductTag> ProductTags { set; get; }
         public DbSet<Size> Sizes { set; get; }
         public DbSet<Slides> Slides { set; get; }

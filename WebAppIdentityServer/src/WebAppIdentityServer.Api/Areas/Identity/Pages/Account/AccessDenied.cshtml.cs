@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
+using WebAppIdentityServer.Utilities.Helpers;
 
 namespace WebAppIdentityServer.Api.Areas.Identity.Pages.Account
 {
@@ -7,7 +8,7 @@ namespace WebAppIdentityServer.Api.Areas.Identity.Pages.Account
     {
         public void OnGet()
         {
-            throw new Exception("403");
+            throw new HandleException("403");
         }
     }
 }

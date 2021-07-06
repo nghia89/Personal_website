@@ -287,5 +287,10 @@ namespace WebAppIdentityServer.Data.EF
         {
             return _context.Set<T>();
         }
+
+        public async Task<ICollection<T>> FindAllAsync()
+        {
+            return await _context.Set<T>().AsNoTracking().ToListAsync();
+        }
     }
 }

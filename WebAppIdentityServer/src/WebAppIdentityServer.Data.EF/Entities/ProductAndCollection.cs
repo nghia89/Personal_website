@@ -8,8 +8,9 @@ namespace WebAppIdentityServer.Data.EF.Entities
 {
     public class ProductAndCollection
     {
-        public long Id { get; set; }
         public long ProductId { get; set; }
+        public Product Product { get; set; }
         public long ProductCollectionId { get; set; }
+        public ProductCollections ProductCollections { get; set; }
     }
 }
