@@ -12,7 +12,7 @@ export const PrivateRoute = ({ component, ...rest }) => {
           let pathname = props?.location?.pathname;
           if (isAuthenticated() && !checkPath(pathname)) return <Error404 />
           else if (Component && isAuthenticated()) {
-            return <Component {...props} />;
+            return <Component  {...props} />;
           } else {
             signInRedirect();
             return <span>loading</span>;
@@ -21,5 +21,5 @@ export const PrivateRoute = ({ component, ...rest }) => {
     </AuthConsumer>
   );
 
-  return <Route exact {...rest} component={renderFn(component)} />;
+  return <Route path={rest.path} exact={rest.exact} component={renderFn(component)} />;
 };

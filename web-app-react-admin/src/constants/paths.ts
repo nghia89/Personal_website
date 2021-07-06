@@ -1,7 +1,7 @@
-const system = '/systems/';
-const product = '/products';
-const systemConfig = '/setting/'
-const settingPages = '/setting_page/'
+const system = '/admin/systems/';
+const product = '/admin/products';
+const systemConfig = '/admin/setting/'
+const settingPages = '/admin/setting_page/'
 
 export const PATH = {
   error401: '/error401',
@@ -23,7 +23,7 @@ export const PATH = {
   PRODUCT_DETAIL: `${product}/product_detail/`,
   PRODUCT_VARIANT: `${product}/variant_new/`,
   CATEGORIES: `${product}/categories`,
-  PRODUCT_GROUP: `${product}/groups`,
+  PRODUCT_COLLECTIONS: `${product}/collections`,
   //#endregion
 
 

@@ -49,8 +49,8 @@ export function checkPath(pathname) {
         else {
             if (pathname.includes(PATH.PRODUCT_VARIANT)) return true;
             let split = pathname.split("/");
-            if (split.length > 3) {
-                split.splice(3, 1);
+            if (split.length > 4) {
+                split.splice(4, 1);
                 split.push("")
                 if (split.join("/") === PATH[objKeys[i]]) return true
             }

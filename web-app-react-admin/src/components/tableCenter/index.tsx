@@ -108,7 +108,7 @@ export default function TableCenter(props: IProps) {
 
     function renderContentTable() {
         return props.data.map((item, index) => (
-            <TableRow key={`r${index}`} className="row-root-hover">
+            <TableRow key={`r${index}`} className="row-root-hover cursor">
                 {
                     props.header.map((header, indexCel) => {
                         return renderCell(header["type"], item[header["fieldName"]], (index + indexCel))

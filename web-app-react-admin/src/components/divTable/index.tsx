@@ -88,7 +88,7 @@ export default function DivTable(props: IProps) {
 
     function renderContentTable() {
         return props.data.map((item, index) => (
-            <div className="divTableRow cursor text-center" key={`r${index}`} >
+            <div className="divTableRow cursor text-center cursor" key={`r${index}`} >
                 {
                     props.header.map((header, indexCel) => {
                         return renderCell(header["type"], item[header["fieldName"]], (index + indexCel), item["id"])
@@ -97,13 +97,13 @@ export default function DivTable(props: IProps) {
                 <div className="divTableCell center">
                     {
                         (checkPermission(funcId, commandId.update) && (props.handleEdit) && <Tooltip title="Sửa" aria-label="Sửa">
-                            <span onClick={() => props.handleEdit && props.handleEdit(item["id"])} className="px-2" >{IconEdit_01(20)}</span>
+                            <span onClick={() => props.handleEdit && props.handleEdit(item["id"])} className="px-2 cursor" >{IconEdit_01(20)}</span>
                         </Tooltip>)
                     }
 
                     {(checkPermission(funcId, commandId.delete) && (props.handleDelete) &&
                         <Tooltip title="Xoá" aria-label="Xoá">
-                            <span onClick={() => props.handleDelete && props.handleDelete(item["id"])} className="px-2" >{IconTrash(20)}</span>
+                            <span onClick={() => props.handleDelete && props.handleDelete(item["id"])} className="px-2 cursor" >{IconTrash(20)}</span>
                         </Tooltip>)
                     }
                 </div>

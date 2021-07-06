@@ -18,7 +18,8 @@ interface IFunction {
     color: string,
     size: string,
     systemConfig: string,
-    sliderShow: string
+    sliderShow: string,
+    productCollection: string
 }
 
 interface ICommand {
@@ -44,8 +45,9 @@ export const functionId: IFunction =
     permission: 'SYSTEM_PERMISSION',
     role: 'SYSTEM_ROLE',
     user: 'SYSTEM_USER',
-    product: 'CONTENT_PRODUCT',
-    category: 'CONTENT_CATEGORY',
+    product: 'PRODUCTS_PRODUCT',
+    productCollection: 'PRODUCTS_COLLECTIONS',
+    category: 'PRODUCTS_CATEGORY',
     systemConfig: 'ST_CONFIG_GENERAL',
     color: 'SETTING_COLOR',
     size: 'SETTING_SIZE',

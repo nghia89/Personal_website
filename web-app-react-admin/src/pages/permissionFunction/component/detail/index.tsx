@@ -100,7 +100,6 @@ export default function PermissionDetail(props: IProps) {
     }
 
     function handleChangeNodeRoot(rootId: string, command: string, statusActive: boolean, index: number) {
-        debugger
         if (isEdit)
             setEdit(false)
 

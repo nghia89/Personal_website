@@ -86,7 +86,7 @@ namespace WebAppIdentityServer.Data.EF
                     new Function {Id = "PRODUCTS",Name = "Sản phẩm",ParentId = "ROOTID", SortOrder = 2,Url = "/products",Icon="IconShoppingCart", DateCreated=new DateTime(),DateModified=new DateTime() },
                     new Function {Id = "PRODUCTS_CATEGORY",Name = "Danh mục",ParentId ="PRODUCTS",Url = "/product/categories" , DateCreated=new DateTime(),DateModified=new DateTime() },
                     new Function {Id = "PRODUCTS_PRODUCT",Name = "Sản phẫm",ParentId = "PRODUCTS",SortOrder = 2,Url = "/products",Icon="fa-edit" , DateCreated=new DateTime(),DateModified=new DateTime()},
-                    new Function {Id = "PRODUCTS_GROUP",Name = "Nhóm sản phẩm",ParentId = "PRODUCTS",SortOrder = 3,Url = "/product/groups",Icon="fa-edit", DateCreated=new DateTime(),DateModified=new DateTime() },
+                    new Function {Id = "PRODUCTS_COLLECTIONS",Name = "Nhóm sản phẩm",ParentId = "PRODUCTS",SortOrder = 3,Url = "/product/collections",Icon="fa-edit", DateCreated=new DateTime(),DateModified=new DateTime() },
                     new Function {Id = "PRODUCTS_REPORT",Name = "Báo xấu",ParentId = "PRODUCTS",SortOrder = 3,Url = "/product/product/reports",Icon="fa-edit", DateCreated=new DateTime(),DateModified=new DateTime() },
 
 
