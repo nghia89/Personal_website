@@ -58,7 +58,8 @@ export const Routes = (
 
             <PrivateRoute path={PATH.Dashboard} component={Dashboard} />
 
-            <Route exact path={`${PATH.PRODUCT_DETAIL}:id`} component={ProductDetail} />
+            {/* <Route exact path={`${PATH.PRODUCT_DETAIL}:id`} component={ProductDetail} />
+            <Route exact path={`${PATH.PRODUCT_VARIANT}:id/variant/:quantityid`} component={VariantNew} /> */}
 
             <PrivateRoute path={PATH.USER} component={User} />
             <PrivateRoute path={PATH.ROLE} component={Role} />
@@ -66,10 +67,11 @@ export const Routes = (
 
             <PrivateRoute path={PATH.CATEGORIES} component={ProductCategory} />
 
-            <PrivateRoute path={PATH.PRODUCT} component={Product} />
+
             <PrivateRoute path={PATH.PRODUCT_CREATE} component={ProductCreate} />
             <PrivateRoute path={`${PATH.PRODUCT_DETAIL}:id`} component={ProductDetail} />
             <PrivateRoute path={`${PATH.PRODUCT_VARIANT}:id/variant/:quantityid`} component={VariantNew} />
+            <PrivateRoute path={PATH.PRODUCT} component={Product} />
             <PrivateRoute path={`${PATH.PRODUCT_VARIANT}:id`} component={VariantNew} />
 
 

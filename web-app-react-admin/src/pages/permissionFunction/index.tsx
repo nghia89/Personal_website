@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { CircularProgress } from '@material-ui/core';
 import { RoleVM, IBaseTable, IBaseParams } from '@/models/index';
 import { apiRoles } from '@/apis/index';
 import { SerializeParam } from '@/helpers/utils';

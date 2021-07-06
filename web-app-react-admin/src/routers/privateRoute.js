@@ -3,6 +3,8 @@ import { Route } from "react-router-dom";
 import { AuthConsumer } from "@/providers/authProvider";
 import Error404 from '@/pages/error/error404'
 import { checkPath } from '@/helpers/utils';
+import { LoadingPage } from '@/components/loaders/index'
+
 
 export const PrivateRoute = ({ component, ...rest }) => {
   const renderFn = Component => props => (
@@ -15,11 +17,10 @@ export const PrivateRoute = ({ component, ...rest }) => {
             return <Component  {...props} />;
           } else {
             signInRedirect();
-            return <span>loading</span>;
+            return <LoadingPage />
           }
         }}
     </AuthConsumer>
   );
-
-  return <Route path={rest.path} exact={rest.exact} component={renderFn(component)} />;
+  return <Route {...rest} component={renderFn(component)} />
 };
