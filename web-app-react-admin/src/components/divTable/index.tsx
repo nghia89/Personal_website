@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { IBaseParams, ITableHead } from '@/models'
 import './index.css'
 import { formatDate, checkPermission, replaceImgUrl } from '@/helpers/utils';
@@ -6,6 +6,7 @@ import { commandId, ImageSize } from '@/constants/utilConstant'
 import { Switch, TablePagination, Tooltip } from '@material-ui/core';
 import { IconEdit_01, IconEmpty, IConImage, IconTrash } from '@/helpers/svg';
 import { Loading } from '../loaders';
+import debounce from 'lodash.debounce';
 
 export interface IProps {
     funcId: string,
@@ -17,22 +18,50 @@ export interface IProps {
     onchangeParam: Function,
     isLoading: boolean,
     isPagination?: boolean,
+    scrollAble?: boolean,
     handleEdit?: (id: any) => void,
     handleDelete?: (id: any) => void
 }
 
 
 export default function DivTable(props: IProps) {
+    const prevScrollY = useRef(0);
     const [dimensions, setDimensions] = React.useState({
         height: window.innerHeight,
         width: window.innerWidth
     });
+    const [loadMore, setLoadMore] = useState(false);
     let { page, pageSize, funcId, isPagination } = props;
 
 
     useEffect(() => {
-        resize()
+        window.scrollTo(0, 0)
+        resize();
+
+        window.addEventListener("scroll", debounce(handleScroll, 200), { passive: true });
+
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    function handleScroll() {
+        const currentScrollY = window.scrollY;
+        if (prevScrollY.current < currentScrollY && loadMore) {
+            setLoadMore(false);
+        }
+        if (prevScrollY.current > currentScrollY && !loadMore && !props.isLoading) {
+            setLoadMore(true);
+        }
+
+        prevScrollY.current = currentScrollY;
+        console.log(loadMore, currentScrollY);
+    }
+
+    useEffect(() => {
+        if (loadMore) {
+            fetchData(page, pageSize)
+            setLoadMore(false);
+        }
+    }, [loadMore]);
 
     function resize() {
         function handleResize() {
@@ -153,7 +182,7 @@ export default function DivTable(props: IProps) {
     return (
         <div>
             <div className="divTable-wraper" >
-                <div style={{ overflow: 'auto', height: (dimensions.height - 270), borderBottom: '1px solid rgb(241, 242, 246)', borderRadius: '10px' }}>
+                <div id="loadMoreId" style={{ overflow: 'auto', height: (dimensions.height - 270), borderBottom: '1px solid rgb(241, 242, 246)', borderRadius: '10px' }}>
                     {renderContent()}
                 </div>
 

@@ -9,7 +9,6 @@ const CompressionPlugin = require("compression-webpack-plugin")
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 
 module.exports = (env, agrv) => {
-    debugger
     const isDev = agrv.mode === "development"
     const isAnalyze = env && env.analyze
     const basePlugins = [
@@ -90,6 +89,13 @@ module.exports = (env, agrv) => {
                             }
                         }
                     ]
+                }, {
+                    use: 'babel-loader',
+                    test: /\.js$/,
+                    options: {
+                        plugins: ['lodash'],
+                        presets: [['env', { 'modules': false, 'targets': { 'node': 4 } }]]
+                    }
                 }
             ]
         },

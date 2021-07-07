@@ -14,6 +14,7 @@ const baseApiColor = 'color/';
 const baseApiSize = 'size/';
 const baseApiProductQuantity = 'productQuantity/';
 const baseApiSlideShow = 'slideShow/'
+const baseApiProductCollection = 'productCollections/'
 
 export const UploadImageForCKEditor = `${env.baseApiUrl}/api/${baseApiUpload}upload_image_ckeditor`;
 
@@ -110,4 +111,13 @@ export const apiSlideShow = {
     updates: async (body: any) => { return await PUT(`${baseApiSlideShow}updates`, body) },
     delete: async (id: number) => { return await DELETE(`${baseApiSlideShow}delete/` + id) },
     getById: async (id?: number) => { return await GET(`${baseApiSlideShow}` + id) },
+}
+
+export const apiProductCollection = {
+    getAll: async () => { return await GET(`${baseApiProductCollection}getall`) },
+    getPaging: async (param: string) => { return await GET(`${baseApiProductCollection}paging` + param) },
+    create: async (body: any) => { return await POST(`${baseApiProductCollection}add`, body) },
+    update: async (body: any) => { return await PUT(`${baseApiProductCollection}update`, body) },
+    delete: async (id: number) => { return await DELETE(`${baseApiProductCollection}delete/` + id) },
+    getById: async (id?: number) => { return await GET(`${baseApiProductCollection}` + id) },
 }

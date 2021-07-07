@@ -22,12 +22,13 @@ const PermissionFunction = React.lazy(() => import('@/pages/permissionFunction/i
 //#endregion
 
 
-//#region  Content
+//#region  Product
 const Product = React.lazy(() => import('@/pages/Product/index'));
 const ProductCreate = React.lazy(() => import('@/pages/Product/component/create/index'));
 const ProductDetail = React.lazy(() => import('@/pages/Product/component/detail/index'));
 const VariantNew = React.lazy(() => import('@/pages/Product/component/variantNew/index'));
 const ProductCategory = React.lazy(() => import('@/pages/productCategory/index'));
+const ProductCollection = React.lazy(() => import('@/pages/productCollection/index'));
 //#endregion
 
 //#region  Setting 
@@ -71,8 +72,9 @@ export const Routes = (
             <PrivateRoute path={PATH.PRODUCT_CREATE} component={ProductCreate} />
             <PrivateRoute path={`${PATH.PRODUCT_DETAIL}:id`} component={ProductDetail} />
             <PrivateRoute path={`${PATH.PRODUCT_VARIANT}:id/variant/:quantityid`} component={VariantNew} />
-            <PrivateRoute path={PATH.PRODUCT} component={Product} />
             <PrivateRoute path={`${PATH.PRODUCT_VARIANT}:id`} component={VariantNew} />
+            <PrivateRoute path={`${PATH.PRODUCT_COLLECTIONS}`} component={ProductCollection} />
+            <PrivateRoute path={PATH.PRODUCT} component={Product} />
 
 
             <PrivateRoute path={PATH.SETTING_COLOR} component={Colors} />
