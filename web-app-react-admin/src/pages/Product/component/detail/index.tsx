@@ -200,7 +200,7 @@ function ProductDetail(props: IProps) {
     function renderHeader() {
         return <div className="pb-3 d-flex justify-content-end align-items-center">
             <div>
-                <button onClick={async () => await saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>
+                <button onClick={async () => await saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Cập nhật</button>
             </div>
         </div>
     }
@@ -439,7 +439,7 @@ function ProductDetail(props: IProps) {
                         </div>
 
                         <div>
-                            <button onClick={async () => await saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>
+                            <button onClick={async () => await saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Cập nhật</button>
                         </div>
                     </div>}
                     <AlertDialogSlide

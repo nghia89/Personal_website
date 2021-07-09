@@ -102,7 +102,7 @@ export default function RoleDetail(props: IProps) {
             <div>
                 <button onClick={() => props.handleClose()} type="button" className="mx-3 hms-btn-button btn btn-light">Đóng</button>
                 <button onClick={() => setStateInit(null, !state.isEdit)} hidden={!state.isEdit} type="button" className="mx-3 hms-btn-button btn btn-primary">Chỉnh sửa</button>
-                <button disabled={state.isEdit} onClick={() => saveData()} hidden={state.isEdit} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>
+                <button disabled={state.isEdit} onClick={() => saveData()} hidden={state.isEdit} type="button" className="mx-3 hms-btn-button btn btn-primary">Cập nhật</button>
             </div>
         </div>
     }

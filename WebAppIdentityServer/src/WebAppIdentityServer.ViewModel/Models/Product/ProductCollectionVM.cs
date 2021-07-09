@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using WebAppIdentityServer.Utilities.Enum;
 using WebAppIdentityServer.ViewModel.Models.Common;
@@ -16,5 +17,6 @@ namespace WebAppIdentityServer.ViewModel.Models.Product
         public string SeoKeywords { set; get; }
         public string SeoDescription { set; get; }
         public List<AttachmentVM> Attachments { get; set; }
+        public DateTime? DateApply { get; set; }
     }
 }

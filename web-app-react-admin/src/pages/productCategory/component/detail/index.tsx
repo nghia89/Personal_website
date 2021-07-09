@@ -128,7 +128,7 @@ export default function ProductCateDetail(props: IProps) {
             <h5 className="mr-5 font-weight-bold">Tạo mới danh mục</h5>
             <div>
                 <button onClick={() => props.handleClose()} type="button" className="mx-3 hms-btn-button btn btn-light">Đóng</button>
-                <button onClick={() => saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>
+                <button onClick={() => saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Cập nhật</button>
             </div>
         </div>
     }

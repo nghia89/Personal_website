@@ -24,6 +24,7 @@ namespace WebAppIdentityServer.Business.Mappers
                     SeoDescription = model.SeoDescription,
                     SeoKeywords = model.SeoKeywords,
                     Status = model.Status,
+                    DateApply = model.DateApply
                 };
             }
         }
@@ -46,7 +47,7 @@ namespace WebAppIdentityServer.Business.Mappers
                     SeoDescription = model.SeoDescription,
                     SeoKeywords = model.SeoKeywords,
                     Status = model.Status,
-
+                    DateApply = model.DateApply
                 };
             }
         }

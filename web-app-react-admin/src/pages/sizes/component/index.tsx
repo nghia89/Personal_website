@@ -91,7 +91,7 @@ export default function ColorCreateAndEdit(props: IProps) {
             <h1 className="h3 mb-1 text-gray-800">{!IsNullOrEmpty(props.id) ? 'Chỉnh sửa màu' : 'Thêm mới màu'}</h1>
             <div>
                 <button onClick={() => handleClose()} type="button" className="mx-3 hms-btn-button btn btn-light">Đóng</button>
-                {checkPermission(functionId.size, commandId.update) && <button onClick={() => saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>}
+                {checkPermission(functionId.size, commandId.update) && <button onClick={() => saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">{props.id ? 'Cập nhật' : 'Lưu'}</button>}
             </div>
         </div>
     }

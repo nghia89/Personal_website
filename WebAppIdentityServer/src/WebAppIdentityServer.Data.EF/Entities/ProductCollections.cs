@@ -18,6 +18,7 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public string SeoKeywords { set; get; }
         public string SeoDescription { set; get; }
 
+        public DateTime? DateApply { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
         public string CreatedBy { get; set; }
