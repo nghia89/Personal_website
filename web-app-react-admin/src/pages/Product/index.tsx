@@ -25,6 +25,7 @@ export function Product(props: IProps) {
     const [data, setData] = useState<ProductVM[]>([]);
     const [isLoading, setLoading] = useState<boolean>(true)
     const [isShowModal, setIsShowModal] = useState(false)
+    const [isLoadMore, setIsLoadMore] = useState(false)
     const [idSelect, setIdSelect] = useState(0)
     const [params, setParams] = useState<IBaseParams>({ page: 1, pageSize: 20, query: '' })
 
@@ -42,17 +43,21 @@ export function Product(props: IProps) {
     }, [params.page, params.pageSize, params.query])
 
     async function getData() {
-        if (!isLoading) setLoading(true)
-        let aeriaParam = SerializeParam(params);
+        if (!isLoading && !isLoadMore) setLoading(true)
+        let serialParam = SerializeParam(params);
         let newParam = { ...params };
-        await apiProduct.getPaging(aeriaParam).then((rsp) => {
+        await apiProduct.getPaging(serialParam).then((rsp) => {
             if (!rsp.isError) {
                 setLoading(false)
-                setData(rsp.data.data)
+                let newData = data.concat(rsp.data.data)
+                setData([...newData])
                 newParam.totalCount = rsp.data.totalCount
+
                 setParams(newParam)
+                setIsLoadMore(false)
             } else {
                 setLoading(false)
+                setIsLoadMore(false)
                 dispatch('ERROR', 'Có lỗi xảy ra.')
             }
         })
@@ -78,6 +83,7 @@ export function Product(props: IProps) {
             let newParam = { ...params };
             newParam.query = value;
             setParams(newParam)
+            setData([])
         }
     }
 
@@ -85,13 +91,15 @@ export function Product(props: IProps) {
         let newParam = { ...params };
         newParam.query = textSearch;
         setParams(newParam)
+        setData([])
     }
 
-    function handlechangeParam(e) {
+    function handlechangeParam(e, isLoadMore) {
         let newParam: IBaseParams = { ...params };
         newParam.page = e.page;
         newParam.pageSize = e.pageSize
         setParams(newParam)
+        setIsLoadMore(isLoadMore)
     }
 
     function renderHeader() {
@@ -116,13 +124,16 @@ export function Product(props: IProps) {
             funcId={functionId.product}
             data={data}
             header={tableHeadProduct}
-            onchangeParam={(e) => handlechangeParam(e)}
+            onchangeParam={(e, isLoadMore) => handlechangeParam(e, isLoadMore)}
             pageSize={params.pageSize}
             page={params.page}
             total={params.totalCount}
+            scrollAble
+            isLoadMore={isLoadMore}
             isLoading={isLoading}
             handleEdit={(id) => history.push(`${PATH.PRODUCT_DETAIL}${id}`)}
             handleDelete={(id) => { setIsShowModal(true); setIdSelect(id) }}
+            isHiddenPagination
         />
     }
 

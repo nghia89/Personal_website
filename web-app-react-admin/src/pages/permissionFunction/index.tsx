@@ -69,7 +69,7 @@ function PermissionFunction(props: IProps) {
             page={stateTable.page}
             total={stateTable.totalCount}
             isLoading={isLoading}
-            isPagination
+            isHiddenPagination
             handleEdit={(id) => handleCloseTableEdit(id)}
         />
     }

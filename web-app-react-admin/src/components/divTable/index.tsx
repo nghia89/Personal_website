@@ -5,7 +5,7 @@ import { formatDate, checkPermission, replaceImgUrl } from '@/helpers/utils';
 import { commandId, ImageSize } from '@/constants/utilConstant'
 import { Switch, TablePagination, Tooltip } from '@material-ui/core';
 import { IconEdit_01, IconEmpty, IConImage, IconTrash } from '@/helpers/svg';
-import { Loading } from '../loaders';
+import { Loading, LoadMore } from '../loaders';
 import debounce from 'lodash.debounce';
 
 export interface IProps {
@@ -17,49 +17,49 @@ export interface IProps {
     header: Array<ITableHead>,
     onchangeParam: Function,
     isLoading: boolean,
-    isPagination?: boolean,
+    isHiddenPagination?: boolean,
     scrollAble?: boolean,
+    isLoadMore?: boolean,
     handleEdit?: (id: any) => void,
     handleDelete?: (id: any) => void
 }
 
 
 export default function DivTable(props: IProps) {
-    const prevScrollY = useRef(0);
+
     const [dimensions, setDimensions] = React.useState({
         height: window.innerHeight,
         width: window.innerWidth
     });
     const [loadMore, setLoadMore] = useState(false);
-    let { page, pageSize, funcId, isPagination } = props;
+    let { page, pageSize, funcId, isHiddenPagination, scrollAble, isLoadMore } = props;
 
 
     useEffect(() => {
-        window.scrollTo(0, 0)
         resize();
-
-        window.addEventListener("scroll", debounce(handleScroll, 200), { passive: true });
-
-        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    function handleScroll() {
-        const currentScrollY = window.scrollY;
-        if (prevScrollY.current < currentScrollY && loadMore) {
-            setLoadMore(false);
-        }
-        if (prevScrollY.current > currentScrollY && !loadMore && !props.isLoading) {
+
+    useEffect(() => {
+        if (!isLoadMore && loadMore)
+            setLoadMore(false)
+    }, [isLoadMore]);
+
+
+
+    function handleScroll(e) {
+        const currentScrollY = e.target.scrollTop;
+        const currentScrollHeight = e.target.scrollHeight;
+        const height = e.target.clientHeight;
+        const currentHeight = (currentScrollHeight - currentScrollY - 150)
+        if (currentHeight < height && !loadMore) {
             setLoadMore(true);
         }
-
-        prevScrollY.current = currentScrollY;
-        console.log(loadMore, currentScrollY);
     }
 
     useEffect(() => {
         if (loadMore) {
             fetchData(page, pageSize)
-            setLoadMore(false);
         }
     }, [loadMore]);
 
@@ -82,7 +82,7 @@ export default function DivTable(props: IProps) {
             page: page + 1,
             pageSize: pageSize
         };
-        props.onchangeParam(objParams)
+        props.onchangeParam(objParams, loadMore)
     }
 
 
@@ -153,14 +153,15 @@ export default function DivTable(props: IProps) {
                     {(props.handleDelete || props.handleEdit) && <div key={`action`} className="divTableHead center item-head-sticky">#</div>}
                 </div>
             </div>
-            <div className="divTableBody">
-                {props.isLoading ?
+            <div className="divTableBody" >
+                {(props.isLoading && !loadMore) ?
                     <div className="content_table_data_empty mt-5" style={{ width: widthContent }}>
                         <Loading />
                     </div>
                     :
                     props.data.length > 0 ?
-                        renderContentTable() :
+                        renderContentTable()
+                        :
                         <div className="content_table_data_empty" style={{ width: widthContent }}>
                             <span>
                                 {IconEmpty((dimensions.height - 550) < 0 ? 10 : (dimensions.height - 550))}
@@ -178,16 +179,20 @@ export default function DivTable(props: IProps) {
         </span>
     }
 
-
+    const callbackDebounce = debounce(handleScroll, 100);
+    const heightDeduction = 270;
     return (
         <div>
             <div className="divTable-wraper" >
-                <div id="loadMoreId" style={{ overflow: 'auto', height: (dimensions.height - 270), borderBottom: '1px solid rgb(241, 242, 246)', borderRadius: '10px' }}>
+                <div onScroll={(e) => scrollAble && callbackDebounce(e)} style={{ overflow: 'auto', height: (dimensions.height - heightDeduction), borderBottom: '1px solid rgb(241, 242, 246)', borderRadius: '10px' }}>
                     {renderContent()}
                 </div>
+                {
+                    loadMore && <LoadMore />
+                }
 
                 {
-                    !isPagination && <TablePagination
+                    !isHiddenPagination && <TablePagination
                         rowsPerPageOptions={[10, 20, 50, 100]}
                         component="div"
                         labelRowsPerPage={<span>Hiển thị:</span>}
@@ -198,6 +203,7 @@ export default function DivTable(props: IProps) {
                         onChangePage={handleChangePage}
                         onChangeRowsPerPage={handleChangeRowsPerPage}
                     />
+
                 }
             </div>
 

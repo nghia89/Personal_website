@@ -89,13 +89,6 @@ module.exports = (env, agrv) => {
                             }
                         }
                     ]
-                }, {
-                    use: 'babel-loader',
-                    test: /\.js$/,
-                    options: {
-                        plugins: ['lodash'],
-                        presets: [['env', { 'modules': false, 'targets': { 'node': 4 } }]]
-                    }
                 }
             ]
         },

@@ -3,5 +3,6 @@ import BulletList from './bulletList'
 import CodeLoader from './codeLoader'
 import Animations from './animations'
 import Loading from './loading'
+import LoadMore from './loadMore'
 
-export { LoadingPage, BulletList, CodeLoader, Animations, Loading };
+export { LoadingPage, BulletList, CodeLoader, Animations, Loading, LoadMore };
