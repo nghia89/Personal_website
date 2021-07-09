@@ -116,7 +116,8 @@ a {
     color: var(--black-color);
 }
 .nav_link:hover {
-    color: #5f63f2
+    background: rgb(13 110 253 / .12);
+    border-radius: 15px;
 }
 
 .nav_icon {
@@ -127,7 +128,7 @@ a {
     left: 0
 }
 
-.body-pd {
+.body-pd .header {
     padding-left: calc(var(--nav-width) + 1rem)
 }
 
@@ -175,7 +176,7 @@ display: none
     display: flex;
     color: rgb(39, 43, 65);
     text-decoration: none;
-    border-radius: .35rem;
+    border-radius: 15px;
     white-space: nowrap;
     padding-left: 50px !important;
     cursor: pointer;
@@ -226,7 +227,7 @@ width: calc(var(--nav-width) + 200px)
         width: calc(var(--nav-width) + 200px)
     }
 
-    .body-pd {
+    .body-pd .header  {
         padding-left: calc(var(--nav-width) + 220px)
     }
 }

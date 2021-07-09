@@ -12,7 +12,7 @@ function Layout(props: Props) {
         return <div id="body-pd" className="" >
             <Header />
             <SideNav />
-            <div className="container-fluid mtc-5">
+            <div className="wrapper-container mtc-5">
                 <div className="container">
                     <Suspense fallback={<Loader />}>
                         {props.children}

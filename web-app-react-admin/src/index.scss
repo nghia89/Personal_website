@@ -3,7 +3,14 @@
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
   }
-
+.wrapper-container{
+  width: calc(100% - 100px);
+  padding-right: var(--bs-gutter-x,.75rem);
+  padding-left: var(--bs-gutter-x,.75rem);
+  margin-right: auto;
+  margin-left: auto;
+  transition: all 0.5s ease;
+}
 .cursor{
     cursor: pointer;
 }
@@ -11,13 +18,13 @@
     min-width: 90px;
     font-weight: 500;
 }
-.body-pd .container-fluid{
-    margin-left: inherit !important;
+.body-pd .wrapper-container{
+  width: calc(100% - 400px);
 }
 
-.body-pd .container-fluid .container{
-    margin-left: inherit !important;
-}
+// .body-pd .container-fluid .container{
+//     margin-left: inherit !important;
+// }
 
 // loading
 .loader{
