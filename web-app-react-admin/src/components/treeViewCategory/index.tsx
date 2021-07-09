@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Collapse } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -41,8 +41,26 @@ export default function TreeViewCategory(props: IProps) {
     useEffect(() => {
         isFirst = false
         handleCallData()
+
     }, [])
 
+
+    function useOutsideAlerter(ref) {
+        useEffect(() => {
+            function handleClickOutside(event) {
+                if (ref.current && !ref.current.contains(event.target)) {
+                    setShowDropdown(false)
+                }
+            }
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => {
+                document.removeEventListener("mousedown", handleClickOutside);
+            };
+        }, [ref]);
+    }
+
+    const wrapperRef = useRef(null);
+    useOutsideAlerter(wrapperRef);
 
     function handleCheckSelectNode(item) {
         setShowDropdown(false)
@@ -71,7 +89,7 @@ export default function TreeViewCategory(props: IProps) {
 
     let classShowDropdown = `dropdown-select-custom dropdown-menu p-2  animate slideIn  ${isShowDropdown ? 'show' : ""}`
     return (
-        <div className="treeView_wraper">
+        <div ref={wrapperRef} className="treeView_wraper">
             <div className="treeView_wraper_input d-flex mb-1">
                 <div style={{ display: 'contents' }}
                     onClick={() => handleShowDropdown()}>

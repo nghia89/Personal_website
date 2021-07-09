@@ -77,10 +77,10 @@ function ProductCollection(props: IProps) {
     }
 
     function renderHeader() {
-        return <div className="pb-5 d-flex justify-content-between align-items-center ">
+        return <div className="pb-5 d-flex justify-content-end align-items-center ">
             {
                 checkPermission(functionId.productCollection, commandId.create) && <button onClick={() => {
-                    history.push(PATH.PRODUCT_CREATE)
+                    history.push(PATH.PRODUCT_COLLECTIONS_Create)
                 }} type="button" className="mx-3 btn btn-success">Tạo mới</button>
             }
         </div>

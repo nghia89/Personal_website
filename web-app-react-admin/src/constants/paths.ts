@@ -24,6 +24,7 @@ export const PATH = {
   PRODUCT_VARIANT: `${product}/variant_new/`,
   CATEGORIES: `${product}/categories`,
   PRODUCT_COLLECTIONS: `${product}/collections`,
+  PRODUCT_COLLECTIONS_Create: `${product}/collections/create`,
   //#endregion
 
 
