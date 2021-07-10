@@ -1,6 +1,7 @@
 .dropdown-menu-custom{
     width: 100%;
     margin-top: 0.5rem;
+
 }
 
 .next-input-group{
@@ -14,4 +15,29 @@
     width: 100%;
     transition: all 0.2s ease-out;
     outline: none;
+}
+
+.focus-next-input{
+    border: 1px solid #0052cc !important;
+    box-shadow: 0 0 5px rgb(71 98 255 / 40%);
+    -webkit-box-shadow:0 0 5px rgb(71 98 255 / 40%);
+}
+
+.box-item-menu .item-menu:hover{
+    background: #0d6efd;
+    color: #fff;
+    border-radius: 15px;
+}
+
+.box-item-menu{
+    height: 350px;
+    overflow: auto;
+}
+
+.box-item-menu .check span{
+    color: #0d6efd;
+}
+
+.box-item-menu .item-menu:hover span{
+    color: #fff;
 }

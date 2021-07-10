@@ -4,6 +4,7 @@ import { IBreadcrumbs } from '@/models/commonM';
 import React, { useState, useEffect, Fragment } from 'react'
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
+import { ProductVM } from '@/models';
 
 interface IProps {
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
@@ -12,6 +13,7 @@ interface IProps {
 function CollectionCreate(props: IProps) {
 
     const dispatch = useNotification();
+    const [dataValue, setDataValue] = useState<ProductVM[]>([]);
 
     useEffect(() => {
         props.setBreadcrumb([
@@ -22,6 +24,15 @@ function CollectionCreate(props: IProps) {
 
     async function saveData() {
 
+    }
+
+    function handleAddDataValue(item) {
+        let index = dataValue.findIndex(x => x.id == item.id)
+        if (index > -1) {
+            dataValue.splice(index, 1)
+        }
+        else dataValue.push(item)
+        setDataValue([...dataValue])
     }
 
     function renderHeader() {
@@ -42,7 +53,7 @@ function CollectionCreate(props: IProps) {
                     </div>
                     <div className="row">
                         <div className=" col-12 col-md-6 pt-3">
-                            <SearchProduct dataValue={0} handleOnchange={() => console.log('')} />
+                            <SearchProduct dataValue={dataValue} handleOnchange={(item) => handleAddDataValue(item)} />
                         </div>
                     </div>
                 </div>

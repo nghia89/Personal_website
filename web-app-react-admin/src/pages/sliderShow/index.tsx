@@ -57,7 +57,7 @@ function SlideShow(props: IProps) {
             page={page}
             total={0}
             isLoading={isLoading}
-            isPagination
+            isHiddenPagination
             handleEdit={(id) => handleCloseTableEdit(id)}
             onchangeParam={() => console.log()}
         />

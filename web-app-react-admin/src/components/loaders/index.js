@@ -4,5 +4,6 @@ import CodeLoader from './codeLoader'
 import Animations from './animations'
 import Loading from './loading'
 import LoadMore from './loadMore'
+import SpinnerLoading from './spinnerLoading'
 
-export { LoadingPage, BulletList, CodeLoader, Animations, Loading, LoadMore };
+export { LoadingPage, BulletList, CodeLoader, Animations, Loading, LoadMore, SpinnerLoading };

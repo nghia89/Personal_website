@@ -179,7 +179,7 @@ export default function DivTable(props: IProps) {
         </span>
     }
 
-    const callbackDebounce = debounce(handleScroll, 100);
+    const callbackDebounce = debounce(handleScroll, 200);
     const heightDeduction = 270;
     return (
         <div>
