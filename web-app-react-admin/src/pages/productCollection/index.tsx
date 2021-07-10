@@ -11,6 +11,7 @@ import { PATH } from '@/constants/paths';
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { IBreadcrumbs } from '@/models/commonM';
 
+
 interface IProps {
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
 }

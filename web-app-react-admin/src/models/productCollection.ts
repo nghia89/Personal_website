@@ -1,3 +1,4 @@
+import { ProductVM } from "./product";
 
 
 export interface ProductCollectionVM {
@@ -10,5 +11,11 @@ export interface ProductCollectionVM {
     seoAlias?: string
     seoKeywords?: string
     seoDescription?: string
+    productAndCollection?: ProductAndCollectionVM[]
 }
 
+export interface ProductAndCollectionVM {
+    productId?: number
+    productVM?: ProductVM
+    productCollectionId?: number
+}

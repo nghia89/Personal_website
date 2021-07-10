@@ -11,6 +11,6 @@ namespace WebAppIdentityServer.Data.EF.Entities
         public long ProductId { get; set; }
         public Product Product { get; set; }
         public long ProductCollectionId { get; set; }
-        public ProductCollections ProductCollections { get; set; }
+        public ProductCollections ProductCollection { get; set; }
     }
 }

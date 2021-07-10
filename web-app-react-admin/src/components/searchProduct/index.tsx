@@ -69,6 +69,7 @@ export default function SearchProduct(props: IProps) {
     function handleSearch(e) {
         let textSearch = e.target.value
         params.query = textSearch;
+        params.page = 1
         setData([])
         setParams({ ...params })
     }
