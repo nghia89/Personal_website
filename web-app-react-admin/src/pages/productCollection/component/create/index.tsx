@@ -5,6 +5,8 @@ import React, { useState, useEffect, Fragment } from 'react'
 import { setBreadcrumb } from '@/reducer/breadcrumbs/breadcrumb.thunks';
 import { connect } from 'react-redux';
 import { ProductVM } from '@/models';
+import { Switch } from '@material-ui/core';
+
 
 interface IProps {
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
@@ -43,13 +45,12 @@ function CollectionCreate(props: IProps) {
         </div>
     }
 
-
-    function renderLeft() {
-        return <div className="col-8">
+    function renderAddProduct() {
+        return <div>
             <div className="wrapper-content mb-5">
                 <div className="ms-2 ">
                     <div className=" mb-2  border-line-bottom">
-                        <span className="ui-information-title   mb-2 ">Thông Tin Chung</span>
+                        <span className="ui-information-title   mb-2 ">Sản Phẩm</span>
                     </div>
                     <div className="row">
                         <div className=" col-12 col-md-6 pt-3">
@@ -60,18 +61,53 @@ function CollectionCreate(props: IProps) {
             </div>
         </div>
     }
+
+
+    function renderLeft() {
+        return <div className="col-8">
+            <div className="wrapper-content mb-5">
+                <div className="ms-2 ">
+                    <div className=" mb-2  border-line-bottom">
+                        <span className="ui-information-title   mb-2 ">Thông Tin Chung</span>
+                    </div>
+                    <div className="row">
+                        <div className=" col-12 col-md-6 pt-3">
+                            <InputComponent
+                                label="Tên nhóm sản phẩm"
+                                name="name"
+                                //onChange={(e) => handleOnchange(e)}
+                                placeholder="Ví dụ: nhóm sản phẩm A"
+                                value={''}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {renderAddProduct()}
+        </div>
+    }
     function renderRight() {
         return <div className="col-4">
             <div className="wrapper-content mb-5">
                 <div className="ms-2 ">
+                    <div className=" mb-2  border-line-bottom">
+                        <span className="ui-information-title   mb-2 ">Hiển Thị</span>
+                    </div>
                     <div className="row">
                         <div className=" col-12 col-md-6 pt-3">
-                            <InputComponent
-                                label="Giá bán"
-                                name="price"
-                                //onChange={(e) => handleOnchange(e)}
-                                placeholder="0"
-                                value={''}
+                            <label>Trạng thái </label>
+                            <Switch
+                                checked={true}
+                                onChange={() => console.log()}
+                                color="primary"
+                            />
+                        </div>
+                        <div className=" col-12 col-md-6 pt-3">
+                            <label>Ngày hiển thị</label>
+                            <Switch
+                                checked={true}
+                                onChange={() => console.log()}
+                                color="primary"
                             />
                         </div>
                     </div>
