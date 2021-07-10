@@ -22,6 +22,19 @@
   width: calc(100% - 350px);
 }
 
+ .focus-dropdown{
+  border: 1px solid #0052cc !important;
+}
+
+.next-input-group input{
+  outline: none;
+    border: none;
+    width: 95%;
+    height: 100%;
+    padding: 10px;
+}
+
+
 // .body-pd .container-fluid .container{
 //     margin-left: inherit !important;
 // }

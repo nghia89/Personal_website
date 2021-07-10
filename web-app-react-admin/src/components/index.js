@@ -12,9 +12,10 @@ import TreeViewCategory from './treeViewCategory'
 import SearchComponent from './search'
 import InputComponent from './common/input'
 import FileUpload from './fileUpload'
+import SearchProduct from './searchProduct'
 
 export {
     TableCenter, AlertDialogSlide, DrawerLayout, DatePickers, NotificationBox,
     NotificationProvider, useNotification, DivTable, ImageUploadCard, Editor,
-    TreeViewCategory, SearchComponent, InputComponent, FileUpload
+    TreeViewCategory, SearchComponent, InputComponent, FileUpload, SearchProduct
 };

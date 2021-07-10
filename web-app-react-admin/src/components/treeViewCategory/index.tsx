@@ -6,6 +6,7 @@ import { apiProductCategory } from '@/apis/index'
 import './index.scss'
 import { TreeCateItem } from '@/models';
 import TreeNode from './treeNode'
+import { IconChevronDown } from '@/helpers/svg';
 const useStylesTree = makeStyles({
     root: {
         minHeight: 200,
@@ -89,14 +90,14 @@ export default function TreeViewCategory(props: IProps) {
 
     let classShowDropdown = `dropdown-select-custom dropdown-menu p-2  animate slideIn  ${isShowDropdown ? 'show' : ""}`
     return (
-        <div ref={wrapperRef} className="treeView_wraper">
-            <div className="treeView_wraper_input d-flex mb-1">
+        <div ref={wrapperRef} className="treeView_wrapper">
+            <div className="treeView_wrapper_input d-flex mb-1">
                 <div style={{ display: 'contents' }}
                     onClick={() => handleShowDropdown()}>
                     <input placeholder="Chọn danh mục" value={selected?.name} />
                 </div>
                 <div onClick={() => handleShowDropdown()} className="cursor-pointer treeView-icon-drop">
-                    <ArrowDropDownIcon />
+                    {IconChevronDown(16)}
                 </div>
             </div>
 

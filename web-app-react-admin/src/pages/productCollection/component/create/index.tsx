@@ -1,4 +1,4 @@
-import { InputComponent, useNotification } from '@/components';
+import { InputComponent, SearchProduct, useNotification } from '@/components';
 import { PATH } from '@/constants/paths';
 import { IBreadcrumbs } from '@/models/commonM';
 import React, { useState, useEffect, Fragment } from 'react'
@@ -42,16 +42,7 @@ function CollectionCreate(props: IProps) {
                     </div>
                     <div className="row">
                         <div className=" col-12 col-md-6 pt-3">
-                            <select multiple className="form-control" >
-                                <option value="Codeigniter">Codeigniter</option>
-                                <option value="CakePHP">CakePHP</option>
-                                <option value="Laravel">Laravel</option>
-                                <option value="YII">YII</option>
-                                <option value="Zend">Zend</option>
-                                <option value="Symfony">Symfony</option>
-                                <option value="Phalcon">Phalcon</option>
-                                <option value="Slim">Slim</option>
-                            </select>
+                            <SearchProduct dataValue={0} handleOnchange={() => console.log('')} />
                         </div>
                     </div>
                 </div>
