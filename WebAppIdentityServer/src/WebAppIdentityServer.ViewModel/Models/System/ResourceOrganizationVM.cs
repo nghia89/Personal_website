@@ -1,5 +1,5 @@
 ﻿using System;
-using WebAppIdentityServer.Utilities.Enum;
+using WebAppIdentityServer.ViewModel.Enum;
 
 namespace WebAppIdentityServer.ViewModel.Models.System
 {

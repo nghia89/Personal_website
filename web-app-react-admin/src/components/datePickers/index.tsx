@@ -7,6 +7,7 @@ interface IProps {
     name: string
     label: string
     required?: boolean
+    type?: string
 }
 
 export default function DatePickers(props: IProps) {
@@ -20,7 +21,7 @@ export default function DatePickers(props: IProps) {
             defaultValue={value}
             variant="outlined"
             size="small"
-            type="date"
+            type={props.type ? props.type : "date"}
             InputLabelProps={{
                 shrink: true,
             }}

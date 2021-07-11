@@ -5,7 +5,7 @@ using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Repository.Interfaces;
-using WebAppIdentityServer.Utilities.Enum;
+using WebAppIdentityServer.ViewModel.Enum;
 namespace WebAppIdentityServer.Repository.Implementation
 {
     public class TableRecordRepository : EFRepository<TableRecords>, ITableRecordRepository

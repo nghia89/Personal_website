@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WebAppIdentityServer.Data.EF.Interfaces;
-using WebAppIdentityServer.Utilities.Enum;
+using WebAppIdentityServer.ViewModel.Enum;
 
 namespace WebAppIdentityServer.Data.EF.Entities
 {

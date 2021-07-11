@@ -15,8 +15,9 @@ using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.Utilities;
+using WebAppIdentityServer.Utilities.CommonContains;
 using WebAppIdentityServer.Utilities.Constants;
-using WebAppIdentityServer.Utilities.Enum;
+using WebAppIdentityServer.ViewModel.Enum;
 using WebAppIdentityServer.Utilities.Helpers;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.Product;
@@ -145,11 +146,11 @@ namespace WebAppIdentityServer.Business.Implementation
                 var pathFileRoot = $"{rootFile}{imageFolder}";
                 CheckFileDelete(pathFileRoot);
 
-                var imageSizes = ImageSizeInit();
+                var imageSizes = CommonContains.ImageSize();
                 foreach (var item in imageSizes)
                 {
                     var imageResize = $@"\uploaded\products\{dataImg.ProductId}\{dataImg.FileName}";
-                    var newFileName = Regex.Replace(imageResize, @"\.", $"_{item.Key}.");
+                    var newFileName = Regex.Replace(imageResize, @"\.([^.]*)$", $"_{item.Key}.$1");
                     CheckFileDelete($"{rootFile}{newFileName}");
                 }
             }
@@ -158,16 +159,6 @@ namespace WebAppIdentityServer.Business.Implementation
             await _unitOfWork.CommitAsync();
         }
 
-        public List<ImageSize> ImageSizeInit()
-        {
-            return new List<ImageSize>()
-                        {
-                            new ImageSize("compact", 200, 200),
-                            new ImageSize("small", 400, 400),
-                            new ImageSize("medium", 650, 650),
-                            new ImageSize("large", 1000, 1000)
-                        };
-        }
 
         public void CheckFileDelete(string path)
         {

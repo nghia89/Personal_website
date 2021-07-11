@@ -9,7 +9,7 @@ using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.Utilities;
-using WebAppIdentityServer.Utilities.Enum;
+using WebAppIdentityServer.ViewModel.Enum;
 using WebAppIdentityServer.Utilities.Helpers;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.Common;

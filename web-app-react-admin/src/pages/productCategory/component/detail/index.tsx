@@ -78,8 +78,12 @@ export default function ProductCateDetail(props: IProps) {
         }
     }
 
-    function handleDeleteFile(id) {
+    async function handleDeleteFile(id) {
+        let index = listImage.findIndex(x => x.id === id)
         var newImgs = listImage.filter(x => x.id !== id);
+        if (index > -1) {
+            await apiUploadFile.delete(listImage[index].path)
+        }
         let imgs: any = []
         newImgs.map((item) => imgs.push(item.path));
         let newFormState: NewType = { ...formState };

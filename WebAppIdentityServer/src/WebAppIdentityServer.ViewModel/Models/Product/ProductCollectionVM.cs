@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using WebAppIdentityServer.Utilities.Enum;
+using WebAppIdentityServer.ViewModel.Enum;
 using WebAppIdentityServer.ViewModel.Models.Common;
 
 namespace WebAppIdentityServer.ViewModel.Models.Product
@@ -9,6 +9,8 @@ namespace WebAppIdentityServer.ViewModel.Models.Product
     {
         public long Id { get; set; }
         public string Name { get; set; }
+        public string Title { get; set; }
+
         public string Description { get; set; }
         public int SortOrder { get; set; }
         public string Images { get; set; }

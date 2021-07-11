@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using WebAppIdentityServer.Utilities.Enum;
+using WebAppIdentityServer.ViewModel.Enum;
 
 namespace WebAppIdentityServer.ViewModel.Models.Product
 {

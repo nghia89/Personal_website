@@ -18,4 +18,5 @@ export interface Attachments {
     fileName?: string
     extension?: string
     type?: string
+    guiId?: number
 }

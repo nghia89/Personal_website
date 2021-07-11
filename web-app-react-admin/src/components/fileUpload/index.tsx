@@ -6,6 +6,11 @@ import { Attachments } from "@/models/commonM";
 import AlertDialogSlide from "../dialog/AlertDialogSlide";
 import { ImageSize } from "@/constants/utilConstant";
 import { replaceImgUrl } from "@/helpers/utils";
+import { apiUploadFile } from "@/apis";
+import { CircularProgress, createStyles, Fab, makeStyles, Theme } from "@material-ui/core";
+import { green } from "@material-ui/core/colors";
+import CheckIcon from '@material-ui/icons/Check';
+import SaveIcon from '@material-ui/icons/Save';
 
 
 const KILO_BYTES_PER_BYTE = 1024;
@@ -22,7 +27,35 @@ interface IProps {
     isHiddenDelete?: boolean
     isHiddenDragAndDrop?: boolean
     isHiddenUploadFile?: boolean
+    isPosting?: boolean
 }
+
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        buttonSuccess: {
+            backgroundColor: green[500],
+            '&:hover': {
+                backgroundColor: green[700],
+            },
+        },
+        fabProgress: {
+            color: green[500],
+            position: 'absolute',
+            top: -6,
+            left: -6,
+            zIndex: 1,
+        },
+        buttonProgress: {
+            color: green[500],
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            marginTop: -12,
+            marginLeft: -12,
+        }
+    }),
+);
 
 
 const convertNestedObjectToArray = (nestedObj) =>
@@ -32,15 +65,19 @@ const convertBytesToKB = (bytes) => Math.round(bytes / KILO_BYTES_PER_BYTE);
 
 let draggedItem: any = null;
 export default function FileUpload(props: IProps) {
-    let { multiple, accept, maxFileSizeInBytes, title } = props
+    const classes = useStyles();
+
+    let { multiple, accept, maxFileSizeInBytes, title, isPosting } = props
     let DEFAULT_MAX_FILE = DEFAULT_MAX_FILE_SIZE_IN_BYTES;
     if (maxFileSizeInBytes) DEFAULT_MAX_FILE = DEFAULT_MAX_FILE_SIZE_IN_BYTES
+
 
 
     const fileInputField = useRef<any>(null);
     const [files, setFiles] = useState<Attachments[]>([]);
     const [fileSelected, setFileSelected] = useState<Attachments>();
     const [isShowModal, setIsShowModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [idSelect, setIdSelect] = useState(0);
     const [index, setIndex] = useState(null);
 
@@ -55,9 +92,30 @@ export default function FileUpload(props: IProps) {
     }, [fileSelected])
 
 
+    async function postFile(listFileNew) {
+        setIsLoading(true);
+
+        let listGuiId: any = [];
+        const formData = new FormData();
+        listFileNew.forEach((file) => {
+            listGuiId.push(file.guiId);
+            formData.append('File', file.path)
+        })
+        let rspImg = await apiUploadFile.UploadImage(formData);
+        if (!rspImg.isError) {
+            let listImg: any = []
+            setIsLoading(false);
+        }
+    }
+
+
     const handleUploadBtnClick = () => {
         fileInputField.current.click();
     };
+
+    function getRandomInt() {
+        return Math.floor(Math.random() * 1000);
+    }
 
     const addNewFiles = (newFiles) => {
         for (let file of newFiles) {
@@ -67,7 +125,8 @@ export default function FileUpload(props: IProps) {
                     fileName: file.name,
                     size: file.size,
                     extension: file.extension,
-                    type: file.type
+                    type: file.type,
+                    guiId: getRandomInt()
                 }
                 if (!multiple) {
                     return [newFile];
@@ -90,6 +149,10 @@ export default function FileUpload(props: IProps) {
             let updatedFiles = addNewFiles(newFiles);
             setFiles(updatedFiles);
             callUpdateFilesCb(updatedFiles);
+
+            if (isPosting) {
+                postFile(updatedFiles)
+            }
         }
     };
 
@@ -174,15 +237,31 @@ export default function FileUpload(props: IProps) {
                 );
             })}
             {!props.isHiddenUploadFile && <div className={`file-upload-container ms-2 mx-2 ${files[0] ? 'float-sm-start width-15' : ''}`}>
-                <AddPhotoAlternateIcon color="disabled" fontSize={'large'} />
-                {title ? <p onClick={handleUploadBtnClick} style={{ color: '#8c8c8c', textAlign: 'center' }}>{title}</p> :
-                    <p onClick={handleUploadBtnClick} style={{ color: '#8c8c8c', textAlign: 'center' }}>Thêm ảnh sản <br /> phẩm</p>}
-                <input type="file" ref={fileInputField}
-                    onChange={handleNewFileUpload}
-                    multiple={multiple}
-                    className="formField cursor"
-                    accept={accept ? accept : "all"}
-                />
+                {
+                    isLoading ? <div>
+                        <Fab
+                            aria-label="save"
+                            color="primary"
+                        //className={buttonClassName}
+                        //onClick={handleButtonClick}
+                        >
+                            {!isLoading ? <CheckIcon /> : <SaveIcon />}
+                        </Fab>
+                        {isLoading && <CircularProgress size={68} className={classes.fabProgress} />}
+                    </div> :
+                        <div className='text-align-center'>
+                            <AddPhotoAlternateIcon color="disabled" fontSize={'large'} />
+                            {title ? <p onClick={handleUploadBtnClick} style={{ color: '#8c8c8c', textAlign: 'center' }}>{title}</p> :
+                                <p onClick={handleUploadBtnClick} style={{ color: '#8c8c8c', textAlign: 'center' }}>Thêm ảnh sản <br /> phẩm</p>}
+                            <input type="file" ref={fileInputField}
+                                onChange={handleNewFileUpload}
+                                multiple={multiple}
+                                className="formField cursor"
+                                accept={accept ? accept : "all"}
+                            />
+                        </div>
+                }
+
             </div>}
             <AlertDialogSlide
                 isOpen={isShowModal}

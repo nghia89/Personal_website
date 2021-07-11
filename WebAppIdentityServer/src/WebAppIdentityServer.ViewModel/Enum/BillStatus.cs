@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace WebAppIdentityServer.Utilities.Enum
+namespace WebAppIdentityServer.ViewModel.Enum
 {
     public enum BillStatus
     {

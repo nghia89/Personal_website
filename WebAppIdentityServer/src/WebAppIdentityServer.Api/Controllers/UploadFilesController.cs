@@ -15,6 +15,7 @@ using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Business.Interfaces;
+using WebAppIdentityServer.Utilities.CommonContains;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.Common;
 using WebAppIdentityServer.ViewModel.Models.Product;
@@ -230,11 +231,42 @@ namespace WebAppIdentityServer.Api.Controllers
             }
         }
 
+        [Route("delete/{path}")]
+        [HttpDelete]
+        public IActionResult Delete(string path)
+        {
+            if (!String.IsNullOrEmpty(path))
+            {
+                var rootFile = _webHostEnvironment.WebRootPath + @"\";
+
+                var pathFile = path.Replace(_config.Value.BaseUrl, "");
+                var newPath = Regex.Replace(pathFile, @"/", @"\");
+                CheckFileDelete($"{rootFile}{newPath}");
+
+                foreach (var item in CommonContains.ImageSize())
+                {
+                    var newFileName = Regex.Replace(path, @"\.([^.]*)$", $"_{item.Key}.$1");
+                    CheckFileDelete($"{rootFile}{newFileName}");
+                }
+            }
+            return ToOkResult();
+        }
+
+
+        [NonAction]
+        public void CheckFileDelete(string path)
+        {
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+        }
+
         [NonAction]
         public async Task ResizingImageUpload(IFormFile file, string folder, string filename)
         {
 
-            var imageSizes = ImageSizeInit();
+            var imageSizes = CommonContains.ImageSize();
 
             foreach (var imgSize in imageSizes)
             {
@@ -279,17 +311,7 @@ namespace WebAppIdentityServer.Api.Controllers
                 return new Size { Height = image.Height, Width = image.Width };
             }
         }
-        [NonAction]
-        public List<ImageSize> ImageSizeInit()
-        {
-            return new List<ImageSize>()
-                        {
-                            new ImageSize("compact", 200, 200),
-                            new ImageSize("small", 400, 400),
-                            new ImageSize("medium", 650, 650),
-                            new ImageSize("large", 1000, 1000)
-                        };
-        }
+
     }
 
 

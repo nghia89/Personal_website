@@ -5,7 +5,7 @@ using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Repository.Interfaces;
-using WebAppIdentityServer.Utilities.Enum;
+using WebAppIdentityServer.ViewModel.Enum;
 using WebAppIdentityServer.Utilities.Helpers;
 using WebAppIdentityServer.ViewModel.Models.Common;
 

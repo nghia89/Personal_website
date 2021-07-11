@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using WebAppIdentityServer.Utilities.Enum;
+using WebAppIdentityServer.ViewModel.Enum;
 using WebAppIdentityServer.ViewModel.Models.Common;
 
 namespace WebAppIdentityServer.ViewModel.Models.Product

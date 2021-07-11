@@ -9,7 +9,7 @@ using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.Utilities;
-using WebAppIdentityServer.Utilities.Enum;
+using WebAppIdentityServer.ViewModel.Enum;
 using WebAppIdentityServer.Utilities.Helpers;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.Common;
@@ -37,6 +37,8 @@ namespace WebAppIdentityServer.Business.Implementation
             var entity = model.ToEntity();
 
             entity.Status = Status.Active;
+            entity.Title = String.IsNullOrEmpty(model.Title) ? model.Name : model.Title;
+            entity.SeoAlias = String.IsNullOrEmpty(model.SeoAlias) ? model.Name.ToUnsignString() : model.SeoAlias;
             entity.SeoAlias = entity.Name.ToUnsignString();
             await _productCollectionRep.AddAsync(entity);
 
