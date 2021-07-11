@@ -26,7 +26,7 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("delete/{id}")]
         [ClaimRequirement(FunctionCode.PRODUCTS_COLLECTIONS, CommandCode.DELETE)]
         public async Task<IActionResult> Delete(int id)
         {

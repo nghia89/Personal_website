@@ -41,7 +41,7 @@ namespace WebAppIdentityServer.Business.Implementation
             var productCategory = productCategoryVm.ToEntity();
             if (productCategory.ParentId == null) productCategory.ParentId = 0;
             productCategory.Status = Status.Active;
-            productCategory.SeoAlias = productCategory.Name.ToUnsignString();
+            productCategory.SeoAlias = productCategory.Name.ToUnSignString();
             await _productCategoryRep.AddAsync(productCategory);
             await _unitOfWork.CommitAsync();
             return productCategoryVm;

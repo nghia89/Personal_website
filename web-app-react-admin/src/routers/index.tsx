@@ -29,7 +29,7 @@ const ProductDetail = React.lazy(() => import('@/pages/Product/component/detail/
 const VariantNew = React.lazy(() => import('@/pages/Product/component/variantNew/index'));
 const ProductCategory = React.lazy(() => import('@/pages/productCategory/index'));
 const ProductCollection = React.lazy(() => import('@/pages/productCollection/index'));
-const ProductCollectionCreate = React.lazy(() => import('@/pages/productCollection/component/create/index'));
+const ProductCollectionCreate = React.lazy(() => import('@/pages/productCollection/component/index'));
 //#endregion
 
 //#region  Setting 
@@ -76,6 +76,7 @@ export const Routes = (
             <PrivateRoute path={`${PATH.PRODUCT_VARIANT}:id`} component={VariantNew} />
 
             <PrivateRoute path={`${PATH.PRODUCT_COLLECTIONS_Create}`} component={ProductCollectionCreate} />
+            <PrivateRoute path={`${PATH.PRODUCT_COLLECTIONS}/:id`} component={ProductCollectionCreate} />
             <PrivateRoute path={`${PATH.PRODUCT_COLLECTIONS}`} component={ProductCollection} />
 
             <PrivateRoute path={PATH.PRODUCT} component={Product} />

@@ -18,6 +18,6 @@ export interface ProductCollectionVM {
 
 export interface ProductAndCollectionVM {
     productId?: number
-    productVM?: ProductVM
+    product?: ProductVM
     productCollectionId?: number
 }

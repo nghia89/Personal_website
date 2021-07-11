@@ -60,7 +60,7 @@ namespace WebAppIdentityServer.Business.Implementation
                 string[] tags = model.Tags.Split(',');
                 foreach (string t in tags)
                 {
-                    var tagId = t.ToUnsignString();
+                    var tagId = t.ToUnSignString();
                     var dataTag = await _tagRepository.FindAllAsync(x => x.Id == tagId, null);
                     if (!dataTag.Any())
                     {
@@ -87,7 +87,7 @@ namespace WebAppIdentityServer.Business.Implementation
 
             product.ProductTags = productTags;
             product.Title = String.IsNullOrEmpty(model.Title) ? model.Name : model.Title;
-            product.SeoAlias = String.IsNullOrEmpty(model.SeoAlias) ? model.Name.ToUnsignString() : model.SeoAlias;
+            product.SeoAlias = String.IsNullOrEmpty(model.SeoAlias) ? model.Name.ToUnSignString() : model.SeoAlias.ToUnSignString();
             await _productRepository.AddAsync(product);
             await _unitOfWork.CommitAsync();
 
@@ -228,7 +228,7 @@ namespace WebAppIdentityServer.Business.Implementation
                 return null;
             }
             product.Title = String.IsNullOrEmpty(product.Title) ? product.Name : product.Title;
-            product.SeoAlias = String.IsNullOrEmpty(product.SeoAlias) ? product.Name.ToUnsignString() : product.SeoAlias;
+            product.SeoAlias = String.IsNullOrEmpty(product.SeoAlias) ? product.Name.ToUnSignString() : product.SeoAlias;
             var entitySetvalue = await _productRepository.UpdateAsync(product.ToEntity(), product.Id);
             await _unitOfWork.CommitAsync();
             return entitySetvalue.ToModel();

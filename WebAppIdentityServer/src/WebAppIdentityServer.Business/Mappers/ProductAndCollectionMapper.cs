@@ -17,7 +17,7 @@ namespace WebAppIdentityServer.Business.Mappers
                 {
                     Product = model.Product?.ToModel(),
                     ProductCollectionId = model.ProductCollectionId,
-                    ProductId = model.ProductCollectionId
+                    ProductId = model.ProductId
                 };
             }
         }
@@ -33,7 +33,7 @@ namespace WebAppIdentityServer.Business.Mappers
                 {
                     Product = model.Product?.ToEntity(),
                     ProductCollectionId = model.ProductCollectionId,
-                    ProductId = model.ProductCollectionId
+                    ProductId = model.ProductId
                 };
             }
         }

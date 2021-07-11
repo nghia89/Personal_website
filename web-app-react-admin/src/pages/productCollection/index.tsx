@@ -64,12 +64,6 @@ function ProductCollection(props: IProps) {
         })
     }
 
-    function handleSearch(textSearch) {
-        let newParam = { ...params };
-        newParam.query = textSearch;
-        setParams(newParam)
-    }
-
     function handleChangeParam(e) {
         let newParam: IBaseParams = { ...params };
         newParam.page = e.page;
@@ -97,7 +91,7 @@ function ProductCollection(props: IProps) {
             page={params.page}
             total={params.totalCount}
             isLoading={isLoading}
-            handleEdit={(id) => history.push(`${PATH.PRODUCT_DETAIL}${id}`)}
+            handleEdit={(id) => history.push(`${PATH.PRODUCT_COLLECTIONS}/${id}`)}
             handleDelete={(id) => { setIsShowModal(true); setIdSelect(id) }}
         />
     }

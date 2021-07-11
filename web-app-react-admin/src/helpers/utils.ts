@@ -52,7 +52,7 @@ export function checkPath(pathname) {
             if (split.length > 4) {
                 split.splice(4, 1);
                 split.push("")
-                if (split.join("/") === PATH[objKeys[i]]) return true
+                if (split.join("/").includes(PATH[objKeys[i]])) return true
             }
         }
     }

@@ -1,4 +1,4 @@
-import { DatePickers, Editor, FileUpload, InputComponent, SearchProduct, useNotification } from '@/components';
+import { AlertDialogSlide, DatePickers, Editor, FileUpload, InputComponent, SearchProduct, useNotification } from '@/components';
 import { PATH } from '@/constants/paths';
 import { Attachments, IBreadcrumbs } from '@/models/commonM';
 import React, { useState, useEffect, Fragment } from 'react'
@@ -19,7 +19,7 @@ import { Loading } from '@/components/loaders';
 
 
 interface IProps {
-    id: number
+    match: { params: { id: any } }
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
 }
 
@@ -32,7 +32,7 @@ const initData: ProductCollectionVM = {
 
 }
 let refs: any = {}
-function CollectionCreate(props: IProps) {
+function CollectionCreateAndEdit(props: IProps) {
 
     const dispatch = useNotification();
     let history = useHistory();
@@ -40,7 +40,7 @@ function CollectionCreate(props: IProps) {
     const [data, setData] = useState<ProductCollectionVM>(initData);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [productAndCollection, setProductAndCollection] = useState<ProductAndCollectionVM[]>([]);
-
+    const [isAlert, setIsAlert] = useState<boolean>(false)
     const [listImage, setListImage] = useState<Array<Attachments>>([])
 
     useEffect(() => {
@@ -52,7 +52,7 @@ function CollectionCreate(props: IProps) {
         data.dateApply = moment().add(3, 'days').format("yyyy-MM-DDThh:mm");
         data.status = 1
         setData({ ...data })
-        getData(props.id)
+        getData(props.match.params.id)
     }, [])
 
     async function saveData() {
@@ -62,12 +62,13 @@ function CollectionCreate(props: IProps) {
             productAndCollection?.forEach(element => {
                 proAndColl.push({ productId: element.productId } as ProductAndCollectionVM)
             });
-            debugger
+
             data.productAndCollection = proAndColl;
             if (data.id) {
                 await apiProductCollection.update(data).then((rsp) => {
                     if (!rsp.isError) {
                         dispatch('SUCCESS', 'Cập nhật nhóm thành công.')
+                        setData(initData)
                         getData(data.id)
                     } else dispatch('ERROR', rsp.message)
                 })
@@ -75,7 +76,7 @@ function CollectionCreate(props: IProps) {
                 await apiProductCollection.create(data).then((rsp) => {
                     if (!rsp.isError) {
                         dispatch('SUCCESS', 'Thêm nhóm thành công.')
-                        getData(data.id)
+                        history.push(`${PATH.PRODUCT_COLLECTIONS}/${rsp.data.id}`);
                     } else dispatch('ERROR', rsp.message)
                 })
             }
@@ -83,12 +84,24 @@ function CollectionCreate(props: IProps) {
         }
     }
 
+    async function handleDeleteCollection() {
+        var data = await apiProductCollection.delete(props.match?.params?.id);
+        if (!data.isError) {
+            dispatch('SUCCESS', 'Xóa sản phẩm thành công')
+            setIsAlert(false)
+            history.push(`${PATH.PRODUCT_COLLECTIONS}`);
+        }
+    }
+
     async function getData(id) {
         if (id) {
-            let data = await apiProductCollection.getById(id);
-            if (!data.isError) {
-                setData(data.data)
-                setProductAndCollection(data.data.productAndCollection)
+            let rsp = await apiProductCollection.getById(id);
+            if (!rsp.isError) {
+                setData(rsp.data)
+                if (rsp.data.productAndCollection)
+                    setProductAndCollection(rsp.data.productAndCollection)
+                if (rsp.data.attachments)
+                    setListImage(rsp.data.attachments)
                 setIsLoading(false)
             }
         } else setIsLoading(false)
@@ -142,18 +155,20 @@ function CollectionCreate(props: IProps) {
         }
         else dataValue.push(item)
 
+        let newProAndCollec: ProductAndCollectionVM[] = []
         dataValue.forEach((item) => {
-            productAndCollection?.push({ productVM: item, productId: item.id });
+            newProAndCollec?.push({ product: item, productId: item.id });
         })
-        setProductAndCollection([...productAndCollection])
+        setProductAndCollection([...newProAndCollec])
         setDataValue([...dataValue])
 
     }
 
     function handleDelete(index) {
+        debugger
         dataValue.splice(index, 1)
-        data.productAndCollection?.splice(index, 1)
-        setData({ ...data })
+        productAndCollection?.splice(index, 1)
+        setProductAndCollection([...productAndCollection])
         setDataValue([...dataValue])
     }
 
@@ -182,11 +197,11 @@ function CollectionCreate(props: IProps) {
                                     return <div key={`proCollItem${index}`} className="pro-coll-item border-line-bottom d-flex align-items-center justify-content-between pt-3 pb-3">
                                         <div className='d-flex flex-box-content align-items-center'>
                                             <div className='hmt-image-thumbnail'>
-                                                {item.productVM?.image ? <img src={replaceImgUrl(item.productVM?.image, ImageSize.compact)} /> : IConImage(30, '#8c8c8c')}
+                                                {item.product?.image ? <img src={replaceImgUrl(item.product?.image, ImageSize.compact)} /> : IConImage(30, '#8c8c8c')}
                                             </div>
 
                                             <div className=' ms-1 box-content-name'>
-                                                <a className='cursor' target="_blank" href={`${PATH.PRODUCT_DETAIL}${item.productId}`} >{item.productVM?.name}</a>
+                                                <a className='cursor' target="_blank" href={`${PATH.PRODUCT_DETAIL}${item.productId}`} >{item.product?.name}</a>
                                             </div>
                                         </div>
 
@@ -372,7 +387,20 @@ function CollectionCreate(props: IProps) {
                 <div className="row">
                     {renderHeader()}
                     {renderContent()}
-                    {renderHeader()}
+                    <div className="pb-3 d-flex justify-content-between align-items-center">
+                        <div>
+                            <button onClick={async () => setIsAlert(true)} type="button" className="mx-3 hms-btn-button btn btn-danger">Xóa biến thể</button>
+                        </div>
+                        <div>
+                            <button onClick={async () => await saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">{data.id ? 'Cập nhật' : 'Lưu'}</button>
+                        </div>
+                    </div>
+                    <AlertDialogSlide
+                        isOpen={isAlert}
+                        handleClose={() => setIsAlert(false)}
+                        handleConfirm={() => handleDeleteCollection()}
+                        note={"Bạn có chắc chắn muốn xoá sản phẩm này?"}
+                    />
                 </div>
         }
 
@@ -387,4 +415,4 @@ const mapDispatchToProps = {
     setBreadcrumb
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CollectionCreate)
+export default connect(mapStateToProps, mapDispatchToProps)(CollectionCreateAndEdit)

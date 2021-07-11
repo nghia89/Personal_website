@@ -41,13 +41,11 @@ namespace WebAppIdentityServer.Business.Implementation
 
             entity.Status = Status.Active;
             entity.Title = String.IsNullOrEmpty(model.Title) ? model.Name : model.Title;
-            entity.SeoAlias = String.IsNullOrEmpty(model.SeoAlias) ? model.Name.ToUnsignString() : model.SeoAlias;
-            entity.SeoAlias = entity.Name.ToUnsignString();
+            entity.SeoAlias = String.IsNullOrEmpty(model.SeoAlias) ? model.Name.ToUnSignString() : model.SeoAlias.ToUnSignString();
 
             await _productCollectionRep.AddAsync(entity);
             await _unitOfWork.CommitAsync();
 
-            var proAndCollection = new List<ProductAndCollection>();
             foreach (var item in model.ProductAndCollection)
             {
                 _productAndCollectionRep.Add(new ProductAndCollection()
@@ -58,7 +56,7 @@ namespace WebAppIdentityServer.Business.Implementation
             }
             await _productAndCollectionRep.SaveAsync();
 
-            return model;
+            return entity.ToModel();
         }
 
         public async Task Delete(long id)
@@ -102,10 +100,28 @@ namespace WebAppIdentityServer.Business.Implementation
             return dataModel;
         }
 
-        public async Task Update(ProductCollectionVM ProductCollectionVM)
+        public async Task Update(ProductCollectionVM model)
         {
-            var productCategory = ProductCollectionVM.ToEntity();
+            var productCategory = model.ToEntity();
+            productCategory.Title = String.IsNullOrEmpty(model.Title) ? model.Name : model.Title;
+            productCategory.SeoAlias = String.IsNullOrEmpty(model.SeoAlias) ? model.Name.ToUnSignString() : model.SeoAlias.ToUnSignString();
             await _productCollectionRep.UpdateAsync(productCategory, productCategory.Id);
+
+            var proAndCollec = await _productAndCollectionRep.FindAllAsync(x => x.ProductCollectionId == model.Id, null);
+            if (proAndCollec.Any())
+            {
+                await _productAndCollectionRep.RemoveMultipleAsync(proAndCollec.ToList());
+                await _productAndCollectionRep.SaveAsync();
+            }
+            foreach (var item in model.ProductAndCollection)
+            {
+                _productAndCollectionRep.Add(new ProductAndCollection()
+                {
+                    ProductId = item.ProductId,
+                    ProductCollectionId = productCategory.Id
+                });
+            }
+
             await _unitOfWork.CommitAsync();
         }
 
