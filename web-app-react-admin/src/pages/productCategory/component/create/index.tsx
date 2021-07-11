@@ -23,13 +23,24 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-type NewType = CategoryVM | null;
+type NewType = CategoryVM;
+
+const initData: CategoryVM = {
+    description: '',
+    images: '',
+    code: '',
+    seoDescription: '',
+    seoKeywords: '',
+    status: 1,
+    name: '',
+    seoAlias: ''
+}
 export default function ProductCateCreate(props: IProps) {
     const classes = useStyles();
     let dispatch = useNotification();
     let { isOpen } = props;
 
-    const [formState, setFormState] = useState<CategoryVM | null>(null)
+    const [formState, setFormState] = useState<CategoryVM>(initData)
     const [listImage, setListImage] = useState<Array<Attachments>>([])
     // const [isEdit, setEdit] = useState<boolean>(true)
 
@@ -38,11 +49,14 @@ export default function ProductCateCreate(props: IProps) {
 
     useEffect(() => {
         if (listImage.length > 0) {
-            let listFileNew = listImage.filter(x => x.id === null || x.id === undefined)
-            if (listFileNew.length > 0) {
-                postFile(listFileNew)
-            }
-        }
+            let listImg: any = []
+            listImage.forEach((f) => {
+                listImg.push(f.path)
+            })
+            formState.images = listImg.toString()
+
+        } else formState.images = ""
+        setFormState({ ...formState })
     }, [listImage])
 
     async function saveData() {
@@ -54,21 +68,6 @@ export default function ProductCateCreate(props: IProps) {
                     props.handleReload()
                 } else dispatch('ERROR', rsp.message)
             })
-        }
-    }
-
-    async function postFile(listFileNew) {
-        const formData = new FormData();
-        listFileNew.forEach((file) => formData.append('File', file.path))
-        let rspImg = await apiUploadFile.UploadImage(formData);
-        if (!rspImg.isError) {
-            let imgs: any = []
-            rspImg.data.map((item) => imgs.push(item.path));
-
-            let newFormState: NewType = { ...formState };
-            newFormState.images = imgs.toString()
-            setFormState(newFormState);
-            dispatch('SUCCESS', 'Thêm ảnh thành công')
         }
     }
 
@@ -191,7 +190,9 @@ export default function ProductCateCreate(props: IProps) {
                 <label className="ms-2">Banner</label>
                 <FileUpload
                     files={listImage}
+                    title="Thêm ảnh"
                     multiple
+                    isPosting
                     onchangeFiles={(files) => setListImage(files)}
                     isHiddenDragAndDrop
                     accept=".jpg,.png,.jpeg"

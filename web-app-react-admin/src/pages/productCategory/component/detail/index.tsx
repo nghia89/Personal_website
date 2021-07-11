@@ -25,13 +25,23 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-type NewType = CategoryVM | null;
+type NewType = CategoryVM;
+const initData: CategoryVM = {
+    description: '',
+    images: '',
+    code: '',
+    seoDescription: '',
+    seoKeywords: '',
+    status: 1,
+    name: '',
+    seoAlias: ''
+}
 export default function ProductCateDetail(props: IProps) {
     const classes = useStyles();
     let dispatch = useNotification();
     let { isOpen } = props;
 
-    const [formState, setFormState] = useState<CategoryVM>()
+    const [formState, setFormState] = useState<CategoryVM>(initData)
     const [isReload, setIsReload] = useState<boolean>(true)
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [listImage, setListImage] = useState<Array<Attachments>>([])
@@ -56,27 +66,16 @@ export default function ProductCateDetail(props: IProps) {
 
     useEffect(() => {
         if (listImage.length > 0) {
-            let listFileNew = listImage.filter(x => x.id === null || x.id === undefined)
-            if (listFileNew.length > 0) {
-                postFile(listFileNew)
-            }
-        }
+            let listImg: any = []
+            listImage.forEach((f) => {
+                listImg.push(f.path)
+            })
+            formState.images = listImg.toString()
+
+        } else formState.images = ""
+        setFormState({ ...formState })
     }, [listImage])
 
-    async function postFile(listFileNew) {
-        const formData = new FormData();
-        listFileNew.forEach((file) => formData.append('File', file.path))
-        let rspImg = await apiUploadFile.UploadImage(formData);
-        if (!rspImg.isError) {
-            let imgs: any = []
-            rspImg.data.map((item) => imgs.push(item.path));
-
-            let newFormState: NewType = { ...formState };
-            newFormState.images = imgs.toString()
-            setFormState(newFormState);
-            dispatch('SUCCESS', 'Thêm ảnh thành công')
-        }
-    }
 
     async function handleDeleteFile(id) {
         let index = listImage.findIndex(x => x.id === id)
@@ -233,6 +232,8 @@ export default function ProductCateDetail(props: IProps) {
                 <FileUpload
                     files={listImage}
                     multiple
+                    title="Thêm ảnh"
+                    isPosting
                     onchangeFiles={(files) => setListImage(files)}
                     handleDelete={(id) => handleDeleteFile(id)}
                     isHiddenDragAndDrop

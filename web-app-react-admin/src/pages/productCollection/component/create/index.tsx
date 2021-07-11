@@ -15,9 +15,11 @@ import moment from 'moment';
 import { apiUploadFile, apiProductCollection } from '@/apis';
 import { env } from '@/environments/config';
 import { validateProductCollectionVm } from '@/models/validateField';
+import { Loading } from '@/components/loaders';
 
 
 interface IProps {
+    id: number
     setBreadcrumb: (payload: IBreadcrumbs[]) => {}
 }
 
@@ -36,6 +38,7 @@ function CollectionCreate(props: IProps) {
     let history = useHistory();
     const [dataValue, setDataValue] = useState<ProductVM[]>([]);
     const [data, setData] = useState<ProductCollectionVM>(initData);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [productAndCollection, setProductAndCollection] = useState<ProductAndCollectionVM[]>([]);
 
     const [listImage, setListImage] = useState<Array<Attachments>>([])
@@ -49,16 +52,46 @@ function CollectionCreate(props: IProps) {
         data.dateApply = moment().add(3, 'days').format("yyyy-MM-DDThh:mm");
         data.status = 1
         setData({ ...data })
+        getData(props.id)
     }, [])
 
     async function saveData() {
         if (!validateFields()) {
-            await apiProductCollection.create(data).then((rsp) => {
-                if (!rsp.isError) {
-                    dispatch('SUCCESS', 'Thêm nhóm thành công.')
-                } else dispatch('ERROR', rsp.message)
-            })
+            setIsLoading(true)
+            let proAndColl: ProductAndCollectionVM[] = []
+            productAndCollection?.forEach(element => {
+                proAndColl.push({ productId: element.productId } as ProductAndCollectionVM)
+            });
+            debugger
+            data.productAndCollection = proAndColl;
+            if (data.id) {
+                await apiProductCollection.update(data).then((rsp) => {
+                    if (!rsp.isError) {
+                        dispatch('SUCCESS', 'Cập nhật nhóm thành công.')
+                        getData(data.id)
+                    } else dispatch('ERROR', rsp.message)
+                })
+            } else {
+                await apiProductCollection.create(data).then((rsp) => {
+                    if (!rsp.isError) {
+                        dispatch('SUCCESS', 'Thêm nhóm thành công.')
+                        getData(data.id)
+                    } else dispatch('ERROR', rsp.message)
+                })
+            }
+
         }
+    }
+
+    async function getData(id) {
+        if (id) {
+            let data = await apiProductCollection.getById(id);
+            if (!data.isError) {
+                setData(data.data)
+                setProductAndCollection(data.data.productAndCollection)
+                setIsLoading(false)
+            }
+        } else setIsLoading(false)
     }
 
     function validateFields() {
@@ -78,25 +111,15 @@ function CollectionCreate(props: IProps) {
 
     useEffect(() => {
         if (listImage.length > 0) {
-            let listFileNew = listImage.filter(x => x.id === null || x.id === undefined)
-            if (listFileNew.length > 0) {
-                postFile(listFileNew)
-            }
-        }
-    }, [listImage])
-
-    async function postFile(listFileNew) {
-        const formData = new FormData();
-        listFileNew.forEach((file) => formData.append('File', file.path))
-        let rspImg = await apiUploadFile.UploadImage(formData);
-        if (!rspImg.isError) {
             let listImg: any = []
-            rspImg.data.map((item) => listImg.push(item.path));
+            listImage.forEach((f) => {
+                listImg.push(f.path)
+            })
             data.images = listImg.toString()
-            setData({ ...data })
-            dispatch('SUCCESS', 'Thêm ảnh thành công')
-        }
-    }
+
+        } else data.images = '';
+        setData({ ...data })
+    }, [listImage])
 
     function handleOnchangeCheck(e) {
         let name = e.target.name;
@@ -105,17 +128,6 @@ function CollectionCreate(props: IProps) {
         setData({ ...data });
     }
 
-    async function handleDeleteFile(id) {
-        let index = listImage.findIndex(x => x.id === id)
-        if (index > -1) {
-            await apiUploadFile.delete(listImage[index].path)
-        }
-        var newImgs = listImage.filter(x => x.id !== id);
-        let imgs: any = []
-        newImgs.map((item) => imgs.push(item.path));
-        data.images = ''
-        setData({ ...data });
-    }
 
     function handleOnchange(name: string, value: any) {
         if (name)
@@ -148,7 +160,7 @@ function CollectionCreate(props: IProps) {
     function renderHeader() {
         return <div className="pb-3 d-flex justify-content-end align-items-center">
             <div>
-                <button onClick={async () => await saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">Lưu</button>
+                <button onClick={async () => await saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">{data.id ? 'Cập nhật' : 'Lưu'}</button>
             </div>
         </div>
     }
@@ -333,10 +345,11 @@ function CollectionCreate(props: IProps) {
                         <div className=" col-12 pt-3">
                             <FileUpload
                                 files={listImage}
+                                title="Thêm ảnh"
                                 multiple
                                 onchangeFiles={(files) => setListImage(files)}
-                                handleDelete={(id) => handleDeleteFile(id)}
                                 isHiddenDragAndDrop
+                                isPosting
                                 accept=".jpg,.png,.jpeg"
                             />
                         </div>
@@ -353,11 +366,17 @@ function CollectionCreate(props: IProps) {
         </Fragment >
     }
 
-    return <div className="row">
-        {renderHeader()}
-        {renderContent()}
-        {renderHeader()}
-    </div>
+    return <Fragment>
+        {
+            isLoading ? <div className="justify-content-center d-flex mt-5 pt-5"><Loading /></div> :
+                <div className="row">
+                    {renderHeader()}
+                    {renderContent()}
+                    {renderHeader()}
+                </div>
+        }
+
+    </Fragment >
 }
 
 

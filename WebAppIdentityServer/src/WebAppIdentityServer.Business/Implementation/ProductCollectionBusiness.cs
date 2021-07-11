@@ -21,12 +21,15 @@ namespace WebAppIdentityServer.Business.Implementation
     {
 
         private readonly IProductCollectionRepository _productCollectionRep;
+        private readonly IProductAndCollectionRepository _productAndCollectionRep;
         private readonly IProductRepository _productRep;
         private readonly IUnitOfWork _unitOfWork;
-        public ProductCollectionBusiness(IProductCollectionRepository productCollectionRep, IUnitOfWork unitOfWork, IProductRepository productRep,
+        public ProductCollectionBusiness(IProductCollectionRepository productCollectionRep, IUnitOfWork unitOfWork,
+         IProductRepository productRep, IProductAndCollectionRepository productAndCollectionRep,
               IUserResolverService userResolver) : base(userResolver)
         {
             this._productCollectionRep = productCollectionRep;
+            this._productAndCollectionRep = productAndCollectionRep;
             this._unitOfWork = unitOfWork;
             this._productRep = productRep;
         }
@@ -40,11 +43,21 @@ namespace WebAppIdentityServer.Business.Implementation
             entity.Title = String.IsNullOrEmpty(model.Title) ? model.Name : model.Title;
             entity.SeoAlias = String.IsNullOrEmpty(model.SeoAlias) ? model.Name.ToUnsignString() : model.SeoAlias;
             entity.SeoAlias = entity.Name.ToUnsignString();
+
             await _productCollectionRep.AddAsync(entity);
-
-
-
             await _unitOfWork.CommitAsync();
+
+            var proAndCollection = new List<ProductAndCollection>();
+            foreach (var item in model.ProductAndCollection)
+            {
+                _productAndCollectionRep.Add(new ProductAndCollection()
+                {
+                    ProductId = item.ProductId,
+                    ProductCollectionId = entity.Id
+                });
+            }
+            await _productAndCollectionRep.SaveAsync();
+
             return model;
         }
 
@@ -65,6 +78,9 @@ namespace WebAppIdentityServer.Business.Implementation
         public async Task<ProductCollectionVM> GetById(long id)
         {
             var data = await _productCollectionRep.GetByIdAsync(id);
+            var productAndCollection = await _productAndCollectionRep.FindAllAsync(x => x.ProductCollectionId == id,
+           new Expression<Func<ProductAndCollection, object>>[] { x => x.Product }
+            );
             var dataModel = data.ToModel();
             var Attachment = new List<AttachmentVM>();
             if (!String.IsNullOrEmpty(data.Images))
@@ -82,6 +98,7 @@ namespace WebAppIdentityServer.Business.Implementation
                 }
                 dataModel.Attachments = Attachment;
             }
+            dataModel.ProductAndCollection = productAndCollection.Select(x => x.ToModel()).ToList();
             return dataModel;
         }
 

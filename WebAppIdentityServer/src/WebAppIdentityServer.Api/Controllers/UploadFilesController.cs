@@ -231,21 +231,21 @@ namespace WebAppIdentityServer.Api.Controllers
             }
         }
 
-        [Route("delete/{path}")]
-        [HttpDelete]
-        public IActionResult Delete(string path)
+        [Route("delete")]
+        [HttpPost]
+        public IActionResult Delete([FromBody] FileImageModel model)
         {
-            if (!String.IsNullOrEmpty(path))
+            if (!String.IsNullOrEmpty(model.Path))
             {
                 var rootFile = _webHostEnvironment.WebRootPath + @"\";
 
-                var pathFile = path.Replace(_config.Value.BaseUrl, "");
+                var pathFile = model.Path.Replace(_config.Value.BaseUrl, "");
                 var newPath = Regex.Replace(pathFile, @"/", @"\");
                 CheckFileDelete($"{rootFile}{newPath}");
 
                 foreach (var item in CommonContains.ImageSize())
                 {
-                    var newFileName = Regex.Replace(path, @"\.([^.]*)$", $"_{item.Key}.$1");
+                    var newFileName = Regex.Replace(pathFile, @"\.([^.]*)$", $"_{item.Key}.$1");
                     CheckFileDelete($"{rootFile}{newFileName}");
                 }
             }

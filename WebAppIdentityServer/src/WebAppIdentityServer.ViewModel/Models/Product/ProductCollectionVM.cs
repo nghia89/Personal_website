@@ -20,5 +20,6 @@ namespace WebAppIdentityServer.ViewModel.Models.Product
         public string SeoDescription { set; get; }
         public List<AttachmentVM> Attachments { get; set; }
         public DateTime? DateApply { get; set; }
+        public List<ProductAndCollectionVM> ProductAndCollection { get; set; }
     }
 }

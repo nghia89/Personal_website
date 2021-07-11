@@ -19,4 +19,5 @@ export interface Attachments {
     extension?: string
     type?: string
     guiId?: number
+    postSuccess?: boolean
 }

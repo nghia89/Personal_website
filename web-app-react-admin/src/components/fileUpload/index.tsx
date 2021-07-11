@@ -33,6 +33,10 @@ interface IProps {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        wrapper: {
+            margin: theme.spacing(1),
+            position: 'relative',
+        },
         buttonSuccess: {
             backgroundColor: green[500],
             '&:hover': {
@@ -77,9 +81,9 @@ export default function FileUpload(props: IProps) {
     const [files, setFiles] = useState<Attachments[]>([]);
     const [fileSelected, setFileSelected] = useState<Attachments>();
     const [isShowModal, setIsShowModal] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [idSelect, setIdSelect] = useState(0);
-    const [index, setIndex] = useState(null);
+    const [index, setIndex] = useState(-1);
 
     useEffect(() => {
         draggedItem = null
@@ -95,7 +99,7 @@ export default function FileUpload(props: IProps) {
     async function postFile(listFileNew) {
         setIsLoading(true);
 
-        let listGuiId: any = [];
+        let listGuiId: Array<any> = [];
         const formData = new FormData();
         listFileNew.forEach((file) => {
             listGuiId.push(file.guiId);
@@ -103,8 +107,16 @@ export default function FileUpload(props: IProps) {
         })
         let rspImg = await apiUploadFile.UploadImage(formData);
         if (!rspImg.isError) {
-            let listImg: any = []
+            let newFile = files.filter(x => listGuiId.findIndex(i => i == x.guiId) <= -1)
+            rspImg.data?.forEach(e => {
+                newFile.push({
+                    path: e.path,
+                    postSuccess: true
+                } as Attachments)
+            });
+            setFiles([...newFile])
             setIsLoading(false);
+            props.onchangeFiles(newFile)
         }
     }
 
@@ -118,6 +130,7 @@ export default function FileUpload(props: IProps) {
     }
 
     const addNewFiles = (newFiles) => {
+        let files: Attachments[] = []
         for (let file of newFiles) {
             if (file.size <= DEFAULT_MAX_FILE) {
                 let newFile: Attachments = {
@@ -126,6 +139,7 @@ export default function FileUpload(props: IProps) {
                     size: file.size,
                     extension: file.extension,
                     type: file.type,
+                    postSuccess: false,
                     guiId: getRandomInt()
                 }
                 if (!multiple) {
@@ -135,7 +149,7 @@ export default function FileUpload(props: IProps) {
                 files.push(newFile);
             }
         }
-        return [...files];
+        return files;
     };
 
     const callUpdateFilesCb = (files) => {
@@ -147,17 +161,17 @@ export default function FileUpload(props: IProps) {
         const { files: newFiles } = e.target;
         if (newFiles.length) {
             let updatedFiles = addNewFiles(newFiles);
-            setFiles(updatedFiles);
-            callUpdateFilesCb(updatedFiles);
+            files.concat(updatedFiles)
+            setFiles([...files]);
 
             if (isPosting) {
                 postFile(updatedFiles)
-            }
+            } else callUpdateFilesCb(files);
         }
     };
 
     function handleCheckDelete(id, index) {
-        if (id) {
+        if (files[index].postSuccess || (id && isLoading)) {
             setIndex(index)
             setIsShowModal(true)
             setIdSelect(id)
@@ -175,6 +189,19 @@ export default function FileUpload(props: IProps) {
             callUpdateFilesCb([...cloneFile]);
         }
     };
+
+
+    async function handleRemoveFile() {
+        setIsShowModal(false);
+        removeFile(index);
+        setIdSelect(0);
+        if (index >= 0) {
+            if (files[index].postSuccess || (idSelect && isLoading)) {
+                await apiUploadFile.delete({ path: files[index].path })
+            } else
+                props.handleDelete && props.handleDelete(idSelect);
+        }
+    }
 
     function onDragStart(e, index) {
         draggedItem = files[index];//lấy item đang kéo
@@ -215,7 +242,7 @@ export default function FileUpload(props: IProps) {
                             onDragEnd={onDragEnd}
                             onClick={() => props.handleFileSelected && setFileSelected(file)}
                         >
-                            {!file.id ? (
+                            {(!file.id && !file.postSuccess) ? (
                                 <img className="image-preview" src={URL.createObjectURL(file.path)} alt={`file preview ${index}`} />
                             ) :
                                 <img className="image-preview" src={replaceImgUrl(file.path, ImageSize.small)} alt={`file preview ${index}`} />
@@ -238,18 +265,16 @@ export default function FileUpload(props: IProps) {
             })}
             {!props.isHiddenUploadFile && <div className={`file-upload-container ms-2 mx-2 ${files[0] ? 'float-sm-start width-15' : ''}`}>
                 {
-                    isLoading ? <div>
+                    (isLoading) ? <div className={classes.wrapper}>
                         <Fab
                             aria-label="save"
                             color="primary"
-                        //className={buttonClassName}
-                        //onClick={handleButtonClick}
                         >
-                            {!isLoading ? <CheckIcon /> : <SaveIcon />}
+                            {!isLoading && <CheckIcon />}
                         </Fab>
                         {isLoading && <CircularProgress size={68} className={classes.fabProgress} />}
                     </div> :
-                        <div className='text-align-center'>
+                        <div className='text-center'>
                             <AddPhotoAlternateIcon color="disabled" fontSize={'large'} />
                             {title ? <p onClick={handleUploadBtnClick} style={{ color: '#8c8c8c', textAlign: 'center' }}>{title}</p> :
                                 <p onClick={handleUploadBtnClick} style={{ color: '#8c8c8c', textAlign: 'center' }}>Thêm ảnh sản <br /> phẩm</p>}
@@ -266,7 +291,7 @@ export default function FileUpload(props: IProps) {
             <AlertDialogSlide
                 isOpen={isShowModal}
                 handleClose={() => { setIdSelect(0); setIsShowModal(false) }}
-                handleConfirm={() => { setIsShowModal(false); removeFile(index); props.handleDelete && props.handleDelete(idSelect); setIdSelect(0); }}
+                handleConfirm={() => handleRemoveFile()}
                 note={"Bạn có chắc chắn muốn xóa hình ảnh này? Hành động sẽ không được phục hồi"}
             />
         </div >

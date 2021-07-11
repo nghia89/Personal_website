@@ -20,7 +20,7 @@ export const UploadImageForCKEditor = `${env.baseApiUrl}/api/${baseApiUpload}upl
 
 export const apiUploadFile = {
     UploadImage: async (body: any) => { return await POST(`${baseApiUpload}upload_image`, body) },
-    delete: async (path: string) => { return await DELETE(`${baseApiUpload}delete/`, path) },
+    delete: async (body: any) => { return await POST(`${baseApiUpload}delete`, body) },
     UploadProductImage: async (id?: number, body?: any) => { return await POST(`${baseApiUpload}product/${id}/images`, body) }
 }
 
