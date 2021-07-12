@@ -6,6 +6,6 @@ export const AuthContext = React.createContext({
     signOutRedirectCallback: () => ({}),
     isAuthenticated: () => ({}),
     signInRedirect: () => ({}),
-    signInSilent: () => ({}),
+    signInSilentCallback: () => ({}),
     getUser: () => ({})
 });

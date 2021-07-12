@@ -34,9 +34,9 @@ export default class AuthService {
         //     this.navigateToScreen();
         // });
     }
-    // signInSilentCallback = () => {
-    //     return this.userManager.signinSilent();
-    // }
+    signInSilentCallback = () => {
+        return this.userManager.signinSilent();
+    }
 
     signOutRedirect = () => {
         this.userManager.signoutRedirect();

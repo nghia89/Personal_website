@@ -12,11 +12,6 @@ export class AuthProvider extends Component {
         super(props);
         this.authService = new AuthService();
     }
-    // componentWillMount() {
-    //     if (this.checkAuthentication()) {
-    //         this.authService.signInRedirect();
-    //     }
-    // }
 
     componentDidMount() {
         if (this.checkAuthentication()) {
