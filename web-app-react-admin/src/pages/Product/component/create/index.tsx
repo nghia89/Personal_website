@@ -178,20 +178,11 @@ function ProductCreate(props: IProps) {
 
     function renderContentGeneral() {
         return <div className="row pt-3 pb-3">
-            <div className="col-2">
-                <h6 className="font-weight-bold ui-information-title">Thông tin chung</h6>
-                <div>
-                    <label>Trạng thái <span className="text-danger">*</span></label>
-                    <Switch
-                        required
-                        checked={formState?.status === 1 ? true : false}
-                        onChange={() => handleOnchange('status', formState?.status === 1 ? 0 : 1)}
-                        color="primary"
-                    />
-                </div>
-            </div>
-            <div className="col-10">
-                <div className="wrapper-content ">
+            <div className="col-12">
+                <div className="wrapper-content ps-3">
+                    <div className=" mb-2  border-line-bottom">
+                        <span className="font-weight-bold ui-information-title   mb-2 ">Thông tin chung</span>
+                    </div>
                     <div>
                         <TextField
                             required
@@ -204,6 +195,7 @@ function ProductCreate(props: IProps) {
                             className="form-control"
                             onChange={(e) => handleChange(e)}
                         />
+
                         <div className="row align-items-center">
                             <div className="col-6">
                                 <TreeViewCategory
@@ -264,12 +256,12 @@ function ProductCreate(props: IProps) {
 
 
     function renderProductImages() {
-        return <div className="row  pt-3 pb-3">
-            <div className="col-2">
-                <h6 className="color-black font-weight-bold ui-information-title">Hình Ảnh Sản Phẩm</h6>
-            </div>
-            <div className="col-10">
-                <div className="wrapper-content" style={{ paddingLeft: '15px', paddingRight: '15px' }}>
+        return <div className="row  pt-3 pb-2">
+            <div className="col-12">
+                <div className="wrapper-content ps-3" style={{ paddingLeft: '15px', paddingRight: '15px' }}>
+                    <div className=" mb-2  border-line-bottom">
+                        <span className="font-weight-bold ui-information-title   mb-2 ">Hình Ảnh Sản Phẩm</span>
+                    </div>
                     <FileUpload
                         files={listImage}
                         multiple
@@ -284,11 +276,11 @@ function ProductCreate(props: IProps) {
 
     function renderContentProduct() {
         return <div className="row  pt-3 pb-3">
-            <div className="col-2">
-                <h6 className="color-black font-weight-bold ui-information-title">Mô tả sản phẩm</h6>
-            </div>
-            <div className="col-10">
-                <div className="wrapper-content ">
+            <div className="col-12">
+                <div className="wrapper-content ps-3">
+                    <div className=" mb-2  border-line-bottom">
+                        <span className="font-weight-bold ui-information-title   mb-2 ">Mô tả sản phẩm</span>
+                    </div>
                     <div className="pb-2">
                         <label className="color-black mx-2 mb-2">Mô tả ngắn</label>
                         <Editor data="" onChange={(data) => handleOnchange("description", data)} />
@@ -306,12 +298,12 @@ function ProductCreate(props: IProps) {
 
     function renderContentSeo() {
         return <div className="row pt-3 pb-3">
-            <div className="col-2">
-                <h6 className="color-black font-weight-bold ui-information-title">SEO từ khoá</h6>
-            </div>
-            <div className="col-10">
-                <div className="wrapper-content ">
-                    <div className="border-line-bottom pb-3" style={{ textAlign: 'right', display: 'block', marginLeft: '5px' }}>
+            <div className="col-12">
+                <div className="wrapper-content ps-3">
+                    <div className=" mb-2  border-line-bottom">
+                        <span className="font-weight-bold ui-information-title   mb-2 ">SEO từ khoá</span>
+                    </div>
+                    <div className=" pb-3" style={{ textAlign: 'right', display: 'block', marginLeft: '5px' }}>
                         <a onClick={() => setIsShowSeo(!isShowSeo)} className="text-label-custom ps-2 font-weight-500">Chỉnh sửa SEO</a>
                     </div>
                     {isShowSeo && <div>
@@ -367,11 +359,11 @@ function ProductCreate(props: IProps) {
 
     function renderProductQuantity() {
         return <div className="row  pt-3 pb-3">
-            <div className="col-2">
-                <h6 className="color-black font-weight-bold ui-information-title">Biến Thể</h6>
-            </div>
-            <div className="col-10">
-                <div className="wrapper-content">
+            <div className="col-12">
+                <div className="wrapper-content ps-3">
+                    <div className=" mb-2  border-line-bottom">
+                        <span className="font-weight-bold ui-information-title   mb-2 ">Biến Thể</span>
+                    </div>
                     {<ProductQuantity
                         handlePostQuantity={(data, isShowMoreVariant) => {
                             if (isShowMoreVariant) {
@@ -392,23 +384,38 @@ function ProductCreate(props: IProps) {
 
     function renderContent() {
         return <Fragment>
-            <form className={classes.root} noValidate autoComplete="off">
-                {renderContentGeneral()}
-                {renderProductImages()}
-                {renderContentProduct()}
-                {renderProductQuantity()}
-                {renderContentSeo()}
+            <form className={"row"} noValidate autoComplete="off">
+                <div className="col-10">
+                    {renderContentGeneral()}
+                    {renderProductImages()}
+                    {renderContentProduct()}
+                    {renderProductQuantity()}
+                    {renderContentSeo()}
+                </div>
+                <div className="col-2 pt-3">
+                    <div className="ps-2 wrapper-content">
+                        <div className=" mb-2  border-line-bottom">
+                            <span className="font-weight-bold ui-information-title   mb-2 ">Hiển thị</span>
+                        </div>
+                        <label>Trạng thái <span className="text-danger">*</span></label>
+                        <Switch
+                            required
+                            checked={formState?.status === 1 ? true : false}
+                            onChange={() => handleOnchange('status', formState?.status === 1 ? 0 : 1)}
+                            color="primary"
+                        />
+                    </div>
+                </div>
+
             </form >
         </Fragment>
     }
 
-    return <div className="container">
-        <div className="row">
-            <div className="col-12 mt-3">
-                {renderHeader()}
-                {renderContent()}
-                {renderHeader()}
-            </div>
+    return <div className="row">
+        <div className="col-12 mt-3">
+            {renderHeader()}
+            {renderContent()}
+            {renderHeader()}
         </div>
     </div>
 }

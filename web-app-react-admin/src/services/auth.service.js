@@ -13,6 +13,12 @@ export default class AuthService {
         Log.logger = console;
         Log.level = Log.INFO;
 
+        this.userManager.events.addUserLoaded((user) => {
+            if (window.location.href.indexOf(PATH.AuthCallback) !== -1) {
+                this.navigateToScreen();
+            }
+        });
+
         this.userManager.events.addSilentRenewError((e) => {
             console.log("silent renew error", e.message);
         });
@@ -62,7 +68,7 @@ export default class AuthService {
     };
 
     navigateToScreen = () => {
-        history.push(PATH.HOME)
+        history.push(PATH.Dashboard)
         // window.location.replace(PATH.Dashboard);
     };
 

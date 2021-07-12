@@ -20,7 +20,7 @@ export function Callback(props: IProps) {
                     window.document.title,
                     window.location.origin + window.location.pathname);
                 props.setClaimUser(profile.profile);
-                history.push(PATH.Dashboard)
+                // history.push(PATH.Dashboard)
 
             });
             return <LoadingPage />;

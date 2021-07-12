@@ -23,6 +23,7 @@ const useStylesTree = makeStyles({
 interface IProps {
     dataValue?: number
     handleOnchange: Function
+    className?: any
 }
 
 interface ItemSelect {
@@ -90,7 +91,7 @@ export default function TreeViewCategory(props: IProps) {
 
     let classShowDropdown = `dropdown-select-custom dropdown-menu p-2  animate slideIn  ${isShowDropdown ? 'show' : ""}`
     return (
-        <div ref={wrapperRef} className="treeView_wrapper">
+        <div ref={wrapperRef} className={`treeView_wrapper ${props.className} `}>
             <div className="treeView_wrapper_input d-flex mb-1">
                 <div style={{ display: 'contents' }}
                     onClick={() => handleShowDropdown()}>

@@ -5,8 +5,8 @@ import { AuthConsumer } from "@/providers/authProvider";
 
 export default function SilentRenewClient() {
     return <AuthConsumer>
-        {({ signInRedirect }) => {
-            signInRedirect();
+        {({ signInSilentCallback }) => {
+            signInSilentCallback();
             return <span>loading</span>;
         }}
     </AuthConsumer>

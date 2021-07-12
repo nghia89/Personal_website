@@ -154,6 +154,7 @@ export default function ProductCateDetail(props: IProps) {
                     <TreeViewCategory
                         handleOnchange={(value) => handleOnchangeValue(value, 'parentId')}
                         dataValue={formState?.parentId}
+                        className="tree-view-custom"
                     />
                     <TextField
                         required

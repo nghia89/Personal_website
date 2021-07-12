@@ -208,20 +208,11 @@ function ProductDetail(props: IProps) {
 
     function renderContentGeneral() {
         return <div className="row pt-3 pb-3">
-            <div className="col-2">
-                <h6 className="ui-information-title font-weight-bold">Thông tin chung</h6>
-                <div>
-                    <label>Trạng thái <span className="text-danger">*</span></label>
-                    <Switch
-                        required
-                        checked={formState?.status === 1 ? true : false}
-                        onChange={() => handleOnchange('status', formState?.status === 1 ? 0 : 1)}
-                        color="primary"
-                    />
-                </div>
-            </div>
-            <div className="col-10">
-                <div className="wrapper-content ">
+            <div className="col-12">
+                <div className="wrapper-content ps-3">
+                    <div className=" mb-2  border-line-bottom">
+                        <span className="font-weight-bold ui-information-title   mb-2 ">Thông tin chung</span>
+                    </div>
                     <TextField
                         required
                         inputRef={(r) => refs["name"] = r}
@@ -293,11 +284,11 @@ function ProductDetail(props: IProps) {
 
     function renderProductImages() {
         return <div className="row  pt-3 pb-3">
-            <div className="col-2">
-                <h6 className="color-black font-weight-bold ui-information-title">Hình Ảnh Sản Phẩm</h6>
-            </div>
-            <div className="col-10">
-                <div className="wrapper-content" style={{ paddingLeft: '15px', paddingRight: '15px' }}>
+            <div className="col-12">
+                <div className="wrapper-content ps-3" >
+                    <div className=" mb-2  border-line-bottom">
+                        <span className="font-weight-bold ui-information-title   mb-2 ">Hình Ảnh Sản Phẩm</span>
+                    </div>
                     <FileUpload
                         files={listImage}
                         multiple
@@ -312,12 +303,11 @@ function ProductDetail(props: IProps) {
 
     function renderContentProduct() {
         return <div className="row  pt-3 pb-3">
-            <div className="col-2">
-                <h6 className="ui-information-title font-weight-bold">Mô tả sản phẩm</h6>
-
-            </div>
-            <div className="col-10">
-                <div className="wrapper-content ">
+            <div className="col-12">
+                <div className="wrapper-content ps-3">
+                    <div className=" mb-2  border-line-bottom">
+                        <span className="font-weight-bold ui-information-title   mb-2 ">Mô tả sản phẩm</span>
+                    </div>
                     <div className="pb-2">
                         <label className="color-black mx-2 mb-2">Mô tả ngắn</label>
                         <Editor data={formState?.description} onChange={(data) => handleOnchange("description", data)} />
@@ -334,12 +324,12 @@ function ProductDetail(props: IProps) {
     }
     function renderContentSeo() {
         return <div className="row pt-3 pb-3">
-            <div className="col-2">
-                <h6 className="ui-information-title font-weight-bold">SEO từ khoá</h6>
-            </div>
-            <div className="col-10">
-                <div className="wrapper-content ">
-                    <div className="border-line-bottom pb-3" style={{ textAlign: 'right', display: 'block', marginLeft: '5px' }}>
+            <div className="col-12">
+                <div className="wrapper-content ps-3">
+                    <div className=" mb-2  border-line-bottom">
+                        <span className="font-weight-bold ui-information-title   mb-2 ">SEO từ khoá</span>
+                    </div>
+                    <div className="pb-3" style={{ textAlign: 'right', display: 'block', marginLeft: '5px' }}>
                         <a onClick={() => setIsShowSeo(!isShowSeo)} className="text-label-custom ps-3 font-weight-500">Chỉnh sửa SEO</a>
                     </div>
                     {isShowSeo && <div>
@@ -395,11 +385,11 @@ function ProductDetail(props: IProps) {
 
     function renderProductQuantity() {
         return <div className="row  pt-3 pb-3">
-            <div className="col-2">
-                <h6 className="color-black font-weight-bold ui-information-title">Biến Thể</h6>
-            </div>
-            <div className="col-10">
-                <div className="wrapper-content">
+            <div className="col-12">
+                <div className="wrapper-content ps-3">
+                    <div className=" mb-2  border-line-bottom">
+                        <span className="font-weight-bold ui-information-title   mb-2 ">Biến thể</span>
+                    </div>
                     {<ProductQuantity
                         productId={props.match?.params?.id}
                         data={formState?.productQuantity}
@@ -414,12 +404,28 @@ function ProductDetail(props: IProps) {
         </div>
     }
     function renderContent() {
-        return <form className={classes.root} noValidate autoComplete="off">
-            {renderContentGeneral()}
-            {renderProductImages()}
-            {renderContentProduct()}
-            {renderProductQuantity()}
-            {renderContentSeo()}
+        return <form className="row" noValidate autoComplete="off">
+            <div className="col-10">
+                {renderContentGeneral()}
+                {renderProductImages()}
+                {renderContentProduct()}
+                {renderProductQuantity()}
+                {renderContentSeo()}
+            </div>
+            <div className="col-2 pt-3">
+                <div className="ps-3 wrapper-content">
+                    <div className=" mb-2  border-line-bottom">
+                        <span className="font-weight-bold ui-information-title   mb-2 ">Hiển thị</span>
+                    </div>
+                    <label>Trạng thái <span className="text-danger">*</span></label>
+                    <Switch
+                        required
+                        checked={formState?.status === 1 ? true : false}
+                        onChange={() => handleOnchange('status', formState?.status === 1 ? 0 : 1)}
+                        color="primary"
+                    />
+                </div>
+            </div>
         </form >
     }
 
