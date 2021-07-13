@@ -47,6 +47,8 @@ namespace WebAppIdentityServer.Api.Extensions
             services.AddTransient<IProductQuantityBusiness, ProductQuantityBusiness>();
             services.AddTransient<IProductImageBusiness, ProductImageBusiness>();
             services.AddTransient<IProductCollectionBusiness, ProductCollectionBusiness>();
+            services.AddTransient<IPageOtherBusiness, PageOtherBusiness>();
+            services.AddTransient<ICatalogOtherBusiness, CatalogOtherBusiness>();
 
             #endregion
 
@@ -66,6 +68,8 @@ namespace WebAppIdentityServer.Api.Extensions
             services.AddTransient<ISystemConfigRepository, SystemConfigRepository>();
             services.AddTransient<IProductCollectionRepository, ProductCollectionRepository>();
             services.AddTransient<IProductAndCollectionRepository, ProductAndCollectionRepository>();
+            services.AddTransient<IPageOtherRepository, PageOtherRepository>();
+            services.AddTransient<ICatalogOtherRepository, CatalogOtherRepository>();
             #endregion
 
         }

@@ -28,6 +28,6 @@
         SETTING_PAGES,
         ST_CONFIG_GENERAL,
         ST_SLIDES,
-        ST_PAGES
+        ST_PAGE_OTHER
     }
 }

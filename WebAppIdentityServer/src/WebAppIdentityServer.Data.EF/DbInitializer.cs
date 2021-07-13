@@ -102,7 +102,7 @@ namespace WebAppIdentityServer.Data.EF
                     new Function {Id = "SETTING_PAGES", Name = "Cấu hình trang", ParentId = "ROOTID", SortOrder = 5, Url = "",Icon="IconMonitor" , DateCreated=new DateTime(),DateModified=new DateTime()},
                     new Function {Id = "ST_CONFIG_GENERAL", Name = "Cấu hình website", ParentId = "SETTING_PAGES", SortOrder =1, Url = "/setting_page/config/general" , DateCreated=new DateTime(),DateModified=new DateTime()},
                     new Function {Id = "ST_SLIDES", Name = "SlideShow", ParentId = "SETTING_PAGES", SortOrder = 2, Url = "/setting_page/slides" , DateCreated=new DateTime(),DateModified=new DateTime()},
-                    new Function {Id = "ST_PAGES", Name = "Các trang khác", ParentId = "SETTING_PAGES", SortOrder = 3, Url = "/setting_page/pages" , DateCreated=new DateTime(),DateModified=new DateTime()},
+                    new Function {Id = "ST_PAGE_OTHER", Name = "Các trang khác", ParentId = "SETTING_PAGES", SortOrder = 3, Url = "/setting_page/pages" , DateCreated=new DateTime(),DateModified=new DateTime()},
 
                 });
                 await _context.SaveChangesAsync();
