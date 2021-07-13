@@ -13,7 +13,7 @@ using WebAppIdentityServer.Data.EF.Configurations;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Extensions;
 using WebAppIdentityServer.Data.EF.Interfaces;
-using static WebAppIdentityServer.Utilities.Constants.SystemConstants;
+using static WebAppIdentityServer.Infrastructure.Constants.SystemConstants;
 
 namespace WebAppIdentityServer.Data.EF
 {
@@ -66,6 +66,8 @@ namespace WebAppIdentityServer.Data.EF
         public DbSet<Announcement> Announcements { set; get; }
         public DbSet<AnnouncementUser> AnnouncementUsers { set; get; }
         public DbSet<TableRecords> TableRecords { set; get; }
+        public DbSet<PageOther> PageOthers { set; get; }
+        public DbSet<CatalogOther> CatalogOthers { set; get; }
 
 
 

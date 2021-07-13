@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WebAppIdentityServer.Utilities
+namespace WebAppIdentityServer.Infrastructure
 {
     public class TreeItem<T>
     {

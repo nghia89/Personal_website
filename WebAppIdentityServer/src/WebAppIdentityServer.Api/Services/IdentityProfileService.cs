@@ -11,7 +11,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Entities;
-using WebAppIdentityServer.Utilities.Constants;
+using WebAppIdentityServer.Infrastructure.Constants;
 
 namespace WebAppIdentityServer.Api.Services
 {

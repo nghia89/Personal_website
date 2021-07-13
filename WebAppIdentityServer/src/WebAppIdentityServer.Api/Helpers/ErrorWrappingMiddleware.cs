@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
-using WebAppIdentityServer.Utilities.Helpers;
+using WebAppIdentityServer.Infrastructure.Helpers;
 
 namespace WebAppIdentityServer.Api.Helpers
 {

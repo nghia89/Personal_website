@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Globalization;
 
-namespace WebAppIdentityServer.Utilities.Extensions
+namespace WebAppIdentityServer.Infrastructure.Extensions
 {
     public static class EnumExtensions
     {

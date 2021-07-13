@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Entities;
-using WebAppIdentityServer.Utilities;
-using WebAppIdentityServer.Utilities.Helpers;
+using WebAppIdentityServer.Infrastructure;
+using WebAppIdentityServer.Infrastructure.Helpers;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.System;
-using static WebAppIdentityServer.Utilities.Constants.SystemConstants;
+using static WebAppIdentityServer.Infrastructure.Constants.SystemConstants;
 
 namespace WebAppIdentityServer.Business.Implementation
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebAppIdentityServer.Utilities.Extensions
+namespace WebAppIdentityServer.Infrastructure.Extensions
 {
     public static class RelativeDate
     {

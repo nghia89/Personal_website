@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
-using WebAppIdentityServer.Utilities.Helpers;
+using WebAppIdentityServer.Infrastructure.Helpers;
 
 namespace WebAppIdentityServer.Api.Areas.Identity.Pages.Account
 {

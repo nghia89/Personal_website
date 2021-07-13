@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebAppIdentityServer.Utilities.Constants;
+using WebAppIdentityServer.Infrastructure.Constants;
 
 namespace WebAppIdentityServer.Api.Authorization
 {

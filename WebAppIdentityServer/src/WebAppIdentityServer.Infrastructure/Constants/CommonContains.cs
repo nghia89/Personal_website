@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using WebAppIdentityServer.ViewModel.Common;
 
-namespace WebAppIdentityServer.Utilities.CommonContains
+namespace WebAppIdentityServer.Infrastructure.CommonContains
 {
     public class CommonContains
     {

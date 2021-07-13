@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using static WebAppIdentityServer.Utilities.Constants.SystemConstants;
+using static WebAppIdentityServer.Infrastructure.Constants.SystemConstants;
 
 namespace WebAppIdentityServer.Data.EF
 {

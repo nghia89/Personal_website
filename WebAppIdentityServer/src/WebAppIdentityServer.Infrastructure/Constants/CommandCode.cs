@@ -1,4 +1,4 @@
-﻿namespace WebAppIdentityServer.Utilities.Constants
+﻿namespace WebAppIdentityServer.Infrastructure.Constants
 {
     public enum CommandCode
     {

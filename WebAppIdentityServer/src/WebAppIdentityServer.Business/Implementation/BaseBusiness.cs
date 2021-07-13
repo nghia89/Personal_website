@@ -1,5 +1,5 @@
 ﻿using WebAppIdentityServer.Business.Interfaces;
-using WebAppIdentityServer.Utilities.Helpers;
+using WebAppIdentityServer.Infrastructure.Helpers;
 using WebAppIdentityServer.ViewModel.Models.System;
 
 namespace WebAppIdentityServer.Business.Implementation

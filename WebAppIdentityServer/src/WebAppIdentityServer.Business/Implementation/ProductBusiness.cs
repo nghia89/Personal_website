@@ -14,11 +14,11 @@ using WebAppIdentityServer.Business.Mappers;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Repository.Interfaces;
-using WebAppIdentityServer.Utilities;
-using WebAppIdentityServer.Utilities.CommonContains;
-using WebAppIdentityServer.Utilities.Constants;
+using WebAppIdentityServer.Infrastructure;
+using WebAppIdentityServer.Infrastructure.CommonContains;
+using WebAppIdentityServer.Infrastructure.Constants;
 using WebAppIdentityServer.ViewModel.Enum;
-using WebAppIdentityServer.Utilities.Helpers;
+using WebAppIdentityServer.Infrastructure.Helpers;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.Product;
 

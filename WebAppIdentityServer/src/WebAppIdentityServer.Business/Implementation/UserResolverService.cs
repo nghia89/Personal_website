@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.ViewModel.Models.System;
-using static WebAppIdentityServer.Utilities.Constants.SystemConstants;
+using static WebAppIdentityServer.Infrastructure.Constants.SystemConstants;
 
 namespace WebAppIdentityServer.Business.Implementation
 {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Api.Authorization;
 using WebAppIdentityServer.Business.Interfaces;
-using WebAppIdentityServer.Utilities.Constants;
+using WebAppIdentityServer.Infrastructure.Constants;
 using WebAppIdentityServer.ViewModel.Models.Common;
 using WebAppIdentityServer.ViewModel.Models.Product;
 

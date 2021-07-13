@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using WebAppIdentityServer.Api.Authorization;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Data.EF.Dapper;
-using WebAppIdentityServer.Utilities.Constants;
+using WebAppIdentityServer.Infrastructure.Constants;
 using WebAppIdentityServer.ViewModel.Models.System;
 
 namespace WebAppIdentityServer.Api.Controllers
@@ -17,9 +17,9 @@ namespace WebAppIdentityServer.Api.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly IFunctionBusiness _functionBu;
-        private readonly IDapper _dapper;
+        private readonly IBaseDapper _dapper;
 
-        public PermissionsController(IConfiguration configuration, IDapper dapper, IFunctionBusiness functionBu)
+        public PermissionsController(IConfiguration configuration, IBaseDapper dapper, IFunctionBusiness functionBu)
         {
             _configuration = configuration;
             _functionBu = functionBu;

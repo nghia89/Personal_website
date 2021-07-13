@@ -8,8 +8,8 @@ using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Repository.Interfaces;
-using WebAppIdentityServer.Utilities;
-using WebAppIdentityServer.Utilities.Helpers;
+using WebAppIdentityServer.Infrastructure;
+using WebAppIdentityServer.Infrastructure.Helpers;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.System;
 

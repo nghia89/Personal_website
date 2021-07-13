@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using WebAppIdentityServer.Utilities;
+using WebAppIdentityServer.Infrastructure;
 using WebAppIdentityServer.ViewModel.Models.Common;
 
 namespace WebAppIdentityServer.Business.Interfaces

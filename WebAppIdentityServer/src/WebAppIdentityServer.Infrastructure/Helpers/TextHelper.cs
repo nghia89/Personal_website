@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace WebAppIdentityServer.Utilities.Helpers
+namespace WebAppIdentityServer.Infrastructure.Helpers
 {
     public static class TextHelper
     {

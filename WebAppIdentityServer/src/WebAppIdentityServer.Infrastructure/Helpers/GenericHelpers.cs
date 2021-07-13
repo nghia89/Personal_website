@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WebAppIdentityServer.Utilities.Helpers
+namespace WebAppIdentityServer.Infrastructure.Helpers
 {
     public static class GenericHelpers
     {

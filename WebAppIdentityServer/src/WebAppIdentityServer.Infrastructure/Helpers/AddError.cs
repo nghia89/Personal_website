@@ -1,4 +1,4 @@
-﻿namespace WebAppIdentityServer.Utilities.Helpers
+﻿namespace WebAppIdentityServer.Infrastructure.Helpers
 {
     public class AddError
     {

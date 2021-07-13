@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Api.Authorization;
 using WebAppIdentityServer.Business.Interfaces;
-using WebAppIdentityServer.Utilities.Constants;
+using WebAppIdentityServer.Infrastructure.Constants;
 using WebAppIdentityServer.ViewModel.Models.Common;
 
 namespace WebAppIdentityServer.Api.Controllers

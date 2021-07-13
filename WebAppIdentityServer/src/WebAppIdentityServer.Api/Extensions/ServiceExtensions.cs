@@ -24,7 +24,7 @@ namespace WebAppIdentityServer.Api.Extensions
 
 
             //Register dapper in scope    
-            services.AddScoped<IDapper, Dappers>();
+            services.AddScoped<IBaseDapper, BaseDapper>();
             services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
             services.AddTransient(typeof(IRepository<>), typeof(EFRepository<>));
 

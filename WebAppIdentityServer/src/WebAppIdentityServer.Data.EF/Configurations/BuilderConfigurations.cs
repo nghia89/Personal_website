@@ -162,6 +162,18 @@ namespace WebAppIdentityServer.Data.EF.Configurations
                 entity.HasIndex(x => new { x.ProductId, x.ProductCollectionId });
                 entity.HasIndex(x => x.ProductCollectionId);
             });
+
+            builder.Entity<CatalogOther>(entity =>
+           {
+               entity.ToTable("CatalogOthers");
+               entity.HasKey(x => x.Id);
+           });
+
+            builder.Entity<PageOther>(entity =>
+           {
+               entity.ToTable("PageOthers");
+               entity.HasKey(x => x.Id);
+           });
         }
     }
 }
