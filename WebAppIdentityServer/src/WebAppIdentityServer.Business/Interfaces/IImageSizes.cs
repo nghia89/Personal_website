@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using WebAppIdentityServer.ViewModel.Models.Common;
-using WebAppIdentityServer.ViewModel.Models.Product;
+﻿using System.Threading.Tasks;
 
 namespace WebAppIdentityServer.Business.Interfaces
 {

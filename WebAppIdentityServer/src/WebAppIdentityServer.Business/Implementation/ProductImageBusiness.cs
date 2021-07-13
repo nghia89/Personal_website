@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Business.Mappers;
 using WebAppIdentityServer.Data.EF;

@@ -7,10 +7,9 @@ using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Business.Mappers;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
-using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.Infrastructure;
+using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.ViewModel.Common;
-using WebAppIdentityServer.ViewModel.Models.System;
 using WebAppIdentityServer.ViewModel.Models.Common;
 
 namespace WebAppIdentityServer.Business.Implementation

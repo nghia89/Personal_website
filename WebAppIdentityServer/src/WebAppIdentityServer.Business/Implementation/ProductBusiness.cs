@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,19 +9,17 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Business.Mappers;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
-using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.Infrastructure;
 using WebAppIdentityServer.Infrastructure.CommonContains;
 using WebAppIdentityServer.Infrastructure.Constants;
-using WebAppIdentityServer.ViewModel.Enum;
 using WebAppIdentityServer.Infrastructure.Helpers;
+using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.ViewModel.Common;
+using WebAppIdentityServer.ViewModel.Enum;
 using WebAppIdentityServer.ViewModel.Models.Product;
 
 namespace WebAppIdentityServer.Business.Implementation

@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using WebAppIdentityServer.ViewModel.Enum;
-using WebAppIdentityServer.ViewModel.Models.Common;
-
 namespace WebAppIdentityServer.ViewModel.Models.Product
 {
     public class ProductAndCollectionVM

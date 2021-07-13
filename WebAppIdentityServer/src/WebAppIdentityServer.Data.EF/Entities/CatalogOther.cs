@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using WebAppIdentityServer.Data.EF.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebAppIdentityServer.Data.EF.Entities
 {

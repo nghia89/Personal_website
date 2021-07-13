@@ -5,8 +5,6 @@ using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Business.Mappers;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Repository.Interfaces;
-using WebAppIdentityServer.Infrastructure.Helpers;
-using WebAppIdentityServer.ViewModel.Models.Common;
 using WebAppIdentityServer.ViewModel.Models.Product;
 
 namespace WebAppIdentityServer.Business.Implementation

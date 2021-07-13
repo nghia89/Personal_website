@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
+using WebAppIdentityServer.Infrastructure.Helpers;
 using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.ViewModel.Enum;
-using WebAppIdentityServer.Infrastructure.Helpers;
 using WebAppIdentityServer.ViewModel.Models.Common;
 
 namespace WebAppIdentityServer.Business.Implementation

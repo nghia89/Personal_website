@@ -7,11 +7,11 @@ using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Business.Mappers;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
-using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.Infrastructure;
-using WebAppIdentityServer.ViewModel.Enum;
 using WebAppIdentityServer.Infrastructure.Helpers;
+using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.ViewModel.Common;
+using WebAppIdentityServer.ViewModel.Enum;
 using WebAppIdentityServer.ViewModel.Models.Common;
 using WebAppIdentityServer.ViewModel.Models.Product;
 

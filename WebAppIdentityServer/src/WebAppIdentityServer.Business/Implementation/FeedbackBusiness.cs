@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
-using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.Infrastructure;
+using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.ViewModel.Models.Common;
 
 namespace WebAppIdentityServer.Business.Implementation

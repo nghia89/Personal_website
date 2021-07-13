@@ -1,6 +1,4 @@
-﻿using WebAppIdentityServer.ViewModel.Enum;
-
-namespace WebAppIdentityServer.ViewModel.Models.Common
+﻿namespace WebAppIdentityServer.ViewModel.Models.Common
 {
     public class AttachmentVM
     {

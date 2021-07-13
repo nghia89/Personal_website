@@ -1,5 +1,4 @@
 ﻿using WebAppIdentityServer.Data.EF.Entities;
-using WebAppIdentityServer.ViewModel.Models.Common;
 using WebAppIdentityServer.ViewModel.Models.Product;
 
 namespace WebAppIdentityServer.Business.Mappers

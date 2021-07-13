@@ -7,7 +7,6 @@ using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Infrastructure.Constants;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.Common;
-using WebAppIdentityServer.ViewModel.Models.System;
 
 namespace WebAppIdentityServer.Api.Controllers
 {
