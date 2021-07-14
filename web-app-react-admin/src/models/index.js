@@ -15,6 +15,7 @@ import { ColorVM } from './color'
 import { SizeVM } from './size'
 import { SlideShowVM } from './SlideShow'
 import { ProductCollectionVM } from './productCollection'
+import { PageOtherVM } from './pageOther'
 
 export {
     MenuVM, TreeItem,
@@ -24,5 +25,6 @@ export {
     PermissionRequest, ProductVM,
     IBaseParams, TreeCateItem, CategoryVM,
     SystemConfigVM, productQuantityVM, FunctionVM,
-    ColorVM, SizeVM, SlideShowVM, ProductCollectionVM
+    ColorVM, SizeVM, SlideShowVM, ProductCollectionVM,
+    PageOtherVM
 };

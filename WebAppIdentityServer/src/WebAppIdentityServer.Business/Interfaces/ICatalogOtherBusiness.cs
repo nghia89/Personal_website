@@ -8,8 +8,8 @@ namespace WebAppIdentityServer.Business.Interfaces
     {
         Task<CatalogOtherVM> Add(CatalogOtherVM model);
         Task<CatalogOtherVM> Update(CatalogOtherVM product);
-        Task<CatalogOtherVM> GetById(long id);
-        Task<bool> Delete(long id);
+        Task<CatalogOtherVM> GetById(int id);
+        Task<bool> Delete(int id);
         Task<List<CatalogOtherVM>> GetAll();
     }
 }

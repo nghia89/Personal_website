@@ -64,3 +64,8 @@ export const tableHeadCollection = [
     { name: 'Tên', fieldName: 'name' },
     { name: 'Trạng thái', fieldName: 'status', type: 'status' }
 ] as Array<ITableHead>;
+
+export const tableHeadPageOther = [
+    { name: 'stt', fieldName: 'stt', type: 'stt' },
+    { name: 'Tên', fieldName: 'name' }
+] as Array<ITableHead>;

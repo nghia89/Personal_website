@@ -143,7 +143,7 @@ export default function DivTable(props: IProps) {
 
 
     function renderContent() {
-        let widthContent = dimensions.width - 620;
+        let widthContent = dimensions.width - 352;
         return <div className="divTable">
             <div className="divTableBodyHead text-center" >
                 <div className="divTableRow">

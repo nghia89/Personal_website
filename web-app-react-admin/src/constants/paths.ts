@@ -37,6 +37,8 @@ export const PATH = {
   SETTINGCONFIG: `${settingPages}config/general`,
   SETTING_SLIDES: `${settingPages}slides`,
   SETTING_PAGES: `${settingPages}pages`,
+  SETTING_PAGE_EDIT: `${settingPages}edit/`,
+  SETTING_PAGE_CREATE: `${settingPages}create`,
   //#endregion
 
   LOGIN: '/login',

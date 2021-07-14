@@ -21,3 +21,9 @@ export interface Attachments {
     guiId?: number
     postSuccess?: boolean
 }
+
+
+export interface ISelectVM {
+    value: any,
+    label: string
+}

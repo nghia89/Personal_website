@@ -40,6 +40,8 @@ const Sizes = React.lazy(() => import('@/pages/sizes/index'));
 //#region  Setting Page
 const SystemConfig = React.lazy(() => import('@/pages/systemConfig/index'));
 const SlideShow = React.lazy(() => import('@/pages/sliderShow/index'));
+const PageOther = React.lazy(() => import('@/pages/pageOther/index'));
+const PageOtherCreateAndEdit = React.lazy(() => import('@/pages/pageOther/component/index'));
 
 //#endregion
 
@@ -87,6 +89,11 @@ export const Routes = (
 
             <PrivateRoute path={PATH.SETTINGCONFIG} component={SystemConfig} />
             <PrivateRoute path={PATH.SETTING_SLIDES} component={SlideShow} />
+
+
+            <PrivateRoute path={PATH.SETTING_PAGE_CREATE} component={PageOtherCreateAndEdit} />
+            <PrivateRoute path={`${PATH.SETTING_PAGE_EDIT}:id`} component={PageOtherCreateAndEdit} />
+            <PrivateRoute path={PATH.SETTING_PAGES} component={PageOther} />
 
 
             <PrivateRoute path={PATH.HOME} component={Home} />

@@ -10,8 +10,8 @@ namespace WebAppIdentityServer.Business.Interfaces
     {
         Task<PageOtherVM> Add(PageOtherVM model);
         Task<PageOtherVM> Update(PageOtherVM product);
-        Task<PageOtherVM> GetById(long id);
-        Task<bool> Delete(long id);
+        Task<PageOtherVM> GetById(int id);
+        Task<bool> Delete(int id);
         Task<List<PageOtherVM>> GetAll();
         Task<PagedResult<PageOtherVM>> Paging(PagingParamModel pagingParam);
     }

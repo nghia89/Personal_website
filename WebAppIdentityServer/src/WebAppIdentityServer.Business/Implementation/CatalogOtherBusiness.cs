@@ -27,7 +27,7 @@ namespace WebAppIdentityServer.Business.Implementation
             return model;
         }
 
-        public async Task<bool> Delete(long id)
+        public async Task<bool> Delete(int id)
         {
             var entity = await _CatalogOtherRep.GetByIdAsync(id);
             if (entity == null)
@@ -45,7 +45,7 @@ namespace WebAppIdentityServer.Business.Implementation
             return data.Select(a => ToModel(a)).ToList();
         }
 
-        public async Task<CatalogOtherVM> GetById(long id)
+        public async Task<CatalogOtherVM> GetById(int id)
         {
             var data = await _CatalogOtherRep.GetByIdAsync(id);
             if (data == null)

@@ -20,8 +20,8 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpPost]
+        [Route("add")]
         [ClaimRequirement(FunctionCode.ST_PAGE_OTHER, CommandCode.CREATE)]
-        [ApiValidationFilter]
         public async Task<IActionResult> Post([FromBody] PageOtherVM request)
         {
             var result = await _pageOtherBu.Add(request);
@@ -51,16 +51,15 @@ namespace WebAppIdentityServer.Api.Controllers
 
         [HttpGet("{id}")]
         [ClaimRequirement(FunctionCode.ST_PAGE_OTHER, CommandCode.VIEW)]
-        public async Task<IActionResult> GetById(long id)
+        public async Task<IActionResult> GetById(int id)
         {
             var pageOther = await _pageOtherBu.GetById(id);
             return ToOkResult(pageOther);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("update")]
         [ClaimRequirement(FunctionCode.ST_PAGE_OTHER, CommandCode.UPDATE)]
-        [ApiValidationFilter]
-        public async Task<IActionResult> Put(long id, [FromBody] PageOtherVM request)
+        public async Task<IActionResult> Put([FromBody] PageOtherVM request)
         {
             if (request == null)
             {
@@ -74,7 +73,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
         [HttpDelete("{id}")]
         [ClaimRequirement(FunctionCode.ST_PAGE_OTHER, CommandCode.DELETE)]
-        public async Task<IActionResult> Delete(long id)
+        public async Task<IActionResult> Delete(int id)
         {
             var pageOther = await _pageOtherBu.Delete(id);
             return ToOkResult(pageOther);

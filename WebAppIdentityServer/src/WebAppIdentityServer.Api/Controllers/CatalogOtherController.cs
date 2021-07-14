@@ -34,7 +34,7 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(long id)
+        public async Task<IActionResult> GetById(int id)
         {
             var CatalogOther = await _CatalogOtherBu.GetById(id);
             return ToOkResult(CatalogOther);
@@ -42,7 +42,7 @@ namespace WebAppIdentityServer.Api.Controllers
 
         [HttpPut("{id}")]
         [ApiValidationFilter]
-        public async Task<IActionResult> Put(long id, [FromBody] CatalogOtherVM request)
+        public async Task<IActionResult> Put(int id, [FromBody] CatalogOtherVM request)
         {
             if (request == null)
             {
@@ -55,7 +55,7 @@ namespace WebAppIdentityServer.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id)
+        public async Task<IActionResult> Delete(int id)
         {
             var CatalogOther = await _CatalogOtherBu.Delete(id);
             return ToOkResult(CatalogOther);

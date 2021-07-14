@@ -388,9 +388,9 @@ function CollectionCreateAndEdit(props: IProps) {
                     {renderHeader()}
                     {renderContent()}
                     <div className="pb-3 d-flex justify-content-between align-items-center">
-                        <div>
+                        {data.id && <div>
                             <button onClick={async () => setIsAlert(true)} type="button" className="mx-3 hms-btn-button btn btn-danger">Xóa biến thể</button>
-                        </div>
+                        </div>}
                         <div>
                             <button onClick={async () => await saveData()} type="button" className="mx-3 hms-btn-button btn btn-primary">{data.id ? 'Cập nhật' : 'Lưu'}</button>
                         </div>

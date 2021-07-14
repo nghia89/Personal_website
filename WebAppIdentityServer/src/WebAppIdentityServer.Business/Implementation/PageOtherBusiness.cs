@@ -29,10 +29,11 @@ namespace WebAppIdentityServer.Business.Implementation
         {
             var entity = model.ToEntity();
             await _pageOtherRep.AddAsync(entity);
-            return model;
+            await _unitOfWork.CommitAsync();
+            return entity.ToModel();
         }
 
-        public async Task<bool> Delete(long id)
+        public async Task<bool> Delete(int id)
         {
             var entity = await _pageOtherRep.GetByIdAsync(id);
             if (entity == null)
@@ -50,7 +51,7 @@ namespace WebAppIdentityServer.Business.Implementation
             return data.Select(a => a.ToModel()).ToList();
         }
 
-        public async Task<PageOtherVM> GetById(long id)
+        public async Task<PageOtherVM> GetById(int id)
         {
             var data = await _pageOtherRep.GetByIdAsync(id);
             if (data == null)
@@ -83,6 +84,7 @@ namespace WebAppIdentityServer.Business.Implementation
             }
 
             var entitySetvalue = await _pageOtherRep.UpdateAsync(model.ToEntity(), model.Id);
+            await _unitOfWork.CommitAsync();
             return entitySetvalue.ToModel();
         }
 
