@@ -71,7 +71,7 @@ namespace WebAppIdentityServer.Api.Controllers
             return ToOkResult(data);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         [ClaimRequirement(FunctionCode.ST_PAGE_OTHER, CommandCode.DELETE)]
         public async Task<IActionResult> Delete(int id)
         {
