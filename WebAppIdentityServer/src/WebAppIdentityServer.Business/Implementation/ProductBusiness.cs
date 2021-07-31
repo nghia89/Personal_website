@@ -1,5 +1,6 @@
 ﻿
 
+using MassTransit;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,6 +22,8 @@ using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Enum;
 using WebAppIdentityServer.ViewModel.Models.Product;
+using WorkerService.Message.Interfases;
+using WorkerServices.Message;
 
 namespace WebAppIdentityServer.Business.Implementation
 {
@@ -34,10 +37,11 @@ namespace WebAppIdentityServer.Business.Implementation
         private readonly ITagRepository _tagRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IPublishEndpoint _endpoint;
         public ProductBusiness(IProductRepository productRepository, IProductQuantityRepository productQuantityRep,
             ITagRepository tagRepository, IUnitOfWork unitOfWork, IUserResolverService userResolver,
             IProductCategoryRepository productCategoryRep, IProductImageBusiness productImageBus,
-            IWebHostEnvironment webHostEnvironment,
+            IWebHostEnvironment webHostEnvironment, IPublishEndpoint endpoint,
              ITableRecordRepository tableRecordRep) : base(userResolver)
         {
             this._productRepository = productRepository;
@@ -49,6 +53,7 @@ namespace WebAppIdentityServer.Business.Implementation
             this._productCategoryRep = productCategoryRep;
             this._productImageBus = productImageBus;
             this._webHostEnvironment = webHostEnvironment;
+            this._endpoint = endpoint;
         }
 
         public async Task<long> Add(ProductVM model)
@@ -232,6 +237,24 @@ namespace WebAppIdentityServer.Business.Implementation
             var entitySetvalue = await _productRepository.UpdateAsync(product.ToEntity(), product.Id);
             await _unitOfWork.CommitAsync();
             return entitySetvalue.ToModel();
+        }
+
+      async  Task IProductBusiness.AddTest(ProductVM model)
+        {
+            try
+            {
+                await _endpoint.Publish<IProductMessage>(new ProductMessage()
+                {
+                    MessageId = new Guid(),
+                    Product = model,
+                    CreationDate = DateTime.Now
+
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

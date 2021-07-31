@@ -31,6 +31,7 @@ namespace WebAppIdentityServer.Api.Controllers
             return ToOkResult(data);
 
         }
+
         [HttpDelete]
         [Route("delete/{id}")]
         [ClaimRequirement(FunctionCode.PRODUCTS_PRODUCT, CommandCode.DELETE)]
@@ -109,6 +110,14 @@ namespace WebAppIdentityServer.Api.Controllers
         {
             long data = await _productBusiness.Add(model);
             return ToOkResult(data);
+        }
+
+        [HttpPost]
+        [Route("add_test")]
+        public async Task<IActionResult> PostTest([FromBody] ProductVM model)
+        {
+           await _productBusiness.AddTest(model);
+            return ToOkResult();
         }
 
         [HttpPut]

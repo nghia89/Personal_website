@@ -1,0 +1,24 @@
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using WebAppIdentityServer.Data.EF;
+using WebAppIdentityServer.Data.EF.Entities;
+using WebAppIdentityServer.Data.EF.Interfaces;
+using WebAppIdentityServer.Repository.Interfaces;
+
+namespace WebAppIdentityServer.Repository.Implementation
+{
+    class ActivityLogRepository : EFRepository<ActivityLog>, IActivityLogRepository
+    {
+        private IUnitOfWork _unitOfWork;
+        private readonly ApplicationDbContext _context;
+        public  ActivityLogRepository(ApplicationDbContext context, IUnitOfWork unitOfWork, IHttpContextAccessor accessor) : base(context, accessor)
+        {
+            this._context = context;
+            this._unitOfWork = unitOfWork;
+        }
+    }
+}

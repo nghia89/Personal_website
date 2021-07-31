@@ -7,10 +7,12 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MassTransit" Version="6.2.1" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.11.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\WorkerService.Message\WorkerService.Message.csproj" />
     <ProjectReference Include="..\WebAppIdentityServer.Repository\WebAppIdentityServer.Repository.csproj" />
     <ProjectReference Include="..\WebAppIdentityServer.ViewModel\WebAppIdentityServer.ViewModel.csproj" />
   </ItemGroup>

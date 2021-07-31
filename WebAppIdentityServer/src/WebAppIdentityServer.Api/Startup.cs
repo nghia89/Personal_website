@@ -39,6 +39,7 @@ namespace WebAppIdentityServer.Api
             services.Configure<AppSettingConfig>(Configuration.GetSection("AppSettingConfig"));
 
             services.AddTransient<DbInitializer>();
+            services.RegisterQueueServices(Configuration);
 
             var builder = services.AddIdentityServer(options =>
             {

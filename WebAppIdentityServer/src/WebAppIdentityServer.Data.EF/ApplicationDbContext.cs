@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace WebAppIdentityServer.Data.EF
         private readonly IHttpContextAccessor _accessor;
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
-            //_accessor = this.GetService<IHttpContextAccessor>();
+            _accessor = this.GetService<IHttpContextAccessor>();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
