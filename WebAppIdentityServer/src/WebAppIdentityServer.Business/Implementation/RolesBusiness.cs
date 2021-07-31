@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Infrastructure;
+using WebAppIdentityServer.Infrastructure.Constants;
 using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.System;
@@ -19,12 +21,15 @@ namespace WebAppIdentityServer.Business.Implementation
         private readonly RoleManager<AppRole> _roleManager;
         private readonly ApplicationDbContext _context;
         private readonly IRoleRepository _roleRepository;
+        private readonly IActivityLogBusiness _activityLogBus;
         public RolesBusiness(RoleManager<AppRole> roleManager, ApplicationDbContext context, IRoleRepository roleRepository,
+            IActivityLogBusiness activityLogBus,
               IUserResolverService userResolver) : base(userResolver)
         {
             this._roleManager = roleManager;
             this._roleRepository = roleRepository;
             this._context = context;
+            _activityLogBus = activityLogBus;
         }
 
         public async Task<IdentityResult> Add(RoleVm model)
@@ -36,6 +41,14 @@ namespace WebAppIdentityServer.Business.Implementation
                 Description = model.Description
             };
             var result = await _roleManager.CreateAsync(role);
+
+
+            await _activityLogBus.HandleAdd(new ActivityLog
+            {
+                Action = CommandAction.ADD,
+                Content = JsonConvert.SerializeObject(model),
+                EntityName = "ROLE"
+            });
 
             return result;
         }
@@ -50,8 +63,17 @@ namespace WebAppIdentityServer.Business.Implementation
 
             var result = await _roleManager.DeleteAsync(role);
 
+
             if (result.Succeeded)
             {
+
+                await _activityLogBus.HandleAdd(new ActivityLog
+                {
+                    Action = CommandAction.DELETE,
+                    Content = JsonConvert.SerializeObject(role),
+                    EntityName = "ROLE"
+                });
+
                 return true;
             }
             return false;
@@ -137,6 +159,14 @@ namespace WebAppIdentityServer.Business.Implementation
             role.Description = model.Description;
 
             var result = await _roleManager.UpdateAsync(role);
+
+            await _activityLogBus.HandleAdd(new ActivityLog
+            {
+                Action = CommandAction.UPDATE,
+                Content = JsonConvert.SerializeObject(role),
+                EntityName = "ROLE"
+            });
+
             return result;
         }
     }

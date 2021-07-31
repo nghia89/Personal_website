@@ -37,7 +37,6 @@ namespace WebAppIdentityServer.Api
                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.Configure<AppSettingConfig>(Configuration.GetSection("AppSettingConfig"));
-
             services.AddTransient<DbInitializer>();
             services.RegisterQueueServices(Configuration);
 

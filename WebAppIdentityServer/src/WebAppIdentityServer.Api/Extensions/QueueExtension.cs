@@ -14,15 +14,15 @@ namespace WebAppIdentityServer.Api.Extensions
     {
         public static IServiceCollection RegisterQueueServices(this IServiceCollection services, IConfiguration section)
         {
-            var appSettingsSection = section.GetSection("AppSettings");
-            var appSettings = appSettingsSection.Get<Appsettings>();
+            var appSettingsSection = section.GetSection("QueueSettings");
+            var queueSettings = appSettingsSection.Get<QueueSettings>();
 
             services.AddSingleton(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
             {
-                var host = cfg.Host(appSettings.QueueSettings.HostName, appSettings.QueueSettings.VirtualHost,
+                var host = cfg.Host(queueSettings.HostName, queueSettings.VirtualHost,
                     h => {
-                        h.Username(appSettings.QueueSettings.UserName);
-                        h.Password(appSettings.QueueSettings.Password);
+                        h.Username(queueSettings.UserName);
+                        h.Password(queueSettings.Password);
                     });
 
                 cfg.ExchangeType = ExchangeType.Direct;

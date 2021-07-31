@@ -9,7 +9,6 @@ namespace WebAppIdentityServer.Business.Interfaces
     public interface IProductBusiness
     {
         Task<long> Add(ProductVM model);
-        Task AddTest(ProductVM model);
         Task<ProductVM> Update(ProductVM product);
         Task<ProductVM> GetById(long id);
         Task<bool> Delete(long id);

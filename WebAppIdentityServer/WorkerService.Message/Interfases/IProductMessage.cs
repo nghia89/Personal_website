@@ -11,6 +11,6 @@ namespace WorkerService.Message.Interfases
     {
         Guid MessageId { get; set; }
         ProductVM Product { get; set; }
-        DateTime CreationDate { get; set; }
+        DateTime CreateDate { get; set; }
     }
 }

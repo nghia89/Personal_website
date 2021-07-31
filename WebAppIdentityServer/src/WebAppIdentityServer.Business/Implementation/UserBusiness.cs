@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Infrastructure;
+using WebAppIdentityServer.Infrastructure.Constants;
 using WebAppIdentityServer.Infrastructure.Helpers;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.System;
@@ -21,14 +23,15 @@ namespace WebAppIdentityServer.Business.Implementation
         private readonly RoleManager<AppRole> _roleManager;
         private readonly ApplicationDbContext _context;
         private readonly IFunctionBusiness _functionBus;
-
-        public UserBusiness(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager,
+        private readonly IActivityLogBusiness _activityLogBus;
+        public UserBusiness(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, IActivityLogBusiness activityLogBus,
          IFunctionBusiness functionBus, ApplicationDbContext context, IUserResolverService userResolver) : base(userResolver)
         {
             this._userManager = userManager;
             this._roleManager = roleManager;
             this._context = context;
             this._functionBus = functionBus;
+            _activityLogBus = activityLogBus;
         }
 
         public async Task<IdentityResult> Add(UserVm model)
@@ -45,6 +48,12 @@ namespace WebAppIdentityServer.Business.Implementation
                 FullName = model.FirstName + " " + model.LastName + " " + model.Name
             };
             var result = await _userManager.CreateAsync(user, string.IsNullOrEmpty(model.Password) ? "Admin@123" : model.Password);
+            await _activityLogBus.HandleAdd(new ActivityLog
+            {
+                Action = CommandAction.ADD,
+                Content = JsonConvert.SerializeObject(model),
+                EntityName = "USER"
+            });
             return result;
         }
 
@@ -71,6 +80,12 @@ namespace WebAppIdentityServer.Business.Implementation
 
             if (result.Succeeded)
             {
+                await _activityLogBus.HandleAdd(new ActivityLog
+                {
+                    Action = CommandAction.DELETE,
+                    Content = JsonConvert.SerializeObject(user),
+                    EntityName = "USER"
+                });
                 return true;
             }
             return false;
@@ -196,6 +211,12 @@ namespace WebAppIdentityServer.Business.Implementation
 
             if (result.Succeeded)
             {
+                await _activityLogBus.HandleAdd(new ActivityLog
+                {
+                    Action = CommandAction.UPDATE,
+                    Content = JsonConvert.SerializeObject(user),
+                    EntityName = "USER"
+                });
                 return result;
             }
             return result;

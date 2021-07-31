@@ -11,7 +11,7 @@ using WebAppIdentityServer.Repository.Interfaces;
 
 namespace WebAppIdentityServer.Repository.Implementation
 {
-    class ActivityLogRepository : EFRepository<ActivityLog>, IActivityLogRepository
+    public class ActivityLogRepository : EFRepository<ActivityLog>, IActivityLogRepository
     {
         private IUnitOfWork _unitOfWork;
         private readonly ApplicationDbContext _context;

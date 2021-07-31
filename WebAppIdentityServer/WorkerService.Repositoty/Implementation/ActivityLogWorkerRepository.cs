@@ -4,13 +4,13 @@ using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WorkerService.Repositoty.Interfaces;
 
-namespace WorkerService.Repositoty.Implementation
+namespace WorkerService.Repositoty.Interfaces
 {
-    public class ProductWorkerRepository : EFRepository<Product>, IProductWorkerRepository
+    public class ActivitylogWorkerRepositoty : EFRepository<ActivityLog>, IActivitylogWorkerRepositoty
     {
         private IUnitOfWork _unitOfWork;
         private readonly ApplicationDbContext _context;
-        public ProductWorkerRepository(ApplicationDbContext context, IUnitOfWork unitOfWork, IHttpContextAccessor accessor) : base(context, accessor)
+        public ActivitylogWorkerRepositoty(ApplicationDbContext context, IUnitOfWork unitOfWork, IHttpContextAccessor accessor) : base(context, accessor)
         {
             this._context = context;
             this._unitOfWork = unitOfWork;

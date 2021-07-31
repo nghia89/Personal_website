@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebAppIdentityServer.Repository.Implementation;
-using WebAppIdentityServer.Repository.Interfaces;
+using WorkerService.Repositoty.Implementation;
+using WorkerService.Repositoty.Interfaces;
 
 namespace WorkerService.Extentions
 {
@@ -14,6 +14,7 @@ namespace WorkerService.Extentions
         public static IServiceCollection RegisterRepositoryServices(this IServiceCollection services)
         {
             services.AddTransient<IProductWorkerRepository, ProductWorkerRepository>();
+            services.AddTransient<IActivitylogWorkerRepositoty, ActivitylogWorkerRepositoty>();
 
             return services;
         }

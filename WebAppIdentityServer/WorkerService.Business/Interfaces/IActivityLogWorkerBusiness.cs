@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.ViewModel.Models.Product;
 
-namespace WebAppIdentityServer.Business.Interfaces
+namespace WorkerService.Business.Interfaces
 {
-    public interface IActivityLogBusiness
+    public interface IActivityLogWorkerBusiness
     {
-        Task HandleAdd(ActivityLog model);
+        Task Add(ActivityLog model);
 
     }
 }

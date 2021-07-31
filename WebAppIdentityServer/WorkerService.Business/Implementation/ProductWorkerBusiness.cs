@@ -7,9 +7,9 @@ using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Data.EF.Entities;
-using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.ViewModel.Models.Product;
 using WorkerService.Business.Interfaces;
+using WorkerService.Repositoty.Interfaces;
 
 namespace WorkerService.Business.Implementation
 {

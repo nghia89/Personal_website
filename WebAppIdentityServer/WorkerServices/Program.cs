@@ -34,8 +34,9 @@ namespace WorkerServices
                  })
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-
-                    config.AddConfiguration(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build());
+                    var isDevelopment = hostingContext.HostingEnvironment.IsDevelopment();
+                    var nameSetting = isDevelopment ? "appsettings.Development.json" : "appsettings.json";
+                    config.AddConfiguration(new ConfigurationBuilder().AddJsonFile(nameSetting).Build());
                 })
                  .ConfigureServices((hostContext, services) =>
                  {

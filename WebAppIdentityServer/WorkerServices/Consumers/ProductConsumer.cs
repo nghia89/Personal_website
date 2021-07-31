@@ -6,42 +6,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorkerService.Business.Interfaces;
+using WorkerService.Message;
 using WorkerService.Message.Interfases;
 
 namespace WorkerService.Consumers
 {
-    public class ProductConsumer : IConsumer<IProductMessage>
+    public class ProductConsumer : IConsumer<ProductMessage>,IConsumer<ActivityLogMessage>
     {
-        private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger<IProductMessage> _logger;
         private readonly IProductWorkerBusiness _productWorkerBusiness;
-        public ProductConsumer(IServiceProvider serviceProvider, ILogger<IProductMessage> logger,
-            IProductWorkerBusiness productWorkerBusiness)
+        private readonly IActivityLogWorkerBusiness _activityLogWorkerBus;
+        public ProductConsumer(IProductWorkerBusiness productWorkerBusiness, IActivityLogWorkerBusiness activityLogWorkerBus)
         {
-            _serviceProvider = serviceProvider;
-            _logger = logger;
             _productWorkerBusiness = productWorkerBusiness;
+            _activityLogWorkerBus = activityLogWorkerBus;
         }
 
-        public async Task Consume(ConsumeContext<IProductMessage> context)
+        public async Task Consume(ConsumeContext<ProductMessage> context)
         {
-            try
-            {
+            await _productWorkerBusiness.AddTest(context.Message.Product);
+        }
 
-                await _productWorkerBusiness.AddTest(context.Message.Product);
-
-                //await productService.Publish(product);
-
-                //await context.RespondAsync<ProductAccepted>(new
-                //{
-                //    Value = $"Received: {context.Message.MessageId}"
-                //});
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("ProductChangedConsumerError", ex);
-            }
-
+        public async Task Consume(ConsumeContext<ActivityLogMessage> context)
+        {
+          await  _activityLogWorkerBus.Add(context.Message.ActivityLog);
         }
     }
 

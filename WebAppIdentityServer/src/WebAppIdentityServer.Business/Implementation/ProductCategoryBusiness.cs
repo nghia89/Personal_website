@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -8,6 +9,7 @@ using WebAppIdentityServer.Business.Mappers;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Infrastructure;
+using WebAppIdentityServer.Infrastructure.Constants;
 using WebAppIdentityServer.Infrastructure.Helpers;
 using WebAppIdentityServer.Repository.Interfaces;
 using WebAppIdentityServer.ViewModel.Common;
@@ -23,12 +25,15 @@ namespace WebAppIdentityServer.Business.Implementation
         private readonly IProductCategoryRepository _productCategoryRep;
         private readonly IProductRepository _productRep;
         private readonly IUnitOfWork _unitOfWork;
-        public ProductCategoryBusiness(IProductCategoryRepository productCategoryRep, IUnitOfWork unitOfWork, IProductRepository productRep,
+        private readonly IActivityLogBusiness _activityLogBus;
+        public ProductCategoryBusiness(IProductCategoryRepository productCategoryRep, IUnitOfWork unitOfWork,
+            IProductRepository productRep, IActivityLogBusiness activityLogBus,
               IUserResolverService userResolver) : base(userResolver)
         {
             this._productCategoryRep = productCategoryRep;
             this._unitOfWork = unitOfWork;
             this._productRep = productRep;
+            _activityLogBus = activityLogBus;
         }
 
         public async Task<ProductCategoryVM> Add(ProductCategoryVM productCategoryVm)
@@ -44,6 +49,14 @@ namespace WebAppIdentityServer.Business.Implementation
             productCategory.SeoAlias = productCategory.Name.ToUnSignString();
             await _productCategoryRep.AddAsync(productCategory);
             await _unitOfWork.CommitAsync();
+
+            await _activityLogBus.HandleAdd(new ActivityLog
+            {
+                Action = CommandAction.ADD,
+                Content = JsonConvert.SerializeObject(productCategory),
+                EntityName = "PRODUCT_CATEGORY"
+            });
+
             return productCategoryVm;
         }
 
@@ -55,6 +68,13 @@ namespace WebAppIdentityServer.Business.Implementation
             else if (getChild != null) { AddError("Tồn tại danh mục con"); return; }
             var enity = await _productCategoryRep.GetByIdAsync(id);
             await _productCategoryRep.RemoveAsync(enity);
+
+            await _activityLogBus.HandleAdd(new ActivityLog
+            {
+                Action = CommandAction.DELETE,
+                Content = JsonConvert.SerializeObject(enity),
+                EntityName = "PRODUCT_CATEGORY"
+            });
         }
 
         public async Task<List<ProductCategoryVM>> GetAll(string keyword)
@@ -103,6 +123,14 @@ namespace WebAppIdentityServer.Business.Implementation
             if (productCategory.ParentId == null) productCategory.ParentId = 0;
             await _productCategoryRep.UpdateAsync(productCategory, productCategory.Id);
             await _unitOfWork.CommitAsync();
+
+            await _activityLogBus.HandleAdd(new ActivityLog
+            {
+                Action = CommandAction.UPDATE,
+                Content = JsonConvert.SerializeObject(productCategoryVm),
+                EntityName = "PRODUCT_CATEGORY"
+            });
+
         }
 
         public async Task<IEnumerable<TreeItem<ProductCategory>>> TreeView()

@@ -23,6 +23,7 @@ namespace WorkerService.Extentions
             services.AddTransient(typeof(IRepository<>), typeof(EFRepository<>));
 
             services.AddTransient<IProductWorkerBusiness, ProductWorkerBusiness>();
+            services.AddTransient<IActivityLogWorkerBusiness, ActivityLogWorkerBusiness>();
 
 
             return services;
