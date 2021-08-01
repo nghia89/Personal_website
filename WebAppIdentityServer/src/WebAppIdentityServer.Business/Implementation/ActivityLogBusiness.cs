@@ -23,6 +23,7 @@ namespace WebAppIdentityServer.Business.Implementation
             _serviceProvider = serviceProvider;
             _endpoint = endpoint;
         }
+
         public async Task HandleAdd(ActivityLog model)
         {
             await _endpoint.Publish<ActivityLogMessage>(new ActivityLogMessage

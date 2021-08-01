@@ -8,6 +8,5 @@ namespace WebAppIdentityServer.Business.Interfaces
     public interface IActivityLogBusiness
     {
         Task HandleAdd(ActivityLog model);
-
     }
 }

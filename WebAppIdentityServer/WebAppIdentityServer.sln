@@ -35,9 +35,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{A2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{A275B118-AB60-48AE-A526-741EB8DF4F34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService.Business", "WorkerService.Business\WorkerService.Business.csproj", "{85C7B9AD-F9B4-497C-AD0F-C43FCF723555}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkerService.Business", "WorkerService.Business\WorkerService.Business.csproj", "{85C7B9AD-F9B4-497C-AD0F-C43FCF723555}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService.Repositoty", "WorkerService.Repositoty\WorkerService.Repositoty.csproj", "{44A495D1-D2ED-48BA-8A37-54B4F0236251}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkerService.Repositoty", "WorkerService.Repositoty\WorkerService.Repositoty.csproj", "{44A495D1-D2ED-48BA-8A37-54B4F0236251}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

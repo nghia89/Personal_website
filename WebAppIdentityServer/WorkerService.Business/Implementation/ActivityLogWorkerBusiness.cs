@@ -17,6 +17,8 @@ namespace WorkerService.Business.Implementation
         {
             _activityLogRep = activityLogRep;
         }
+
+
         public async Task Add(ActivityLog model)
         {
             _activityLogRep.Add(new ActivityLog
@@ -28,6 +30,16 @@ namespace WorkerService.Business.Implementation
                 DateCreated = DateTime.UtcNow
             });
             await _activityLogRep.SaveAsync();
+        }
+
+        public async Task DeleteLogsChedule30()
+        {
+            var dnow = DateTime.UtcNow.AddMonths(-1);
+            var data = await _activityLogRep.FindAllAsync(x => x.DateCreated < dnow, null);
+            if (data.Any())
+            {
+                await _activityLogRep.RemoveMultipleAsync(data.ToList());
+            }
         }
     }
 }

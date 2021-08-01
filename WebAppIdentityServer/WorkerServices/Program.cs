@@ -52,6 +52,7 @@ namespace WorkerServices
                      services.RegisterRepositoryServices();
                      services.RegisterLogging(hostContext);
                      services.RegisterQueueServices(hostContext);
+                     services.RegisterHandleFireService(hostContext);
                      services.AddHostedService<Worker>();
                  });
     }

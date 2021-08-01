@@ -6,6 +6,9 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.24" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.24" />
+    <PackageReference Include="Hangfire.Mongo" Version="0.7.22" />
     <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="6.2.1" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="6.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />

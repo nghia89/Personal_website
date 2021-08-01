@@ -7,7 +7,10 @@ namespace WorkerService.Business.Interfaces
 {
     public interface IActivityLogWorkerBusiness
     {
+
         Task Add(ActivityLog model);
+
+        Task DeleteLogsChedule30();
 
     }
 }
