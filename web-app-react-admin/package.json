@@ -25,6 +25,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/redux": "^3.6.0",
     "@types/redux-thunk": "^2.1.0",
+    "@microsoft/signalr": "5.0.8",
     "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^5.0.0",
