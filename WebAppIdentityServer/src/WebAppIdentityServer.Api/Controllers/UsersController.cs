@@ -1,22 +1,29 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using System.Linq;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Api.Authorization;
 using WebAppIdentityServer.Api.Helpers;
+using WebAppIdentityServer.Api.Hubs;
+using WebAppIdentityServer.Api.Hubs.Bus;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Infrastructure.Constants;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.System;
+using WorkerService.Message;
 
 namespace WebAppIdentityServer.Api.Controllers
 {
     public class UsersController : BaseController
     {
         private readonly IUserBusiness _userBu;
-
-        public UsersController(IUserBusiness IUserBusiness)
+        private readonly IBus _bus;
+        public UsersController(IUserBusiness IUserBusiness, IBus hub)
         {
             _userBu = IUserBusiness;
+            _bus = hub;
         }
 
         [HttpPost]
@@ -40,7 +47,6 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> Paging([FromQuery] PagingParamModel pagingParam)
         {
             var data = await _userBu.Paging(pagingParam);
-
             return ToOkResult(data);
         }
 
@@ -84,6 +90,10 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> GetMenuByUserPermission()
         {
             var data = await _userBu.GetMenuByUserPermission();
+            string ui = HttpContext?.User?.Claims?.FirstOrDefault(m => m.Type == "sub")?.Value;
+          await  _bus.Publish(new NotifyMessage { UserId = ui, Message = "ssss" });
+            //await  _hub.Clients.User(ui).SendAsync("ReceiveNotify", new NotifyMessage { User = ui, Message = "ssss" });
+            //await  _hub.Clients.All.SendAsync("ReceiveNotify", new ChatMessage { User = ui, Message = "ssss" });
             return ToOkResult(data);
         }
 

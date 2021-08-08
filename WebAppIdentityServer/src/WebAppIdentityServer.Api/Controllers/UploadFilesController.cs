@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Infrastructure.CommonContains;
+using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.Common;
 using WebAppIdentityServer.ViewModel.Models.Product;
 

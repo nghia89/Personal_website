@@ -1,11 +1,14 @@
 ﻿
+using MassTransit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Data.EF.Entities;
+using WebAppIdentityServer.ViewModel.Common;
 using WorkerService.Business.Interfaces;
+using WorkerService.Message;
 using WorkerService.Repositoty.Interfaces;
 
 namespace WorkerService.Business.Implementation
@@ -13,9 +16,11 @@ namespace WorkerService.Business.Implementation
     public class ActivityLogWorkerBusiness : IActivityLogWorkerBusiness
     {
         private readonly IActivitylogWorkerRepositoty _activityLogRep;
-        public ActivityLogWorkerBusiness(IActivitylogWorkerRepositoty activityLogRep)
+        private readonly IBusControl _bus;
+        public ActivityLogWorkerBusiness(IActivitylogWorkerRepositoty activityLogRep, IBusControl bus)
         {
             _activityLogRep = activityLogRep;
+            _bus = bus;
         }
 
 
@@ -29,6 +34,7 @@ namespace WorkerService.Business.Implementation
                 EntityName = model.EntityName,
                 DateCreated = DateTime.UtcNow
             });
+            //await _bus.Publish(new NotifyMessage() { UserId = "08d92e36-e713-4419-87d2-018ec67d585b", Message = "aaaaaa"});
             await _activityLogRep.SaveAsync();
         }
 

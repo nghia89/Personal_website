@@ -2,24 +2,31 @@
 using Hangfire.Mongo;
 using Hangfire.Mongo.Migration.Strategies;
 using Hangfire.Mongo.Migration.Strategies.Backup;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using WebAppIdentityServer.Api.Extensions;
+using WebAppIdentityServer.Api.Hubs;
+using WebAppIdentityServer.Api.Hubs.Bus;
 using WebAppIdentityServer.Api.IdentityServer;
 using WebAppIdentityServer.Api.Services;
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Entities;
+using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.Common;
+using static WebAppIdentityServer.Api.Hubs.NotifyHub;
 
 namespace WebAppIdentityServer.Api
 {
@@ -65,9 +72,10 @@ namespace WebAppIdentityServer.Api
                 options.AddPolicy(AllowSpecificOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
+                    builder.AllowAnyHeader()
+                       .AllowAnyMethod()
+                       .WithOrigins("http://localhost:4200")
+                       .AllowCredentials();
                 });
             });
 
@@ -134,8 +142,7 @@ namespace WebAppIdentityServer.Api
             services.AddDIService();
             services.AddSwaggerService();
             services.AddHangfireDashboardService(Configuration);
-
-
+            services.AddSignalrService(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -155,6 +162,7 @@ namespace WebAppIdentityServer.Api
             app.UseAuthorization();
 
             #region  config run razorPages
+            app.AddSignalrConfigure();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
@@ -165,7 +173,7 @@ namespace WebAppIdentityServer.Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.OAuthClientId("swagger");// src ConfigIdentity.cs
+                c.OAuthClientId("swagger");
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Knowledge Space API V1");
             });
         }

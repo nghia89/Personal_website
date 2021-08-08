@@ -1,4 +1,4 @@
-namespace WebAppIdentityServer.ViewModel.Models.Common
+namespace WebAppIdentityServer.ViewModel.Common
 {
     public class AppSettingConfig
     {

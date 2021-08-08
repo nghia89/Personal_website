@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MassTransit" Version="6.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\src\WebAppIdentityServer.ViewModel\WebAppIdentityServer.ViewModel.csproj" />
+    <ProjectReference Include="..\WorkerService.Message\WorkerService.Message.csproj" />
     <ProjectReference Include="..\WorkerService.Repositoty\WorkerService.Repositoty.csproj" />
   </ItemGroup>
 
