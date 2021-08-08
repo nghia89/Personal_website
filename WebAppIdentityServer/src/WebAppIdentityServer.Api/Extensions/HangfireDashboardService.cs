@@ -5,10 +5,6 @@ using Hangfire.Mongo.Migration.Strategies.Backup;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAppIdentityServer.Api.Extensions
 {

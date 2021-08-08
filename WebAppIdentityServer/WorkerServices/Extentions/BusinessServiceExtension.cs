@@ -1,14 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebAppIdentityServer.Business.Implementation.Mongo;
 using WebAppIdentityServer.Business.Interfaces.Mongo;
 using WebAppIdentityServer.Data.EF;
-using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Data.EF.MongoRepository;
 using WorkerService.Business.Implementation;

@@ -1,8 +1,6 @@
 ﻿
 
 using MongoDB.Bson;
-using System;
-using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Data.EF.Interfaces.MongoDB;
 
 namespace WebAppIdentityServer.Data.EF.Entities.MongoDB

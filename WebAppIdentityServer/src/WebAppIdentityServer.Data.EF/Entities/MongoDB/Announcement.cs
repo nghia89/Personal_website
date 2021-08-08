@@ -1,7 +1,6 @@
 ﻿
 using MongoDB.Bson;
 using System;
-using System.Collections.Generic;
 using WebAppIdentityServer.Data.EF.Interfaces;
 using WebAppIdentityServer.Data.EF.Interfaces.MongoDB;
 using WebAppIdentityServer.Data.EF.MongoRepository;
@@ -10,7 +9,7 @@ using WebAppIdentityServer.ViewModel.Enum;
 namespace WebAppIdentityServer.Data.EF.Entities.MongoDB
 {
     [BsonCollection("Announcement")]
-    public class Announcement :IDocument, IDateTracking, IEntityTracking
+    public class Announcement : IDocument, IDateTracking, IEntityTracking
     {
         public ObjectId Id { get; set; }
         public string Title { set; get; }

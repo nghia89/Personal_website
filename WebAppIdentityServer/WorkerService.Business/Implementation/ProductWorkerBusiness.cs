@@ -1,10 +1,5 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.ViewModel.Models.Product;
@@ -13,7 +8,7 @@ using WorkerService.Repositoty.Interfaces;
 
 namespace WorkerService.Business.Implementation
 {
-    public class ProductWorkerBusiness :IProductWorkerBusiness
+    public class ProductWorkerBusiness : IProductWorkerBusiness
     {
         private readonly IProductWorkerRepository _productRepository;
 
@@ -23,7 +18,7 @@ namespace WorkerService.Business.Implementation
 
         }
 
-      async  Task IProductWorkerBusiness.AddTest(ProductVM model)
+        async Task IProductWorkerBusiness.AddTest(ProductVM model)
         {
             try
             {

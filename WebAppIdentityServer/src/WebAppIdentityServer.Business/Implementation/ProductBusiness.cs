@@ -1,7 +1,4 @@
-﻿
-
-using MassTransit;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;

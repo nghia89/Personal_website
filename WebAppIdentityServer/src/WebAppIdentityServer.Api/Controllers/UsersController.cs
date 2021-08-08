@@ -1,18 +1,12 @@
-﻿using MassTransit;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
-using System.Linq;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Api.Authorization;
 using WebAppIdentityServer.Api.Helpers;
-using WebAppIdentityServer.Api.Hubs;
-using WebAppIdentityServer.Api.Hubs.Bus;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Infrastructure.Constants;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.System;
-using WorkerService.Message;
 
 namespace WebAppIdentityServer.Api.Controllers
 {

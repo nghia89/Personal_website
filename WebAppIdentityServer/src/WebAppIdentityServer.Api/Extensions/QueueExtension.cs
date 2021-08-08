@@ -2,10 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebAppIdentityServer.Utilities;
 
 namespace WebAppIdentityServer.Api.Extensions
@@ -20,7 +16,8 @@ namespace WebAppIdentityServer.Api.Extensions
             services.AddSingleton(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
             {
                 var host = cfg.Host(queueSettings.HostName, queueSettings.VirtualHost,
-                    h => {
+                    h =>
+                    {
                         h.Username(queueSettings.UserName);
                         h.Password(queueSettings.Password);
                     });

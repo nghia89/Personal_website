@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Api.Authorization;
-using WebAppIdentityServer.Api.Helpers;
 using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Infrastructure.Constants;
 using WebAppIdentityServer.ViewModel.Common;

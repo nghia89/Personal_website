@@ -1,17 +1,11 @@
 ﻿using MassTransit;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WorkerService.Business.Interfaces;
 using WorkerService.Message;
-using WorkerService.Message.Interfases;
 
 namespace WorkerService.Consumers
 {
-    public class ProductConsumer : IConsumer<ProductMessage>,IConsumer<ActivityLogMessage>
+    public class ProductConsumer : IConsumer<ProductMessage>, IConsumer<ActivityLogMessage>
     {
         private readonly IProductWorkerBusiness _productWorkerBusiness;
         private readonly IActivityLogWorkerBusiness _activityLogWorkerBus;
@@ -28,7 +22,7 @@ namespace WorkerService.Consumers
 
         public async Task Consume(ConsumeContext<ActivityLogMessage> context)
         {
-          await  _activityLogWorkerBus.Add(context.Message.ActivityLog);
+            await _activityLogWorkerBus.Add(context.Message.ActivityLog);
         }
     }
 

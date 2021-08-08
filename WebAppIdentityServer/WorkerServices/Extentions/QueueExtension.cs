@@ -3,11 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebAppIdentityServer.Utilities;
 using WorkerService.Consumers;
 
@@ -27,7 +22,8 @@ namespace WorkerService.Extentions
 
             services.AddSingleton(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
             {
-                var host = cfg.Host(queueSettings.HostName, queueSettings.VirtualHost, h => {
+                var host = cfg.Host(queueSettings.HostName, queueSettings.VirtualHost, h =>
+                {
                     h.Username(queueSettings.UserName);
                     h.Password(queueSettings.Password);
                 });

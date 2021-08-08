@@ -1,34 +1,21 @@
 ﻿using Hangfire;
-using Hangfire.Mongo;
-using Hangfire.Mongo.Migration.Strategies;
-using Hangfire.Mongo.Migration.Strategies.Backup;
-using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
-using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
 using WebAppIdentityServer.Api.Extensions;
-using WebAppIdentityServer.Api.Hubs;
-using WebAppIdentityServer.Api.Hubs.Bus;
 using WebAppIdentityServer.Api.IdentityServer;
 using WebAppIdentityServer.Api.Services;
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.MongoRepository;
 using WebAppIdentityServer.ViewModel.Common;
-using WebAppIdentityServer.ViewModel.Models.Common;
-using static WebAppIdentityServer.Api.Hubs.NotifyHub;
 
 namespace WebAppIdentityServer.Api
 {

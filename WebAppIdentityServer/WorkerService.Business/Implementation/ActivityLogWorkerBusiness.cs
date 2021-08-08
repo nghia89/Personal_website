@@ -1,14 +1,10 @@
 ﻿
 using MassTransit;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Data.EF.Entities;
-using WebAppIdentityServer.ViewModel.Common;
 using WorkerService.Business.Interfaces;
-using WorkerService.Message;
 using WorkerService.Repositoty.Interfaces;
 
 namespace WorkerService.Business.Implementation

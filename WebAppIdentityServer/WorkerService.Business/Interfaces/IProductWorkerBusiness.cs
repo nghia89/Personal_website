@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using WebAppIdentityServer.ViewModel.Models.Product;
 
 namespace WorkerService.Business.Interfaces

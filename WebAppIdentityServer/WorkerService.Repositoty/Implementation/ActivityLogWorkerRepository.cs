@@ -2,7 +2,6 @@
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
-using WorkerService.Repositoty.Interfaces;
 
 namespace WorkerService.Repositoty.Interfaces
 {

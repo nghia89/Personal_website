@@ -1,13 +1,8 @@
-﻿using GreenPipes;
-using MassTransit;
+﻿using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebAppIdentityServer.Api.Hubs;
 using WebAppIdentityServer.Api.Hubs.Bus;
 using WebAppIdentityServer.ViewModel.Common;
@@ -20,7 +15,7 @@ namespace WebAppIdentityServer.Api.Extensions
         public static void AddSignalrService(this IServiceCollection services, IConfiguration Configuration)
         {
             var queueSettings = new QueueSettings();
-           Configuration.GetSection("QueueSettings").Bind(queueSettings);
+            Configuration.GetSection("QueueSettings").Bind(queueSettings);
 
             services.AddMassTransit(c =>
             {
@@ -29,7 +24,8 @@ namespace WebAppIdentityServer.Api.Extensions
 
             services.AddSingleton(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
             {
-                var host = cfg.Host(queueSettings.HostName, queueSettings.VirtualHost, h => {
+                var host = cfg.Host(queueSettings.HostName, queueSettings.VirtualHost, h =>
+                {
                     h.Username(queueSettings.UserName);
                     h.Password(queueSettings.Password);
                 });
