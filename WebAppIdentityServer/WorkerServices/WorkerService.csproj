@@ -26,8 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\src\WebAppIdentityServer.Business\WebAppIdentityServer.Business.csproj" />
     <ProjectReference Include="..\src\WebAppIdentityServer.Data.EF\WebAppIdentityServer.Data.EF.csproj" />
     <ProjectReference Include="..\src\WebAppIdentityServer.Infrastructure\WebAppIdentityServer.Utilities.csproj" />
+    <ProjectReference Include="..\src\WebAppIdentityServer.Repository\WebAppIdentityServer.Repository.csproj" />
     <ProjectReference Include="..\WorkerService.Business\WorkerService.Business.csproj" />
     <ProjectReference Include="..\WorkerService.Message\WorkerService.Message.csproj" />
   </ItemGroup>

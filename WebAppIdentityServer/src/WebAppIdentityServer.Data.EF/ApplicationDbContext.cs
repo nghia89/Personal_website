@@ -63,8 +63,8 @@ namespace WebAppIdentityServer.Data.EF
         public DbSet<Tag> Tags { set; get; }
         public DbSet<Permission> Permissions { set; get; }
         public DbSet<ProductQuantity> ProductQuantities { set; get; }
-        public DbSet<Announcement> Announcements { set; get; }
-        public DbSet<AnnouncementUser> AnnouncementUsers { set; get; }
+        //public DbSet<Announcement> Announcements { set; get; }
+        //public DbSet<AnnouncementUser> AnnouncementUsers { set; get; }
         public DbSet<TableRecords> TableRecords { set; get; }
         public DbSet<PageOther> PageOthers { set; get; }
         public DbSet<CatalogOther> CatalogOthers { set; get; }

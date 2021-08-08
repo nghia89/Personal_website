@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 using System;
@@ -24,6 +25,7 @@ using WebAppIdentityServer.Api.IdentityServer;
 using WebAppIdentityServer.Api.Services;
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Entities;
+using WebAppIdentityServer.Data.EF.MongoRepository;
 using WebAppIdentityServer.ViewModel.Common;
 using WebAppIdentityServer.ViewModel.Models.Common;
 using static WebAppIdentityServer.Api.Hubs.NotifyHub;
@@ -143,6 +145,12 @@ namespace WebAppIdentityServer.Api
             services.AddSwaggerService();
             services.AddHangfireDashboardService(Configuration);
             services.AddSignalrService(Configuration);
+
+            services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDbSettings"));
+
+            services.AddSingleton<IMongoDbSettings>(serviceProvider =>
+                serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
+            services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

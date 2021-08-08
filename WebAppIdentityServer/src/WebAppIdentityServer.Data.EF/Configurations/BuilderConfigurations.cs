@@ -123,18 +123,18 @@ namespace WebAppIdentityServer.Data.EF.Configurations
                 entity.HasKey(x => new { x.Id });
                 entity.HasIndex(x => new { x.Id });
             });
-            builder.Entity<Announcement>(entity =>
-            {
-                entity.ToTable("Announcements");
-                entity.HasKey(x => new { x.Id });
-                entity.HasIndex(x => new { x.Id });
-            });
-            builder.Entity<AnnouncementUser>(entity =>
-            {
-                entity.ToTable("AnnouncementUsers");
-                entity.HasKey(x => new { x.Id });
-                entity.HasIndex(x => new { x.AnnouncementId, x.UserId });
-            });
+            //builder.Entity<Announcement>(entity =>
+            //{
+            //    entity.ToTable("Announcements");
+            //    entity.HasKey(x => new { x.Id });
+            //    entity.HasIndex(x => new { x.Id });
+            //});
+            //builder.Entity<AnnouncementUser>(entity =>
+            //{
+            //    entity.ToTable("AnnouncementUsers");
+            //    entity.HasKey(x => new { x.Id });
+            //    entity.HasIndex(x => new { x.AnnouncementId, x.UserId });
+            //});
             builder.Entity<TableRecords>(entity =>
            {
                entity.ToTable("TableRecords");

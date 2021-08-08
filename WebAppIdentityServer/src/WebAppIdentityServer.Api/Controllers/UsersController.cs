@@ -19,11 +19,9 @@ namespace WebAppIdentityServer.Api.Controllers
     public class UsersController : BaseController
     {
         private readonly IUserBusiness _userBu;
-        private readonly IBus _bus;
-        public UsersController(IUserBusiness IUserBusiness, IBus hub)
+        public UsersController(IUserBusiness IUserBusiness)
         {
             _userBu = IUserBusiness;
-            _bus = hub;
         }
 
         [HttpPost]
@@ -90,10 +88,6 @@ namespace WebAppIdentityServer.Api.Controllers
         public async Task<IActionResult> GetMenuByUserPermission()
         {
             var data = await _userBu.GetMenuByUserPermission();
-            string ui = HttpContext?.User?.Claims?.FirstOrDefault(m => m.Type == "sub")?.Value;
-          await  _bus.Publish(new NotifyMessage { UserId = ui, Message = "ssss" });
-            //await  _hub.Clients.User(ui).SendAsync("ReceiveNotify", new NotifyMessage { User = ui, Message = "ssss" });
-            //await  _hub.Clients.All.SendAsync("ReceiveNotify", new ChatMessage { User = ui, Message = "ssss" });
             return ToOkResult(data);
         }
 

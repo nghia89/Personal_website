@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WebAppIdentityServer.ViewModel.Common
+{
+    public class IMongoDbSettings
+    {
+        public string DatabaseName { get; set; }
+        public string ConnectionString { get; set; }
+    }
+}

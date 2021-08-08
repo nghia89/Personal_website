@@ -4,13 +4,18 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.DependencyInjection;
 using WebAppIdentityServer.Api.Services;
 using WebAppIdentityServer.Business.Implementation;
+using WebAppIdentityServer.Business.Implementation.Mongo;
 using WebAppIdentityServer.Business.Interfaces;
+using WebAppIdentityServer.Business.Interfaces.Mongo;
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Dapper;
 using WebAppIdentityServer.Data.EF.Entities;
 using WebAppIdentityServer.Data.EF.Interfaces;
+using WebAppIdentityServer.Data.EF.MongoRepository;
 using WebAppIdentityServer.Repository.Implementation;
+using WebAppIdentityServer.Repository.Implementation.Mongo;
 using WebAppIdentityServer.Repository.Interfaces;
+using WebAppIdentityServer.Repository.Interfaces.Mongo;
 
 namespace WebAppIdentityServer.Api.Extensions
 {
@@ -21,7 +26,7 @@ namespace WebAppIdentityServer.Api.Extensions
 
             services.AddTransient<IUserResolverService, UserResolverService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
 
             //Register dapper in scope    
             services.AddScoped<IBaseDapper, BaseDapper>();
@@ -50,6 +55,7 @@ namespace WebAppIdentityServer.Api.Extensions
             services.AddTransient<IPageOtherBusiness, PageOtherBusiness>();
             services.AddTransient<ICatalogOtherBusiness, CatalogOtherBusiness>();
             services.AddTransient<IActivityLogBusiness, ActivityLogBusiness>();
+            services.AddTransient<IAnnouncementBusiness, AnnouncementBusiness>();
 
             #endregion
 
@@ -72,6 +78,8 @@ namespace WebAppIdentityServer.Api.Extensions
             services.AddTransient<IPageOtherRepository, PageOtherRepository>();
             services.AddTransient<ICatalogOtherRepository, CatalogOtherRepository>();
             services.AddTransient<IActivityLogRepository, ActivityLogRepository>();
+            services.AddTransient<IActivityLogRepository, ActivityLogRepository>();
+            services.AddTransient<IAnnouncementRepository, AnnouncementRepository>();
             #endregion
 
         }

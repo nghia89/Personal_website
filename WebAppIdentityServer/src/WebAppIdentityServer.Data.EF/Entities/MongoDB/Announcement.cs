@@ -1,28 +1,27 @@
 ﻿
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using WebAppIdentityServer.Data.EF.Interfaces;
+using WebAppIdentityServer.Data.EF.Interfaces.MongoDB;
+using WebAppIdentityServer.Data.EF.MongoRepository;
 using WebAppIdentityServer.ViewModel.Enum;
 
-namespace WebAppIdentityServer.Data.EF.Entities
+namespace WebAppIdentityServer.Data.EF.Entities.MongoDB
 {
-    public class Announcement : IDateTracking, IEntityTracking
+    [BsonCollection("Announcement")]
+    public class Announcement :IDocument, IDateTracking, IEntityTracking
     {
-        public long Id { get; set; }
+        public ObjectId Id { get; set; }
         public string Title { set; get; }
-
         public string Content { set; get; }
-
-        //public Guid UserId { set; get; }
-
-        //public virtual AppUser AppUser { get; set; }
-
-        public IEnumerable<AnnouncementUser> AnnouncementUsers { get; set; }
-
+        public string Link { set; get; }
+        public string UserId { set; get; }
         public Status Status { set; get; }
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
+
     }
 }
