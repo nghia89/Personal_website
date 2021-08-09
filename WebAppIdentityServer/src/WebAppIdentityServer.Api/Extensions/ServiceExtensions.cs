@@ -56,6 +56,7 @@ namespace WebAppIdentityServer.Api.Extensions
             services.AddTransient<ICatalogOtherBusiness, CatalogOtherBusiness>();
             services.AddTransient<IActivityLogBusiness, ActivityLogBusiness>();
             services.AddTransient<IAnnouncementBusiness, AnnouncementBusiness>();
+            services.AddTransient<IAnnouncementUserBusiness, AnnouncementUserBusiness>();
 
             #endregion
 

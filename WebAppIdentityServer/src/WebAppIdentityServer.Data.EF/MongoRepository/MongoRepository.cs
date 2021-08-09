@@ -64,6 +64,8 @@ namespace WebAppIdentityServer.Data.EF.MongoRepository
 
         public virtual Task AddOneAsync(TDocument document)
         {
+            if (document.Id == ObjectId.Empty)
+                document.Id = ObjectId.GenerateNewId();
             return Task.Run(() => _collection.InsertOneAsync(document));
         }
 

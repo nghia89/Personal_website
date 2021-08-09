@@ -1,4 +1,8 @@
-  
+  ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
@@ -272,7 +276,7 @@
 }
 
 .dropdown-head{
-    background-color: #4e73df;
+    background-color: #0f5efd;
     border: 1px solid #4e73df;
     padding-top: .75rem;
     padding-bottom: .75rem;

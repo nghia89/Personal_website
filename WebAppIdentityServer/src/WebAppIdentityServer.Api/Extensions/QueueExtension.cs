@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using WebAppIdentityServer.Utilities;
+using WebAppIdentityServer.ViewModel.Common;
 
 namespace WebAppIdentityServer.Api.Extensions
 {

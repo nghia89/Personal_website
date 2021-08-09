@@ -45,12 +45,7 @@ namespace WorkerServices
                      services.AddDbContextPool<ApplicationDbContext>(options => options.UseMySql(connectSt.DefaultConnection, ServerVersion.AutoDetect(connectSt.DefaultConnection)));
                      services.AddIdentity<AppUser, AppRole>()
                         .AddEntityFrameworkStores<ApplicationDbContext>();
-
-
-                     services.AddSingleton<IMongoDbSettings>(serviceProvider =>
-                         serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
-                     services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
-
+                
                      services.RegisterConfigurationServices(hostContext);
                      services.RegisterBusinessServices();
                      services.RegisterRepositoryServices();

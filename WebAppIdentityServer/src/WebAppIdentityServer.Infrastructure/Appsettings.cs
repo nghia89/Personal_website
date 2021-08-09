@@ -1,4 +1,6 @@
-﻿namespace WebAppIdentityServer.Utilities
+﻿using WebAppIdentityServer.ViewModel.Common;
+
+namespace WebAppIdentityServer.Utilities
 {
     public class Appsettings
     {

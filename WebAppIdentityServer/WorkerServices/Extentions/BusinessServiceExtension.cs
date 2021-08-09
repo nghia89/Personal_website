@@ -23,7 +23,7 @@ namespace WorkerService.Extentions
             services.AddTransient<IProductWorkerBusiness, ProductWorkerBusiness>();
             services.AddTransient<IActivityLogWorkerBusiness, ActivityLogWorkerBusiness>();
             services.AddTransient<IAnnouncementBusiness, AnnouncementBusiness>();
-
+            services.AddTransient<IAnnouncementUserBusiness, AnnouncementUserBusiness>();
             return services;
         }
     }

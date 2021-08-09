@@ -18,7 +18,7 @@ namespace WebAppIdentityServer.Api.Hubs.Bus
         public async Task Consume(ConsumeContext<NotifyMessage> context)
         {
             if (context != null && context?.Message.Type == (int)NotifyType.NOTIFY_CENTER)
-                await _hub.Clients.User(context?.Message.UserId).SendAsync("ReceiveNotify", context?.Message);
+                await _hub.Clients.User(context?.Message.ToUserId).SendAsync("ReceiveNotify", context?.Message);
         }
     }
 }

@@ -4,8 +4,8 @@ using WorkerService.Message;
 
 namespace WebAppIdentityServer.Business.Interfaces.Mongo
 {
-    public interface IAnnouncementBusiness
+    public interface IAnnouncementUserBusiness
     {
-        public Task Add(AnnouncementMessage announcement);
+        public Task Add(AnnouncementUser announcement);
     }
 }

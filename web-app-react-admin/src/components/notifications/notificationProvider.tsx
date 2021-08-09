@@ -6,32 +6,6 @@ import { env } from '@/environments/config'
 export const NotificationContext = createContext({});
 
 const NotificationProvider = (props) => {
-
-  const [connection, setConnection] = useState<HubConnection>();
-
-  useEffect(() => {
-    const newConnection = new HubConnectionBuilder()
-      .withUrl(`${env.baseApiUrl}/hubs`)
-      .withAutomaticReconnect()
-      .build();
-
-    setConnection(newConnection);
-  }, []);
-
-  useEffect(() => {
-    if (connection) {
-      connection.start()
-        .then(result => {
-          console.log('Connected!', connection);
-          connection.on('ReceiveNotify', message => {
-            console.log('message', message)
-          });
-        })
-        .catch(e => console.log('Connection hub failed: ', e));
-    }
-
-  }, [connection]);
-
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
       case "ADD_NOTIFICATION":

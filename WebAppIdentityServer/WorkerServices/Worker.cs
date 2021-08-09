@@ -6,6 +6,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Utilities;
+using WebAppIdentityServer.ViewModel.Common;
 using WorkerService.Consumers;
 using WorkerService.HandleService.Interfaces;
 
@@ -34,6 +35,7 @@ namespace WorkerServices
                 var productChangeHandler = _busControl.ConnectReceiveEndpoint(_queueSettings.QueueName, x =>
                 {
                     x.Consumer<ProductConsumer>(_serviceProvider);
+                    x.Consumer<AnnouncementConsumer>(_serviceProvider);
                 });
 
                 await productChangeHandler.Ready;

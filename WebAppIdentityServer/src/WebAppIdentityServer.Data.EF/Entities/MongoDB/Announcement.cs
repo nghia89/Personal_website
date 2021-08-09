@@ -9,7 +9,7 @@ using WebAppIdentityServer.ViewModel.Enum;
 namespace WebAppIdentityServer.Data.EF.Entities.MongoDB
 {
     [BsonCollection("Announcement")]
-    public class Announcement : IDocument, IDateTracking, IEntityTracking
+    public class Announcement : IDocument
     {
         public ObjectId Id { get; set; }
         public string Title { set; get; }
@@ -17,10 +17,8 @@ namespace WebAppIdentityServer.Data.EF.Entities.MongoDB
         public string Link { set; get; }
         public string UserId { set; get; }
         public Status Status { set; get; }
-        public string CreatedBy { get; set; }
-        public string UpdatedBy { get; set; }
+        public int Type { get; set; }
         public DateTime DateCreated { get; set; }
-        public DateTime? DateModified { get; set; }
 
     }
 }

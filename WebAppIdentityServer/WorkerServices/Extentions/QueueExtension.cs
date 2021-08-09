@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WebAppIdentityServer.Utilities;
+using WebAppIdentityServer.ViewModel.Common;
 using WorkerService.Consumers;
 
 namespace WorkerService.Extentions
@@ -18,6 +19,7 @@ namespace WorkerService.Extentions
             services.AddMassTransit(c =>
             {
                 c.AddConsumer<ProductConsumer>();
+                c.AddConsumer<AnnouncementConsumer>();
             });
 
             services.AddSingleton(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
