@@ -37,8 +37,6 @@
   .top-head-dropdown {
     .dropdown-menu {
      width: 350px;
-      height:300px;
-      overflow:auto;
     }
     
     li:last-child{
@@ -62,9 +60,12 @@
   }
  .dropdown-menu-right{
     width: 400px;
-    height: 400px;
-    overflow: auto;
  } 
+ .dropdown-menu-right ul{
+  height: 400px;
+  overflow: auto;
+} 
+
   
   @-webkit-keyframes spin-topbar {
     0% { -webkit-transform: rotate(0deg); }

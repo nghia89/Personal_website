@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using WebAppIdentityServer.Business.Implementation;
 using WebAppIdentityServer.Business.Implementation.Mongo;
+using WebAppIdentityServer.Business.Interfaces;
 using WebAppIdentityServer.Business.Interfaces.Mongo;
 using WebAppIdentityServer.Data.EF;
 using WebAppIdentityServer.Data.EF.Interfaces;
@@ -14,6 +16,7 @@ namespace WorkerService.Extentions
     {
         public static IServiceCollection RegisterBusinessServices(this IServiceCollection services)
         {
+            services.AddTransient<IUserResolverService, UserResolverService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));

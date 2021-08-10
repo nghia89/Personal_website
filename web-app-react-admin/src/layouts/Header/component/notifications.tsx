@@ -1,5 +1,7 @@
+import { apiAnnouncement } from '@/apis';
 import { env } from '@/environments/config';
 import { IconBell } from '@/helpers/svg'
+import { AnnouncementVM } from '@/models';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import React, { useEffect, useState } from 'react'
 import './index.scss'
@@ -11,7 +13,9 @@ interface Props extends ReduxProps { }
 function Notifications(props: Props) {
 
     const [connection, setConnection] = useState<HubConnection>();
-
+    const [countUnRead, setCountUnRead] = useState<number>(0);
+    const [data, setData] = useState<AnnouncementVM[]>([]);
+    const [dataMessage, setDataMessage] = useState<AnnouncementVM>();
 
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
@@ -19,7 +23,26 @@ function Notifications(props: Props) {
             .withAutomaticReconnect()
             .build();
         setConnection(newConnection);
+        getCountUnRead()
+        getData()
     }, []);
+
+    useEffect(() => {
+        if (dataMessage) {
+            data.unshift({
+                content: dataMessage.content,
+                dateCreated: dataMessage.dateCreated,
+                id: dataMessage.id,
+                link: dataMessage.link,
+                status: dataMessage.status,
+                title: dataMessage.title,
+                type: dataMessage.type,
+                userId: dataMessage.userId
+            } as AnnouncementVM)
+            setData([...data])
+            setDataMessage(undefined)
+        }
+    }, [dataMessage])
 
     useEffect(() => {
         if (connection) {
@@ -27,7 +50,9 @@ function Notifications(props: Props) {
                 .then(result => {
                     console.log('Connected hub success');
                     connection.on('ReceiveNotify', message => {
-                        console.log('message', message)
+                        if (message) {
+                            setDataMessage(message)
+                        }
                     });
                 })
                 .catch(e => console.log('Connection hub failed: ', e));
@@ -35,64 +60,39 @@ function Notifications(props: Props) {
 
     }, [connection]);
 
-
+    async function getCountUnRead() {
+        let rsp = await apiAnnouncement.getCountUnRead();
+        if (!rsp?.isError) {
+            setCountUnRead(rsp.data)
+        }
+    }
+    async function getData() {
+        let rsp = await apiAnnouncement.getPaging();
+        if (!rsp?.isError) {
+            setData(rsp.data.data)
+        }
+    }
     return (
         <li className="nav-item">
             <a className="nav-link" type="button" id="dropdownNotify" data-bs-toggle="dropdown" aria-expanded="false" style={{ position: 'relative' }}>
                 {IconBell(20)}
-                <span className="badge badge-danger badge-counter">3+</span>
+                {countUnRead > 0 && <span className="badge badge-danger badge-counter">{countUnRead}</span>}
             </a>
             <div className=" dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="dropdownNotify">
                 <h6 className="dropdown-head dropdown-header">Thông báo</h6>
                 <ul>
-                    <li style={{ backgroundColor: '#ddedf9' }}>
-                        <a href="#" className="top-text-block">
-                            <div className="top-text-heading">New asset recommendations in</div>
-                            <div className="top-text-light">7 hours ago</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="top-text-block">
-                            <div className="top-text-heading">New asset recommendations in</div>
-                            <div className="top-text-light">7 hours ago</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="top-text-block">
-                            <div className="top-text-heading">New asset recommendations in</div>
-                            <div className="top-text-light">7 hours ago</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="top-text-block">
-                            <div className="top-text-heading">New asset recommendations in</div>
-                            <div className="top-text-light">7 hours ago</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="top-text-block">
-                            <div className="top-text-heading">New asset recommendations in</div>
-                            <div className="top-text-light">7 hours ago</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="top-text-block">
-                            <div className="top-text-heading">New asset recommendations in</div>
-                            <div className="top-text-light">7 hours ago</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="top-text-block">
-                            <div className="top-text-heading">New asset recommendations in</div>
-                            <div className="top-text-light">7 hours ago</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" className="top-text-block">
-                            <div className="top-text-heading">New asset recommendations in</div>
-                            <div className="top-text-light">7 hours ago</div>
-                        </a>
-                    </li>
+                    {
+                        data.map((item, index) => {
+                            return <li style={{ backgroundColor: '#ddedf9' }}>
+                                <a href="#" className="top-text-block">
+                                    <div className="top-text-heading">{item.title}</div>
+                                    <div className="top-text-light">7 hours ago</div>
+                                </a>
+                            </li>
+                        })
+                    }
+
+
                     {/* <li>
                     <div className="loader-topbar"></div>
                 </li> */}

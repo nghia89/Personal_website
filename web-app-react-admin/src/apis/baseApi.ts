@@ -17,6 +17,7 @@ const baseApiSlideShow = 'slideShow/'
 const baseApiProductCollection = 'productCollections/'
 const baseApiPageOther = 'pageOther/'
 const baseApiCatalogOther = 'catalogOther/'
+const baseApiAnnouncement = 'announcement/'
 
 export const UploadImageForCKEditor = `${env.baseApiUrl}/api/${baseApiUpload}upload_image_ckeditor`;
 
@@ -136,4 +137,9 @@ export const apiPageOther = {
 
 export const apiCatalogOther = {
     getAll: async () => { return await GET(`${baseApiCatalogOther}getall`) },
+}
+
+export const apiAnnouncement = {
+    getPaging: async () => { return await GET(`${baseApiAnnouncement}paging`) },
+    getCountUnRead: async () => { return await GET(`${baseApiAnnouncement}count_un_read`) },
 }
