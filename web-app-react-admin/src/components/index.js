@@ -13,9 +13,11 @@ import SearchComponent from './search'
 import InputComponent from './common/input'
 import FileUpload from './fileUpload'
 import SearchProduct from './searchProduct'
+import AvatarComponent from './avatar'
 
 export {
     TableCenter, AlertDialogSlide, DrawerLayout, DatePickers, NotificationBox,
     NotificationProvider, useNotification, DivTable, ImageUploadCard, Editor,
-    TreeViewCategory, SearchComponent, InputComponent, FileUpload, SearchProduct
+    TreeViewCategory, SearchComponent, InputComponent, FileUpload, SearchProduct,
+    AvatarComponent
 };

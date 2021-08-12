@@ -1,7 +1,13 @@
 import { apiAnnouncement } from '@/apis';
+import { AvatarComponent } from '@/components';
+import { LoadMore } from '@/components/loaders';
 import { env } from '@/environments/config';
 import { IconBell } from '@/helpers/svg'
-import { AnnouncementVM } from '@/models';
+import { SerializeParam, timeSince } from '@/helpers/utils';
+import { AnnouncementVM, IBaseParams } from '@/models';
+import { debounce } from '@material-ui/core';
+import { Avatar, createStyles, makeStyles, Theme } from '@material-ui/core';
+import { deepOrange } from '@material-ui/core/colors';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import React, { useEffect, useState } from 'react'
 import './index.scss'
@@ -10,13 +16,16 @@ interface ReduxProps {
 }
 
 interface Props extends ReduxProps { }
+
 function Notifications(props: Props) {
 
     const [connection, setConnection] = useState<HubConnection>();
-    const [countUnRead, setCountUnRead] = useState<number>(0);
+    let [countUnRead, setCountUnRead] = useState<number>(0);
     const [data, setData] = useState<AnnouncementVM[]>([]);
     const [dataMessage, setDataMessage] = useState<AnnouncementVM>();
-
+    const [loadMore, setLoadMore] = useState(false);
+    const [pause, setPause] = useState(false);
+    const [params, setParams] = useState<IBaseParams>({ page: 1, pageSize: 20, query: '' })
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
             .withUrl(`${env.baseApiUrl}/hubs`)
@@ -24,8 +33,17 @@ function Notifications(props: Props) {
             .build();
         setConnection(newConnection);
         getCountUnRead()
-        getData()
+        getData(params)
     }, []);
+
+    useEffect(() => {
+        if (loadMore && !pause) {
+            params.page += 1;
+            setParams({ ...params })
+            getData(params)
+        } else
+            setLoadMore(false)
+    }, [loadMore])
 
     useEffect(() => {
         if (dataMessage) {
@@ -41,6 +59,9 @@ function Notifications(props: Props) {
             } as AnnouncementVM)
             setData([...data])
             setDataMessage(undefined)
+
+            let pushCount = countUnRead += 1;
+            setCountUnRead(pushCount)
         }
     }, [dataMessage])
 
@@ -60,42 +81,69 @@ function Notifications(props: Props) {
 
     }, [connection]);
 
+    function handleScroll(e) {
+        const currentScrollY = e.target.scrollTop;
+        const currentScrollHeight = e.target.scrollHeight;
+        const height = e.target.clientHeight;
+        const currentHeight = (currentScrollHeight - currentScrollY - 150)
+        if (currentHeight < height && !loadMore) {
+            setLoadMore(true);
+        }
+    }
+
     async function getCountUnRead() {
         let rsp = await apiAnnouncement.getCountUnRead();
         if (!rsp?.isError) {
             setCountUnRead(rsp.data)
         }
     }
-    async function getData() {
-        let rsp = await apiAnnouncement.getPaging();
+    async function getData(params) {
+        let serialParam = SerializeParam(params);
+        let rsp = await apiAnnouncement.getPaging(serialParam);
         if (!rsp?.isError) {
-            setData(rsp.data.data)
+            if (loadMore) {
+                let newData = data.concat(rsp.data.data)
+                setData([...newData])
+            } else
+                setData(rsp.data.data)
+            if (rsp.data.data?.length <= 0)
+                setPause(true)
+            setLoadMore(false)
         }
     }
+    const callbackDebounce = debounce(handleScroll, 200);
     return (
         <li className="nav-item">
             <a className="nav-link" type="button" id="dropdownNotify" data-bs-toggle="dropdown" aria-expanded="false" style={{ position: 'relative' }}>
                 {IconBell(20)}
                 {countUnRead > 0 && <span className="badge badge-danger badge-counter">{countUnRead}</span>}
             </a>
-            <div className=" dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="dropdownNotify">
+            <div
+                className=" dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="dropdownNotify">
                 <h6 className="dropdown-head dropdown-header">Thông báo</h6>
-                <ul>
+                <ul
+                    onScroll={(e) => callbackDebounce(e)}
+                >
                     {
                         data.map((item, index) => {
-                            return <li style={{ backgroundColor: '#ddedf9' }}>
+                            return <li key={`notify${index}`} style={{ backgroundColor: '#ddedf9' }}>
                                 <a href="#" className="top-text-block">
-                                    <div className="top-text-heading">{item.title}</div>
-                                    <div className="top-text-light">7 hours ago</div>
+                                    <div style={{ paddingRight: 5 }}>
+                                        <AvatarComponent userId={item.userId} />
+                                    </div>
+                                    <div>
+                                        <div className="top-text-heading font-weight-500">{item.title}</div>
+                                        <div className="top-text-light">{timeSince(item.dateCreated)}</div>
+                                    </div>
                                 </a>
                             </li>
                         })
                     }
 
 
-                    {/* <li>
-                    <div className="loader-topbar"></div>
-                </li> */}
+                    {loadMore && <li>
+                        <LoadMore />
+                    </li>}
                 </ul>
 
             </div>

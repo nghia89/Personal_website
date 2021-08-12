@@ -10,7 +10,6 @@ namespace WorkerService.Message
     {
         public string UserId { get; set; }
         public int Type { get; set; }
-        public string Message { get; set; }
         public string Title { set; get; }
         public string Content { set; get; }
         public string Link { set; get; }

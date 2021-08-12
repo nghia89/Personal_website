@@ -6,5 +6,5 @@ export interface AnnouncementVM {
     userId: string,
     status: number,
     type: number,
-    dateCreated: Date
+    dateCreated: string
 }

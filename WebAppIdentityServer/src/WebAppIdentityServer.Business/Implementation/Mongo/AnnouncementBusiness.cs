@@ -33,6 +33,7 @@ namespace WebAppIdentityServer.Business.Implementation.Mongo
         {
             if (announcement.ToUserIds?.Any() == false)
                 return;
+            var dNow = DateTime.UtcNow;
             var entity = new Announcement()
             {
                 Content = announcement.Content,
@@ -41,7 +42,7 @@ namespace WebAppIdentityServer.Business.Implementation.Mongo
                 Title = announcement.Title,
                 UserId = announcement.UserId,
                 Type = announcement.Type,
-                DateCreated = DateTime.UtcNow
+                DateCreated = dNow
             };
             await _mongoRepository.AddOneAsync(entity);
             if (entity.Id != ObjectId.Empty)
@@ -51,7 +52,8 @@ namespace WebAppIdentityServer.Business.Implementation.Mongo
                     await _announcementUserBus.Add(new AnnouncementUser()
                     {
                         AnnouncementId = entity.Id,
-                        UserId = userId
+                        UserId = userId,
+                        DateCreated = dNow
                     });
                     await _bus.Publish(new NotifyMessage()
                     {
@@ -79,7 +81,7 @@ namespace WebAppIdentityServer.Business.Implementation.Mongo
 
             var data = await _mongoRepository.FindByIdsAsync(listAnnouncementId);
 
-            return (total, data.Select(x => new AnnouncementVM()
+            return (total, data.OrderByDescending(x => x.DateCreated).Select(x => new AnnouncementVM()
             {
                 Content = x.Content,
                 DateCreated = x.DateCreated,

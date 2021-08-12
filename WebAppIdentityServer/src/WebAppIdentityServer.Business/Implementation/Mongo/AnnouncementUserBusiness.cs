@@ -27,7 +27,8 @@ namespace WebAppIdentityServer.Business.Implementation.Mongo
             {
                 AnnouncementId = announcement.AnnouncementId,
                 HasRead = true,
-                UserId = announcement.UserId
+                UserId = announcement.UserId,
+                DateCreated = announcement.DateCreated
             });
         }
 
@@ -36,8 +37,9 @@ namespace WebAppIdentityServer.Business.Implementation.Mongo
         public async Task<(long total, List<AnnouncementUser> data)> GetAnnounByUser(PagingParamModel pagingParam)
         {
             var (total, data) = await _mongoRepository.AggregateByPage(pagingParam.page, pagingParam.pageSize,
-                                                                        Builders<AnnouncementUser>.Filter.Where(c => c.UserId == this.UserId));
-            return (total,data.ToList());
+                                                                        Builders<AnnouncementUser>.Filter.Where(c => c.UserId == this.UserId && c.DateCreated <= DateTime.UtcNow),
+                                                                        Builders<AnnouncementUser>.Sort.Descending(s=>s.DateCreated));
+            return (total, data.ToList());
         }
 
         public async Task<long> CountUnRead()

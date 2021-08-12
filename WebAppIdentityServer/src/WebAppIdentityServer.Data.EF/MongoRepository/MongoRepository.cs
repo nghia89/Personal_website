@@ -95,7 +95,7 @@ namespace WebAppIdentityServer.Data.EF.MongoRepository
             return Task.Run(() => _collection.DeleteManyAsync(filterExpression));
         }
 
-        public async Task<(long totalPages, IReadOnlyList<TDocument> data)> AggregateByPage(int? page, int? pageSize,
+        public async Task<(long count, IReadOnlyList<TDocument> data)> AggregateByPage(int? page, int? pageSize,
                                                                                             FilterDefinition<TDocument> filterDefinition = null)
         {
             int pageNew = (page.HasValue == false || page == 0) ? 1 : page.Value;
@@ -125,17 +125,16 @@ namespace WebAppIdentityServer.Data.EF.MongoRepository
                 .Output<AggregateCountResult>()
                 ?.FirstOrDefault()
                 ?.Count;
-            count = count == null ? 0 : count;
-            var totalPages = (int)Math.Ceiling((double)count / pageSizeNew);
+            long totalCount = count == null ? 0 : (long)count;
 
             var data = aggregation.First()
                 .Facets.First(x => x.Name == "data")
                 .Output<TDocument>();
 
-            return (totalPages, data);
+            return (totalCount, data);
         }
 
-        public async Task<(long totalPages, IReadOnlyList<TDocument> data)> AggregateByPage(int? page, int? pageSize,
+        public async Task<(long count, IReadOnlyList<TDocument> data)> AggregateByPage(int? page, int? pageSize,
                                                                                             FilterDefinition<TDocument> filterDefinition,
                                                                                             SortDefinition<TDocument> sortDefinition
                                                                                             )
@@ -168,14 +167,13 @@ namespace WebAppIdentityServer.Data.EF.MongoRepository
                 .Output<AggregateCountResult>()
                 ?.FirstOrDefault()
                 ?.Count;
-            count = count == null ? 0 : count;
-            var totalPages = (int)Math.Ceiling((double)count / pageSizeNew);
+            long totalCount = count == null ? 0 : (long)count;
 
             var data = aggregation.First()
                 .Facets.First(x => x.Name == "data")
                 .Output<TDocument>();
 
-            return (totalPages, data);
+            return (totalCount, data);
         }
 
         public async Task<IEnumerable<TDocument>> FindByIdsAsync(List<string> ids)

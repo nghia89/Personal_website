@@ -1,13 +1,14 @@
 .top-text-block{
-    display: block;
-    padding: 3px 20px;
-    clear: both;
-    font-weight: 400;
-    line-height: 1.42857143;
-    color: #333;
-    white-space: inherit !important;
-    border-bottom:1px solid #f4f4f4;
-    position:relative;
+  display: flex;
+  padding: 10px 10px;
+  align-items: center;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: inherit !important;
+  border-bottom: 1px solid #f4f4f4;
+  position: relative;
     &:hover {
           &:before {
           content: '';

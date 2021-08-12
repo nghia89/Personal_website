@@ -23,8 +23,8 @@ namespace WebAppIdentityServer.Data.EF.MongoRepository
         Task DeleteOneAsync(Expression<Func<TDocument, bool>> filterExpression);
         Task DeleteByIdAsync(string id);
         Task DeleteManyAsync(Expression<Func<TDocument, bool>> filterExpression);
-        Task<(long totalPages, IReadOnlyList<TDocument> data)> AggregateByPage(int? page, int? pageSize, FilterDefinition<TDocument> filterDefinition = null);
-        Task<(long totalPages, IReadOnlyList<TDocument> data)> AggregateByPage(int? page, int? pageSize, FilterDefinition<TDocument> filterDefinition, SortDefinition<TDocument> sortDefinition);
+        Task<(long count, IReadOnlyList<TDocument> data)> AggregateByPage(int? page, int? pageSize, FilterDefinition<TDocument> filterDefinition = null);
+        Task<(long count, IReadOnlyList<TDocument> data)> AggregateByPage(int? page, int? pageSize, FilterDefinition<TDocument> filterDefinition, SortDefinition<TDocument> sortDefinition);
         Task<long> Count(FilterDefinition<TDocument> filterDefinition);
     }
 }

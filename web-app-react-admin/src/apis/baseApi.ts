@@ -140,6 +140,6 @@ export const apiCatalogOther = {
 }
 
 export const apiAnnouncement = {
-    getPaging: async () => { return await GET(`${baseApiAnnouncement}paging`) },
+    getPaging: async (serialParam: string) => { return await GET(`${baseApiAnnouncement}paging` + serialParam) },
     getCountUnRead: async () => { return await GET(`${baseApiAnnouncement}count_un_read`) },
 }
