@@ -19,9 +19,6 @@ export default function AvatarComponent(props: IProps) {
         if (user == null) {
             getUser()
         }
-        return () => {
-
-        }
     }, [props.userId])
 
     async function getUser() {

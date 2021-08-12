@@ -134,7 +134,7 @@ export default function EditVariant(props: IProps) {
             </div>}
 
             {productQuantityState?.map((item, index) => {
-                return <div key={index} className="row mt-2 mb-2">
+                return <div key={index} className="row mt-2 mb-3">
                     <div className="col-8">
                         <p> {renderNameVariant(item.color?.name, item.size?.name, item.name)}</p>
                     </div>
@@ -165,7 +165,7 @@ export default function EditVariant(props: IProps) {
                 </div>
 
             </DialogContent>
-            <DialogActions className="mt-2 mb-2">
+            <DialogActions className="mt-2 mb-3">
                 <button onClick={() => handleClose()} type="button" className="btn btn-danger">
                     Hủy
                 </button >

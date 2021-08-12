@@ -225,7 +225,7 @@ function VariantNew(props: IProps) {
             </div>
             <div className="wrapper-content mb-5">
                 <div className="ui-information">
-                    <div className="ui-information-head d-flex justify-content-between ms-2 pb-2 mb-2 border-line-bottom">
+                    <div className="ui-information-head d-flex justify-content-between ms-2 pb-2 mb-3 border-line-bottom">
                         <span className="ui-information-title">Danh sách biến thể</span>
                         <a className="cursor" onClick={() => history.push(`${PATH.PRODUCT_VARIANT}${props.match.params.id}`)}>Thêm biến thể mới</a>
                     </div>
@@ -265,7 +265,7 @@ function VariantNew(props: IProps) {
         return <div className="wrapper-content mb-5">
             <div className="ui-information">
 
-                <div className="ui-information-head ms-2  mb-2 border-line-bottom">
+                <div className="ui-information-head ms-2  mb-3 border-line-bottom">
                     <span className="ui-information-title ">Các thuộc tính</span>
                 </div>
                 <div className="ui-information-body justify-content-center ms-2">
@@ -322,8 +322,8 @@ function VariantNew(props: IProps) {
         return <div className="col-8">
             <div className="wrapper-content mb-5">
                 <div className="ui-information">
-                    <div className="ui-information-head ms-2   mb-2  border-line-bottom">
-                        <span className="ui-information-title   mb-2 ">Các thuộc tính</span>
+                    <div className="ui-information-head ms-2   mb-3  border-line-bottom">
+                        <span className="ui-information-title   mb-3 ">Các thuộc tính</span>
                     </div>
                     <div className="ui-information-body">
                         <div className="row justify-content-center">

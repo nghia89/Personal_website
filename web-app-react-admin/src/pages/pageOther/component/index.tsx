@@ -134,8 +134,8 @@ function PageOtherCreateAndEdit(props: IProps) {
             <div className="col-10 mx-auto">
                 <div className="wrapper-content mb-5">
                     <div className="ms-2 ">
-                        <div className=" mb-2  border-line-bottom">
-                            <span className="ui-information-title   mb-2 ">Thông Tin Chung</span>
+                        <div className=" mb-3  border-line-bottom">
+                            <span className="ui-information-title   mb-3 ">Thông Tin Chung</span>
                         </div>
                         <div className="row">
                             <div className=" col-12 pb-3">
@@ -150,7 +150,7 @@ function PageOtherCreateAndEdit(props: IProps) {
                             </div>
 
                             <div className=" col-6 pb-3">
-                                <label className="color-black mb-2">Thuộc danh mục</label>
+                                <label className="color-black mb-3">Thuộc danh mục</label>
                                 <Select
                                     ref={(r) => refs['catalogOtherId'] = r}
                                     className="basic-single "
@@ -162,7 +162,7 @@ function PageOtherCreateAndEdit(props: IProps) {
                                 />
                             </div>
                             <div>
-                                <label className="color-black mb-2">Nội dung</label>
+                                <label className="color-black mb-3">Nội dung</label>
                                 <Editor data={data?.content} onChange={(data) => handleOnchange("content", data)} />
 
                             </div>

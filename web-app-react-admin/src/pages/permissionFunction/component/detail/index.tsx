@@ -218,7 +218,7 @@ export default function PermissionDetail(props: IProps) {
                         {
                             child?.map((child, indexC) => {
                                 let keyC = `child${index + indexC}_${child.id}`;
-                                return <div key={keyC} className="row align-items-center important_card card mb-2 h-10 ">
+                                return <div key={keyC} className="row align-items-center important_card card mb-3 h-10 ">
                                     <div className="col-4">
                                         <span>{child.name}</span>
                                     </div>

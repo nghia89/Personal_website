@@ -15,6 +15,7 @@ export class AuthProvider extends Component {
 
     componentDidMount() {
         if (this.checkAuthentication()) {
+            console.log('vvvvvvvvvvvvvvvvvvvvvvv', window.location.pathname)
             this.authService.signInRedirect();
         }
     }

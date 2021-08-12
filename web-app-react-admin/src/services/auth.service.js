@@ -49,7 +49,7 @@ export default class AuthService {
         this.userManager.clearStaleState();
     }
     signInRedirect = () => {
-        // localStorage.setItem("redirectUri", window.location.pathname);
+        localStorage.setItem("redirectUri", window.location.pathname);
         this.userManager.signinRedirect();
     };
 
@@ -68,7 +68,8 @@ export default class AuthService {
     };
 
     navigateToScreen = () => {
-        history.push(PATH.Dashboard)
+        var value = localStorage.getItem('redirectUri');
+        history.push(value ? value : PATH.Dashboard)
         // window.location.replace(PATH.Dashboard);
     };
 

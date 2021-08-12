@@ -6,11 +6,10 @@ import { IconBell } from '@/helpers/svg'
 import { SerializeParam, timeSince } from '@/helpers/utils';
 import { AnnouncementVM, IBaseParams } from '@/models';
 import { debounce } from '@material-ui/core';
-import { Avatar, createStyles, makeStyles, Theme } from '@material-ui/core';
-import { deepOrange } from '@material-ui/core/colors';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import React, { useEffect, useState } from 'react'
 import './index.scss'
+import { useSelector } from 'react-redux'
 interface ReduxProps {
 
 }
@@ -18,7 +17,7 @@ interface ReduxProps {
 interface Props extends ReduxProps { }
 
 function Notifications(props: Props) {
-
+    const claimUser = useSelector((state: any) => state.claimUser)
     const [connection, setConnection] = useState<HubConnection>();
     let [countUnRead, setCountUnRead] = useState<number>(0);
     const [data, setData] = useState<AnnouncementVM[]>([]);
@@ -32,8 +31,6 @@ function Notifications(props: Props) {
             .withAutomaticReconnect()
             .build();
         setConnection(newConnection);
-        getCountUnRead()
-        getData(params)
     }, []);
 
     useEffect(() => {
@@ -44,6 +41,13 @@ function Notifications(props: Props) {
         } else
             setLoadMore(false)
     }, [loadMore])
+
+    useEffect(() => {
+        if (claimUser?.isAuthentication) {
+            getCountUnRead()
+            getData(params)
+        }
+    }, [claimUser?.isAuthentication])
 
     useEffect(() => {
         if (dataMessage) {

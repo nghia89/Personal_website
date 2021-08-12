@@ -184,8 +184,8 @@ function CollectionCreateAndEdit(props: IProps) {
         return <div>
             <div className="wrapper-content mb-5">
                 <div className="ms-2 ">
-                    <div className=" mb-2  border-line-bottom">
-                        <span className="ui-information-title   mb-2 ">Sản Phẩm</span>
+                    <div className=" mb-3  border-line-bottom">
+                        <span className="ui-information-title   mb-3 ">Sản Phẩm</span>
                     </div>
                     <div className="row">
                         <div className=" col-12 col-md-6 pt-3 ">
@@ -225,8 +225,8 @@ function CollectionCreateAndEdit(props: IProps) {
         return <div>
             <div className="wrapper-content mb-5">
                 <div className="ms-2 ">
-                    <div className=" mb-2  border-line-bottom">
-                        <span className="ui-information-title   mb-2 ">Seo từ khóa</span>
+                    <div className=" mb-3  border-line-bottom">
+                        <span className="ui-information-title   mb-3 ">Seo từ khóa</span>
                     </div>
                     <div className="row">
                         <div className=" col-12 pt-3 ">
@@ -249,7 +249,7 @@ function CollectionCreateAndEdit(props: IProps) {
                                     value={data?.title}
                                     variant="outlined"
                                     size="small"
-                                    className="form-control mb-2"
+                                    className="form-control mb-3"
                                     onChange={(e) => handleOnchangeValue(e)}
                                 />
                                 <TextField
@@ -258,7 +258,7 @@ function CollectionCreateAndEdit(props: IProps) {
                                     value={data?.seoKeywords}
                                     variant="outlined"
                                     size="small"
-                                    className="form-control mb-2"
+                                    className="form-control mb-3"
                                     onChange={(e) => handleOnchangeValue(e)}
                                 />
                                 <TextField
@@ -267,11 +267,11 @@ function CollectionCreateAndEdit(props: IProps) {
                                     value={data?.seoDescription}
                                     variant="outlined"
                                     size="small"
-                                    className="form-control mb-2"
+                                    className="form-control mb-3"
                                     onChange={(e) => handleOnchangeValue(e)}
                                 />
 
-                                <div className="next-input--stylized mb-2">
+                                <div className="next-input--stylized mb-3">
                                     <div className="next-input-add-on next-input__add-on--before">{env.clientBase}/</div>
                                     <input name="seoAlias" onChange={(e) => handleOnchangeValue(e)} type="text" className="next-input next-input--invisible" placeholder="Seo Đường dẫn" step="1" value={data?.seoAlias}></input>
                                 </div>
@@ -288,8 +288,8 @@ function CollectionCreateAndEdit(props: IProps) {
         return <div className="col-8">
             <div className="wrapper-content mb-5">
                 <div className="ms-2 ">
-                    <div className=" mb-2  border-line-bottom">
-                        <span className="ui-information-title   mb-2 ">Thông Tin Chung</span>
+                    <div className=" mb-3  border-line-bottom">
+                        <span className="ui-information-title   mb-3 ">Thông Tin Chung</span>
                     </div>
                     <div className="row">
                         <div className=" col-12 pb-3">
@@ -303,7 +303,7 @@ function CollectionCreateAndEdit(props: IProps) {
                             />
                         </div>
                         <div>
-                            <label className="color-black mb-2">Mô tả </label>
+                            <label className="color-black mb-3">Mô tả </label>
                             <Editor data={data?.description} onChange={(data) => handleOnchange("description", data)} />
 
                         </div>
@@ -319,8 +319,8 @@ function CollectionCreateAndEdit(props: IProps) {
         return <div className="col-4">
             <div className="wrapper-content mb-5">
                 <div className="ms-2 ">
-                    <div className=" mb-2  border-line-bottom">
-                        <span className="ui-information-title   mb-2 ">Hiển Thị</span>
+                    <div className=" mb-3  border-line-bottom">
+                        <span className="ui-information-title   mb-3 ">Hiển Thị</span>
                     </div>
                     <div className="row">
                         <div className=" col-8 col-md-4 pt-3">
@@ -353,8 +353,8 @@ function CollectionCreateAndEdit(props: IProps) {
             </div>
             <div className="wrapper-content mb-5">
                 <div className="ms-2 ">
-                    <div className=" mb-2  border-line-bottom">
-                        <span className="ui-information-title   mb-2 ">Hình đại diện</span>
+                    <div className=" mb-3  border-line-bottom">
+                        <span className="ui-information-title   mb-3 ">Hình đại diện</span>
                     </div>
                     <div className="row">
                         <div className=" col-12 pt-3">

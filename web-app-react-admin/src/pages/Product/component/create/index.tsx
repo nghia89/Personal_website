@@ -180,8 +180,8 @@ function ProductCreate(props: IProps) {
         return <div className="row pt-3 pb-3">
             <div className="col-12">
                 <div className="wrapper-content ps-3">
-                    <div className=" mb-2  border-line-bottom">
-                        <span className="font-weight-bold ui-information-title   mb-2 ">Thông tin chung</span>
+                    <div className="mb-3  border-line-bottom">
+                        <span className="font-weight-bold ui-information-title  mb-3 ">Thông tin chung</span>
                     </div>
                     <div>
                         <TextField
@@ -259,8 +259,8 @@ function ProductCreate(props: IProps) {
         return <div className="row  pt-3 pb-2">
             <div className="col-12">
                 <div className="wrapper-content ps-3" style={{ paddingLeft: '15px', paddingRight: '15px' }}>
-                    <div className=" mb-2  border-line-bottom">
-                        <span className="font-weight-bold ui-information-title   mb-2 ">Hình Ảnh Sản Phẩm</span>
+                    <div className=" mb-3 border-line-bottom">
+                        <span className="font-weight-bold ui-information-title  mb-3 ">Hình Ảnh Sản Phẩm</span>
                     </div>
                     <FileUpload
                         files={listImage}
@@ -278,16 +278,16 @@ function ProductCreate(props: IProps) {
         return <div className="row  pt-3 pb-3">
             <div className="col-12">
                 <div className="wrapper-content ps-3">
-                    <div className=" mb-2  border-line-bottom">
-                        <span className="font-weight-bold ui-information-title   mb-2 ">Mô tả sản phẩm</span>
+                    <div className="mb-3 border-line-bottom">
+                        <span className="font-weight-bold ui-information-title  mb-3">Mô tả sản phẩm</span>
                     </div>
                     <div className="pb-2">
-                        <label className="color-black mx-2 mb-2">Mô tả ngắn</label>
+                        <label className="color-black mx-2 mb-3">Mô tả ngắn</label>
                         <Editor data="" onChange={(data) => handleOnchange("description", data)} />
 
                     </div>
                     <div>
-                        <label className="color-black mx-2 mb-2">Mô tả sản phẩm</label>
+                        <label className="color-black mx-2 mb-3">Mô tả sản phẩm</label>
                         <Editor data="" onChange={(data) => handleOnchange("content", data)} />
 
                     </div>
@@ -300,8 +300,8 @@ function ProductCreate(props: IProps) {
         return <div className="row pt-3 pb-3">
             <div className="col-12">
                 <div className="wrapper-content ps-3">
-                    <div className=" mb-2  border-line-bottom">
-                        <span className="font-weight-bold ui-information-title   mb-2 ">SEO từ khoá</span>
+                    <div className="mb-3 border-line-bottom">
+                        <span className="font-weight-bold ui-information-title  mb-3">SEO từ khoá</span>
                     </div>
                     <div className=" pb-3" style={{ textAlign: 'right', display: 'block', marginLeft: '5px' }}>
                         <a onClick={() => setIsShowSeo(!isShowSeo)} className="text-label-custom ps-2 font-weight-500">Chỉnh sửa SEO</a>
@@ -347,7 +347,7 @@ function ProductCreate(props: IProps) {
                             onChange={(e) => handleChange(e)}
                         />
 
-                        <div className="next-input--stylized ms-2 mb-2">
+                        <div className="next-input--stylized ms-2 mb-3">
                             <div className="next-input-add-on next-input__add-on--before">{env.clientBase}/</div>
                             <input name="seoAlias" onChange={(e) => handleChange(e)} type="text" className="next-input next-input--invisible" placeholder="Seo Đường dẫn" step="1" value={formState?.seoAlias}></input>
                         </div>
@@ -361,8 +361,8 @@ function ProductCreate(props: IProps) {
         return <div className="row  pt-3 pb-3">
             <div className="col-12">
                 <div className="wrapper-content ps-3">
-                    <div className=" mb-2  border-line-bottom">
-                        <span className="font-weight-bold ui-information-title   mb-2 ">Biến Thể</span>
+                    <div className="mb-3 border-line-bottom">
+                        <span className="font-weight-bold ui-information-title  mb-3">Biến Thể</span>
                     </div>
                     {<ProductQuantity
                         handlePostQuantity={(data, isShowMoreVariant) => {
@@ -394,8 +394,8 @@ function ProductCreate(props: IProps) {
                 </div>
                 <div className="col-2 pt-3">
                     <div className="ps-2 wrapper-content">
-                        <div className=" mb-2  border-line-bottom">
-                            <span className="font-weight-bold ui-information-title   mb-2 ">Hiển thị</span>
+                        <div className="mb-3 border-line-bottom">
+                            <span className="font-weight-bold ui-information-title  mb-3">Hiển thị</span>
                         </div>
                         <label>Trạng thái <span className="text-danger">*</span></label>
                         <Switch
