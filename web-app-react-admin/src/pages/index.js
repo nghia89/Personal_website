@@ -1,7 +1,7 @@
 import Home from './home';
 import Dashboard from './dashboard/index';
-import { Product } from './Product/index';
-import Error404 from './error/error404.js';
+import { Product } from './product/index';
+import Error404 from './error/error404';
 import Error401 from './error/error401';
 import Error403 from './error/error403';
 import Error503 from './error/error503';

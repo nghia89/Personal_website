@@ -23,10 +23,10 @@ const PermissionFunction = React.lazy(() => import('@/pages/permissionFunction/i
 
 
 //#region  Product
-const Product = React.lazy(() => import('@/pages/Product/index'));
-const ProductCreate = React.lazy(() => import('@/pages/Product/component/create/index'));
-const ProductDetail = React.lazy(() => import('@/pages/Product/component/detail/index'));
-const VariantNew = React.lazy(() => import('@/pages/Product/component/variantNew/index'));
+const Product = React.lazy(() => import('@/pages/product/index'));
+const ProductCreate = React.lazy(() => import('@/pages/product/component/create/index'));
+const ProductDetail = React.lazy(() => import('@/pages/product/component/detail/index'));
+const VariantNew = React.lazy(() => import('@/pages/product/component/variantNew/index'));
 const ProductCategory = React.lazy(() => import('@/pages/productCategory/index'));
 const ProductCollection = React.lazy(() => import('@/pages/productCollection/index'));
 const ProductCollectionCreate = React.lazy(() => import('@/pages/productCollection/component/index'));

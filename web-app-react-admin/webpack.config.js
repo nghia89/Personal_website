@@ -101,8 +101,7 @@ module.exports = async (env, agrv) => {
         resolve: {
             extensions: [".tsx", ".ts", ".jsx", ".js"],
             alias: {
-                "@": path.resolve("src"),
-                "@@": path.resolve()
+                "@": path.resolve("src")
             }
         },
         output: {
