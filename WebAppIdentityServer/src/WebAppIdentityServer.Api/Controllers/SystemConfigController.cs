@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Api.Authorization;
@@ -23,14 +24,6 @@ namespace WebAppIdentityServer.Api.Controllers
             return ToOkResult();
         }
 
-        [HttpGet("get_by_first_system")]
-        public async Task<IActionResult> GetByFirstSystem()
-        {
-            var data = await _systemConfigBus.GetByFirstSystem();
-            return ToOkResult(data);
-        }
-
-
         [HttpGet("{id}")]
         [ClaimRequirement(FunctionCode.ST_CONFIG_GENERAL, CommandCode.VIEW)]
         public async Task<IActionResult> GetById(long id)
@@ -51,5 +44,15 @@ namespace WebAppIdentityServer.Api.Controllers
             await _systemConfigBus.Update(request);
             return ToOkResult();
         }
+
+        #region api public
+        [HttpGet("get_by_first_system")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetByFirstSystem()
+        {
+            var data = await _systemConfigBus.GetByFirstSystem();
+            return ToOkResult(data);
+        }
+        #endregion
     }
 }

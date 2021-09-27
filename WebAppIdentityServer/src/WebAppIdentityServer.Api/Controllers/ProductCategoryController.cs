@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebAppIdentityServer.Api.Authorization;
 using WebAppIdentityServer.Business.Interfaces;
@@ -60,16 +61,6 @@ namespace WebAppIdentityServer.Api.Controllers
             await _productCategoryBus.Update(category);
         }
 
-
-        [HttpGet]
-        [Route("treeview")]
-        [ClaimRequirement(FunctionCode.PRODUCTS_CATEGORY, CommandCode.VIEW)]
-        public async Task<IActionResult> TreeView()
-        {
-            var data = await _productCategoryBus.TreeView();
-            return ToOkResult(data);
-        }
-
         [HttpGet]
         [Route("paging")]
         [ClaimRequirement(FunctionCode.PRODUCTS_CATEGORY, CommandCode.VIEW)]
@@ -78,5 +69,17 @@ namespace WebAppIdentityServer.Api.Controllers
             var data = await _productCategoryBus.Paging(pagingParam);
             return ToOkResult(data);
         }
+
+        #region api public
+        [HttpGet]
+        [Route("treeview")]
+        [AllowAnonymous]
+        //[ClaimRequirement(FunctionCode.PRODUCTS_CATEGORY, CommandCode.VIEW)]
+        public async Task<IActionResult> TreeView()
+        {
+            var data = await _productCategoryBus.TreeView();
+            return ToOkResult(data);
+        }
+        #endregion
     }
 }

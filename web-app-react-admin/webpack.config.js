@@ -8,9 +8,10 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const CompressionPlugin = require("compression-webpack-plugin")
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 
-module.exports = (env, agrv) => {
+module.exports = async (env, agrv) => {
     const isDev = agrv.mode === "development"
     const isAnalyze = env && env.analyze
+
     const basePlugins = [
         new Dotenv(),
         new HtmlWebpackPlugin({
@@ -22,6 +23,11 @@ module.exports = (env, agrv) => {
                     from: "**/*",
                     globOptions: {
                         ignore: ["index.html"]
+                    },
+                    globOptions: {
+                        dot: true,
+                        gitignore: true,
+                        ignore: ["**/index.html"],
                     },
                     to: "",
                     context: path.resolve("public")
@@ -72,7 +78,7 @@ module.exports = (env, agrv) => {
                         {
                             loader: "file-loader",
                             options: {
-                                name: isDev ? "static/fonts/[name].[ext]" : "static/fonts/[name].[ext]"
+                                name: isDev ? "[path][name].[contenthash:6].[ext]" : "static/fonts/[name].[contenthash:6].[ext]"
                             }
                         }
                     ]
@@ -115,20 +121,22 @@ module.exports = (env, agrv) => {
         },
         devtool: isDev ? "source-map" : false,
         devServer: {
-            contentBase: "public",
-            port: 4200,
-            hot: true,
-            open: true,
-            watchContentBase: true,
+            static: path.join("build"),
             historyApiFallback: true,
-            overlay: {
-                warnings: true,
-                errors: true
+            port: 4200,
+            open: true,
+            hot: true,
+            client: {
+                overlay: {
+                    errors: true,
+                    warnings: false,
+                },
             }
         },
         plugins: isDev ? basePlugins : prodPlugins,
         performance: {
-            maxEntrypointSize: 800000
+            maxEntrypointSize: 800000, //  Khi có 1 file build vượt quá giới hạn này (tính bằng byte) thì sẽ bị warning trên terminal.
+            //hints: 'error',
         }
     }
 }

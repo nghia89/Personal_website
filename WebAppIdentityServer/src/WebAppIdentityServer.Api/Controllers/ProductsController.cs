@@ -125,7 +125,7 @@ namespace WebAppIdentityServer.Api.Controllers
             return ToOkResult(data);
         }
 
-        #region  api internal
+        #region  api public 
 
         [HttpGet]
         [Route("internal/get_product_by_cate/{cateId}")]
