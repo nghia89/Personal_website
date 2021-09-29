@@ -1,2 +1,0 @@
-export const GET_CLAIM_USER = 'GET_CLAIM_USER'
-export const SET_CLAIM_USER = 'SET_CLAIM_USER'
