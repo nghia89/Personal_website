@@ -45,7 +45,7 @@ namespace WorkerServices
                      services.AddDbContextPool<ApplicationDbContext>(options => options.UseMySql(connectSt.DefaultConnection, ServerVersion.AutoDetect(connectSt.DefaultConnection)));
                      services.AddIdentity<AppUser, AppRole>()
                         .AddEntityFrameworkStores<ApplicationDbContext>();
-                
+
                      services.RegisterConfigurationServices(hostContext);
                      services.RegisterBusinessServices();
                      services.RegisterRepositoryServices();

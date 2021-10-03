@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>dotnet-WorkerServices-9D333E5F-FF6B-45B1-BE2C-DD06EE763B83</UserSecretsId>
+    <UserSecretsId>dotnet-WorkerService-0563BB3A-46D2-48AD-ACA2-B79B087A5209</UserSecretsId>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.24" />
     <PackageReference Include="Hangfire.Core" Version="1.7.24" />
@@ -24,12 +24,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
   </ItemGroup>
+ 
 
   <ItemGroup>
-    <ProjectReference Include="..\src\WebAppIdentityServer.Business\WebAppIdentityServer.Business.csproj" />
-    <ProjectReference Include="..\src\WebAppIdentityServer.Data.EF\WebAppIdentityServer.Data.EF.csproj" />
-    <ProjectReference Include="..\src\WebAppIdentityServer.Infrastructure\WebAppIdentityServer.Utilities.csproj" />
-    <ProjectReference Include="..\src\WebAppIdentityServer.Repository\WebAppIdentityServer.Repository.csproj" />
+    <ProjectReference Include="..\WebAppIdentityServer.Business\WebAppIdentityServer.Business.csproj" />
+    <ProjectReference Include="..\WebAppIdentityServer.Data.EF\WebAppIdentityServer.Data.EF.csproj" />
+    <ProjectReference Include="..\WebAppIdentityServer.Infrastructure\WebAppIdentityServer.Utilities.csproj" />
+    <ProjectReference Include="..\WebAppIdentityServer.Repository\WebAppIdentityServer.Repository.csproj" />
     <ProjectReference Include="..\WorkerService.Business\WorkerService.Business.csproj" />
     <ProjectReference Include="..\WorkerService.Message\WorkerService.Message.csproj" />
   </ItemGroup>

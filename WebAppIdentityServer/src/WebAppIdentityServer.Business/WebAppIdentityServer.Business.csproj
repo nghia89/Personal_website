@@ -12,9 +12,9 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\WorkerService.Message\WorkerService.Message.csproj" />
     <ProjectReference Include="..\WebAppIdentityServer.Repository\WebAppIdentityServer.Repository.csproj" />
     <ProjectReference Include="..\WebAppIdentityServer.ViewModel\WebAppIdentityServer.ViewModel.csproj" />
+    <ProjectReference Include="..\WorkerService.Message\WorkerService.Message.csproj" />
   </ItemGroup>
 
 </Project>

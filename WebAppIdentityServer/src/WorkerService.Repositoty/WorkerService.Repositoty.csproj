@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\WebAppIdentityServer.Data.EF\WebAppIdentityServer.Data.EF.csproj" />
+    <ProjectReference Include="..\WebAppIdentityServer.Data.EF\WebAppIdentityServer.Data.EF.csproj" />
   </ItemGroup>
 
 </Project>
